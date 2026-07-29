@@ -30,12 +30,12 @@ files.forEach(filePath => {
   let content = fs.readFileSync(filePath, 'utf-8');
   let changed = false;
 
-  if (content.includes('layout.js') && !content.includes('layout.js?v=2.5.1')) {
-    content = content.replace(/layout\.js(?:\?v=[\d\.]+)?/g, 'layout.js?v=2.5.1');
+  if (content.includes('layout.js') && !content.includes('layout.js?v=2.8.0')) {
+    content = content.replace(/layout\.js(?:\?v=[\d\.]+)?/g, 'layout.js?v=2.8.0');
     changed = true;
   }
-  if (content.includes('components.css') && !content.includes('components.css?v=2.5.1')) {
-    content = content.replace(/components\.css(?:\?v=[\d\.]+)?/g, 'components.css?v=2.5.1');
+  if (content.includes('components.css') && !content.includes('components.css?v=2.8.0')) {
+    content = content.replace(/components\.css(?:\?v=[\d\.]+)?/g, 'components.css?v=2.8.0');
     changed = true;
   }
 

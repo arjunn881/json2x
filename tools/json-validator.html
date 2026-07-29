@@ -98,7 +98,7 @@
   </script>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
   <style>
     .stats-row {
       display: flex;
@@ -143,13 +143,7 @@
       <div class="tool-hero">
         <div class="tool-hero__badge">Validate JSON</div>
         <h1 class="tool-hero__title">JSON Validator Online</h1>
-        <p class="tool-hero__desc">Detecting broken syntax and structural violations early prevents runtime failures in
-          web APIs and production microservices. Using our json validator online tool, software engineers can instantly
-          check payloads against strict IETF RFC 8259 standards without sending data over network connections. The
-          real-time parser highlights exact line numbers and column offsets whenever single quotes, missing brackets, or
-          unescaped characters break compliance. In addition to basic syntax checking, you can verify data contracts
-          against schema validation rules. Enjoy a fast, free, browser-native utility designed to help you debug payload
-          integrity and serve as a reliable json validator and formatter helper.</p>
+        
       </div>
 
 
@@ -197,10 +191,18 @@
         </div>
       </div>
 
-      <div id="related-tools-placeholder" data-current="validator"></div>
-      <div style="display:flex;justify-content:center;margin-top:var(--space-8)">
-        <div id="ad-slot-rectangle-placeholder"></div>
+      
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Detecting broken syntax and structural violations early prevents runtime failures in
+          web APIs and production microservices. Using our json validator online tool, software engineers can instantly
+          check payloads against strict IETF RFC 8259 standards without sending data over network connections. The
+          real-time parser highlights exact line numbers and column offsets whenever single quotes, missing brackets, or
+          unescaped characters break compliance. In addition to basic syntax checking, you can verify data contracts
+          against schema validation rules. Enjoy a fast, free, browser-native utility designed to help you debug payload
+          integrity and serve as a reliable json validator and formatter helper.</p>
       </div>
+      <div id="related-tools-placeholder" data-current="validator"></div>
+      
 
       <!-- ── FAQ Section ─────────────────────────────────────── -->
       <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)"
@@ -315,7 +317,7 @@
 
   <div id="site-footer-placeholder"></div>
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.5.1"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
   <script>
     const inputEl = document.getElementById('json-input');
     const statusEl = document.getElementById('tool-status');

@@ -110,7 +110,7 @@
 
   <!-- ── Stylesheets ───────────────────────────────────────── -->
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
 
   <style>
     /* ══════════════════════════════════════════════════════════
@@ -589,7 +589,7 @@
 </head>
 <body>
 
-  <!-- Shared header injected by layout.js?v=2.5.1 -->
+  <!-- Shared header injected by layout.js?v=2.8.0 -->
   <div id="site-header-placeholder"></div>
 
   <main id="main-content" data-tool="formatter">
@@ -600,9 +600,7 @@
            ══════════════════════════════════════════════════════ -->
       <div class="tool-hero">
         <h1 class="tool-hero__title">JSON Formatter Online</h1>
-        <p class="tool-hero__desc">
-          Formatting unstructured data strings into human-readable structures is essential for backend debugging, web API inspection, and payload auditing. Our json formatter online utility provides instant syntax highlighting, customizable spacing, and structural validation directly inside your web browser. Operating entirely client-side, this developer tool guarantees that your private logs, tokens, and records never leave your local environment. Whether you paste raw strings from web developer tools or load multi-megabyte payloads, our Web Worker engine processes data asynchronously with zero latency. Enjoy seamless theme options like dark mode, toggle tree view nodes, and copy prettified output in seconds.
-        </p>
+        
       </div>
 
       <!-- ══════════════════════════════════════════════════════
@@ -812,11 +810,13 @@
       <!-- ══════════════════════════════════════════════════════
            Rectangle Ad + Related Tools
            ══════════════════════════════════════════════════════ -->
-      <div style="display:flex; justify-content:center; margin-top: var(--space-10)">
-        <div id="ad-slot-rectangle-placeholder"></div>
-      </div>
+      
 
-      <!-- Related-tools grid (injected by layout.js?v=2.5.1) -->
+      <!-- Related-tools grid (injected by layout.js?v=2.8.0) -->
+      
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Formatting unstructured data strings into human-readable structures is essential for backend debugging, web API inspection, and payload auditing. Our json formatter online utility provides instant syntax highlighting, customizable spacing, and structural validation directly inside your web browser. Operating entirely client-side, this developer tool guarantees that your private logs, tokens, and records never leave your local environment. Whether you paste raw strings from web developer tools or load multi-megabyte payloads, our Web Worker engine processes data asynchronously with zero latency. Enjoy seamless theme options like dark mode, toggle tree view nodes, and copy prettified output in seconds.</p>
+      </div>
       <div id="related-tools-placeholder" data-current="formatter"></div>
 
       <!-- ══════════════════════════════════════════════════════
@@ -905,12 +905,12 @@
     </div><!-- /container -->
   </main>
 
-  <!-- Shared footer injected by layout.js?v=2.5.1 -->
+  <!-- Shared footer injected by layout.js?v=2.8.0 -->
   <div id="site-footer-placeholder"></div>
 
   <!-- ── Shared scripts ─────────────────────────────────────── -->
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.5.1"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
 
   <!-- ── Formatter Logic ───────────────────────────────────── -->
   <script>

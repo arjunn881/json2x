@@ -500,7 +500,7 @@ function renderPseoHtml(topic) {
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -548,7 +548,7 @@ function renderPseoHtml(topic) {
 
   <div id="site-footer-placeholder"></div>
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.5.1"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 }
@@ -604,7 +604,7 @@ function renderKbHubHtml(topics) {
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -627,14 +627,14 @@ function renderKbHubHtml(topics) {
 
   <div id="site-footer-placeholder"></div>
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.5.1"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 }
 
 // ── Build Execution ─────────────────────────────────────────
 function buildPseoEngine() {
-  console.log('⚡ Running Programmatic SEO Engine...');
+  console.log('<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px"><path d="M9 1L3 9h5l-1 6 6-8H8l1-6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg> Running Programmatic SEO Engine...');
 
   let generatedCount = 0;
   PSEO_TOPICS.forEach(topic => {

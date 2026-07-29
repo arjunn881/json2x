@@ -231,7 +231,7 @@ function generateTrustPageHTML(page) {
 
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./assets/css/design-system.css" />
-  <link rel="stylesheet" href="./assets/css/components.css?v=2.5.1" />
+  <link rel="stylesheet" href="./assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -262,7 +262,7 @@ function generateTrustPageHTML(page) {
   </div>
 
   <script src="./assets/js/common.js"></script>
-  <script src="./assets/js/layout.js?v=2.5.1"></script>
+  <script src="./assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 }

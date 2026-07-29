@@ -85,7 +85,7 @@
   </script>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
   <style>
     /* JSON Tree styles */
     .tree-wrap {
@@ -168,7 +168,7 @@
       <div class="tool-hero">
         <div class="tool-hero__badge">Interactive Explorer</div>
         <h1 class="tool-hero__title">JSON Tree Viewer Online</h1>
-        <p class="tool-hero__desc">Navigating deeply nested data structures can quickly become overwhelming when scrolling through raw text documents. Our json tree viewer online utility converts complex payloads into an interactive, collapsible node hierarchy, enabling developers to visually browse keys, arrays, and sub-objects. Built for software engineers analyzing microservice logs, database dumps, and API responses, this browser tool includes real-time text searching and one-click property path copying. Enjoy the convenience of a modern tree structure viewer directly in your web browser, eliminating the need to install a separate chrome extension or desktop application.</p>
+        
       </div>
 
       <!-- Input -->
@@ -200,6 +200,10 @@
       <!-- Tree -->
       <div class="tree-wrap" id="tree-output" aria-label="JSON tree" role="tree"></div>
 
+      
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Navigating deeply nested data structures can quickly become overwhelming when scrolling through raw text documents. Our json tree viewer online utility converts complex payloads into an interactive, collapsible node hierarchy, enabling developers to visually browse keys, arrays, and sub-objects. Built for software engineers analyzing microservice logs, database dumps, and API responses, this browser tool includes real-time text searching and one-click property path copying. Enjoy the convenience of a modern tree structure viewer directly in your web browser, eliminating the need to install a separate chrome extension or desktop application.</p>
+      </div>
       <div id="related-tools-placeholder" data-current="viewer"></div>
 
       <!-- ── FAQ Section ─────────────────────────────────────── -->
@@ -255,7 +259,7 @@
 
   <div id="site-footer-placeholder"></div>
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.5.1"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
   <script>
     /**
      * Recursive tree renderer.

@@ -232,18 +232,22 @@
   display:         none;
   align-items:     center;
   justify-content: center;
-  width:           40px;
-  height:          40px;
-  background:      transparent;
+  width:           36px;
+  height:          36px;
+  padding:         0;
+  background:      var(--bg-raised);
   border:          1px solid var(--bg-border);
   border-radius:   var(--radius-md);
   cursor:          pointer;
   color:           var(--text-secondary);
-  margin-left:     auto;
   flex-shrink:     0;
-  transition:      background var(--transition-fast);
+  transition:      all var(--transition-fast);
 }
-.nav-toggle:hover { background: var(--bg-raised); color: var(--text-primary); }
+.nav-toggle:hover {
+  color:        var(--text-primary);
+  background:   var(--bg-overlay);
+  border-color: var(--accent);
+}
 
 /* Mobile nav drawer */
 .mobile-nav {
@@ -293,15 +297,17 @@
 }
 
 .theme-toggle:hover {
-  color:      var(--text-primary);
-  background: var(--bg-overlay);
+  color:        var(--text-primary);
+  background:   var(--bg-overlay);
   border-color: var(--accent);
 }
 
 @media (max-width: 900px) {
-  .site-nav    { display: none; }
-  .nav-toggle  { display: flex; }
-  .nav-more    { display: none; }
+  .site-header__inner { gap: var(--space-2); }
+  .site-nav     { display: none; }
+  .nav-more     { display: none; }
+  .theme-toggle { margin-left: auto; }
+  .nav-toggle   { display: inline-flex; }
 }
 
 /* Tools Grid Layout */
@@ -419,6 +425,42 @@
   .site-footer__grid {
     grid-template-columns: 1fr;
     gap: var(--space-6);
+  }
+}
+
+.ad-slot, #ad-slot-rectangle-placeholder, [data-ad-slot-leaderboard] {
+  display: none !important;
+}
+
+/* ── Fully Responsive Toolbars & Buttons (Mobile & Small Viewports) ───────────── */
+.toolbar, .ts-toolbar, .diff-toolbar, .jsonpath-toolbar, .options-toolbar {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-2);
+  flex-wrap:       wrap;
+  width:           100%;
+}
+
+@media (max-width: 640px) {
+  .toolbar, .ts-toolbar, .diff-toolbar, .jsonpath-toolbar, .options-toolbar {
+    flex-wrap:       nowrap;
+    overflow-x:      auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom:  4px;
+    scrollbar-width: thin;
+  }
+
+  .toolbar .btn, .ts-toolbar .btn, .diff-toolbar .btn, .options-toolbar .btn,
+  .toolbar button, .ts-toolbar button, .diff-toolbar button, .options-toolbar button,
+  .toolbar select, .ts-toolbar select, .diff-toolbar select, .options-toolbar select {
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size:   var(--text-xs);
+    padding:     var(--space-2) var(--space-3);
+  }
+
+  .panes {
+    flex-direction: column !important;
   }
 }
 

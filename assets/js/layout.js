@@ -400,26 +400,7 @@
    * @returns {string} HTML
    */
   function renderAdSlot(type, slotId) {
-    // Fixed dimensions reserved to prevent Cumulative Layout Shift (CLS)
-    // before AdSense scripts load. These match standard ad unit sizes.
-    const dims = type === 'leaderboard'
-      ? 'min-height:90px;width:100%;max-width:728px;'
-      : 'min-height:250px;width:300px;';
-    return `
-<div class="ad-slot ad-slot--${type}" role="complementary" aria-label="Advertisement"
-     style="${dims}display:flex;align-items:center;justify-content:center;box-sizing:border-box;">
-  <!-- AdSense: replace this comment block with your live <ins> tag when approved.
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="${slotId}"
-       data-ad-format="${type === 'leaderboard' ? 'auto' : 'rectangle'}"
-       data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});<\/script>
-  -->
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="margin-right:6px;opacity:0.4"><rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 11l3-6 2 4 1.5-2.5L13 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <span style="font-size:11px;opacity:0.4;letter-spacing:0.04em;text-transform:uppercase;font-weight:600">Advertisement</span>
-</div>`;
+    return '';
   }
 
   /* ── Render: Related Tools Grid ───────────────────────────*/
