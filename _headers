@@ -1,7 +1,9 @@
-# ============================================
-# Edge Caching & Security Headers — json2x.com
-# Compatible with Cloudflare Pages / Netlify / Vercel
-# ============================================
+https://jsontoolkit-3bb.pages.dev/*
+  X-Robots-Tag: noindex
+
+
+
+
 
 /*
   X-Content-Type-Options: nosniff
