@@ -305,7 +305,7 @@ function generateDocPage(slug, metadata, bodyText) {
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
 
   <style>
     /* Reading Progress Bar */
@@ -366,7 +366,7 @@ function generateDocPage(slug, metadata, bodyText) {
   <div id="site-footer-placeholder"></div>
 
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js"></script>
+  <script src="../assets/js/layout.js?v=2.5.1"></script>
   <script>
     // Reading Progress Indicator Script
     window.addEventListener('scroll', function() {
@@ -430,7 +430,7 @@ function generateDocsIndexPage(docItems) {
 
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.5.1" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -453,7 +453,7 @@ function generateDocsIndexPage(docItems) {
 
   <div id="site-footer-placeholder"></div>
   <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js"></script>
+  <script src="../assets/js/layout.js?v=2.5.1"></script>
 </body>
 </html>`;
 }
