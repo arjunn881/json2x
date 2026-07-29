@@ -1,5 +1,5 @@
 /**
- * JSON Toolkit — Shared Parsing & Utility Module
+ * JSON2X — Shared Parsing & Utility Module
  * ================================================
  * Central library imported by all 7 tools.
  * No duplication of logic across tool pages.

@@ -445,7 +445,7 @@ function renderPseoHtml(topic) {
         "url": canonicalUrl,
         "publisher": {
           "@type": "Organization",
-          "name": "JSON Toolkit",
+          "name": "JSON2X",
           "url": BASE_URL
         }
       },
@@ -473,7 +473,7 @@ function renderPseoHtml(topic) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>${topic.title} | JSON Toolkit</title>
+  <title>${topic.title} | JSON2X</title>
   <meta name="description" content="${topic.metaDesc}" />
   <meta name="keywords" content="${topic.keywords}" />
   <meta name="robots" content="index, follow" />
@@ -485,7 +485,7 @@ function renderPseoHtml(topic) {
   <meta property="og:url"         content="${canonicalUrl}" />
   <meta property="og:title"       content="${topic.title}" />
   <meta property="og:description" content="${topic.metaDesc}" />
-  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
   <meta property="og:locale"      content="en_US" />
 
@@ -572,7 +572,7 @@ function renderKbHubHtml(topics) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON Knowledge Base &amp; Technical Reference Index | JSON Toolkit</title>
+  <title>JSON Knowledge Base &amp; Technical Reference Index | JSON2X</title>
   <meta name="description" content="Programmatic developer reference hub covering JSON errors, tutorials, arrays, objects, validation, escaping, formatting, APIs, schemas, and JSONPath." />
   <meta name="keywords" content="json knowledge base, json developer index, json reference guide, json tutorials" />
   <meta name="robots" content="index, follow" />
@@ -584,7 +584,7 @@ function renderKbHubHtml(topics) {
   <meta property="og:url"         content="${canonicalUrl}" />
   <meta property="og:title"       content="JSON Knowledge Base &amp; Technical Reference Index" />
   <meta property="og:description" content="Complete reference index for JSON development, validation, and error troubleshooting." />
-  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
   <meta property="og:locale"      content="en_US" />
 

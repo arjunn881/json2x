@@ -19,7 +19,7 @@ const SAMPLE_DOCS = [
       description: 'An authoritative developer reference on official RFC 8259 JSON syntax rules, primitive data types, string escaping, and number encoding.',
       category: 'Guides',
       tags: ['json', 'rfc8259', 'specification', 'syntax'],
-      author: 'JSON Toolkit Engineering Team',
+      author: 'JSON2X Engineering Team',
       date: '2026-07-28'
     },
     markdown: `
@@ -44,7 +44,7 @@ Objects consist of zero or more key-value pairs. Every key MUST be a double-quot
 
 \`\`\`json
 {
-  "name": "JSON Toolkit",
+  "name": "JSON2X",
   "version": 1.0,
   "isProduction": true
 }
@@ -252,11 +252,11 @@ function generateDocPage(slug, metadata, bodyText) {
         "datePublished": metadata.date || '2026-07-28',
         "author": {
           "@type": "Person",
-          "name": metadata.author || "JSON Toolkit Engineering Team"
+          "name": metadata.author || "JSON2X Engineering Team"
         },
         "publisher": {
           "@type": "Organization",
-          "name": "JSON Toolkit",
+          "name": "JSON2X",
           "url": BASE_URL
         }
       },
@@ -279,7 +279,7 @@ function generateDocPage(slug, metadata, bodyText) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>${metadata.title} | JSON Toolkit Docs</title>
+  <title>${metadata.title} | JSON2X Docs</title>
   <meta name="description" content="${metadata.description}" />
   <meta name="keywords" content="${(metadata.tags || []).join(', ')}" />
   <meta name="robots" content="index, follow" />
@@ -291,7 +291,7 @@ function generateDocPage(slug, metadata, bodyText) {
   <meta property="og:url"         content="${canonicalUrl}" />
   <meta property="og:title"       content="${metadata.title}" />
   <meta property="og:description" content="${metadata.description}" />
-  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
 
   <meta name="twitter:card"        content="summary_large_image" />
@@ -399,7 +399,7 @@ function generateDocsIndexPage(docItems) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>Developer Documentation &amp; Technical Guides | JSON Toolkit</title>
+  <title>Developer Documentation &amp; Technical Guides | JSON2X</title>
   <meta name="description" content="Scalable developer documentation system covering JSON RFC 8259 specifications, TypeScript type generation, Web Worker performance, and error handling." />
   <meta name="keywords" content="json docs, developer documentation, rfc 8259, typescript schema, web worker parsing" />
   <meta name="robots" content="index, follow" />
@@ -409,9 +409,9 @@ function generateDocsIndexPage(docItems) {
 
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="${canonicalUrl}" />
-  <meta property="og:title"       content="Developer Documentation | JSON Toolkit" />
+  <meta property="og:title"       content="Developer Documentation | JSON2X" />
   <meta property="og:description" content="Comprehensive guides and technical references for JSON and CSV developers." />
-  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
 
   <meta name="twitter:card"        content="summary_large_image" />
@@ -423,7 +423,7 @@ function generateDocsIndexPage(docItems) {
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "JSON Toolkit Documentation Hub",
+    "name": "JSON2X Documentation Hub",
     "url": "${canonicalUrl}"
   }
   </script>

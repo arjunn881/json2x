@@ -1,5 +1,5 @@
 # ============================================
-# JSON Toolkit (json2x.com) — Optimized robots.txt
+# JSON2X (json2x.com) — Optimized robots.txt
 # Conforms to Google Search Central (RFC 9309)
 # ============================================
 

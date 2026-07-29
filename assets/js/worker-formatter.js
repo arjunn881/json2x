@@ -1,5 +1,5 @@
 /**
- * JSON Toolkit — Formatter Web Worker
+ * JSON2X — Formatter Web Worker
  * =====================================
  * Handles heavy JSON operations off the main thread:
  *   - JSON.parse  (with enriched error location)

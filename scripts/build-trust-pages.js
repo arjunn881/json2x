@@ -8,9 +8,9 @@ const TRUST_PAGES = [
   {
     filename: 'contact.html',
     title: 'Contact Us & Technical Support',
-    desc: 'Get in touch with the JSON Toolkit engineering team. Report bugs, suggest tools, or inquire about open source contributions.',
+    desc: 'Get in touch with the JSON2X engineering team. Report bugs, suggest tools, or inquire about open source contributions.',
     content: `
-      <h2>Contact JSON Toolkit Engineering</h2>
+      <h2>Contact JSON2X Engineering</h2>
       <p>Have questions, feature requests, or bug reports? We operate with an open feedback loop to continuously improve our developer utilities.</p>
       
       <div class="faq-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin: var(--space-8) 0;">
@@ -32,19 +32,19 @@ const TRUST_PAGES = [
   {
     filename: 'terms.html',
     title: 'Terms of Service',
-    desc: 'Terms of service governing the usage of JSON Toolkit client-side developer utilities.',
+    desc: 'Terms of service governing the usage of JSON2X client-side developer utilities.',
     content: `
       <h2>Terms of Service</h2>
       <p>Last updated: July 28, 2026</p>
       
       <h3>1. Acceptance of Terms</h3>
-      <p>By accessing or using JSON Toolkit (json2x.com), you agree to be bound by these Terms of Service. All utilities provided on this platform are free of charge for personal, commercial, and enterprise usage.</p>
+      <p>By accessing or using JSON2X (json2x.com), you agree to be bound by these Terms of Service. All utilities provided on this platform are free of charge for personal, commercial, and enterprise usage.</p>
 
       <h3>2. Client-Side Processing & Local Execution</h3>
       <p>All data formatting, validation, minification, and schema generation operations occur exclusively within your web browser. No data payload is ever transmitted to external servers or third-party APIs.</p>
 
       <h3>3. Disclaimer of Warranty</h3>
-      <p>JSON Toolkit is provided "as is" without warranty of any kind, express or implied. Users are responsible for verifying generated code before deploying to production environments.</p>
+      <p>JSON2X is provided "as is" without warranty of any kind, express or implied. Users are responsible for verifying generated code before deploying to production environments.</p>
     `
   },
   {
@@ -53,7 +53,7 @@ const TRUST_PAGES = [
     desc: 'Official legal disclaimer regarding local browser data processing and code generation.',
     content: `
       <h2>Legal & Data Disclaimer</h2>
-      <p>JSON Toolkit guarantees 100% local client-side data execution.</p>
+      <p>JSON2X guarantees 100% local client-side data execution.</p>
       
       <h3>1. Zero Data Retention Guarantee</h3>
       <p>We do not store, log, inspect, or retain any input JSON, CSV payloads, or generated TypeScript definitions. Your data remains strictly within your browser's local V8 JavaScript memory environment.</p>
@@ -68,7 +68,7 @@ const TRUST_PAGES = [
     desc: 'Our commitment to technical rigor, IETF RFC standards adherence, peer review, and continuous content updates.',
     content: `
       <h2>Editorial & Technical Accuracy Policy</h2>
-      <p>At JSON Toolkit, our technical documentation, error guides, and specifications are authored by Staff-level engineers and verified against official specifications (RFC 8259, RFC 4180, Draft-07 Schema).</p>
+      <p>At JSON2X, our technical documentation, error guides, and specifications are authored by Staff-level engineers and verified against official specifications (RFC 8259, RFC 4180, Draft-07 Schema).</p>
       
       <h3>1. Technical Verification Process</h3>
       <p>Every tutorial and code example is run through automated test suites to ensure syntax validity, zero deprecation, and modern ECMAScript standards.</p>
@@ -80,10 +80,20 @@ const TRUST_PAGES = [
   {
     filename: 'changelog.html',
     title: 'Platform Changelog & Release Notes',
-    desc: 'Detailed release history and feature updates for JSON Toolkit utilities.',
+    desc: 'Detailed release history and feature updates for JSON2X utilities.',
     content: `
       <h2>Platform Version History & Release Notes</h2>
       
+      <div class="tool-section" style="margin-bottom:var(--space-6);">
+        <h3>v2.5.0 — July 29, 2026</h3>
+        <ul>
+          <li>Official Platform Rebrand to <strong>JSON2X</strong> with updated visual identity and vector logo.</li>
+          <li>Deployed to Cloudflare Pages via Wrangler for global edge delivery.</li>
+          <li>Configured Google Analytics 4 (G-W5LWV30LK1) with privacy-preserving event tracking.</li>
+          <li>Enhanced 404 & 500 error status pages with diagnostic recovery tools.</li>
+        </ul>
+      </div>
+
       <div class="tool-section" style="margin-bottom:var(--space-6);">
         <h3>v2.4.0 — July 28, 2026</h3>
         <ul>
@@ -107,7 +117,7 @@ const TRUST_PAGES = [
   {
     filename: 'roadmap.html',
     title: 'Feature Roadmap & Engineering Goals',
-    desc: 'Upcoming features, planned developer tools, and architectural milestones for JSON Toolkit.',
+    desc: 'Upcoming features, planned developer tools, and architectural milestones for JSON2X.',
     content: `
       <h2>Feature Roadmap & Engineering Goals</h2>
       <p>We are continuously building high-performance, privacy-first developer tools.</p>
@@ -130,7 +140,7 @@ const TRUST_PAGES = [
     desc: 'Technical breakdown of our zero-server architecture, local memory isolation, and Content Security Policy.',
     content: `
       <h2>Security Architecture & Data Privacy Guarantee</h2>
-      <p>Security is the core foundation of JSON Toolkit.</p>
+      <p>Security is the core foundation of JSON2X.</p>
 
       <h3>1. Zero Network Transmission</h3>
       <p>When you paste sensitive JSON, API keys, or database payloads into our tools, zero HTTP requests are dispatched. Open your browser Developer Tools Network tab to verify zero network requests during formatting or validation.</p>
@@ -145,17 +155,17 @@ const TRUST_PAGES = [
     desc: 'Our open source ethos, public algorithms, and browser-first design philosophy.',
     content: `
       <h2>Open Source & Transparency</h2>
-      <p>JSON Toolkit is committed to open developer tooling.</p>
+      <p>JSON2X is committed to open developer tooling.</p>
       <p>Our client-side parsing engines, schema generators, and formatting algorithms are open for public audit. We believe developer tools should be transparent, free from trackers, and 100% reliable.</p>
     `
   },
   {
     filename: 'license.html',
     title: 'MIT License & Usage Rights',
-    desc: 'Official MIT License details for JSON Toolkit scripts and components.',
+    desc: 'Official MIT License details for JSON2X scripts and components.',
     content: `
       <h2>MIT License</h2>
-      <p>Copyright (c) 2026 JSON Toolkit (json2x.com)</p>
+      <p>Copyright (c) 2026 JSON2X (json2x.com)</p>
       <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.</p>
     `
   }
@@ -174,7 +184,7 @@ function generateTrustPageHTML(page) {
         "url": canonicalUrl,
         "publisher": {
           "@type": "Organization",
-          "name": "JSON Toolkit",
+          "name": "JSON2X",
           "url": BASE_URL
         }
       },
@@ -196,7 +206,7 @@ function generateTrustPageHTML(page) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>${page.title} | JSON Toolkit</title>
+  <title>${page.title} | JSON2X</title>
   <meta name="description" content="${page.desc}" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0d1117" />
@@ -207,7 +217,7 @@ function generateTrustPageHTML(page) {
   <meta property="og:url"         content="${canonicalUrl}" />
   <meta property="og:title"       content="${page.title}" />
   <meta property="og:description" content="${page.desc}" />
-  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
 
   <meta name="twitter:card"        content="summary_large_image" />

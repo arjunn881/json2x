@@ -9,7 +9,10 @@
     "trust": "node scripts/build-trust-pages.js",
     "robots": "node scripts/generate-robots.js",
     "sitemap": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js",
-    "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js"
+    "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js",
+    "dev": "npx --yes serve -l 8080",
+    "start": "npx --yes serve -l 8080",
+    "deploy": "npm test && npx wrangler pages deploy ."
   },
   "keywords": [
     "json",
@@ -19,6 +22,6 @@
     "jsonpath",
     "schema-generator"
   ],
-  "author": "JSON Toolkit Engineering Team",
+  "author": "JSON2X Engineering Team",
   "license": "MIT"
 }

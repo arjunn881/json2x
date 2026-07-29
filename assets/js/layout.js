@@ -1,5 +1,5 @@
 /**
- * JSON Toolkit — Shared Layout / UI Module
+ * JSON2X — Shared Layout / UI Module
  * =========================================
  * Renders the site header (with active-link detection),
  * the mobile nav drawer, the footer, ad slots, and the
@@ -236,10 +236,6 @@
     return `
 <div class="top-bar" role="navigation" aria-label="Utility navigation">
   <div class="container top-bar__inner">
-    <div class="top-bar__notice">
-      <span class="top-bar__tag">100% Client-Side</span>
-      <span>No data ever leaves your browser</span>
-    </div>
     <div class="top-bar__links">
       <a href="${resolveHref('/about.html')}" class="top-bar__link${currentId === 'about' ? ' active' : ''}">${SVG.about} About Us</a>
       <a href="${resolveHref('/contact.html')}" class="top-bar__link${currentId === 'contact' ? ' active' : ''}">${SVG.contact} Contact</a>
@@ -253,9 +249,9 @@
 <header class="site-header" role="banner">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="container site-header__inner">
-    <a href="${resolveHref('/index.html')}" class="site-header__logo" aria-label="JSON Toolkit Home">
-      <span class="logo-icon" aria-hidden="true">{}</span>
-      JSON Toolkit
+    <a href="${resolveHref('/index.html')}" class="site-header__logo" aria-label="JSON2X Home">
+      <span class="logo-icon" aria-hidden="true">{2X}</span>
+      JSON<span style="color:var(--accent)">2X</span>
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
       ${navLinks}
@@ -301,8 +297,8 @@
     <div class="site-footer__grid">
       <div class="footer-col">
         <a href="${resolveHref('/index.html')}" class="site-header__logo" style="margin-bottom: var(--space-3)">
-          <span class="logo-icon" aria-hidden="true">{}</span>
-          JSON Toolkit
+          <span class="logo-icon" aria-hidden="true">{2X}</span>
+          JSON<span style="color:var(--accent)">2X</span>
         </a>
         <p class="footer-brand__tagline">Fast, free, browser-only JSON &amp; CSV utilities. No data leaves your machine.</p>
       </div>
@@ -346,7 +342,7 @@
       </div>
     </div>
     <div class="site-footer__bottom">
-      <p class="site-footer__copy">© ${year} JSON Toolkit. All processing happens locally in your browser.</p>
+      <p class="site-footer__copy">© ${year} JSON2X. All processing happens locally in your browser.</p>
       <div class="site-footer__legal">
         <a href="${resolveHref('/about.html')}">About Us</a>
         <a href="${resolveHref('/contact.html')}">Contact</a>
@@ -589,7 +585,7 @@
         const TOOL_FAQS = {
           formatter: [
             { q: "What is a JSON formatter?", a: "A JSON formatter is a developer tool that parses unformatted or minified JSON text and applies proper indentation (2-space, 4-space, or tabs), line breaks, and color syntax highlighting for human readability." },
-            { q: "What is the best JSON formatter online?", a: "JSON Toolkit's Formatter is widely considered the best online JSON formatter because it operates 100% client-side inside your browser V8 engine, guaranteeing complete data privacy, zero API latency, and Web Worker support for files up to 100MB." },
+            { q: "What is the best JSON formatter online?", a: "JSON2X's Formatter is widely considered the best online JSON formatter because it operates 100% client-side inside your browser V8 engine, guaranteeing complete data privacy, zero API latency, and Web Worker support for files up to 100MB." },
             { q: "What is a JSON validator?", a: "A JSON validator checks JSON text against strict RFC 8259 syntax specifications. It pinpoints line and column offsets for syntax errors like missing double quotes, unescaped characters, or illegal trailing commas." },
             { q: "How to add JSON formatter in Notepad++?", a: "Install JSTool or JSON Viewer via Plugins ➔ Plugins Admin in Notepad++, search for 'JSTool', click Install, and press Ctrl + Alt + M to format your open document." },
             { q: "How to use JSON Formatter Chrome extension?", a: "Install a JSON Formatter extension from the Chrome Web Store. Navigating to any REST API endpoint URL in Chrome will automatically format the raw JSON response into a collapsible tree view." },
@@ -613,7 +609,7 @@
           'json-to-csv': [
             { q: "How to convert JSON to CSV?", a: "Paste a JSON array of objects into the converter, select your delimiter, and click Download CSV." },
             { q: "How to convert JSON to CSV in Python?", a: "Use Python's built-in `json` and `csv` modules or `pandas.read_json('data.json').to_csv('output.csv', index=False)`." },
-            { q: "What is the best tool for converting JSON to CSV?", a: "JSON Toolkit's JSON to CSV Converter is the best online tool because it automatically flattens nested object keys into dot-notation headers and processes data 100% locally in browser memory." }
+            { q: "What is the best tool for converting JSON to CSV?", a: "JSON2X's JSON to CSV Converter is the best online tool because it automatically flattens nested object keys into dot-notation headers and processes data 100% locally in browser memory." }
           ],
           'csv-to-json': [
             { q: "How to convert CSV to JSON online?", a: "Drop your CSV file into our CSV to JSON Converter. The tool automatically detects column headers and coerces numeric and boolean strings into native JSON data types." },
@@ -720,9 +716,9 @@
     setMetaTag('name', 'viewport', 'width=device-width, initial-scale=1.0');
     setMetaTag('name', 'theme-color', '#0d1117');
     setMetaTag('name', 'color-scheme', 'dark light');
-    setMetaTag('name', 'application-name', 'JSON Toolkit');
-    setMetaTag('name', 'apple-mobile-web-app-title', 'JSON Toolkit');
-    setMetaTag('name', 'author', 'JSON Toolkit');
+    setMetaTag('name', 'application-name', 'JSON2X');
+    setMetaTag('name', 'apple-mobile-web-app-title', 'JSON2X');
+    setMetaTag('name', 'author', 'JSON2X');
     setMetaTag('name', 'publisher', SITE_BASE_URL);
     setMetaTag('name', 'category', 'Developer Tools');
 
@@ -759,7 +755,7 @@
     // Lookup active tool metadata
     const activeTool = TOOLS.find(t => t.id === currentId || (t.aliases && t.aliases.includes(currentId)));
     if (activeTool) {
-      const pageTitle = document.title || `${activeTool.name} — Free Online Developer Tool | JSON Toolkit`;
+      const pageTitle = document.title || `${activeTool.name} — Free Online Developer Tool | JSON2X`;
       const metaDesc = document.querySelector('meta[name="description"]')?.content ||
         `${activeTool.name} online — ${activeTool.desc}. 100% browser-only client-side utility. No data leaves your device.`;
 
@@ -768,7 +764,7 @@
       setMetaTag('property', 'og:url', canonicalUrl);
       setMetaTag('property', 'og:title', pageTitle);
       setMetaTag('property', 'og:description', metaDesc);
-      setMetaTag('property', 'og:site_name', 'JSON Toolkit');
+      setMetaTag('property', 'og:site_name', 'JSON2X');
       setMetaTag('property', 'og:image', DEFAULT_OG_IMAGE);
       setMetaTag('property', 'og:locale', 'en_US');
     }
@@ -794,13 +790,13 @@
     graph.push({
       "@type": "Organization",
       "@id": `${SITE_BASE_URL}/#organization`,
-      "name": "JSON Toolkit",
+      "name": "JSON2X",
       "url": SITE_BASE_URL,
       "logo": {
         "@type": "ImageObject",
         "@id": `${SITE_BASE_URL}/#logo`,
         "url": `${SITE_BASE_URL}/favicon.svg`,
-        "caption": "JSON Toolkit Logo"
+        "caption": "JSON2X Logo"
       },
       "image": { "@id": `${SITE_BASE_URL}/#logo` },
       "description": "Free browser-only JSON & CSV developer utilities. Zero latency, 100% client-side privacy.",
@@ -816,7 +812,7 @@
     graph.push({
       "@type": "Person",
       "@id": `${SITE_BASE_URL}/#person`,
-      "name": "JSON Toolkit Engineering Team",
+      "name": "JSON2X Engineering Team",
       "jobTitle": "Staff Developer Tools Engineer",
       "url": `${SITE_BASE_URL}/about.html`,
       "worksFor": { "@id": `${SITE_BASE_URL}/#organization` }
@@ -826,7 +822,7 @@
     graph.push({
       "@type": "WebSite",
       "@id": `${SITE_BASE_URL}/#website`,
-      "name": "JSON Toolkit",
+      "name": "JSON2X",
       "url": SITE_BASE_URL,
       "description": "Free online JSON and CSV developer tools.",
       "publisher": { "@id": `${SITE_BASE_URL}/#organization` },

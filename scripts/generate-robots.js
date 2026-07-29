@@ -9,7 +9,7 @@ function generateRobotsTxt() {
   let content = '';
 
   if (IS_STAGING) {
-    content = `# JSON Toolkit (json2x.com) — Staging Environment Safeguard
+    content = `# JSON2X (json2x.com) — Staging Environment Safeguard
 # Disallow all search engine crawling on staging/preview deploys
 
 User-agent: *
@@ -18,7 +18,7 @@ Disallow: /
 `;
   } else {
     content = `# ============================================
-# JSON Toolkit (json2x.com) — Optimized robots.txt
+# JSON2X (json2x.com) — Optimized robots.txt
 # Conforms to Google Search Central (RFC 9309)
 # ============================================
 

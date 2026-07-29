@@ -1,5 +1,5 @@
 /**
- * JSON Toolkit — Automated SEO, Accessibility & Technical Metadata Validator
+ * JSON2X — Automated SEO, Accessibility & Technical Metadata Validator
  * =========================================================================
  * Parses all public HTML files and validates compliance against Google Search
  * Essentials, Open Graph, Twitter Cards, JSON-LD Schemas, and Accessibility standards.
@@ -108,7 +108,7 @@ PUBLIC_PAGES.forEach(relPath => {
   if (titleMatch) {
     const title = titleMatch[1];
     check(relPath, title.length >= 15 && title.length <= 80, `<title> length (${title.length} chars) out of range 15-80`);
-    check(relPath, title.includes('JSON Toolkit'), `<title> missing brand keyword "JSON Toolkit"`);
+    check(relPath, title.includes('JSON2X'), `<title> missing brand keyword "JSON2X"`);
   }
 
   // 2. Meta Description

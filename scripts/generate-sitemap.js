@@ -61,7 +61,7 @@ function processPages() {
 
     // Extract title
     const titleMatch = content.match(/<title>([^<]+)<\/title>/i);
-    const title = titleMatch ? titleMatch[1].replace(/&amp;/g, '&').replace(/\s*\|.*$/, '').trim() : 'JSON Toolkit Page';
+    const title = titleMatch ? titleMatch[1].replace(/&amp;/g, '&').replace(/\s*\|.*$/, '').trim() : 'JSON2X Page';
 
     // Extract images
     const images = [];
@@ -154,7 +154,7 @@ function buildNewsSitemapXml(pages) {
     xml += `    <loc>${p.url}</loc>\n`;
     xml += `    <news:news>\n`;
     xml += `      <news:publication>\n`;
-    xml += `        <news:name>JSON Toolkit Blog</news:name>\n`;
+    xml += `        <news:name>JSON2X Blog</news:name>\n`;
     xml += `        <news:language>en</news:language>\n`;
     xml += `      </news:publication>\n`;
     xml += `      <news:publication_date>${p.lastMod}</news:publication_date>\n`;

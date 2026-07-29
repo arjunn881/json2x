@@ -1,5 +1,5 @@
 /**
- * JSON Toolkit — Privacy-Preserving Analytics & Event Tracking Engine
+ * JSON2X — Privacy-Preserving Analytics & Event Tracking Engine
  * Supports GA4, Cloudflare Web Analytics, and Core Web Vitals Tracking
  * 100% Privacy Compliant: Zero PII or user payload data is ever logged or transmitted.
  */
