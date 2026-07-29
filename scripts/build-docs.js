@@ -147,6 +147,37 @@ self.onmessage = function (e) {
 
 For payloads exceeding 100MB, streaming tokenizers parse tokens sequentially without instantiating massive in-memory AST graphs.
     `
+  },
+  {
+    filename: 'json-minification-performance.mdx',
+    frontmatter: {
+      title: 'High-Performance JSON Minification & Payload Compression',
+      description: 'Engineering guide on JSON payload minification, whitespace elimination algorithms, network bandwidth optimization, and HTTP compression interactions.',
+      category: 'Performance Notes',
+      tags: ['json', 'minification', 'performance', 'bandwidth', 'optimization'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-07-28'
+    },
+    markdown: `
+# High-Performance JSON Minification & Payload Compression
+
+Minifying JSON payloads reduces uncompressed network payload size by eliminating non-structural whitespace, tabs, and newlines.
+
+## 1. Minification Algorithm Mechanics
+
+A single-pass tokenization scanner identifies quotes, escape sequences, and structural delimiters (\`{\`, \`}\`, \`[\`, \`]\`, \`:\`, \`,\`).
+
+\`\`\`javascript
+// Single-pass whitespace stripper
+function minifyJson(jsonString) {
+  return JSON.stringify(JSON.parse(jsonString));
+}
+\`\`\`
+
+## 2. Combined Gzip/Brotli Compression Benefits
+
+While minification reduces raw byte count, it also enhances dictionary compression algorithms (Gzip/Brotli) by reducing entropy.
+    `
   }
 ];
 

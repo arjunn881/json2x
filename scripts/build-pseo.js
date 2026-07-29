@@ -405,6 +405,126 @@ $.store.book[?(@.price < 10)] // Filter books under $10`,
     faqs: [
       { q: 'Is my data safe when using this pretty printer?', a: 'Yes! 100% of formatting happens locally in your browser.' }
     ]
+  },
+  {
+    slug: 'json-minification',
+    title: 'JSON Minification & Whitespace Stripping Guide',
+    h1: 'Minifying & Compressing JSON Payloads',
+    category: 'Performance',
+    metaDesc: 'Learn how JSON minification removes unnecessary whitespace, newlines, and indentation to reduce API payload size by up to 40%.',
+    primaryTool: 'json-minifier',
+    keywords: 'json minifier, minify json online, json whitespace removal, compress json api',
+    content: `
+      <h2>Minifying JSON for Production Endpoints</h2>
+      <p>JSON minification strips non-essential spaces, tabs, and newlines without altering data semantics, resulting in smaller network payloads and faster HTTP transfer rates.</p>
+      <h3>Benefits of JSON Minification:</h3>
+      <ul>
+        <li>Reduces HTTP response body size by 20% to 40%.</li>
+        <li>Decreases network transfer time for mobile clients.</li>
+        <li>Optimizes storage footprint in document databases like MongoDB and CouchDB.</li>
+      </ul>
+    `,
+    codeExample: `// Minifying JSON string in JavaScript
+const minified = JSON.stringify(JSON.parse(rawJson));`,
+    faqs: [
+      { q: 'Does minifying JSON change the data structure?', a: 'No. Minification only removes extra whitespace and newlines while keeping all keys, values, and array order intact.' },
+      { q: 'Can I unminify or format minified JSON later?', a: 'Yes! Use our free JSON Formatter tool to restore indentation and pretty print any minified JSON.' }
+    ]
+  },
+  {
+    slug: 'json-diff-checker',
+    title: 'JSON Diff Checker & Structural Comparison Guide',
+    h1: 'Comparing & Diffing JSON Documents',
+    category: 'Comparison',
+    metaDesc: 'Compare two JSON objects or files line-by-line. Spot added, deleted, and modified keys or values with visual color highlighting.',
+    primaryTool: 'json-diff',
+    keywords: 'json diff, compare json online, json difference checker, deep json diff, unordered json compare',
+    content: `
+      <h2>Visual JSON Diff & Delta Inspection</h2>
+      <p>Debugging API regression errors requires precise comparison between expected and actual JSON payloads. A visual diff tool highlights exact field level modifications.</p>
+      <h3>Key Diff Features:</h3>
+      <ul>
+        <li>Side-by-side split view and unified line-by-line view.</li>
+        <li>Order-insensitive object key comparison.</li>
+        <li>Deep nested array element delta detection.</li>
+      </ul>
+    `,
+    codeExample: `// Sample Diff Output Concept
+- "status": "pending"
++ "status": "completed"`,
+    faqs: [
+      { q: 'Can I compare JSON objects if key ordering is different?', a: 'Yes! Our JSON Diff tool normalizes key ordering before computing deltas.' }
+    ]
+  },
+  {
+    slug: 'json-to-csv-guide',
+    title: 'JSON to CSV Converter — Exporting Data to Excel',
+    h1: 'Converting JSON Arrays to CSV',
+    category: 'Conversion',
+    metaDesc: 'Export JSON array objects to downloadable CSV files compatible with Microsoft Excel, Google Sheets, and data analytics tools.',
+    primaryTool: 'json-to-csv',
+    keywords: 'json to csv, convert json to csv, json array to csv, json excel converter, download json csv',
+    content: `
+      <h2>Flattening JSON for Spreadsheet Analytics</h2>
+      <p>JSON is ideal for hierarchical data, but tabular analysis requires flat CSV format. Converting JSON arrays to CSV enables instant import into Excel and Google Sheets.</p>
+    `,
+    codeExample: `// JSON Input:
+[{"name": "Alice", "score": 95}, {"name": "Bob", "score": 88}]
+
+// CSV Output:
+name,score
+Alice,95
+Bob,88`,
+    faqs: [
+      { q: 'How are nested objects handled during CSV conversion?', a: 'Nested object keys are flattened into dot-separated column headers (e.g. user.address.city).' }
+    ]
+  },
+  {
+    slug: 'csv-to-json-guide',
+    title: 'CSV to JSON Converter — Header Detection & Array Parsing',
+    h1: 'Converting CSV Spreadsheets to JSON',
+    category: 'Conversion',
+    metaDesc: 'Parse CSV files and text into structured JSON array objects with auto-detected header rows, delimiter recognition, and typed numbers.',
+    primaryTool: 'csv-to-json',
+    keywords: 'csv to json, convert csv to json, csv file to json array, parse csv online',
+    content: `
+      <h2>Parsing Tabular CSV into JSON Objects</h2>
+      <p>Transform raw CSV data exported from databases or spreadsheets into clean JSON arrays for API payloads and frontend components.</p>
+    `,
+    codeExample: `// CSV Input:
+id,product,price
+101,Widget A,19.99
+
+// JSON Output:
+[
+  { "id": 101, "product": "Widget A", "price": 19.99 }
+]`,
+    faqs: [
+      { q: 'Does CSV to JSON preserve numeric and boolean data types?', a: 'Yes! Numbers and booleans are parsed into true JSON primitives rather than quoted strings.' }
+    ]
+  },
+  {
+    slug: 'json-unescape-fixer',
+    title: 'JSON Escape & Unescape Guide — Fixing Backslashes & Quotes',
+    h1: 'Escaping & Unescaping JSON Strings',
+    category: 'Fixing',
+    metaDesc: 'Fix double-escaped JSON strings, remove unnecessary backslashes, escape quote characters, and sanitize raw payload strings.',
+    primaryTool: 'json-formatter',
+    keywords: 'json unescape, remove backslashes json, json escape quotes, json fixer online',
+    content: `
+      <h2>Handling Escaped Strings in JSON</h2>
+      <p>Stringified JSON inside log payloads often contains double-escaped backslashes (<code>\\\\\"</code>). Unescaping restores valid JSON structures.</p>
+    `,
+    codeExample: `// Escaped String:
+"{\\"name\\": \\"Alice\\"}"
+
+// Unescaped Valid JSON:
+{
+  "name": "Alice"
+}`,
+    faqs: [
+      { q: 'How do I unescape double-escaped JSON?', a: 'Paste your escaped string into our JSON Formatter tool and click Unescape.' }
+    ]
   }
 ];
 

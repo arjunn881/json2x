@@ -66,6 +66,13 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/docs/json-minification-performance.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>High-Performance JSON Minification &amp; Payload Compression</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/docs/parsing-large-json-web-workers.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
@@ -136,6 +143,13 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/csv-to-json-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>CSV to JSON Converter — Header Detection &amp; Array Parsing</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/index.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
@@ -154,6 +168,13 @@
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON Arrays Guide — Syntax, Nesting &amp; Manipulation</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-diff-checker.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Diff Checker &amp; Structural Comparison Guide</image:title>
     </image:image>
   </url>
   <url>
@@ -192,6 +213,13 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-minification.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Minification &amp; Whitespace Stripping Guide</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-objects.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
@@ -213,10 +241,24 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-to-csv-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to CSV Converter — Exporting Data to Excel</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-tutorials.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON Developer Tutorials &amp; Data Engineering Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-unescape-fixer.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Escape &amp; Unescape Guide — Fixing Backslashes &amp; Quotes</image:title>
     </image:image>
   </url>
   <url>

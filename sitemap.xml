@@ -93,6 +93,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/docs/json-minification-performance.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>High-Performance JSON Minification &amp; Payload Compression</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/docs/parsing-large-json-web-workers.html</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>yearly</changefreq>
@@ -193,6 +203,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/csv-to-json-guide.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>CSV to JSON Converter — Header Detection &amp; Array Parsing</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/index.html</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>yearly</changefreq>
@@ -220,6 +240,16 @@
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON Arrays Guide — Syntax, Nesting &amp; Manipulation</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-diff-checker.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Diff Checker &amp; Structural Comparison Guide</image:title>
     </image:image>
   </url>
   <url>
@@ -273,6 +303,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-minification.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Minification &amp; Whitespace Stripping Guide</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-objects.html</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>yearly</changefreq>
@@ -303,6 +343,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-to-csv-guide.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to CSV Converter — Exporting Data to Excel</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-tutorials.html</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>yearly</changefreq>
@@ -310,6 +360,16 @@
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON Developer Tutorials &amp; Data Engineering Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-unescape-fixer.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Escape &amp; Unescape Guide — Fixing Backslashes &amp; Quotes</image:title>
     </image:image>
   </url>
   <url>
