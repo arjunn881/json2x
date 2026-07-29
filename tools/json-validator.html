@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+  <script>(function () { var t; try { t = localStorage.getItem('jsontoolkit_theme') } catch (e) { } if (!t) { t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' } document.documentElement.setAttribute('data-theme', t) })();</script>
   <title>JSON Validator Online — Precise Syntax &amp; Error Linter | JSON2X</title>
-  <meta name="description" content="Validate JSON syntax against RFC 8259 specs with our free json validator online. Spot syntax errors, unquoted keys, and line numbers instantly." />
-  <meta name="keywords" content="json validator online, json validator and formatter, schema validation, free, shows error line number" />
+  <meta name="description"
+    content="Validate JSON syntax against RFC 8259 specs with our free json validator online. Spot syntax errors, unquoted keys, and line numbers instantly." />
+  <meta name="keywords"
+    content="json validator online, json validator and formatter, schema validation, free, shows error line number" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0d1117" />
   <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="https://json2x.com/tools/json-validator.html" />
 
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://json2x.com/tools/json-validator.html" />
-  <meta property="og:title"       content="JSON Validator Online — Precise Syntax &amp; Error Linter" />
-  <meta property="og:description" content="Validate JSON syntax against RFC 8259 specs with our free json validator online. Spot syntax errors, unquoted keys, and line numbers instantly." />
-  <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
-  <meta property="og:locale"      content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://json2x.com/tools/json-validator.html" />
+  <meta property="og:title" content="JSON Validator Online — Precise Syntax &amp; Error Linter" />
+  <meta property="og:description"
+    content="Validate JSON syntax against RFC 8259 specs with our free json validator online. Spot syntax errors, unquoted keys, and line numbers instantly." />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
 
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="JSON Validator Online — Syntax Checker" />
-  <meta name="twitter:description" content="Validate JSON online with exact line &amp; col error pinpoints. Fast and browser-only." />
-  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON Validator Online — Syntax Checker" />
+  <meta name="twitter:description"
+    content="Validate JSON online with exact line &amp; col error pinpoints. Fast and browser-only." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
 
   <!-- SoftwareApplication Schema -->
   <script type="application/ld+json">
@@ -90,7 +95,7 @@
       }
     ]
   }
-  </script>cript>
+  </script>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../assets/css/design-system.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
@@ -101,6 +106,7 @@
       gap: var(--space-4);
       margin-top: var(--space-6);
     }
+
     .stat-chip {
       display: flex;
       flex-direction: column;
@@ -111,12 +117,14 @@
       border-radius: var(--radius-lg);
       min-width: 90px;
     }
+
     .stat-chip__value {
       font-size: var(--text-2xl);
       font-weight: var(--font-bold);
       font-family: var(--font-mono);
       color: var(--accent);
     }
+
     .stat-chip__label {
       font-size: var(--text-xs);
       color: var(--text-muted);
@@ -125,6 +133,7 @@
     }
   </style>
 </head>
+
 <body>
   <div id="site-header-placeholder"></div>
 
@@ -134,7 +143,13 @@
       <div class="tool-hero">
         <div class="tool-hero__badge">Validate JSON</div>
         <h1 class="tool-hero__title">JSON Validator Online</h1>
-        <p class="tool-hero__desc">Detecting broken syntax and structural violations early prevents runtime failures in web APIs and production microservices. Using our json validator online tool, software engineers can instantly check payloads against strict IETF RFC 8259 standards without sending data over network connections. The real-time parser highlights exact line numbers and column offsets whenever single quotes, missing brackets, or unescaped characters break compliance. In addition to basic syntax checking, you can verify data contracts against schema validation rules. Enjoy a fast, free, browser-native utility designed to help you debug payload integrity and serve as a reliable json validator and formatter helper.</p>
+        <p class="tool-hero__desc">Detecting broken syntax and structural violations early prevents runtime failures in
+          web APIs and production microservices. Using our json validator online tool, software engineers can instantly
+          check payloads against strict IETF RFC 8259 standards without sending data over network connections. The
+          real-time parser highlights exact line numbers and column offsets whenever single quotes, missing brackets, or
+          unescaped characters break compliance. In addition to basic syntax checking, you can verify data contracts
+          against schema validation rules. Enjoy a fast, free, browser-native utility designed to help you debug payload
+          integrity and serve as a reliable json validator and formatter helper.</p>
       </div>
 
 
@@ -151,8 +166,8 @@
           <span class="pane__title">JSON Input</span>
           <span id="char-count" class="text-xs text-muted"></span>
         </div>
-        <textarea class="textarea" id="json-input" style="min-height:320px"
-          placeholder='Paste JSON to validate…' aria-label="JSON input" spellcheck="false"></textarea>
+        <textarea class="textarea" id="json-input" style="min-height:320px" placeholder='Paste JSON to validate…'
+          aria-label="JSON input" spellcheck="false"></textarea>
       </div>
 
       <!-- Status -->
@@ -188,49 +203,109 @@
       </div>
 
       <!-- ── FAQ Section ─────────────────────────────────────── -->
-      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
-        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
-        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON Validation</h2>
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)"
+        aria-label="FAQ">
+        <p
+          style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">
+          Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON
+          Validation</h2>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
-          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
-            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">What makes JSON invalid?</h3>
-            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">The most common JSON errors are trailing commas (not allowed in JSON, though valid in JavaScript), single-quoted strings instead of double-quoted, unquoted property keys, missing commas between array items, and unclosed brackets or braces. This validator reports the exact line and column for each error.</p>
+        <div
+          style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div
+            style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">What
+              makes JSON invalid?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">The most
+              common JSON errors are trailing commas (not allowed in JSON, though valid in JavaScript), single-quoted
+              strings instead of double-quoted, unquoted property keys, missing commas between array items, and unclosed
+              brackets or braces. This validator reports the exact line and column for each error.</p>
           </div>
-          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
-            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">JSON vs JSONC — what's the difference?</h3>
-            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">JSONC (JSON with Comments) is a superset used by VS Code's <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">settings.json</code>. Standard JSON (RFC 8259) does not permit comments or trailing commas. This validator tests against the strict JSON specification — strip comments first using the Formatter's minify option.</p>
+          <div
+            style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">JSON vs
+              JSONC — what's the difference?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">JSONC
+              (JSON with Comments) is a superset used by VS Code's <code
+                style="font-family:var(--font-mono);font-size:0.85em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">settings.json</code>.
+              Standard JSON (RFC 8259) does not permit comments or trailing commas. This validator tests against the
+              strict JSON specification — strip comments first using the Formatter's minify option.</p>
           </div>
-          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
-            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">What does "valid JSON" guarantee?</h3>
-            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Valid JSON means the document is syntactically correct and can be parsed by any RFC 8259-compliant parser. It does <strong>not</strong> mean the data structure is correct for your application. For structural validation (required fields, type constraints), you need a JSON Schema validator.</p>
+          <div
+            style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">What
+              does "valid JSON" guarantee?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Valid
+              JSON means the document is syntactically correct and can be parsed by any RFC 8259-compliant parser. It
+              does <strong>not</strong> mean the data structure is correct for your application. For structural
+              validation (required fields, type constraints), you need a JSON Schema validator.</p>
           </div>
-          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
-            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Why validate before an API call?</h3>
-            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Sending malformed JSON to an API results in a generic 400 error that doesn't tell you where the problem is. Validating locally first pinpoints the error instantly, without a round-trip to the server and without having to read a cryptic error response.</p>
+          <div
+            style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Why
+              validate before an API call?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Sending
+              malformed JSON to an API results in a generic 400 error that doesn't tell you where the problem is.
+              Validating locally first pinpoints the error instantly, without a round-trip to the server and without
+              having to read a cryptic error response.</p>
           </div>
         </div>
 
-        <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);max-width:760px;display:flex;flex-direction:column;gap:var(--space-4)">
+        <div
+          style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);max-width:760px;display:flex;flex-direction:column;gap:var(--space-4)">
           <p>
-            <strong>JSON validation</strong> is the first step in any JSON workflow. Before you can format, transform, query, or store JSON data, you need to confirm it's syntactically correct. A single misplaced comma or missing quotation mark is enough to break a <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">JSON.parse()</code> call silently or throw an unhandled exception in production.
+            <strong>JSON validation</strong> is the first step in any JSON workflow. Before you can format, transform,
+            query, or store JSON data, you need to confirm it's syntactically correct. A single misplaced comma or
+            missing quotation mark is enough to break a <code
+              style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">JSON.parse()</code>
+            call silently or throw an unhandled exception in production.
           </p>
           <p>
-            This validator uses the browser's built-in <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">JSON.parse()</code> for correctness, then augments it with a line-and-column error reporter that maps the parse error position back to the original input. Common mistakes — trailing commas, single quotes, unquoted keys, and JavaScript-specific values like <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">undefined</code> — are each diagnosed with a clear, human-readable message rather than a raw browser exception.
+            This validator uses the browser's built-in <code
+              style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">JSON.parse()</code>
+            for correctness, then augments it with a line-and-column error reporter that maps the parse error position
+            back to the original input. Common mistakes — trailing commas, single quotes, unquoted keys, and
+            JavaScript-specific values like <code
+              style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">undefined</code>
+            — are each diagnosed with a clear, human-readable message rather than a raw browser exception.
           </p>
           <p>
-            For valid JSON, the validator also reports structural statistics: total key count (including nested keys), maximum nesting depth, number of arrays and objects, and total byte size. These statistics are useful when evaluating payload complexity before choosing a parsing strategy or storage format — for example, a response with nesting depth 8 or more is a strong signal that your data model may need flattening before it's suitable for a relational database or a CSV export.
+            For valid JSON, the validator also reports structural statistics: total key count (including nested keys),
+            maximum nesting depth, number of arrays and objects, and total byte size. These statistics are useful when
+            evaluating payload complexity before choosing a parsing strategy or storage format — for example, a response
+            with nesting depth 8 or more is a strong signal that your data model may need flattening before it's
+            suitable for a relational database or a CSV export.
           </p>
           <p>
-            <strong>Worked example:</strong> Paste <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">{"name": "Alice", "roles": ["admin",]}</code> — the validator immediately reports <em>line 1, col 35: Trailing comma after last array element</em>. That's the exact character that would cause <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">JSON.parse()</code> to throw a silent exception in a Node.js server or a Python <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">json.loads()</code> call. Catching it here, before making the API call, saves a debug loop.
+            <strong>Worked example:</strong> Paste <code
+              style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">{"name": "Alice", "roles": ["admin",]}</code>
+            — the validator immediately reports <em>line 1, col 35: Trailing comma after last array element</em>. That's
+            the exact character that would cause <code
+              style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">JSON.parse()</code>
+            to throw a silent exception in a Node.js server or a Python <code
+              style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">json.loads()</code>
+            call. Catching it here, before making the API call, saves a debug loop.
           </p>
 
-          <h2 style="font-size:var(--text-xl);font-weight:var(--font-semibold);color:var(--text-primary);margin-top:var(--space-6);margin-bottom:var(--space-4)">JSON Validator vs JSON Formatter — which do you need?</h2>
+          <h2
+            style="font-size:var(--text-xl);font-weight:var(--font-semibold);color:var(--text-primary);margin-top:var(--space-6);margin-bottom:var(--space-4)">
+            JSON Validator vs JSON Formatter — which do you need?</h2>
           <p>
-            Both tools validate JSON syntax, but they serve different workflows. The <a href="formatter.html" style="color:var(--accent)">JSON Formatter</a> is best when you want to both check and read your JSON — it beautifies valid input and shows errors for invalid input, all in one place. Use the dedicated validator here when you need a clean binary result (valid / invalid) with structural metrics, without the overhead of syntax highlighting or indentation rendering. The validator is also faster on large payloads because it skips the formatting step entirely.
+            Both tools validate JSON syntax, but they serve different workflows. The <a href="formatter.html"
+              style="color:var(--accent)">JSON Formatter</a> is best when you want to both check and read your JSON — it
+            beautifies valid input and shows errors for invalid input, all in one place. Use the dedicated validator
+            here when you need a clean binary result (valid / invalid) with structural metrics, without the overhead of
+            syntax highlighting or indentation rendering. The validator is also faster on large payloads because it
+            skips the formatting step entirely.
           </p>
           <p>
-            After validating, common next steps include: using the <a href="diff.html" style="color:var(--accent)">JSON Diff Checker</a> to compare this document against a previous version, using the <a href="schema.html" style="color:var(--accent)">JSON Schema Generator</a> to automatically infer a draft-07 schema from the validated document, or using the <a href="json-to-csv.html" style="color:var(--accent)">JSON to CSV Converter</a> if you want to export an array of objects to a spreadsheet. All tools process your data locally — nothing is uploaded.
+            After validating, common next steps include: using the <a href="diff.html" style="color:var(--accent)">JSON
+              Diff Checker</a> to compare this document against a previous version, using the <a href="schema.html"
+              style="color:var(--accent)">JSON Schema Generator</a> to automatically infer a draft-07 schema from the
+            validated document, or using the <a href="json-to-csv.html" style="color:var(--accent)">JSON to CSV
+              Converter</a> if you want to export an array of objects to a spreadsheet. All tools process your data
+            locally — nothing is uploaded.
           </p>
         </div>
       </section>
@@ -242,7 +317,7 @@
   <script src="../assets/js/common.js"></script>
   <script src="../assets/js/layout.js"></script>
   <script>
-    const inputEl  = document.getElementById('json-input');
+    const inputEl = document.getElementById('json-input');
     const statusEl = document.getElementById('tool-status');
     const statsRow = document.getElementById('stats-row');
     const charCount = document.getElementById('char-count');
@@ -266,11 +341,11 @@
 
       showStatus('<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Valid JSON', 'success');
       const stats = JT.countNodes(data);
-      document.getElementById('stat-keys').textContent    = stats.keys.toLocaleString();
-      document.getElementById('stat-depth').textContent   = stats.depth;
-      document.getElementById('stat-arrays').textContent  = stats.arrays.toLocaleString();
+      document.getElementById('stat-keys').textContent = stats.keys.toLocaleString();
+      document.getElementById('stat-depth').textContent = stats.depth;
+      document.getElementById('stat-arrays').textContent = stats.arrays.toLocaleString();
       document.getElementById('stat-objects').textContent = stats.objects.toLocaleString();
-      document.getElementById('stat-size').textContent    = JT.formatBytes(new Blob([raw]).size);
+      document.getElementById('stat-size').textContent = JT.formatBytes(new Blob([raw]).size);
       statsRow.style.display = 'flex';
     }
 
@@ -284,4 +359,5 @@
     });
   </script>
 </body>
+
 </html>
