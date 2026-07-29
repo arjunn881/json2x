@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://json2x.com/about.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>About JSON Toolkit — Free Browser-Only JSON &amp; CSV Tools</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/categories.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Blog Categories — Topics &amp; Resources</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/index.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Developer Blog &amp; JSON Tutorials</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/json-guides.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Developer Guides &amp; Specifications</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/tutorials.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Step-by-Step Developer Tutorials</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/changelog.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Platform Changelog &amp; Release Notes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/contact.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Contact Us &amp; Technical Support</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/disclaimer.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Legal &amp; Data Disclaimer</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/index.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Developer Documentation &amp; Technical Guides</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/parsing-large-json-web-workers.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Parsing 100MB+ JSON Payloads with Web Workers</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/rfc8259-json-specification.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Complete RFC 8259 JSON Specification &amp; Grammar Reference</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/typescript-zod-generation-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>TypeScript Interface &amp; Zod Schema Generation Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/editorial-policy.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Editorial &amp; Technical Accuracy Policy</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/errors/index.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Syntax Error Knowledge Base &amp; Fixes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/errors/invalid-character.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Fix "Invalid or Unexpected Character" in JSON</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/errors/trailing-comma.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Fix Trailing Comma JSON Errors</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/errors/unexpected-end.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Fix "Unexpected End of JSON Input"</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/errors/unexpected-token.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Fix "SyntaxError: Unexpected token" in JSON</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Toolkit — Free Online JSON &amp; CSV Developer Tools</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/index.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Knowledge Base &amp; Technical Reference Index</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-apis.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>REST &amp; GraphQL JSON API Design Standards</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-arrays.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Arrays Guide — Syntax, Nesting &amp; Manipulation</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-errors.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Errors Troubleshooting Guide &amp; Line-by-Line Fixes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-escaping.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Escaping Rules — Quotes, Newlines &amp; Special Characters</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-examples.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Examples &amp; Sample Payloads for API Testing</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-formatting.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Formatting Guide — Pretty Print &amp; Indentation Rules</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-keywords.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Reserved Keywords &amp; Syntax Rules</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-objects.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Objects Reference — Key-Value Pairs &amp; Schemas</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-parsing.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>High-Performance JSON Parsing &amp; Memory Management</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-schema.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Schema Draft-07 Guide &amp; Generator</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-tutorials.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Developer Tutorials &amp; Data Engineering Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-validation.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Validation Best Practices &amp; Online Syntax Checkers</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/jsonpath.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSONPath Expression Reference &amp; Query Tester</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/nested-json.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Nested JSON Structures — Flattening &amp; Tree Traversal</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/pretty-print.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Pretty Print JSON Online — Instant Beautification</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/rest-api-json.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>REST API JSON Payloads — Performance &amp; Optimization</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/license.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>MIT License &amp; Usage Rights</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/open-source.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Open Source &amp; Transparency</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/privacy.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Privacy Policy — JSON Toolkit</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/roadmap.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Feature Roadmap &amp; Engineering Goals</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/security.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Security Architecture &amp; Data Privacy Guarantee</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/terms.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Terms of Service</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/csv-to-json.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>CSV to JSON Converter — Free Online Spreadsheet Parser</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/diff.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Diff Online — Side-by-Side Visual Comparison Tool</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/formatter.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Formatter Online — Free Browser Prettifier &amp; Viewer</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/index.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON &amp; CSV Tools Catalog — Free Developer Utilities</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-diff.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Diff Online — Side-by-Side Visual Comparison Tool</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-formatter.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Formatter Online — Free Browser Prettifier &amp; Viewer</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-minifier.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Minifier Online — Fast Payload Compressor</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-schema-generator.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Schema Generator Online — Draft-07 Creator</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-csv.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to CSV Converter — Free Spreadsheet Exporter</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-ts.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to TypeScript — Interface &amp; Zod Generator Online</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-tree-viewer.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Tree Viewer Online — Collapsible Node Explorer</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-validator.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Validator Online — Precise Syntax &amp; Error Linter</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/jsonpath.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSONPath Tester Online — Live Expression Evaluator</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/minifier.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Minifier Online — Fast Payload Compressor</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/schema.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Schema Generator Online — Draft-07 Creator</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/typescript-generator.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to TypeScript — Interface &amp; Zod Generator Online</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/validator.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Validator Online — Precise Syntax &amp; Error Linter</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/viewer.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Tree Viewer Online — Collapsible Node Explorer</image:title>
+    </image:image>
+  </url>
+
+</urlset>

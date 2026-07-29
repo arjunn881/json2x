@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+  <title>JSON Schema Generator Online — Draft-07 Creator | JSON Toolkit</title>
+  <meta name="description" content="Infer Draft-07 schema specifications from sample payloads using our json schema generator online. Define required fields and data types." />
+  <meta name="keywords" content="json schema generator online, generate json schema from json, json schema generator from example, json schema validator, json ld schema generator for seo" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-schema-generator.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/tools/json-schema-generator.html" />
+  <meta property="og:title"       content="JSON Schema Generator Online — Draft-07 Creator" />
+  <meta property="og:description" content="Infer Draft-07 schema specifications from sample payloads using our json schema generator online. Define required fields and data types." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON Schema Generator Online — Draft-07 Creator" />
+  <meta name="twitter:description" content="Infer JSON Schema draft-07 automatically from any JSON sample. Free and browser-only." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <!-- SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON Schema Generator Online",
+    "url": "https://json2x.com/tools/json-schema-generator.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSON Schema generator. Automatically infer draft-07 JSON Schema specifications from sample JSON objects.",
+    "featureList": [
+      "Infer draft-07 JSON Schema from JSON sample",
+      "Automatic data type detection",
+      "Optionally mark all keys as required",
+      "Include example values in schema output",
+      "100% browser-side processing"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON Toolkit", "url": "https://json2x.com" }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON Toolkit", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON Schema Generator", "item": "https://json2x.com/tools/json-schema-generator.html" }
+    ]
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I generate a JSON schema?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste a sample JSON payload into the input pane and click Generate Schema. The tool automatically analyzes the data structure, infers property types, and generates a valid Draft-07 JSON Schema document."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is JSON schema used for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JSON Schema defines strict structural data contracts for API request/response payloads, automated database validation, OpenAPI specifications, and structural metadata indexing."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="schema">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">Schema Inference</div>
+        <h1 class="tool-hero__title">JSON Schema Generator Online</h1>
+        <p class="tool-hero__desc">Establishing explicit data contracts between web services ensures that API requests and responses adhere to expected structural standards. Using our json schema generator online tool, developers can automatically generate schema from json samples in seconds. The parser inspects sample objects, infers primitive types, builds property hierarchies, and populates required array rules in full compliance with Draft-07 specifications. Perfect for OpenAPI definitions, payload validation pipelines, or building json-ld for SEO metadata, this utility runs entirely in your browser to maintain data privacy while streamlining API schema design.</p>
+      </div>
+
+      <div class="options-bar">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          <input type="checkbox" id="mark-required" checked /> Mark all keys as required
+        </label>
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          <input type="checkbox" id="add-examples" checked /> Include examples
+        </label>
+        <button class="btn btn--primary" id="generate-btn">Generate Schema</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Schema</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">JSON Input (Sample)</span></div>
+          <textarea class="textarea" id="json-input"
+            placeholder='{"user":{"name":"Alice","age":30,"active":true},"tags":["admin","user"]}' aria-label="JSON sample input" spellcheck="false"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header">
+            <span class="pane__title">JSON Schema Output</span>
+          </div>
+          <pre class="code-output" id="schema-output" tabindex="0"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div id="related-tools-placeholder" data-current="schema"></div>
+
+      <!-- ── FAQ Section ─────────────────────────────────────── -->
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
+        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON Schema Generation</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">What is JSON Schema?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">JSON Schema is a vocabulary for annotating and validating JSON documents. It describes the shape of your data — which properties are required, what types they should be, and what constraints apply. It's widely used in OpenAPI specifications, form validation, and database schemas.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Which draft does this generate?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">This tool generates JSON Schema <strong>draft-07</strong>, the most widely supported version across validation libraries (Ajv, jsonschema, tv4) and API tools (Postman, Swagger UI). Draft-07 added <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">if/then/else</code> and is still the safe default for maximum compatibility.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Are generated schemas production-ready?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Generated schemas are a strong starting point, not a final answer. The generator infers types from a single sample — it can't know that a field which is a string in the sample might be <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">null</code> in other records. Review and add <code style="font-family:var(--font-mono);font-size:0.85em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">nullable</code>, enum constraints, and format keywords before using in production.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Where is JSON Schema used?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">JSON Schema validates API request and response bodies in OpenAPI/Swagger specs, powers form validation in React Hook Form and AJV, describes config file structures in VS Code extensions, and validates event payloads in AWS EventBridge and Apache Kafka Schema Registry.</p>
+          </div>
+        </div>
+
+        <div style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);max-width:760px;display:flex;flex-direction:column;gap:var(--space-4)">
+          <p>
+            <strong>JSON Schema</strong> solves the problem of describing a JSON data structure in a way that both humans and machines can understand and enforce. Instead of relying on documentation that drifts out of sync with the actual API, a JSON Schema document is a formal contract: it can be used at runtime to validate every payload that passes through your system.
+          </p>
+          <p>
+            This generator infers the schema from a concrete JSON sample. It walks the document recursively, mapping each value's runtime type to its JSON Schema equivalent: <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">string</code>, <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">number</code>, <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">boolean</code>, <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">null</code>, <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">array</code>, and <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">object</code>. With "Mark all keys as required" enabled, every key present in the sample is added to the <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">required</code> array — a sensible default for strict validation. With "Include examples" enabled, the actual sample values are included as <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">examples</code> fields, which are rendered by Swagger UI and Redoc in API documentation.
+          </p>
+          <p>
+            <strong>Worked example:</strong> Paste <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">{"id": 1, "name": "Alice", "active": true}</code> and the generator produces a <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">$schema: http://json-schema.org/draft-07/schema#</code> document with <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">type: "object"</code>, three typed properties, and all three in the <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">required</code> array. That schema can be immediately pasted into an Ajv validator, an OpenAPI spec, or a VS Code workspace JSON schema config — all without touching an external tool or writing a line of code.
+          </p>
+          <p>
+            Before running the generator, make sure your JSON is syntactically valid using the <a href="validator.html" style="color:var(--accent)">JSON Validator</a>. Invalid JSON will produce an incomplete or incorrect schema. For large or deeply nested responses, the <a href="viewer.html" style="color:var(--accent)">JSON Tree Viewer</a> is a useful companion — explore the structure visually before deciding which fields to include in the required array.
+          </p>
+
+          <h2 style="font-size:var(--text-xl);font-weight:var(--font-semibold);color:var(--text-primary);margin-top:var(--space-6);margin-bottom:var(--space-4)">JSON Schema Generator vs JSON to TypeScript — which do you need?</h2>
+          <p>
+            Both tools infer structure from a JSON sample, but they serve different ecosystems. The <strong>Schema Generator</strong> on this page outputs a language-agnostic <code style="font-family:var(--font-mono);font-size:0.9em;background:var(--bg-raised);padding:1px 4px;border-radius:4px">$schema</code> document that validates JSON payloads at runtime in any language — Python, Go, Java, or JavaScript. The <a href="json-to-ts.html" style="color:var(--accent)">JSON to TypeScript Generator</a> outputs compile-time types for TypeScript codebases, optionally paired with a Zod schema for runtime validation in Node.js and browser environments. Choose JSON Schema for API contracts and cross-language validation; choose TypeScript interfaces for frontend or Node.js type safety.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+  <script>
+    /**
+     * Minimal JSON Schema draft-07 inferencer.
+     * Full implementation with $defs, anyOf, array-item merging goes in phase 2.
+     */
+    function inferSchema(value, addExamples) {
+      const type = JT.getType(value);
+
+      if (type === 'null')    return { type: 'null' };
+      if (type === 'boolean') return addExamples ? { type: 'boolean', examples: [value] } : { type: 'boolean' };
+      if (type === 'number')  return addExamples ? { type: 'number',  examples: [value] } : { type: 'number' };
+      if (type === 'string')  return addExamples ? { type: 'string',  examples: [value] } : { type: 'string' };
+
+      if (type === 'array') {
+        const schema = { type: 'array' };
+        if (value.length > 0) schema.items = inferSchema(value[0], addExamples);
+        return schema;
+      }
+
+      if (type === 'object') {
+        const schema = { type: 'object', properties: {} };
+        const keys = Object.keys(value);
+        keys.forEach(k => { schema.properties[k] = inferSchema(value[k], addExamples); });
+        if (document.getElementById('mark-required').checked && keys.length > 0) {
+          schema.required = keys;
+        }
+        return schema;
+      }
+
+      return {};
+    }
+
+    const statusEl = document.getElementById('tool-status');
+    function showStatus(msg, type = 'info') {
+      statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+    }
+
+    function generate() {
+      const { data, error, line } = JT.parseJSON(document.getElementById('json-input').value);
+      if (error) { showStatus(`<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>${error}${line ? ` (line ${line})` : ''}`, 'error'); return; }
+
+      const addExamples = document.getElementById('add-examples').checked;
+      const schema = {
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        ...inferSchema(data, addExamples)
+      };
+
+      const { text } = JT.stringifyJSON(schema, 2);
+      document.getElementById('schema-output').textContent = text;
+      showStatus('<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Schema generated', 'success');
+    }
+
+    document.getElementById('generate-btn').addEventListener('click', generate);
+    document.getElementById('json-input').addEventListener('input', JT.debounce(generate, 500));
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      JT.copyToClipboard(document.getElementById('schema-output').textContent)
+        .then(() => showStatus('Copied!', 'success'))
+        .catch(() => showStatus('Copy failed.', 'warning'));
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      document.getElementById('json-input').value = '';
+      document.getElementById('schema-output').textContent = '';
+      showStatus('');
+    });
+  </script>
+</body>
+</html>

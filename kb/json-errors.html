@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Errors Troubleshooting Guide & Line-by-Line Fixes | JSON Toolkit</title>
+  <meta name="description" content="Comprehensive guide to diagnosing and fixing JSON syntax errors including unexpected tokens, trailing commas, invalid characters, and unclosed quotes." />
+  <meta name="keywords" content="json errors, fix json syntax error, unexpected token json, trailing comma json" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/json-errors.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/json-errors.html" />
+  <meta property="og:title"       content="JSON Errors Troubleshooting Guide & Line-by-Line Fixes" />
+  <meta property="og:description" content="Comprehensive guide to diagnosing and fixing JSON syntax errors including unexpected tokens, trailing commas, invalid characters, and unclosed quotes." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Complete JSON Syntax Error Reference" />
+  <meta name="twitter:description" content="Comprehensive guide to diagnosing and fixing JSON syntax errors including unexpected tokens, trailing commas, invalid characters, and unclosed quotes." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/json-errors.html#article",
+      "headline": "JSON Errors Troubleshooting Guide & Line-by-Line Fixes",
+      "description": "Comprehensive guide to diagnosing and fixing JSON syntax errors including unexpected tokens, trailing commas, invalid characters, and unclosed quotes.",
+      "url": "https://json2x.com/kb/json-errors.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON Toolkit",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/json-errors.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Complete JSON Syntax Error Reference",
+          "item": "https://json2x.com/kb/json-errors.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/json-errors.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does JSON throw an unexpected token error?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Unexpected token errors happen when a JSON parser finds single quotes, unquoted keys, or invalid characters not allowed by RFC 8259."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use trailing commas in JSON?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Unlike JavaScript object literals, strict JSON forbids trailing commas."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Troubleshooting Knowledge Base</div>
+        <h1 class="tool-hero__title">Complete JSON Syntax Error Reference</h1>
+        <p class="tool-hero__desc">Comprehensive guide to diagnosing and fixing JSON syntax errors including unexpected tokens, trailing commas, invalid characters, and unclosed quotes.</p>
+      </div>
+
+      <article class="faq-prose" style="margin-bottom:var(--space-12)">
+        
+      <h2>Diagnosing Common JSON Syntax Errors</h2>
+      <p>JSON parse errors occur when data fails strict RFC 8259 syntax validation. Because JSON is commonly passed through network payloads, single-character syntax errors can break client applications.</p>
+      <h3>Most Frequent Error Types:</h3>
+      <ul>
+        <li><strong>SyntaxError: Unexpected token:</strong> Triggered by single quotes, unquoted keys, or missing colons.</li>
+        <li><strong>Trailing Comma in Array or Object:</strong> Strict JSON disallows commas after the final element.</li>
+        <li><strong>Unescaped Control Characters:</strong> Newlines and raw tabs inside strings must be escaped as <code>\n</code> or <code>\t</code>.</li>
+      </ul>
+    
+
+        <h2>Code Example &amp; Usage</h2>
+        <div class="tool-code-example" style="margin-bottom:var(--space-8)">// Invalid JSON
+{
+  'name': 'Alice',
+  "roles": ["admin",],
+}
+
+// Valid JSON
+{
+  "name": "Alice",
+  "roles": ["admin"]
+}</div>
+
+        <div class="tool-cta-banner">
+          <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+          <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+          <a href="../tools/json-validator.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch JSON VALIDATOR</a>
+        </div>
+      </article>
+
+      <!-- FAQ Section -->
+      <section class="tool-section">
+        <h2 class="tool-section__title">Frequently Asked Questions</h2>
+        <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+          
+    <div class="faq-card">
+      <h3 class="faq-card__q">Why does JSON throw an unexpected token error?</h3>
+      <p class="faq-card__a">Unexpected token errors happen when a JSON parser finds single quotes, unquoted keys, or invalid characters not allowed by RFC 8259.</p>
+    </div>
+  
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I use trailing commas in JSON?</h3>
+      <p class="faq-card__a">No. Unlike JavaScript object literals, strict JSON forbids trailing commas.</p>
+    </div>
+  
+        </div>
+      </section>
+
+      <!-- Internal Linking & Related Topics -->
+      <section class="tool-section" style="margin-top:var(--space-12)">
+        <h2 class="tool-section__title">Related JSON Topics &amp; Reference Articles</h2>
+        <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+          <li><a href="https://json2x.com/kb/json-tutorials.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Data Workflows & Pipelines</a></li>
+<li><a href="https://json2x.com/kb/json-examples.html" style="color:var(--accent); text-decoration:none;">Real-World JSON Code Examples & Structures</a></li>
+<li><a href="https://json2x.com/kb/json-keywords.html" style="color:var(--accent); text-decoration:none;">Understanding JSON Keywords & Literals</a></li>
+<li><a href="https://json2x.com/kb/json-arrays.html" style="color:var(--accent); text-decoration:none;">Working with JSON Arrays</a></li>
+<li><a href="https://json2x.com/kb/json-objects.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Objects</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

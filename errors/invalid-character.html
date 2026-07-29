@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>Fix "Invalid or Unexpected Character" in JSON | JSON Toolkit</title>
+  <meta name="description" content="Fix invalid or unexpected character errors caused by non-printable control characters, UTF-8 BOM, or smart quotes in JSON." />
+  <meta name="keywords" content="invalid character json, unexpected character json, json unicode error, bom character json" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/errors/invalid-character.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/errors/invalid-character.html" />
+  <meta property="og:title"       content="Fix 'Invalid or Unexpected Character' in JSON | JSON Toolkit" />
+  <meta property="og:description" content="Diagnose invisible control characters and smart quote errors in JSON." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Fix Invalid Character in JSON" />
+  <meta name="twitter:description" content="Diagnose invisible control characters and smart quote errors in JSON." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Fixing Invalid Character Errors in JSON",
+    "url": "https://json2x.com/errors/invalid-character.html"
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Error Guide</div>
+        <h1 class="tool-hero__title">Fixing "Invalid Character" Errors</h1>
+        <p class="tool-hero__desc">Identify invisible Byte Order Marks (BOM), smart quotes, and unescaped newlines in JSON text.</p>
+      </div>
+
+      <section class="faq-prose">
+        <p>An <code>Invalid character</code> error is caused when JSON text contains non-standard characters or unescaped control codes.</p>
+        <h2>Common Culprits:</h2>
+        <ul>
+          <li><strong>Smart / Curly Quotes:</strong> Word processors replace straight quotes <code>"</code> with curly quotes <code>“ ”</code>. Replace with straight double quotes.</li>
+          <li><strong>Byte Order Mark (BOM):</strong> UTF-8 files saved with a BOM header prefix (<code>\uFEFF</code>) throw parse errors at line 1, column 1.</li>
+          <li><strong>Unescaped Control Characters:</strong> Newlines inside strings must be escaped as <code>\n</code>.</li>
+        </ul>
+        <p>Sanitize string encoding using our <a href="../tools/json-validator.html" style="color:var(--accent)">JSON Validator</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder">
+    <nav aria-label="Footer fallback navigation" style="padding:20px;text-align:center;">
+      <a href="../index.html">Home</a> | <a href="./index.html">Errors Knowledge Base</a> | <a href="../tools/json-validator.html">JSON Validator</a> | <a href="../blog/index.html">Blog</a>
+    </nav>
+  </div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Objects Reference — Key-Value Pairs & Schemas | JSON Toolkit</title>
+  <meta name="description" content="Complete guide to JSON objects: key-value pairs, nested structures, valid keys, and schema definition techniques." />
+  <meta name="keywords" content="json object, json key value pair, nested json object, json structure" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/json-objects.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/json-objects.html" />
+  <meta property="og:title"       content="JSON Objects Reference — Key-Value Pairs & Schemas" />
+  <meta property="og:description" content="Complete guide to JSON objects: key-value pairs, nested structures, valid keys, and schema definition techniques." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Mastering JSON Objects" />
+  <meta name="twitter:description" content="Complete guide to JSON objects: key-value pairs, nested structures, valid keys, and schema definition techniques." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/json-objects.html#article",
+      "headline": "JSON Objects Reference — Key-Value Pairs & Schemas",
+      "description": "Complete guide to JSON objects: key-value pairs, nested structures, valid keys, and schema definition techniques.",
+      "url": "https://json2x.com/kb/json-objects.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON Toolkit",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/json-objects.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Mastering JSON Objects",
+          "item": "https://json2x.com/kb/json-objects.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/json-objects.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can JSON object keys be numbers or unquoted strings?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. JSON object keys must strictly be double-quoted strings."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Structures Knowledge Base</div>
+        <h1 class="tool-hero__title">Mastering JSON Objects</h1>
+        <p class="tool-hero__desc">Complete guide to JSON objects: key-value pairs, nested structures, valid keys, and schema definition techniques.</p>
+      </div>
+
+      <article class="faq-prose" style="margin-bottom:var(--space-12)">
+        
+      <h2>JSON Object Architecture</h2>
+      <p>A JSON object is an unordered set of key-value pairs enclosed in curly braces (<code>{ }</code>). Every key must be a double-quoted string followed by a colon.</p>
+    
+
+        <h2>Code Example &amp; Usage</h2>
+        <div class="tool-code-example" style="margin-bottom:var(--space-8)">{
+  "company": "Tech Corp",
+  "departments": {
+    "engineering": 50,
+    "design": 15
+  }
+}</div>
+
+        <div class="tool-cta-banner">
+          <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+          <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+          <a href="../tools/schema.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch SCHEMA</a>
+        </div>
+      </article>
+
+      <!-- FAQ Section -->
+      <section class="tool-section">
+        <h2 class="tool-section__title">Frequently Asked Questions</h2>
+        <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+          
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can JSON object keys be numbers or unquoted strings?</h3>
+      <p class="faq-card__a">No. JSON object keys must strictly be double-quoted strings.</p>
+    </div>
+  
+        </div>
+      </section>
+
+      <!-- Internal Linking & Related Topics -->
+      <section class="tool-section" style="margin-top:var(--space-12)">
+        <h2 class="tool-section__title">Related JSON Topics &amp; Reference Articles</h2>
+        <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+          <li><a href="https://json2x.com/kb/json-errors.html" style="color:var(--accent); text-decoration:none;">Complete JSON Syntax Error Reference</a></li>
+<li><a href="https://json2x.com/kb/json-tutorials.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Data Workflows & Pipelines</a></li>
+<li><a href="https://json2x.com/kb/json-examples.html" style="color:var(--accent); text-decoration:none;">Real-World JSON Code Examples & Structures</a></li>
+<li><a href="https://json2x.com/kb/json-keywords.html" style="color:var(--accent); text-decoration:none;">Understanding JSON Keywords & Literals</a></li>
+<li><a href="https://json2x.com/kb/json-arrays.html" style="color:var(--accent); text-decoration:none;">Working with JSON Arrays</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

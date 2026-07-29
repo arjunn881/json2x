@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Escaping Rules — Quotes, Newlines & Special Characters | JSON Toolkit</title>
+  <meta name="description" content="How to escape quotes, backslashes, control characters, and Unicode sequences in valid JSON strings." />
+  <meta name="keywords" content="json escaping, escape double quotes in json, json newline escape, json unicode sequence" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/json-escaping.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/json-escaping.html" />
+  <meta property="og:title"       content="JSON Escaping Rules — Quotes, Newlines & Special Characters" />
+  <meta property="og:description" content="How to escape quotes, backslashes, control characters, and Unicode sequences in valid JSON strings." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Proper Character Escaping in JSON" />
+  <meta name="twitter:description" content="How to escape quotes, backslashes, control characters, and Unicode sequences in valid JSON strings." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/json-escaping.html#article",
+      "headline": "JSON Escaping Rules — Quotes, Newlines & Special Characters",
+      "description": "How to escape quotes, backslashes, control characters, and Unicode sequences in valid JSON strings.",
+      "url": "https://json2x.com/kb/json-escaping.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON Toolkit",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/json-escaping.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Proper Character Escaping in JSON",
+          "item": "https://json2x.com/kb/json-escaping.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/json-escaping.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I escape a backslash in JSON?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use a double backslash (\\\\)."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Formatting Knowledge Base</div>
+        <h1 class="tool-hero__title">Proper Character Escaping in JSON</h1>
+        <p class="tool-hero__desc">How to escape quotes, backslashes, control characters, and Unicode sequences in valid JSON strings.</p>
+      </div>
+
+      <article class="faq-prose" style="margin-bottom:var(--space-12)">
+        
+      <h2>JSON Escape Sequences</h2>
+      <p>Strings in JSON must escape double quotes, backslashes, and control characters using a backslash (<code>\</code>).</p>
+      <h3>Supported Escape Characters:</h3>
+      <ul>
+        <li><code>\"</code> — Double quote</li>
+        <li><code>\\</code> — Backslash</li>
+        <li><code>\n</code> — Newline</li>
+        <li><code>\t</code> — Tab</li>
+      </ul>
+    
+
+        <h2>Code Example &amp; Usage</h2>
+        <div class="tool-code-example" style="margin-bottom:var(--space-8)">{
+  "message": "He said, \"Hello World!\"\nNext line text."
+}</div>
+
+        <div class="tool-cta-banner">
+          <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+          <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+          <a href="../tools/json-formatter.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch JSON FORMATTER</a>
+        </div>
+      </article>
+
+      <!-- FAQ Section -->
+      <section class="tool-section">
+        <h2 class="tool-section__title">Frequently Asked Questions</h2>
+        <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+          
+    <div class="faq-card">
+      <h3 class="faq-card__q">How do I escape a backslash in JSON?</h3>
+      <p class="faq-card__a">Use a double backslash (\\).</p>
+    </div>
+  
+        </div>
+      </section>
+
+      <!-- Internal Linking & Related Topics -->
+      <section class="tool-section" style="margin-top:var(--space-12)">
+        <h2 class="tool-section__title">Related JSON Topics &amp; Reference Articles</h2>
+        <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+          <li><a href="https://json2x.com/kb/json-errors.html" style="color:var(--accent); text-decoration:none;">Complete JSON Syntax Error Reference</a></li>
+<li><a href="https://json2x.com/kb/json-tutorials.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Data Workflows & Pipelines</a></li>
+<li><a href="https://json2x.com/kb/json-examples.html" style="color:var(--accent); text-decoration:none;">Real-World JSON Code Examples & Structures</a></li>
+<li><a href="https://json2x.com/kb/json-keywords.html" style="color:var(--accent); text-decoration:none;">Understanding JSON Keywords & Literals</a></li>
+<li><a href="https://json2x.com/kb/json-arrays.html" style="color:var(--accent); text-decoration:none;">Working with JSON Arrays</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

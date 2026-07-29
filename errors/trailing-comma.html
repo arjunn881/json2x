@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>Fix Trailing Comma JSON Errors | JSON Toolkit</title>
+  <meta name="description" content="Trailing commas are forbidden in strict JSON syntax. Learn how to remove trailing commas from arrays and objects automatically." />
+  <meta name="keywords" content="json trailing comma error, trailing comma in json array, trailing comma json fix, strict json syntax" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/errors/trailing-comma.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/errors/trailing-comma.html" />
+  <meta property="og:title"       content="Fix Trailing Comma JSON Errors | JSON Toolkit" />
+  <meta property="og:description" content="Learn how to locate and remove trailing commas in JSON." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Fix Trailing Commas in JSON" />
+  <meta name="twitter:description" content="Learn how to locate and remove trailing commas in JSON." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Fixing Trailing Commas in JSON",
+    "url": "https://json2x.com/errors/trailing-comma.html"
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Error Guide</div>
+        <h1 class="tool-hero__title">Fixing Trailing Commas in JSON</h1>
+        <p class="tool-hero__desc">Why trailing commas throw parse errors in JSON (unlike JavaScript objects).</p>
+      </div>
+
+      <section class="faq-prose">
+        <p>While ECMAScript allows trailing commas in JavaScript object literals (e.g. <code>{ a: 1, }</code>), standard <strong>JSON explicitly forbids trailing commas</strong>.</p>
+        <h2>Example of Invalid JSON:</h2>
+        <p><code>[ "admin", "user", ]</code> ← Trailing comma before closing bracket <code>]</code></p>
+        <h2>Correct JSON:</h2>
+        <p><code>[ "admin", "user" ]</code></p>
+        <p>Fix trailing commas automatically using our <a href="../tools/json-formatter.html" style="color:var(--accent)">JSON Formatter &amp; Validator</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder">
+    <nav aria-label="Footer fallback navigation" style="padding:20px;text-align:center;">
+      <a href="../index.html">Home</a> | <a href="./index.html">Errors Knowledge Base</a> | <a href="../tools/json-formatter.html">JSON Formatter</a> | <a href="../blog/index.html">Blog</a>
+    </nav>
+  </div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

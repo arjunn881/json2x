@@ -1,0 +1,119 @@
+<!--
+  TOOL PAGE TEMPLATE
+  ==================
+  Copy this file and fill in the [PLACEHOLDER] sections.
+
+  Checklist per page:
+  ─────────────────────────────────────────────────────────
+  [ ] Replace [TOOL_ID]     → e.g. "formatter"
+  [ ] Replace [TOOL_NAME]   → e.g. "JSON Formatter"
+  [ ] Replace [TOOL_DESC]   → meta description sentence
+  [ ] Replace [PAGE_TITLE]  → <title> tag text
+  [ ] Replace [HERO_BADGE]  → e.g. "Prettify & Minify"
+  [ ] Replace [HERO_TITLE]  → h1 text
+  [ ] Replace [HERO_DESC]   → hero paragraph
+  [ ] Add tool logic in the <!-- TOOL LOGIC --> block
+  ─────────────────────────────────────────────────────────
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+  <title>[PAGE_TITLE] | JSON Toolkit</title>
+  <meta name="description" content="[TOOL_DESC]" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://json2x.com/tools/[TOOL_ID].html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/tools/[TOOL_ID].html" />
+  <meta property="og:title"       content="[PAGE_TITLE] | JSON Toolkit" />
+  <meta property="og:description" content="[TOOL_DESC]" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+  <!-- Stylesheets (path relative to /tools/) -->
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+
+  <!-- Per-tool extra styles go here -->
+  <style>
+    /* Tool workspace */
+    .tool-workspace {
+      margin-top: var(--space-8);
+    }
+
+    .options-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      padding: var(--space-4);
+      background: var(--bg-raised);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+    }
+
+    .options-bar__label {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared header -->
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="[TOOL_ID]">
+    <div class="container container--tool">
+
+      <!-- ── Hero ─────────────────────────────────────────── -->
+      <div class="tool-hero">
+        <div class="tool-hero__badge">[HERO_BADGE]</div>
+        <h1 class="tool-hero__title">[HERO_TITLE]</h1>
+      </div>
+
+      <!-- ── Tool Workspace ────────────────────────────────── -->
+      <div class="tool-workspace" id="tool-workspace">
+        <!-- TOOL LOGIC: Replace this placeholder with the tool UI -->
+        <div class="card" style="text-align:center; padding: var(--space-12); color: var(--text-muted)">
+          <div style="font-size: var(--text-4xl); margin-bottom: var(--space-4)"></div>
+          <p class="text-secondary">Tool logic for <strong>[TOOL_NAME]</strong> will be added here.</p>
+        </div>
+      </div>
+
+      <!-- ── Status / Output alert ─────────────────────────── -->
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top: var(--space-4)"></div>
+
+      <!-- ── Related Tools ─────────────────────────────────── -->
+      <div id="related-tools-placeholder" data-current="[TOOL_ID]"></div>
+
+    </div>
+  </main>
+
+  <!-- Shared footer -->
+  <div id="site-footer-placeholder"></div>
+
+  <!-- Shared scripts -->
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+
+  <!-- Per-tool logic script -->
+  <script>
+    // TOOL LOGIC: implement tool-specific functionality here
+    // You have access to window.JT (common.js) for parsing utilities.
+    // Example:
+    //   const result = JT.parseJSON(inputEl.value);
+    //   if (result.error) { /* show error */ }
+    //   else { /* render result.data */ }
+  </script>
+</body>
+</html>

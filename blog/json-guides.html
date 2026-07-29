@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Developer Guides &amp; Specifications | JSON Toolkit</title>
+  <meta name="description" content="Technical guides on RFC 8259 JSON specifications, escaping rules, payload size limits, and browser-side client security." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/blog/json-guides.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/blog/json-guides.html" />
+  <meta property="og:title"       content="JSON Developer Guides — Standards &amp; Performance" />
+  <meta property="og:description" content="Comprehensive guides on JSON syntax, RFC 8259 compliance, and payload optimization." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON Developer Guides" />
+  <meta name="twitter:description" content="Deep dives into JSON syntax rules, escaping, and payload compression." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "JSON Specifications & Best Practices",
+    "url": "https://json2x.com/blog/json-guides.html"
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Guides</div>
+        <h1 class="tool-hero__title">JSON Specifications &amp; Best Practices</h1>
+        <p class="tool-hero__desc">Master the official RFC 8259 specification, handle special characters safely, and structure robust API contracts.</p>
+      </div>
+
+      <section class="faq-prose">
+        <p>JSON (JavaScript Object Notation) is a lightweight, text-based data-interchange format defined by <strong>RFC 8259</strong>. Its human-readable structure makes it the industry standard for REST APIs, configuration files, and state storage.</p>
+        <h2>Key Rules of JSON Syntax:</h2>
+        <ul>
+          <li><strong>Keys must be double-quoted strings</strong> (e.g. <code>"name": "Alice"</code>).</li>
+          <li><strong>String values must use double quotes</strong>. Single quotes trigger syntax errors.</li>
+          <li><strong>No trailing commas</strong> are permitted after the final item in an array or object.</li>
+          <li><strong>Primitive values</strong> include strings, numbers, booleans (<code>true</code> / <code>false</code>), and <code>null</code>.</li>
+        </ul>
+        <p>Need to check your JSON for syntax compliance? Use our free <a href="../tools/json-validator.html" style="color:var(--accent)">JSON Validator</a> or <a href="../tools/json-formatter.html" style="color:var(--accent)">JSON Formatter</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder">
+    <nav aria-label="Footer fallback navigation" style="padding:20px;text-align:center;">
+      <a href="../index.html">Home</a> | <a href="./index.html">Blog</a> | <a href="./tutorials.html">Tutorials</a> | <a href="../errors/index.html">Errors</a>
+    </nav>
+  </div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

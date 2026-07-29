@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+  <title>Privacy Policy — JSON Toolkit | 100% Client-Side Data Safety</title>
+  <meta name="description" content="Privacy Policy for JSON Toolkit. Learn how we guarantee 100% client-side security — no data collection, no telemetry, no remote servers." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/privacy.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/privacy.html" />
+  <meta property="og:title"       content="Privacy Policy — JSON Toolkit" />
+  <meta property="og:description" content="JSON Toolkit processes all data entirely in your browser. Zero data collected or stored." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Privacy Policy — JSON Toolkit" />
+  <meta name="twitter:description" content="100% client-side privacy guarantee. Zero telemetry, zero server transfers." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON Toolkit", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://json2x.com/privacy.html" }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./assets/css/design-system.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+
+  <style>
+    .policy-wrap {
+      max-width:       860px;
+      padding:         var(--space-16) 0 var(--space-20);
+    }
+
+    .policy-hero {
+      margin-bottom: var(--space-10);
+      padding-bottom: var(--space-8);
+      border-bottom:  1px solid var(--bg-border);
+    }
+
+    .policy-hero__eyebrow {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color:          var(--accent);
+      margin-bottom:  var(--space-4);
+    }
+
+    .policy-hero__title {
+      font-size:     clamp(var(--text-2xl), 4vw, var(--text-3xl));
+      font-weight:   var(--font-bold);
+      margin-bottom: var(--space-4);
+    }
+
+    .policy-hero__date {
+      font-size:  var(--text-sm);
+      color:      var(--text-muted);
+    }
+
+    /* ── Policy sections ───────────────────────────────────── */
+    .policy-section {
+      margin-bottom: var(--space-10);
+      padding-bottom: var(--space-8);
+      border-bottom:  1px solid hsla(220,12%,22%,0.4);
+    }
+
+    .policy-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .policy-section h2 {
+      font-size:     var(--text-xl);
+      font-weight:   var(--font-semibold);
+      margin-bottom: var(--space-4);
+      color:         var(--text-primary);
+    }
+
+    .policy-section h3 {
+      font-size:     var(--text-base);
+      font-weight:   var(--font-semibold);
+      margin-top:    var(--space-5);
+      margin-bottom: var(--space-3);
+      color:         var(--text-primary);
+    }
+
+    .policy-section p {
+      font-size:     var(--text-sm);
+      color:         var(--text-secondary);
+      line-height:   var(--leading-relaxed);
+      margin-bottom: var(--space-4);
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style:    disc;
+      padding-left:  var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+
+    .policy-section ul li {
+      font-size:     var(--text-sm);
+      color:         var(--text-secondary);
+      line-height:   var(--leading-relaxed);
+      margin-bottom: var(--space-2);
+    }
+
+    .policy-section a { color: var(--accent); }
+
+    /* ── Summary box ───────────────────────────────────────── */
+    .policy-tldr {
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-left:   4px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding:       var(--space-5) var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .policy-tldr__heading {
+      font-weight:   var(--font-semibold);
+      font-size:     var(--text-sm);
+      margin-bottom: var(--space-3);
+      color:         var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .policy-tldr__items {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--space-2);
+    }
+
+    .policy-tldr__item {
+      display:     flex;
+      align-items: flex-start;
+      gap:         var(--space-2);
+      font-size:   var(--text-sm);
+      color:       var(--text-secondary);
+    }
+
+    .policy-tldr__item::before {
+      content:    '';
+      display:    inline-block;
+      width:      14px;
+      height:     14px;
+      min-width:  14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M2 7l4 4 6-6' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      flex-shrink: 0;
+      margin-top:  2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container">
+      <div class="policy-wrap">
+
+        <!-- ── Hero ────────────────────────────────────────── -->
+        <header class="policy-hero">
+          <p class="policy-hero__eyebrow">Legal</p>
+          <h1 class="policy-hero__title">Privacy Policy</h1>
+          <p class="policy-hero__date">Last updated: July 28, 2026</p>
+        </header>
+
+        <!-- ── TL;DR ────────────────────────────────────────── -->
+        <div class="policy-tldr">
+          <p class="policy-tldr__heading">TL;DR — The short version</p>
+          <div class="policy-tldr__items">
+            <div class="policy-tldr__item">JSON Toolkit processes all data entirely inside your browser. No JSON, CSV, or any other content you paste is ever sent to our servers — because we have no servers.</div>
+            <div class="policy-tldr__item">We do not collect your name, email, IP address, or any personally identifiable information to use the tools.</div>
+            <div class="policy-tldr__item">We display Google AdSense advertisements on some pages. Google's advertising systems may use cookies to show relevant ads. See the advertising section below.</div>
+            <div class="policy-tldr__item">We use no first-party analytics scripts.</div>
+          </div>
+        </div>
+
+        <!-- ── 1. Who We Are ────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>1. Who We Are</h2>
+          <p>
+            JSON Toolkit is a free, publicly accessible web service available at <a href="https://json2x.com">json2x.com</a>. It is operated as an independent developer resource with no corporate affiliation.
+          </p>
+          <p>
+            For any privacy-related queries, you can contact us at: <a href="mailto:hello@json2x.com">hello@json2x.com</a>
+          </p>
+        </section>
+
+        <!-- ── 2. Data We Do NOT Collect ────────────────────── -->
+        <section class="policy-section">
+          <h2>2. Data We Do Not Collect</h2>
+          <p>
+            Because all tool functionality runs as JavaScript code in your browser, the following data is <strong>never transmitted to any server</strong>:
+          </p>
+          <ul>
+            <li>JSON, CSV, or any other content you paste into the tool input fields</li>
+            <li>TypeScript code, JSONPath expressions, or diff results you generate</li>
+            <li>File contents loaded via the file-picker or drag-and-drop</li>
+            <li>Clipboard contents accessed via the "Copy" buttons</li>
+            <li>Any query string or URL fragment parameters you construct</li>
+          </ul>
+          <p>
+            You can independently verify this by opening your browser's Developer Tools (F12), navigating to the Network tab, and confirming that no outbound requests are made when you use any tool. The only network requests made on page load are for the HTML, CSS, and JavaScript assets that constitute the page itself.
+          </p>
+        </section>
+
+        <!-- ── 3. Data We Do Collect ─────────────────────────── -->
+        <section class="policy-section">
+          <h2>3. Data Collected by the Web Server</h2>
+          <p>
+            Like every website on the internet, our static hosting provider automatically records standard web server access logs when your browser requests a page. These logs may include:
+          </p>
+          <ul>
+            <li>Your IP address (truncated or anonymised by our hosting provider where applicable)</li>
+            <li>The URL path you requested (e.g., <code>/tools/formatter.html</code>)</li>
+            <li>HTTP referrer header (the page you came from, if any)</li>
+            <li>Browser User-Agent string</li>
+            <li>Timestamp of the request</li>
+            <li>HTTP response status code</li>
+          </ul>
+          <p>
+            These logs are retained for operational and security purposes (e.g., detecting denial-of-service attacks) and are not used for marketing, are not sold to third parties, and are not associated with any personal profile.
+          </p>
+        </section>
+
+        <!-- ── 4. Cookies ────────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>4. Cookies</h2>
+          <h3>First-party cookies</h3>
+          <p>
+            JSON Toolkit itself does not set any first-party cookies. We do not use cookies for analytics, personalisation, or session management.
+          </p>
+          <h3>Third-party cookies (Google AdSense)</h3>
+          <p>
+            We display advertisements served by <strong>Google AdSense</strong>. Google's advertising infrastructure may set cookies on your device to serve relevant advertisements based on your browsing history. These are third-party cookies set by Google, not by JSON Toolkit.
+          </p>
+          <p>
+            You can learn more about how Google uses data when you use our site by visiting <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google's Privacy & Terms</a>. You can opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ad Settings</a> or by using the <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener">NAI opt-out tool</a>.
+          </p>
+          <p>
+            At present, JSON Toolkit does not use a cookie consent management platform (CMP). If we introduce cookies that require consent under GDPR or similar regulations, we will update this policy and implement appropriate consent mechanisms.
+          </p>
+        </section>
+
+        <!-- ── 5. Advertising ────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>5. Advertising</h2>
+          <p>
+            JSON Toolkit is free to use and is supported by display advertising served through Google AdSense. Ad slots appear in clearly delineated zones on our pages — below the hero section and below the tool output area. We do not place ads that:
+          </p>
+          <ul>
+            <li>Overlay or obscure tool functionality</li>
+            <li>Appear above the primary site navigation</li>
+            <li>Mimic or are adjacent to interactive tool buttons</li>
+            <li>Auto-play audio or video</li>
+            <li>Expand on hover without user interaction</li>
+          </ul>
+          <p>
+            All advertising placements are reviewed for compliance with <a href="https://support.google.com/adsense/answer/1346295" target="_blank" rel="noopener">Google AdSense Program Policies</a> before publication.
+          </p>
+        </section>
+
+        <!-- ── 6. Children ───────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>6. Children's Privacy</h2>
+          <p>
+            JSON Toolkit is a developer tool intended for general audiences. We do not knowingly collect any personal information from children under the age of 13. If you believe a child has submitted personal information to us, please contact us at <a href="mailto:hello@json2x.com">hello@json2x.com</a> so we can take appropriate action.
+          </p>
+        </section>
+
+        <!-- ── 7. Your Rights ────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>7. Your Rights</h2>
+          <p>
+            Because we do not collect personal data to provide our service, there is typically no personal data for us to provide, correct, or delete upon request. However, you retain all rights available to you under applicable data protection law (including GDPR, CCPA, and equivalent regional legislation). If you have a specific request, contact us at <a href="mailto:hello@json2x.com">hello@json2x.com</a>.
+          </p>
+        </section>
+
+        <!-- ── 8. Changes ────────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>8. Changes to This Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. The "Last updated" date at the top of this page will always reflect when the most recent version was published. Continued use of the site after any changes constitutes acceptance of the updated policy.
+          </p>
+        </section>
+
+        <!-- ── 9. Contact ────────────────────────────────────── -->
+        <section class="policy-section">
+          <h2>9. Contact</h2>
+          <p>
+            For any questions about this Privacy Policy, to exercise your data rights, or to report a privacy concern, please contact:
+          </p>
+          <p>
+            <strong>JSON Toolkit</strong><br />
+            Email: <a href="mailto:hello@json2x.com">hello@json2x.com</a>
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="./assets/js/common.js"></script>
+  <script src="./assets/js/layout.js"></script>
+</body>
+</html>

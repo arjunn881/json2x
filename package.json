@@ -1,0 +1,24 @@
+{
+  "name": "jsontoolkit",
+  "version": "1.0.0",
+  "description": "Developer tools platform — 100% client-side data privacy",
+  "main": "assets/js/common.js",
+  "scripts": {
+    "docs": "node scripts/build-docs.js",
+    "pseo": "node scripts/build-pseo.js",
+    "trust": "node scripts/build-trust-pages.js",
+    "robots": "node scripts/generate-robots.js",
+    "sitemap": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js",
+    "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js"
+  },
+  "keywords": [
+    "json",
+    "csv",
+    "developer-tools",
+    "typescript-generator",
+    "jsonpath",
+    "schema-generator"
+  ],
+  "author": "JSON Toolkit Engineering Team",
+  "license": "MIT"
+}

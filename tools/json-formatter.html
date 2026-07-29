@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <!-- ── Primary SEO ──────────────────────────────────────── -->
+  <title>JSON Formatter Online — Free Browser Prettifier &amp; Viewer | JSON Toolkit</title>
+  <meta name="description" content="Prettify, beautify, and inspect complex data with our free json formatter online. Clean indentation, dark mode, tree view, and large file support." />
+  <meta name="keywords" content="json formatter online, json formatter and validator, json formatter chrome extension, json formatter vscode, json formatter free, json formatter dark mode, json formatter for large files, json formatter tree view" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-formatter.html" />
+
+  <!-- ── Open Graph ────────────────────────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/tools/json-formatter.html" />
+  <meta property="og:title"       content="JSON Formatter Online — Free Browser Prettifier &amp; Viewer" />
+  <meta property="og:description" content="Prettify, beautify, and inspect complex data with our free json formatter online. Clean indentation, dark mode, tree view, and large file support." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <!-- ── Twitter Card ──────────────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON Formatter Online — Free Browser Prettifier" />
+  <meta name="twitter:description" content="Prettify and inspect JSON payloads in your browser. Dark mode, tree view, large file support." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <!-- ── Schema.org: SoftwareApplication ──────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON Formatter Online",
+    "url": "https://json2x.com/tools/json-formatter.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Free web-based JSON formatter and validator. Prettify minified JSON with custom space indentation, color syntax highlighting, and exact error line detection. Runs 100% client-side in your web browser.",
+    "featureList": [
+      "Pretty-print JSON with configurable space indentation",
+      "Interactive tree view and dark mode themes",
+      "Validation with exact error line numbers",
+      "Web Worker support for large files up to 100MB",
+      "100% client-side browser processing"
+    ],
+    "provider": {
+      "@type": "Organization",
+      "name": "JSON Toolkit",
+      "url": "https://json2x.com"
+    }
+  }
+  </script>
+
+  <!-- ── Breadcrumb ────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON Toolkit", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON Formatter", "item": "https://json2x.com/tools/json-formatter.html" }
+    ]
+  }
+  </script>
+
+  <!-- ── FAQ Schema ────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a JSON formatter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A JSON formatter parses raw or minified JSON text and adds consistent indentation and line breaks to make it easy for developers to read and inspect. It does not alter your underlying data values."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use a JSON formatter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste your raw JSON text or drag and drop a file into the editor, select your preferred indentation spacing (2 spaces, 4 spaces, or tabs), and the formatted output will render instantly with color syntax highlighting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between a formatter and a validator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A formatter adjusts visual presentation by adding whitespace and indentation to readable text. A validator checks the string against strict RFC 8259 syntax rules to identify syntax errors like missing quotes or trailing commas."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Favicon ───────────────────────────────────────────── -->
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+  <!-- ── Stylesheets ───────────────────────────────────────── -->
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+
+  <style>
+    /* ══════════════════════════════════════════════════════════
+       JSON Formatter — Page-specific styles
+       ══════════════════════════════════════════════════════════ */
+
+    /* ── Syntax highlight token colours ────────────────────── */
+    .hl-key  { color: var(--hl-key); }
+    .hl-str  { color: var(--hl-str); }
+    .hl-num  { color: var(--hl-num); }
+    .hl-bool { color: var(--hl-bool); }
+    .hl-null { color: var(--hl-null); }
+
+    /* ── Toolbar ─────────────────────────────────────────────  */
+    .fm-toolbar {
+      display:         flex;
+      align-items:     center;
+      flex-wrap:       wrap;
+      gap:             var(--space-2);
+      padding:         var(--space-3) var(--space-4);
+      background:      var(--bg-raised);
+      border:          1px solid var(--bg-border);
+      border-radius:   var(--radius-lg);
+      margin-bottom:   var(--space-4);
+    }
+
+    .fm-toolbar__divider {
+      width:      1px;
+      height:     24px;
+      background: var(--bg-border);
+      flex-shrink: 0;
+      margin-inline: var(--space-1);
+    }
+
+    .fm-toolbar__group {
+      display:     flex;
+      align-items: center;
+      gap:         var(--space-2);
+    }
+
+    .fm-toolbar__label {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      color:          var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space:    nowrap;
+    }
+
+    .toggle-btn {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-2);
+      padding:       var(--space-2) var(--space-3);
+      font-size:     var(--text-xs);
+      font-weight:   var(--font-semibold);
+      border-radius: var(--radius-md);
+      border:        1px solid var(--bg-border);
+      background:    transparent;
+      color:         var(--text-secondary);
+      cursor:        pointer;
+      transition:    all var(--transition-fast);
+      user-select:   none;
+    }
+    .toggle-btn:hover { background: var(--bg-overlay); color: var(--text-primary); }
+    .toggle-btn.active {
+      background:   var(--accent-light);
+      color:        hsl(var(--accent-hue), 60%, 42%);
+      border-color: hsla(var(--accent-hue), 86%, 60%, 0.4);
+    }
+
+    /* Indent select */
+    .indent-select {
+      width:   auto;
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-base);
+      color:      var(--text-primary);
+      border:     1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      font-size:  var(--text-xs);
+      font-weight: var(--font-semibold);
+      cursor:     pointer;
+      outline:    none;
+      transition: border-color var(--transition-fast);
+    }
+    .indent-select:focus { border-color: var(--accent); }
+
+    /* ── Workspace ───────────────────────────────────────────  */
+    .fm-workspace {
+      display: grid;
+      gap:     var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+
+    @media (min-width: 900px) {
+      .fm-workspace {
+        grid-template-columns: 1fr 1fr;
+        align-items:           start;
+      }
+    }
+
+    /* ── Individual Pane ─────────────────────────────────────  */
+    .fm-pane {
+      display:       flex;
+      flex-direction: column;
+      min-height:    480px;
+    }
+
+    .fm-pane__header {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding:         var(--space-2) var(--space-3) var(--space-2) var(--space-1);
+      margin-bottom:   var(--space-2);
+    }
+
+    .fm-pane__title {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color:          var(--text-secondary);
+    }
+
+    .fm-pane__meta {
+      display:   flex;
+      gap:       var(--space-3);
+      font-size: var(--text-xs);
+      color:     var(--text-muted);
+    }
+
+    /* ── Editor Wrap (textarea + line numbers) ──────────────── */
+    .fm-editor-wrap {
+      display:       flex;
+      flex:          1;
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      overflow:      hidden;
+      background:    var(--bg-base);
+      transition:    border-color var(--transition-fast);
+    }
+
+    .fm-editor-wrap:focus-within {
+      border-color: var(--accent);
+      box-shadow:   0 0 0 3px var(--accent-glow);
+    }
+
+    .fm-editor-wrap.error {
+      border-color: var(--error);
+      box-shadow:   0 0 0 3px var(--error-bg);
+    }
+
+    /* Line numbers gutter */
+    .fm-gutter {
+      flex-shrink:     0;
+      width:           44px;
+      padding:         var(--space-3) var(--space-2) var(--space-3) 0;
+      background:      var(--bg-raised);
+      border-right:    1px solid var(--bg-border);
+      font-family:     var(--font-mono);
+      font-size:       var(--text-xs);
+      line-height:     1.6rem;  /* must match textarea line-height exactly */
+      text-align:      right;
+      color:           var(--text-muted);
+      user-select:     none;
+      overflow:        hidden;
+      /* scroll synced from textarea via JS */
+    }
+
+    .fm-gutter__num {
+      display:        block;
+      padding-right:  var(--space-2);
+      transition:     color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .fm-gutter__num.error-line {
+      color:      var(--error);
+      background: var(--error-bg);
+      border-radius: 0;
+      font-weight: var(--font-semibold);
+    }
+
+    /* Input textarea */
+    .fm-textarea {
+      flex:         1;
+      padding:      var(--space-3) var(--space-4);
+      background:   transparent;
+      color:        var(--text-primary);
+      border:       none;
+      outline:      none;
+      font-family:  var(--font-mono);
+      font-size:    var(--text-xs);
+      line-height:  1.6rem;   /* must match gutter */
+      resize:       none;
+      tab-size:     2;
+      min-height:   440px;
+      overflow:     auto;
+    }
+
+    /* ── Output (syntax-highlighted pre) ───────────────────── */
+    .fm-output-wrap {
+      flex:          1;
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      background:    var(--bg-base);
+      overflow:      hidden;
+      display:       flex;
+      flex-direction: column;
+    }
+
+    .fm-output {
+      flex:        1;
+      padding:     var(--space-3) var(--space-4);
+      margin:      0;
+      font-family: var(--font-mono);
+      font-size:   var(--text-xs);
+      line-height: 1.6rem;
+      color:       var(--text-primary);
+      overflow:    auto;
+      white-space: pre;
+      tab-size:    2;
+      min-height:  440px;
+    }
+
+    /* Placeholder state */
+    .fm-output--empty {
+      color:          var(--text-muted);
+      white-space:    pre-wrap;
+      font-style:     italic;
+    }
+
+    /* Loading state */
+    .fm-output--loading {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      color:           var(--text-muted);
+      gap:             var(--space-3);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .spinner {
+      width:  18px;
+      height: 18px;
+      border: 2px solid var(--bg-border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    /* ── Error Strip ─────────────────────────────────────────  */
+    .fm-error-strip {
+      display:       flex;
+      flex-direction: column;
+      gap:           var(--space-2);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--error-bg);
+      border:        1px solid hsla(0, 82%, 63%, 0.3);
+      border-top:    none;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      font-size:     var(--text-xs);
+    }
+
+    .fm-error-strip__loc {
+      display:     flex;
+      align-items: center;
+      gap:         var(--space-3);
+      font-weight: var(--font-semibold);
+      color:       var(--error);
+    }
+
+    .fm-error-strip__badge {
+      background:    var(--error);
+      color:         #fff;
+      border-radius: var(--radius-sm);
+      padding:       1px var(--space-2);
+      font-size:     10px;
+      font-family:   var(--font-mono);
+    }
+
+    .fm-error-strip__msg {
+      color:       var(--error);
+      line-height: var(--leading-relaxed);
+    }
+
+    /* Context lines around the error */
+    .fm-error-ctx {
+      font-family: var(--font-mono);
+      background:  var(--bg-base);
+      border:      1px solid hsla(0, 82%, 63%, 0.2);
+      border-radius: var(--radius-sm);
+      padding:     var(--space-2) var(--space-3);
+      overflow-x:  auto;
+    }
+
+    .fm-error-ctx__line {
+      display:   flex;
+      gap:       var(--space-3);
+      color:     var(--text-muted);
+    }
+
+    .fm-error-ctx__line--error {
+      color:       var(--text-primary);
+      background:  hsla(0, 82%, 63%, 0.1);
+      border-radius: 2px;
+    }
+
+    .fm-error-ctx__ln {
+      flex-shrink: 0;
+      color:       var(--text-muted);
+      width:       28px;
+      text-align:  right;
+    }
+
+    .fm-error-caret {
+      display:   block;
+      color:     var(--error);
+      padding-left: calc(28px + var(--space-3) + var(--space-3));
+    }
+
+    /* ── Stats Bar ───────────────────────────────────────────  */
+    .fm-stats {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-4);
+      padding:       var(--space-3) var(--space-5);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      font-size:     var(--text-xs);
+      color:         var(--text-muted);
+      transition:    all var(--transition-base);
+    }
+
+    .fm-stat {
+      display:     flex;
+      align-items: center;
+      gap:         var(--space-1);
+    }
+
+    .fm-stat__label { color: var(--text-muted); }
+    .fm-stat__value {
+      font-family: var(--font-mono);
+      font-weight: var(--font-semibold);
+      color:       var(--text-primary);
+    }
+
+    .fm-stat--valid   .fm-stat__icon { color: var(--success); }
+    .fm-stat--invalid .fm-stat__icon { color: var(--error);   }
+    .fm-stat--valid   .fm-stat__value { color: var(--success); }
+    .fm-stat--invalid .fm-stat__value { color: var(--error);   }
+
+    .fm-stats__spacer { flex: 1; }
+
+    /* ── Size badge (before → after) ─────────────────────── */
+    .size-badge {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--space-1);
+      font-family:   var(--font-mono);
+    }
+
+    .size-badge__arrow { color: var(--text-muted); }
+    .size-badge__save  { color: var(--success); }
+
+    /* ── FAQ Section ─────────────────────────────────────────  */
+    .faq-section {
+      margin-top: var(--space-16);
+      padding-top: var(--space-10);
+      border-top:  1px solid var(--bg-border);
+    }
+
+    .faq-section__header {
+      margin-bottom: var(--space-8);
+    }
+
+    .faq-section__eyebrow {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color:          var(--accent);
+      margin-bottom:  var(--space-3);
+    }
+
+    .faq-section__title {
+      font-size:   var(--text-2xl);
+      font-weight: var(--font-bold);
+      color:       var(--text-primary);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-6);
+      margin-bottom: var(--space-10);
+    }
+
+    .faq-card {
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-xl);
+      padding:       var(--space-6);
+    }
+
+    .faq-card__q {
+      font-size:     var(--text-base);
+      font-weight:   var(--font-semibold);
+      color:         var(--text-primary);
+      margin-bottom: var(--space-3);
+      line-height:   var(--leading-snug);
+    }
+
+    .faq-card__a {
+      font-size:   var(--text-sm);
+      color:       var(--text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+
+    .faq-prose {
+      display:    flex;
+      flex-direction: column;
+      gap:        var(--space-5);
+      font-size:  var(--text-sm);
+      color:      var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      max-width:  760px;
+    }
+
+    .faq-prose p { margin: 0; }
+    .faq-prose strong { color: var(--text-primary); font-weight: var(--font-semibold); }
+    .faq-prose code {
+      font-family:   var(--font-mono);
+      font-size:     0.9em;
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-sm);
+      padding:       1px var(--space-2);
+      color:         var(--accent);
+    }
+
+    /* ── Upload overlay ──────────────────────────────────────  */
+    .upload-hint {
+      position:    absolute;
+      inset:       0;
+      display:     none;
+      align-items: center;
+      justify-content: center;
+      background:  hsla(224, 86%, 60%, 0.08);
+      border:      2px dashed var(--accent);
+      border-radius: var(--radius-lg);
+      z-index:     10;
+      font-size:   var(--text-sm);
+      color:       var(--accent);
+      font-weight: var(--font-semibold);
+      pointer-events: none;
+    }
+    .upload-hint.visible { display: flex; }
+
+    /* ── Responsive tweaks ───────────────────────────────────  */
+    @media (max-width: 899px) {
+      .fm-pane { min-height: 320px; }
+      .fm-textarea, .fm-output { min-height: 300px; }
+      .fm-toolbar { gap: var(--space-1); }
+      .fm-toolbar__divider { display: none; }
+    }
+
+    @media (max-width: 599px) {
+      .fm-toolbar__label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared header injected by layout.js -->
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="formatter">
+    <div class="container container--tool">
+
+      <!-- ══════════════════════════════════════════════════════
+           Hero
+           ══════════════════════════════════════════════════════ -->
+      <div class="tool-hero">
+        <div class="tool-hero__badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="margin-right:4px">
+            <circle cx="6" cy="6" r="5" fill="hsl(152,68%,46%)" />
+          </svg>
+          Instant · Client-side · Private
+        </div>
+        <h1 class="tool-hero__title">JSON Formatter Online</h1>
+        <p class="tool-hero__desc">
+          Formatting unstructured data strings into human-readable structures is essential for backend debugging, web API inspection, and payload auditing. Our json formatter online utility provides instant syntax highlighting, customizable spacing, and structural validation directly inside your web browser. Operating entirely client-side, this developer tool guarantees that your private logs, tokens, and records never leave your local environment. Whether you paste raw strings from web developer tools or load multi-megabyte payloads, our Web Worker engine processes data asynchronously with zero latency. Enjoy seamless theme options like dark mode, toggle tree view nodes, and copy prettified output in seconds.
+        </p>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           Toolbar
+           ══════════════════════════════════════════════════════ -->
+      <div class="fm-toolbar" role="toolbar" aria-label="Formatter options">
+
+        <!-- Indent -->
+        <div class="fm-toolbar__group">
+          <label class="fm-toolbar__label" for="indent-select">Indent</label>
+          <select id="indent-select" class="indent-select select" aria-label="Indentation style">
+            <option value="2" selected>2 spaces</option>
+            <option value="4">4 spaces</option>
+            <option value="tab">Tab</option>
+          </select>
+        </div>
+
+        <div class="fm-toolbar__divider" aria-hidden="true"></div>
+
+        <!-- Toggles -->
+        <div class="fm-toolbar__group">
+          <button id="minify-toggle"   class="toggle-btn" aria-pressed="false" title="Toggle compact/minified output">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <rect x="1" y="3" width="12" height="1.5" rx="0.75" fill="currentColor"/>
+              <rect x="3" y="6.5" width="8" height="1.5" rx="0.75" fill="currentColor"/>
+              <rect x="5" y="10" width="4" height="1.5" rx="0.75" fill="currentColor"/>
+            </svg>
+            Minify
+          </button>
+
+          <button id="sort-toggle" class="toggle-btn" aria-pressed="false" title="Sort all object keys A→Z">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 3h6M2 7h4M2 11h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M11 2v9m0 0-2-2.5M11 11l2-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Sort Keys
+          </button>
+        </div>
+
+        <div class="fm-toolbar__divider" aria-hidden="true"></div>
+
+        <!-- Action buttons -->
+        <div class="fm-toolbar__group">
+          <button id="format-btn" class="btn btn--primary" aria-label="Format JSON">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 3h10M4 7h6M6 11h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Format
+          </button>
+
+          <button id="copy-btn" class="btn btn--ghost" aria-label="Copy formatted JSON to clipboard" title="Copy output">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M2 10V2h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Copy
+          </button>
+
+          <button id="download-btn" class="btn btn--ghost" aria-label="Download formatted JSON as file" title="Download .json">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 1v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 10v1.5A1.5 1.5 0 0 0 3.5 13h7a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Download
+          </button>
+
+          <button id="clear-btn" class="btn btn--ghost" aria-label="Clear input and output" title="Clear all">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Clear
+          </button>
+        </div>
+
+        <!-- Upload hint (right edge) -->
+        <div class="fm-toolbar__group" style="margin-left:auto">
+          <label id="file-label" class="btn btn--ghost" style="cursor:pointer" title="Load a .json file from disk">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M8 1H3.5A1.5 1.5 0 0 0 2 2.5v9A1.5 1.5 0 0 0 3.5 13h7a1.5 1.5 0 0 0 1.5-1.5V5.5L8 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M8 1v4.5H12.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            Open File
+            <input type="file" id="file-input" accept=".json,application/json,text/*" style="display:none" aria-label="Load JSON file" />
+          </label>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           Workspace — two panes
+           ══════════════════════════════════════════════════════ -->
+      <div class="fm-workspace" id="fm-workspace">
+
+        <!-- ── Input pane ─────────────────────────────────── -->
+        <div class="fm-pane" id="input-pane">
+          <div class="fm-pane__header">
+            <span class="fm-pane__title">Input</span>
+            <div class="fm-pane__meta">
+              <span id="input-lines" aria-live="polite"></span>
+              <span id="input-size"  aria-live="polite"></span>
+            </div>
+          </div>
+
+          <!-- Editor: gutter + textarea -->
+          <div class="fm-editor-wrap" id="editor-wrap" style="position:relative">
+            <!-- Drag-and-drop overlay -->
+            <div class="upload-hint" id="drop-hint" aria-hidden="true">
+              Drop .json file here
+            </div>
+
+            <!-- Line numbers gutter -->
+            <div class="fm-gutter" id="fm-gutter" aria-hidden="true">
+              <span class="fm-gutter__num">1</span>
+            </div>
+
+            <!-- The actual textarea -->
+            <textarea
+              id="json-input"
+              class="fm-textarea"
+              placeholder="Paste JSON here, or drag &amp; drop a .json file…&#10;&#10;Example:&#10;{&quot;name&quot;:&quot;Alice&quot;,&quot;age&quot;:30,&quot;active&quot;:true}"
+              aria-label="JSON input"
+              aria-describedby="input-lines input-size"
+              spellcheck="false"
+              autocorrect="off"
+              autocapitalize="off"
+            ></textarea>
+          </div>
+
+          <!-- Error strip (hidden by default) -->
+          <div class="fm-error-strip" id="error-strip" style="display:none" role="alert" aria-live="assertive">
+            <div class="fm-error-strip__loc">
+              <span class="fm-error-strip__badge" id="error-badge">ERR</span>
+              <span id="error-loc"></span>
+            </div>
+            <div class="fm-error-strip__msg" id="error-msg"></div>
+            <div class="fm-error-ctx" id="error-ctx" style="display:none"></div>
+          </div>
+        </div>
+
+        <!-- ── Output pane ────────────────────────────────── -->
+        <div class="fm-pane" id="output-pane">
+          <div class="fm-pane__header">
+            <span class="fm-pane__title">Output</span>
+            <div class="fm-pane__meta">
+              <span id="output-lines" aria-live="polite"></span>
+              <span id="output-size"  aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="fm-output-wrap">
+            <pre
+              id="json-output"
+              class="fm-output fm-output--empty"
+              tabindex="0"
+              role="region"
+              aria-label="Formatted JSON output"
+              aria-live="polite"
+            >Formatted output will appear here…</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           Stats Bar
+           ══════════════════════════════════════════════════════ -->
+      <div class="fm-stats" id="stats-bar" aria-label="JSON statistics">
+        <!-- Validity indicator -->
+        <div class="fm-stat" id="stat-valid">
+          <svg class="fm-stat__icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M4.5 7l2 2 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="fm-stat__value" id="stat-valid-text">—</span>
+        </div>
+
+        <div class="fm-stat">
+          <span class="fm-stat__label">Type</span>
+          <span class="fm-stat__value" id="stat-type">—</span>
+        </div>
+        <div class="fm-stat">
+          <span class="fm-stat__label">Keys</span>
+          <span class="fm-stat__value" id="stat-keys">—</span>
+        </div>
+        <div class="fm-stat">
+          <span class="fm-stat__label">Depth</span>
+          <span class="fm-stat__value" id="stat-depth">—</span>
+        </div>
+        <div class="fm-stat">
+          <span class="fm-stat__label">Arrays</span>
+          <span class="fm-stat__value" id="stat-arrays">—</span>
+        </div>
+        <div class="fm-stat">
+          <span class="fm-stat__label">Objects</span>
+          <span class="fm-stat__value" id="stat-objects">—</span>
+        </div>
+
+        <div class="fm-stats__spacer"></div>
+
+        <!-- Size before → after -->
+        <div class="size-badge" id="stat-size" title="Original size → formatted size">
+          <span id="sz-before">—</span>
+          <span class="size-badge__arrow">→</span>
+          <span id="sz-after">—</span>
+          <span class="size-badge__save" id="sz-save"></span>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════
+           Rectangle Ad + Related Tools
+           ══════════════════════════════════════════════════════ -->
+      <div style="display:flex; justify-content:center; margin-top: var(--space-10)">
+        <div id="ad-slot-rectangle-placeholder"></div>
+      </div>
+
+      <!-- Related-tools grid (injected by layout.js) -->
+      <div id="related-tools-placeholder" data-current="formatter"></div>
+
+      <!-- ══════════════════════════════════════════════════════
+           SEO / FAQ Section
+           ══════════════════════════════════════════════════════ -->
+      <section class="faq-section" aria-label="FAQ and information">
+
+        <div class="faq-section__header">
+          <p class="faq-section__eyebrow">Guide</p>
+          <h2 class="faq-section__title">About JSON Formatting &amp; Validation</h2>
+        </div>
+
+        <!-- FAQ cards (schema.org FAQPage targets these Q&As) -->
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3 class="faq-card__q">What is a JSON formatter?</h3>
+            <p class="faq-card__a">
+              A JSON formatter (or JSON beautifier) takes compact or minified JSON text and inserts consistent indentation and line breaks, making it readable for humans. The data itself never changes — only whitespace is added. This is especially useful when working with API responses, config files, or any JSON returned as a single line.
+            </p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">What syntax errors does this validator catch?</h3>
+            <p class="faq-card__a">
+              The validator catches every type of JSON syntax error, including: <strong>trailing commas</strong> after the last item in an array or object, <strong>single-quoted strings</strong> (JSON requires double quotes), <strong>unquoted keys</strong>, <strong>mismatched brackets</strong>, <strong>unexpected characters</strong>, and <strong>truncated input</strong>. Errors are reported with the exact line and column number so you can jump straight to the problem.
+            </p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Is my data private?</h3>
+            <p class="faq-card__a">
+              Completely. Every operation runs inside your browser using JavaScript — no JSON is ever transmitted to a server. You can verify this by disconnecting from the internet after the page loads; the formatter continues to work perfectly. This makes it safe for JSON containing API keys, credentials, or proprietary data.
+            </p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">When should I minify instead of beautify?</h3>
+            <p class="faq-card__a">
+              Use <strong>Minify</strong> when you're preparing JSON for production: network payloads (API responses, embed scripts), <code>localStorage</code> values, or anywhere you want to reduce file size. Use <strong>Beautify</strong> for debugging, documentation, pull request reviews, or any time a human needs to read the data.
+            </p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">What is the difference between JSON and JavaScript objects?</h3>
+            <p class="faq-card__a">
+              JSON is a text format derived from JavaScript object syntax, but stricter: all keys must be double-quoted strings, trailing commas are forbidden, <code>undefined</code> and <code>function</code> values are not allowed, and comments are not part of the spec. This formatter validates against the JSON specification (RFC 8259), not JavaScript.
+            </p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I format large JSON files?</h3>
+            <p class="faq-card__a">
+              Yes. This tool automatically uses a background <strong>Web Worker</strong> for inputs over 200 KB so the page never freezes. Files up to 5 MB format smoothly. For very large files, use the <em>Open File</em> button to load directly from disk — no copy-paste needed. Syntax highlighting for very large outputs may be reduced to maintain responsiveness.
+            </p>
+          </div>
+        </div>
+
+        <!-- Prose SEO content -->
+        <div class="faq-prose">
+          <p>
+            <strong>JSON (JavaScript Object Notation)</strong> is the de-facto data interchange format on the web. Virtually every REST API, cloud configuration file, and database export uses it. As JSON payloads grow in complexity — nested objects, arrays of arrays, dozens of fields — they quickly become hard to read without proper indentation.
+          </p>
+          <p>
+            This JSON formatter and validator solves this in two directions. When you paste minified API output like <code>{"id":1,"user":{"name":"Alice","roles":["admin"]}}</code>, one click renders it with clean 2-space or 4-space indentation and full syntax colouring: keys in blue, string values in green, numbers in amber, and booleans in violet. When you paste JSON you've hand-edited and something looks wrong, the validator pinpoints the exact line and column — whether it's a trailing comma, a missing colon, or an unclosed bracket.
+          </p>
+          <p>
+            Common JSON errors caught by this tool include: <strong>trailing commas</strong> (the most frequent mistake when editing JSON by hand), <strong>single-quoted strings</strong> from developers used to Python or JavaScript, <strong>unquoted keys</strong> copied from a JavaScript object literal, <strong>comments</strong> added to what was originally a JSONC config, and <strong>numeric keys</strong> that aren't wrapped in quotes. All are diagnosed with a clear, human-readable description — not the cryptic <code>SyntaxError: Unexpected token</code> message from the browser console.
+          </p>
+          <p>
+            For teams and workflows: the <strong>Sort Keys</strong> option normalises key order across objects, making JSON diffs more meaningful in pull requests. The <strong>Download</strong> button saves the formatted result as a <code>.json</code> file for immediate use. And because everything is client-side, you can use this tool on any network — including air-gapped environments — with full confidence that sensitive data stays on your machine.
+          </p>
+
+          <h2 style="font-size:var(--text-xl);font-weight:var(--font-semibold);color:var(--text-primary);margin-top:var(--space-6);margin-bottom:var(--space-4)">JSON Formatter vs JSON Validator — which do you need?</h2>
+          <p>
+            These two tools solve adjacent but distinct problems. The <strong>formatter</strong> on this page is your starting point: it beautifies JSON for readability <em>and</em> validates syntax in a single step. If you paste valid JSON, you get prettified output. If there's an error, you get the exact location. Use the formatter when you want to read, edit, or share JSON — not just check whether it's correct.
+          </p>
+          <p>
+            The dedicated <a href="validator.html">JSON Validator</a> goes further: it also reports structural statistics — total key count, nesting depth, array and object counts, and byte size — after a successful validation. It's the better choice when you're auditing payload complexity or need a clean pass/fail status before an automated pipeline step. Neither tool modifies your data structurally; both operate purely on whitespace and syntax.
+          </p>
+          <p>
+            Once your JSON is valid and readable, your next most common operations are: <a href="minifier.html">minify it</a> before sending to a production API to cut payload size by 40–70%, <a href="diff.html">diff it against a previous version</a> to understand what changed between two API responses, or <a href="json-to-csv.html">export it to CSV</a> for analysis in a spreadsheet. All three tools are one click away and process your data in the same browser-only, zero-upload environment.
+          </p>
+        </div>
+      </section>
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- Shared footer injected by layout.js -->
+  <div id="site-footer-placeholder"></div>
+
+  <!-- ── Shared scripts ─────────────────────────────────────── -->
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+
+  <!-- ── Formatter Logic ───────────────────────────────────── -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── DOM refs ─────────────────────────────────────────── */
+    const inputEl      = document.getElementById('json-input');
+    const outputEl     = document.getElementById('json-output');
+    const gutterEl     = document.getElementById('fm-gutter');
+    const editorWrap   = document.getElementById('editor-wrap');
+    const errorStrip   = document.getElementById('error-strip');
+    const errorBadge   = document.getElementById('error-badge');
+    const errorLocEl   = document.getElementById('error-loc');
+    const errorMsgEl   = document.getElementById('error-msg');
+    const errorCtxEl   = document.getElementById('error-ctx');
+
+    // Toolbar controls
+    const indentSel    = document.getElementById('indent-select');
+    const minifyToggle = document.getElementById('minify-toggle');
+    const sortToggle   = document.getElementById('sort-toggle');
+    const formatBtn    = document.getElementById('format-btn');
+    const copyBtn      = document.getElementById('copy-btn');
+    const downloadBtn  = document.getElementById('download-btn');
+    const clearBtn     = document.getElementById('clear-btn');
+    const fileInput    = document.getElementById('file-input');
+    const dropHint     = document.getElementById('drop-hint');
+
+    // Stats bar
+    const statValidEl  = document.getElementById('stat-valid');
+    const statValidTxt = document.getElementById('stat-valid-text');
+    const statTypeTxt  = document.getElementById('stat-type');
+    const statKeysTxt  = document.getElementById('stat-keys');
+    const statDepthTxt = document.getElementById('stat-depth');
+    const statArrTxt   = document.getElementById('stat-arrays');
+    const statObjTxt   = document.getElementById('stat-objects');
+    const szBefore     = document.getElementById('sz-before');
+    const szAfter      = document.getElementById('sz-after');
+    const szSave       = document.getElementById('sz-save');
+    const inputLinesTxt = document.getElementById('input-lines');
+    const inputSizeTxt  = document.getElementById('input-size');
+    const outputLinesTxt = document.getElementById('output-lines');
+    const outputSizeTxt  = document.getElementById('output-size');
+
+    /* ── State ────────────────────────────────────────────── */
+    let isMinify   = false;
+    let isSortKeys = false;
+    let lastFormatted = ''; // plain text for copy/download
+    let worker     = null;
+    let workerMsgId = 0;
+    let pendingTimer = null;
+
+    /* ── Web Worker setup ─────────────────────────────────── */
+    const WORKER_THRESHOLD = 200 * 1024; // 200 KB — use worker above this
+
+    function getWorker() {
+      if (!worker) {
+        try {
+          worker = new Worker('../assets/js/worker-formatter.js');
+          worker.addEventListener('message', onWorkerMessage);
+          worker.addEventListener('error', () => { worker = null; });
+        } catch (e) {
+          worker = null;
+        }
+      }
+      return worker;
+    }
+
+    /* ── Debounced trigger ────────────────────────────────── */
+    const DEBOUNCE_MS = 300;
+
+    function scheduleFormat() {
+      clearTimeout(pendingTimer);
+      pendingTimer = setTimeout(runFormat, DEBOUNCE_MS);
+    }
+
+    /* ── Format entry point ───────────────────────────────── */
+    function runFormat() {
+      const raw = inputEl.value;
+
+      // Update input meta
+      const inputBytes = new Blob([raw]).size;
+      const inputLineCount = (raw.match(/\n/g) || []).length + 1;
+      inputLinesTxt.textContent = raw.trim() ? `${inputLineCount.toLocaleString()} lines` : '';
+      inputSizeTxt.textContent  = raw.trim() ? JT.formatBytes(inputBytes) : '';
+
+      updateGutter(raw);
+
+      if (!raw.trim()) {
+        clearOutput();
+        return;
+      }
+
+      const indent     = isMinify ? 0 : (indentSel.value === 'tab' ? 'tab' : Number(indentSel.value));
+      const sortKeysDir = isSortKeys ? 'asc' : null;
+
+      if (inputBytes > WORKER_THRESHOLD && getWorker()) {
+        showLoading();
+        const id = ++workerMsgId;
+        getWorker().postMessage({ id, raw, indent, sortKeysDir });
+        szBefore.textContent = JT.formatBytes(inputBytes);
+      } else {
+        // Main-thread processing (small inputs)
+        processOnMainThread(raw, indent, sortKeysDir, inputBytes);
+      }
+    }
+
+    /* ── Main-thread processing ───────────────────────────── */
+    function processOnMainThread(raw, indent, sortKeysDir, inputBytes) {
+      const { data, error, line, column } = JT.parseJSON(raw);
+
+      if (error) {
+        showError(error, line, column, raw);
+        return;
+      }
+
+      const processed = (sortKeysDir && data !== null && typeof data === 'object')
+        ? JT.sortKeys(data, sortKeysDir)
+        : data;
+
+      const indentArg = indent === 'tab' ? '\t' : (Number(indent) || 0);
+      const { text: formatted } = JT.stringifyJSON(processed, indentArg);
+      const highlighted  = buildHighlight(formatted);
+      const stats        = JT.countNodes(data);
+      const rootType     = Array.isArray(data) ? 'array' : (data === null ? 'null' : typeof data);
+
+      renderSuccess(formatted, highlighted, stats, rootType, inputBytes);
+    }
+
+    /* ── Worker message handler ───────────────────────────── */
+    function onWorkerMessage(e) {
+      const { id, ok, formatted, highlighted, stats, rootType,
+              error, line, column } = e.data;
+
+      // Ignore stale results
+      if (id !== workerMsgId) return;
+
+      if (!ok) {
+        showError(error, line, column, inputEl.value);
+      } else {
+        const inputBytes = new Blob([inputEl.value]).size;
+        renderSuccess(formatted, highlighted, stats, rootType, inputBytes);
+      }
+    }
+
+    /* ── Inline syntax highlighter (main thread fallback) ─── */
+    function buildHighlight(str) {
+      // Reuse the same algorithm as the worker but inline for the main thread
+      const escHtml = s => String(s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+      let result = '';
+      let i = 0;
+      const len = str.length;
+
+      while (i < len) {
+        const ch = str[i];
+
+        if (ch === '"') {
+          let raw = '"'; i++;
+          while (i < len) {
+            const c = str[i]; raw += c;
+            if (c === '\\') { i++; if (i < len) raw += str[i]; }
+            else if (c === '"') break;
+            i++;
+          }
+          i++;
+          let j = i;
+          while (j < len && (str[j] === ' ' || str[j] === '\r' || str[j] === '\n')) j++;
+          const isKey = str[j] === ':';
+          result += `<span class="${isKey ? 'hl-key' : 'hl-str'}">${escHtml(raw)}</span>`;
+          continue;
+        }
+        if (ch === 't' && str.slice(i, i+4) === 'true')  { result += '<span class="hl-bool">true</span>';  i+=4; continue; }
+        if (ch === 'f' && str.slice(i, i+5) === 'false') { result += '<span class="hl-bool">false</span>'; i+=5; continue; }
+        if (ch === 'n' && str.slice(i, i+4) === 'null')  { result += '<span class="hl-null">null</span>';  i+=4; continue; }
+        if (ch === '-' || (ch >= '0' && ch <= '9')) {
+          let num = '';
+          while (i < len && /[-\d.eE+]/.test(str[i])) num += str[i++];
+          result += `<span class="hl-num">${num}</span>`;
+          continue;
+        }
+        result += escHtml(ch);
+        i++;
+      }
+      return result;
+    }
+
+    /* ── Render success state ─────────────────────────────── */
+    function renderSuccess(formatted, highlighted, stats, rootType, inputBytes) {
+      lastFormatted = formatted;
+
+      // Output
+      outputEl.innerHTML  = highlighted;
+      outputEl.classList.remove('fm-output--empty', 'fm-output--loading');
+      outputEl.setAttribute('aria-label', 'Formatted JSON output');
+
+      const outputBytes = new Blob([formatted]).size;
+      const outLines    = (formatted.match(/\n/g) || []).length + 1;
+      outputLinesTxt.textContent = `${outLines.toLocaleString()} lines`;
+      outputSizeTxt.textContent  = JT.formatBytes(outputBytes);
+
+      // Hide error state
+      editorWrap.classList.remove('error');
+      errorStrip.style.display = 'none';
+
+      // Stats bar
+      statValidEl.className   = 'fm-stat fm-stat--valid';
+      statValidTxt.innerHTML = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Valid JSON';
+      statTypeTxt.textContent  = rootType;
+      statKeysTxt.textContent  = stats.keys.toLocaleString();
+      statDepthTxt.textContent = stats.depth;
+      statArrTxt.textContent   = stats.arrays.toLocaleString();
+      statObjTxt.textContent   = stats.objects.toLocaleString();
+
+      szBefore.textContent = JT.formatBytes(inputBytes);
+      szAfter.textContent  = JT.formatBytes(outputBytes);
+
+      if (inputBytes > outputBytes) {
+        const saved = Math.round(((inputBytes - outputBytes) / inputBytes) * 100);
+        szSave.textContent = `(−${saved}%)`;
+      } else if (outputBytes > inputBytes) {
+        szSave.textContent = `(+${Math.round(((outputBytes - inputBytes) / inputBytes) * 100)}%)`;
+      } else {
+        szSave.textContent = '';
+      }
+    }
+
+    /* ── Render error state ───────────────────────────────── */
+    function showError(friendlyMsg, line, column, raw) {
+      lastFormatted = '';
+      outputEl.innerHTML = '';
+      outputEl.classList.add('fm-output--empty');
+      outputEl.classList.remove('fm-output--loading');
+      outputEl.textContent = 'Fix the error in the input to see formatted output.';
+
+      editorWrap.classList.add('error');
+      errorStrip.style.display = 'flex';
+
+      // Location badge
+      if (line) {
+        errorBadge.textContent = `Line ${line}${column ? `, Col ${column}` : ''}`;
+        errorLocEl.textContent  = `Syntax error detected`;
+      } else {
+        errorBadge.textContent = 'INVALID';
+        errorLocEl.textContent  = 'Syntax error';
+      }
+
+      errorMsgEl.textContent = friendlyMsg;
+
+      // Context lines
+      if (line && raw) {
+        const lines = raw.split('\n');
+        const start = Math.max(0, line - 3);
+        const end   = Math.min(lines.length - 1, line + 1);
+        const ctx   = document.createDocumentFragment();
+
+        for (let i = start; i <= end; i++) {
+          const lineNum  = i + 1;
+          const isError  = lineNum === line;
+          const row = document.createElement('div');
+          row.className  = 'fm-error-ctx__line' + (isError ? ' fm-error-ctx__line--error' : '');
+          row.innerHTML  = `<span class="fm-error-ctx__ln">${lineNum}</span><span>${escHtmlSimple(lines[i] || '')}</span>`;
+          ctx.appendChild(row);
+
+          if (isError && column) {
+            const caret = document.createElement('span');
+            caret.className   = 'fm-error-caret';
+            caret.textContent = ' '.repeat(Math.max(0, column - 1)) + '↑ here';
+            ctx.appendChild(caret);
+          }
+        }
+
+        errorCtxEl.innerHTML = '';
+        errorCtxEl.appendChild(ctx);
+        errorCtxEl.style.display = 'block';
+
+        // Highlight error line number in gutter
+        highlightGutterLine(line);
+
+        // Scroll textarea to error line
+        scrollToLine(line);
+      } else {
+        errorCtxEl.style.display = 'none';
+      }
+
+      // Stats bar: invalid
+      statValidEl.className   = 'fm-stat fm-stat--invalid';
+      statValidTxt.innerHTML = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Invalid JSON';
+      statTypeTxt.textContent  = '—';
+      statKeysTxt.textContent  = '—';
+      statDepthTxt.textContent = '—';
+      statArrTxt.textContent   = '—';
+      statObjTxt.textContent   = '—';
+      szSave.textContent       = '';
+    }
+
+    function escHtmlSimple(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    /* ── Loading state (worker processing) ───────────────── */
+    function showLoading() {
+      outputEl.className = 'fm-output fm-output--loading';
+      outputEl.innerHTML = '<div class="spinner" aria-hidden="true"></div><span>Processing…</span>';
+    }
+
+    /* ── Clear everything ─────────────────────────────────── */
+    function clearOutput() {
+      lastFormatted = '';
+      outputEl.className = 'fm-output fm-output--empty';
+      outputEl.textContent = 'Formatted output will appear here…';
+      outputLinesTxt.textContent = '';
+      outputSizeTxt.textContent  = '';
+      editorWrap.classList.remove('error');
+      errorStrip.style.display = 'none';
+      statValidTxt.textContent = '—';
+      statTypeTxt.textContent  = '—';
+      statKeysTxt.textContent  = '—';
+      statDepthTxt.textContent = '—';
+      statArrTxt.textContent   = '—';
+      statObjTxt.textContent   = '—';
+      szBefore.textContent     = '—';
+      szAfter.textContent      = '—';
+      szSave.textContent       = '';
+    }
+
+    /* ── Line number gutter ───────────────────────────────── */
+    function updateGutter(text) {
+      const lines = (text.match(/\n/g) || []).length + 1;
+      let html = '';
+      for (let i = 1; i <= lines; i++) {
+        html += `<span class="fm-gutter__num" data-ln="${i}">${i}</span>`;
+      }
+      gutterEl.innerHTML = html;
+    }
+
+    function highlightGutterLine(lineNum) {
+      gutterEl.querySelectorAll('.fm-gutter__num').forEach(el => {
+        el.classList.toggle('error-line', parseInt(el.dataset.ln) === lineNum);
+      });
+    }
+
+    // Sync gutter scroll with textarea scroll
+    inputEl.addEventListener('scroll', () => {
+      gutterEl.scrollTop = inputEl.scrollTop;
+    });
+
+    function scrollToLine(line) {
+      const lineH = parseFloat(getComputedStyle(inputEl).lineHeight) || 22;
+      const targetTop = (line - 1) * lineH - inputEl.clientHeight / 2;
+      inputEl.scrollTop = Math.max(0, targetTop);
+    }
+
+    /* ── Event listeners ──────────────────────────────────── */
+
+    // Live formatting on input (debounced)
+    inputEl.addEventListener('input', scheduleFormat);
+
+    // Manual format button
+    formatBtn.addEventListener('click', runFormat);
+
+    // Indent change → reformat
+    indentSel.addEventListener('change', () => { if (inputEl.value.trim()) runFormat(); });
+
+    // Minify toggle
+    minifyToggle.addEventListener('click', function () {
+      isMinify = !isMinify;
+      this.classList.toggle('active', isMinify);
+      this.setAttribute('aria-pressed', String(isMinify));
+      if (isMinify) {
+        // Visually disable indent selector
+        indentSel.disabled = true;
+        indentSel.style.opacity = '0.4';
+      } else {
+        indentSel.disabled = false;
+        indentSel.style.opacity = '';
+      }
+      if (inputEl.value.trim()) runFormat();
+    });
+
+    // Sort keys toggle
+    sortToggle.addEventListener('click', function () {
+      isSortKeys = !isSortKeys;
+      this.classList.toggle('active', isSortKeys);
+      this.setAttribute('aria-pressed', String(isSortKeys));
+      if (inputEl.value.trim()) runFormat();
+    });
+
+    // Copy to clipboard
+    copyBtn.addEventListener('click', function () {
+      const target = lastFormatted || outputEl.textContent;
+      if (!target || outputEl.classList.contains('fm-output--empty')) return;
+
+      JT.copyToClipboard(target)
+        .then(() => {
+          const orig = this.innerHTML;
+          this.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 7.5l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Copied!`;
+          this.style.color = 'var(--success)';
+          setTimeout(() => { this.innerHTML = orig; this.style.color = ''; }, 1800);
+        })
+        .catch(() => {
+          alert('Copy failed. Please select the output and copy manually.');
+        });
+    });
+
+    // Download as .json
+    downloadBtn.addEventListener('click', function () {
+      const content = lastFormatted;
+      if (!content) return;
+
+      const blob = new Blob([content], { type: 'application/json' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = 'formatted.json';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    });
+
+    // Clear
+    clearBtn.addEventListener('click', function () {
+      inputEl.value = '';
+      inputLinesTxt.textContent = '';
+      inputSizeTxt.textContent  = '';
+      updateGutter('');
+      clearOutput();
+    });
+
+    // File open
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      loadFile(file);
+      this.value = ''; // reset so same file can be re-opened
+    });
+
+    function loadFile(file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File is larger than 5 MB. Please use a text editor or command-line tools for files this size.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => {
+        inputEl.value = e.target.result;
+        scheduleFormat();
+      };
+      reader.onerror = () => alert('Could not read file.');
+      reader.readAsText(file);
+    }
+
+    // Drag and drop
+    const body = document.body;
+
+    body.addEventListener('dragover', e => {
+      if ([...e.dataTransfer.types].includes('Files')) {
+        e.preventDefault();
+        dropHint.classList.add('visible');
+      }
+    });
+
+    body.addEventListener('dragleave', e => {
+      if (!e.relatedTarget || !document.body.contains(e.relatedTarget)) {
+        dropHint.classList.remove('visible');
+      }
+    });
+
+    body.addEventListener('drop', e => {
+      e.preventDefault();
+      dropHint.classList.remove('visible');
+      const file = e.dataTransfer.files[0];
+      if (file) loadFile(file);
+    });
+
+    /* ── Keyboard shortcuts ───────────────────────────────── */
+    document.addEventListener('keydown', function (e) {
+      const isMac = /mac/i.test(navigator.platform);
+      const mod   = isMac ? e.metaKey : e.ctrlKey;
+
+      // Ctrl/Cmd + Shift + F → Format
+      if (mod && e.shiftKey && e.key === 'F') {
+        e.preventDefault();
+        runFormat();
+      }
+      // Ctrl/Cmd + Shift + C → Copy output
+      if (mod && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        copyBtn.click();
+      }
+    });
+
+    /* ── Tab key in textarea → insert spaces/tab ─────────── */
+    inputEl.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      e.preventDefault();
+      const start = this.selectionStart;
+      const end   = this.selectionEnd;
+      const tab   = indentSel.value === 'tab' ? '\t' : ' '.repeat(Number(indentSel.value) || 2);
+      this.value  = this.value.substring(0, start) + tab + this.value.substring(end);
+      this.selectionStart = this.selectionEnd = start + tab.length;
+      scheduleFormat();
+    });
+
+    /* ── Initial state ────────────────────────────────────── */
+    updateGutter('');
+
+  })();
+  </script>
+
+</body>
+</html>

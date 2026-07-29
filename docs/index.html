@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>Developer Documentation &amp; Technical Guides | JSON Toolkit</title>
+  <meta name="description" content="Scalable developer documentation system covering JSON RFC 8259 specifications, TypeScript type generation, Web Worker performance, and error handling." />
+  <meta name="keywords" content="json docs, developer documentation, rfc 8259, typescript schema, web worker parsing" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/docs/index.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/docs/index.html" />
+  <meta property="og:title"       content="Developer Documentation | JSON Toolkit" />
+  <meta property="og:description" content="Comprehensive guides and technical references for JSON and CSV developers." />
+  <meta property="og:site_name"   content="JSON Toolkit" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Developer Documentation" />
+  <meta name="twitter:description" content="Comprehensive guides and technical references." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "JSON Toolkit Documentation Hub",
+    "url": "https://json2x.com/docs/index.html"
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">Docs System</div>
+        <h1 class="tool-hero__title">Developer Documentation &amp; Guides</h1>
+        <p class="tool-hero__desc">Technical specifications, API explanations, TypeScript generators, and performance notes.</p>
+      </div>
+
+      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+        
+    <a href="./parsing-large-json-web-workers.html" class="faq-card" style="text-decoration:none; display:block;">
+      <p class="faq-section__eyebrow">Performance Notes</p>
+      <h2 class="faq-card__q">Parsing 100MB+ JSON Payloads with Web Workers</h2>
+      <p class="faq-card__a">Developer guide on offloading heavy JSON parsing and streaming tokenization to dedicated background Web Workers to maintain 60FPS UI performance.</p>
+    </a>
+  
+
+    <a href="./rfc8259-json-specification.html" class="faq-card" style="text-decoration:none; display:block;">
+      <p class="faq-section__eyebrow">Guides</p>
+      <h2 class="faq-card__q">Complete RFC 8259 JSON Specification & Grammar Reference</h2>
+      <p class="faq-card__a">An authoritative developer reference on official RFC 8259 JSON syntax rules, primitive data types, string escaping, and number encoding.</p>
+    </a>
+  
+
+    <a href="./typescript-zod-generation-guide.html" class="faq-card" style="text-decoration:none; display:block;">
+      <p class="faq-section__eyebrow">Tutorials</p>
+      <h2 class="faq-card__q">TypeScript Interface & Zod Schema Generation Guide</h2>
+      <p class="faq-card__a">Step-by-step tutorial on converting raw JSON API responses into strongly-typed TypeScript declarations and runtime Zod validation schemas.</p>
+    </a>
+  
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+</body>
+</html>

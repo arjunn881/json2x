@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSONPath Tester Online — Live Expression Evaluator | JSON Toolkit</title>
+  <meta name="description" content="Evaluate queries and extract matching nodes instantly using our jsonpath tester online. Supports wildcards, filters, and array slicing." />
+  <meta name="keywords" content="jsonpath tester online, json path query tester, expression evaluator, jsonpath vs xpath" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/jsonpath.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://json2x.com/tools/jsonpath.html" />
+  <meta property="og:title" content="JSONPath Tester Online — Live Expression Evaluator" />
+  <meta property="og:description" content="Evaluate queries and extract matching nodes instantly using our jsonpath tester online. Supports wildcards, filters, and array slicing." />
+  <meta property="og:site_name" content="JSON Toolkit" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSONPath Tester Online — Live Expression Evaluator" />
+  <meta name="twitter:description" content="Evaluate JSONPath queries against live JSON data. Free and client-side." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSONPath Tester Online",
+    "url": "https://json2x.com/tools/jsonpath.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSONPath expression tester. Evaluate JSONPath queries against JSON data in real time.",
+    "featureList": [
+      "Live JSONPath evaluation as you type",
+      "Clickable example presets",
+      "Supports $, .property, ['property'], [0], [*], .., [start:end], [?()]",
+      "100% browser-side client processing"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON Toolkit", "url": "https://json2x.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON Toolkit", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "JSONPath Tester", "item": "https://json2x.com/tools/jsonpath.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is JSONPath?",
+        "acceptedAnswer": { "@type": "Answer", "text": "JSONPath is a query expression language for JSON documents, analogous to XPath for XML. It uses dot and bracket notation to select and filter nodes from objects and arrays." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I write a JSONPath expression?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Start with the root node ($), followed by child selectors (.key), wildcards (*), or array index filters. For example, $.store.book[*].author extracts all book authors." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+
+  <style>
+    /* Syntax tokens (same as formatter) */
+    .hl-key  { color: var(--hl-key); }
+    .hl-str  { color: var(--hl-str); }
+    .hl-num  { color: var(--hl-num); }
+    .hl-bool { color: var(--hl-bool); }
+    .hl-null { color: var(--hl-null); }
+
+    /* ── Layout ────────────────────────────────────────────── */
+    .jp-workspace {
+      display: grid;
+      gap:     var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+    @media (min-width: 860px) {
+      .jp-workspace { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+
+    /* ── Expression bar ────────────────────────────────────── */
+    .jp-expr-wrap {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--space-2);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+    }
+
+    .jp-expr-label {
+      font-size:    var(--text-xs);
+      font-weight:  var(--font-semibold);
+      color:        var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space:  nowrap;
+      flex-shrink:  0;
+    }
+
+    .jp-expr-input {
+      flex:        1;
+      background:  var(--bg-base);
+      border:      1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      padding:     var(--space-2) var(--space-4);
+      font-family: var(--font-mono);
+      font-size:   var(--text-sm);
+      color:       var(--text-primary);
+      outline:     none;
+      transition:  border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .jp-expr-input:focus    { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .jp-expr-input.error    { border-color:var(--error); box-shadow:0 0 0 3px var(--error-bg); }
+    .jp-expr-input.has-match { border-color:var(--success); }
+
+    /* ── Preset chips ──────────────────────────────────────── */
+    .jp-presets {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-2);
+      margin-bottom: var(--space-4);
+    }
+
+    .jp-presets__label {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      color:          var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .jp-preset {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-2);
+      padding:       var(--space-1) var(--space-3);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-full);
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      color:         var(--text-secondary);
+      cursor:        pointer;
+      transition:    all var(--transition-fast);
+      user-select:   none;
+    }
+    .jp-preset:hover {
+      background:    var(--accent-light);
+      border-color:  var(--accent);
+      color:         var(--accent);
+    }
+
+    .jp-preset__expr { font-weight: var(--font-semibold); }
+    .jp-preset__desc { color: var(--text-muted); font-family: var(--font-sans); }
+
+    /* ── Input pane ───────────────────────────────────────── */
+    .jp-pane { display:flex; flex-direction:column; }
+    .jp-pane__header { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-2); }
+    .jp-pane__title  { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.08em; }
+
+    .jp-textarea {
+      background:    var(--bg-base);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding:       var(--space-4);
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      line-height:   var(--leading-relaxed);
+      color:         var(--text-primary);
+      outline:       none;
+      resize:        vertical;
+      min-height:    340px;
+      tab-size:      2;
+      transition:    border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .jp-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .jp-textarea.error { border-color:var(--error);  box-shadow:0 0 0 3px var(--error-bg); }
+
+    /* ── Results pane ──────────────────────────────────────── */
+    .jp-results-header {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      margin-bottom:   var(--space-2);
+    }
+
+    .jp-match-count {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-1);
+      padding:       2px var(--space-2);
+      border-radius: var(--radius-full);
+      font-size:     var(--text-xs);
+      font-weight:   var(--font-semibold);
+      font-family:   var(--font-mono);
+      background:    var(--success-bg);
+      color:         var(--success);
+    }
+    .jp-match-count.no-match { background:var(--warning-bg); color:var(--warning); }
+    .jp-match-count.error    { background:var(--error-bg);   color:var(--error); }
+
+    /* Individual result items */
+    .jp-results {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--space-3);
+      min-height:     200px;
+      max-height:     500px;
+      overflow-y:     auto;
+    }
+
+    .jp-result-item {
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      overflow:      hidden;
+      animation:     slideIn 0.15s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity:0; transform:translateY(-4px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .jp-result-path {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--space-2);
+      padding:       var(--space-2) var(--space-3);
+      background:    var(--bg-raised);
+      border-bottom: 1px solid var(--bg-border);
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      color:         var(--accent);
+    }
+
+    .jp-result-path__idx {
+      color:        var(--text-muted);
+      font-size:    10px;
+      flex-shrink:  0;
+    }
+
+    .jp-result-val {
+      padding:     var(--space-3) var(--space-4);
+      background:  var(--bg-base);
+      font-family: var(--font-mono);
+      font-size:   var(--text-xs);
+      line-height: var(--leading-relaxed);
+      white-space: pre;
+      overflow-x:  auto;
+    }
+
+    .jp-results-placeholder {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      min-height:      200px;
+      color:           var(--text-muted);
+      font-style:      italic;
+      font-size:       var(--text-sm);
+    }
+
+    /* ── Error strip ───────────────────────────────────────── */
+    .jp-error {
+      display:flex; align-items:flex-start; gap:var(--space-3);
+      padding:var(--space-3) var(--space-4); background:var(--error-bg); color:var(--error);
+      border:1px solid hsla(0,82%,63%,0.3); border-radius:var(--radius-md);
+      font-size:var(--text-xs); margin-bottom:var(--space-3);
+    }
+    .jp-error__badge { flex-shrink:0; background:var(--error); color:#fff; border-radius:var(--radius-sm); padding:1px var(--space-2); font-weight:var(--font-semibold); font-family:var(--font-mono); }
+
+    /* ── FAQ ─────────────────────────────────────────────── */
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-card code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 4px; color:var(--accent); }
+    .faq-prose   { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); max-width:760px; display:flex; flex-direction:column; gap:var(--space-4); }
+    .faq-prose p { margin:0; }
+    .faq-prose strong { color:var(--text-primary); font-weight:var(--font-semibold); }
+    .faq-prose code { font-family:var(--font-mono); font-size:0.9em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 4px; color:var(--accent); }
+    .faq-prose a { color:var(--accent); }
+
+    /* ── Reference table ─────────────────────────────────── */
+    .ref-table {
+      width:           100%;
+      border-collapse: collapse;
+      font-size:       var(--text-xs);
+      margin-bottom:   var(--space-8);
+    }
+    .ref-table th {
+      text-align: left;
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-raised);
+      color: var(--text-secondary);
+      font-weight: var(--font-semibold);
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .ref-table td {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid hsla(220,12%,22%,0.4);
+      color: var(--text-secondary);
+    }
+    .ref-table td:first-child { font-family:var(--font-mono); color:var(--accent); font-weight:var(--font-semibold); }
+    .ref-table tr:last-child td { border-bottom:none; }
+    .ref-table tr:hover td { background:var(--bg-raised); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="jsonpath">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">Live · Zero Dependencies</div>
+        <h1 class="tool-hero__title">JSONPath Tester Online</h1>
+        <p class="tool-hero__desc">Extracting specific attributes from large data documents requires an efficient, query-driven path selector. Our jsonpath tester online tool allows developers to write, evaluate, and refine expressions against live payloads with instant visual feedback. Operating as a real-time json path query tester, the engine highlights matching array elements, sub-objects, and scalar values as you type. Whether you are testing filter predicates, analyzing expression evaluator logic for API automated tests, or evaluating jsonpath vs xpath query standards, our privacy-first browser utility streamlines path debugging without sending data over network servers.</p>
+      </div>
+
+
+      <!-- ── JSONPath expression input ─────────────────────── -->
+      <div class="jp-expr-wrap">
+        <span class="jp-expr-label">Expression</span>
+        <input
+          class="jp-expr-input"
+          id="jp-expr"
+          type="text"
+          value="$.store.book[*].title"
+          aria-label="JSONPath expression"
+          spellcheck="false"
+          autocorrect="off"
+          autocomplete="off"
+        />
+        <button class="btn btn--ghost btn--sm" id="copy-results-btn" title="Copy all matched values">Copy Results</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <!-- ── Preset expressions ───────────────────────────── -->
+      <div class="jp-presets">
+        <span class="jp-presets__label">Presets</span>
+        <button class="jp-preset" data-expr="$" title="Select entire root">
+          <span class="jp-preset__expr">$</span>
+          <span class="jp-preset__desc">root</span>
+        </button>
+        <button class="jp-preset" data-expr="$.store.book[*].title" title="All book titles">
+          <span class="jp-preset__expr">$.store.book[*].title</span>
+          <span class="jp-preset__desc">all titles</span>
+        </button>
+        <button class="jp-preset" data-expr="$..author" title="All authors (recursive)">
+          <span class="jp-preset__expr">$..author</span>
+          <span class="jp-preset__desc">recursive</span>
+        </button>
+        <button class="jp-preset" data-expr="$.store.book[-1]" title="Last book">
+          <span class="jp-preset__expr">$.store.book[-1]</span>
+          <span class="jp-preset__desc">last item</span>
+        </button>
+        <button class="jp-preset" data-expr="$.store.book[0:2]" title="First two books">
+          <span class="jp-preset__expr">$.store.book[0:2]</span>
+          <span class="jp-preset__desc">slice</span>
+        </button>
+        <button class="jp-preset" data-expr="$.store.book[?(@.price < 10)]" title="Books under $10">
+          <span class="jp-preset__expr">$.store.book[?(@.price &lt; 10)]</span>
+          <span class="jp-preset__desc">filter</span>
+        </button>
+        <button class="jp-preset" data-expr="$..price" title="All prices deep">
+          <span class="jp-preset__expr">$..price</span>
+          <span class="jp-preset__desc">all prices</span>
+        </button>
+      </div>
+
+      <!-- ── Main workspace ────────────────────────────────── -->
+      <div class="jp-workspace">
+
+        <!-- JSON input -->
+        <div class="jp-pane">
+          <div class="jp-pane__header">
+            <span class="jp-pane__title">JSON Data</span>
+            <span id="input-meta" class="text-xs text-muted"></span>
+          </div>
+          <textarea
+            class="jp-textarea"
+            id="json-input"
+            aria-label="JSON data"
+            spellcheck="false"
+            autocorrect="off"
+          >{
+  "store": {
+    "book": [
+      { "category": "reference", "author": "Nigel Rees",   "title": "Sayings of the Century", "price": 8.95 },
+      { "category": "fiction",   "author": "Evelyn Waugh", "title": "Sword of Honour",         "price": 12.99 },
+      { "category": "fiction",   "author": "Herman Melville","title": "Moby Dick",             "price": 8.99, "isbn": "0-553-21311-3" },
+      { "category": "fiction",   "author": "J. R. R. Tolkien","title": "The Lord of the Rings","price": 22.99, "isbn": "0-395-19395-8" }
+    ],
+    "bicycle": { "color": "red", "price": 19.95 }
+  }
+}</textarea>
+        </div>
+
+        <!-- Results pane -->
+        <div class="jp-pane">
+          <div class="jp-results-header">
+            <span class="jp-pane__title">Results</span>
+            <span class="jp-match-count" id="match-count">0 matches</span>
+          </div>
+
+          <div class="jp-error" id="jp-error" style="display:none">
+            <span class="jp-error__badge">ERR</span>
+            <span id="jp-error-msg"></span>
+          </div>
+
+          <div class="jp-results" id="jp-results">
+            <div class="jp-results-placeholder">Results will appear here as you type…</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Quick reference table ──────────────────────────── -->
+      <section style="margin-bottom:var(--space-8)" aria-label="JSONPath operator reference">
+        <div class="pane__header" style="margin-bottom:var(--space-3)">
+          <span class="pane__title">Operator Reference</span>
+        </div>
+        <table class="ref-table">
+          <thead>
+            <tr><th>Expression</th><th>Description</th><th>Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>$</td><td>Root of the JSON document</td><td>$</td></tr>
+            <tr><td>.key</td><td>Child member operator</td><td>$.store.name</td></tr>
+            <tr><td>['key']</td><td>Bracket notation (for keys with spaces)</td><td>$['store name']</td></tr>
+            <tr><td>[n]</td><td>Array subscript (0-indexed)</td><td>$.items[0]</td></tr>
+            <tr><td>[-n]</td><td>Array subscript from end</td><td>$.items[-1]</td></tr>
+            <tr><td>[*]</td><td>Wildcard — all items/properties</td><td>$.items[*]</td></tr>
+            <tr><td>[a:b]</td><td>Array slice from a (inclusive) to b (exclusive)</td><td>$.items[0:3]</td></tr>
+            <tr><td>..</td><td>Recursive descent — search all descendants</td><td>$..name</td></tr>
+            <tr><td>[?(@.field op val)]</td><td>Filter expression (==, !=, &lt;, &gt;, &lt;=, &gt;=)</td><td>$..book[?(@.price &lt; 10)]</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── Ad + Related ────────────────────────────────────── -->
+      <div style="display:flex;justify-content:center;margin-top:var(--space-10)">
+        <div id="ad-slot-rectangle-placeholder"></div>
+      </div>
+      <div id="related-tools-placeholder" data-current="jsonpath"></div>
+
+      <!-- ── FAQ ────────────────────────────────────────────── -->
+      <section class="faq-section">
+        <p class="faq-eyebrow">Guide</p>
+        <h2 class="faq-title">About JSONPath</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>What is JSONPath?</h3>
+            <p>JSONPath is a query language for JSON, analogous to XPath for XML. It was defined by Stefan Goessner in 2007. A JSONPath expression navigates a JSON structure and returns matching values. It's used in REST API testing (Postman, REST Assured), JSON Schema validators, and data transformation pipelines.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What is recursive descent (<code>..</code>)?</h3>
+            <p>The <code>..</code> operator performs a deep search across the entire JSON tree. <code>$..price</code> returns every value named <code>price</code> at any nesting level — not just direct children of the root. It's the most powerful and frequently used advanced operator.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How do filter expressions work?</h3>
+            <p>A filter like <code>[?(@.price &lt; 10)]</code> selects array items where the condition is true. <code>@</code> refers to the current item. Supported operators are <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. String comparisons use <code>==</code> with a quoted value: <code>[?(@.category == 'fiction')]</code>.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Where is JSONPath used in practice?</h3>
+            <p>JSONPath is used in Postman assertions, AWS EventBridge rules, AWS Step Functions, Kubernetes admission webhooks, JSON Schema's <code>$ref</code> pointers, Grafana alerting, and dozens of API testing tools. Understanding JSONPath is a practical skill for backend and DevOps engineers.</p>
+          </div>
+        </div>
+        <div class="faq-prose">
+          <p>
+            <strong>JSONPath</strong> was created to solve a simple problem: given a large JSON document, how do you extract specific values without writing custom traversal code? The answer is a compact expression language that describes a path through the document. <code>$.store.book[0].title</code> reads: start at the root (<code>$</code>), navigate to <code>store</code>, then to <code>book</code>, take the first element (<code>[0]</code>), and return <code>title</code>.
+          </p>
+          <p>
+            This tool implements the core JSONPath operators entirely in JavaScript with no external dependencies. It handles the operators developers use most: dot notation, bracket notation, array subscripts, negative indices (last element), slices, the wildcard <code>[*]</code>, recursive descent <code>..</code>, and filter expressions with <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, and <code>&gt;=</code> comparisons against string and number literals.
+          </p>
+          <p>
+            <strong>Worked example:</strong> Given <code>{"users": [{"name": "Alice", "age": 30}, {"name": "Bob", "age": 22}]}</code>, the expression <code>$.users[?(@.age >= 25)].name</code> returns <code>["Alice"]</code>. The filter selects only users where <code>age</code> is 25 or more, then extracts the <code>name</code> property from those matches. This is the kind of query you might use in a Postman test script, an AWS EventBridge rule, or a Kubernetes admission webhook.
+          </p>
+          <p>
+            Each match shows its full path from root so you can understand exactly where in the document the value was found. This is particularly useful when using recursive descent (<code>..</code>) which may find matches at multiple different depths. Click a preset expression above to see the canonical <em>Goessner bookstore</em> example data in action, then swap in your own JSON and query. Use the <a href="viewer.html">JSON Tree Viewer</a> to explore the structure of your JSON before writing the path expression. Once you've confirmed your expression, use the <a href="formatter.html">JSON Formatter</a> to validate and inspect the full document.
+          </p>
+
+          <h2 style="font-size:var(--text-xl);font-weight:var(--font-semibold);color:var(--text-primary);margin-top:var(--space-6);margin-bottom:var(--space-4)">JSONPath vs jq — when to use which?</h2>
+          <p>
+            Both JSONPath and <code>jq</code> extract values from JSON, but they operate in different environments. JSONPath runs in the browser, in Postman, in AWS Step Functions, and in dozens of API tools — it's the standard for <em>declarative</em> JSON selection in configuration and rule engines. <code>jq</code> is a command-line tool that's far more powerful (it supports transformation, reduction, and arbitrary scripting), but it requires installation and a terminal. Use this JSONPath Tester when you're building a Postman assertion, configuring an EventBridge rule, or learning the syntax interactively. Use <code>jq</code> when you need to transform or restructure JSON in a shell script or CI pipeline. If you need to navigate the same JSON visually first, the <a href="viewer.html">JSON Tree Viewer</a> and <a href="diff.html">JSON Diff Checker</a> are natural starting points before you write a path expression.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    const inputEl    = document.getElementById('json-input');
+    const exprEl     = document.getElementById('jp-expr');
+    const resultsEl  = document.getElementById('jp-results');
+    const countEl    = document.getElementById('match-count');
+    const errEl      = document.getElementById('jp-error');
+    const errMsgEl   = document.getElementById('jp-error-msg');
+
+    let parsedData  = null;
+    let evalTimeout = null;
+
+    /* ══════════════════════════════════════════════════════════
+       JSONPath Engine — zero dependencies
+       Supports: $ . .. [n] [-n] [*] [a:b] ['key'] [?(@.f op v)]
+       ══════════════════════════════════════════════════════════ */
+
+    /**
+     * Tokenise a JSONPath expression into segments.
+     * Returns array of { type, value } tokens.
+     */
+    function tokenise(expr) {
+      expr = expr.trim();
+      if (!expr.startsWith('$')) throw new Error('Expression must start with $');
+
+      const tokens = [{ type: 'root' }];
+      let i = 1; // skip $
+
+      while (i < expr.length) {
+        // .. recursive descent
+        if (expr[i] === '.' && expr[i+1] === '.') {
+          i += 2;
+          if (expr[i] === '[') {
+            tokens.push({ type: 'recurse', value: '*' });
+            continue;
+          }
+          // Read key after ..
+          let key = '';
+          while (i < expr.length && expr[i] !== '.' && expr[i] !== '[') {
+            key += expr[i++];
+          }
+          tokens.push({ type: 'recurse', value: key || '*' });
+          continue;
+        }
+
+        // . child
+        if (expr[i] === '.') {
+          i++;
+          if (i >= expr.length) break;
+          if (expr[i] === '*') {
+            tokens.push({ type: 'wildcard' });
+            i++;
+            continue;
+          }
+          let key = '';
+          while (i < expr.length && expr[i] !== '.' && expr[i] !== '[') {
+            key += expr[i++];
+          }
+          if (key) tokens.push({ type: 'child', value: key });
+          continue;
+        }
+
+        // [ bracket expressions ]
+        if (expr[i] === '[') {
+          const close = findClose(expr, i);
+          if (close === -1) throw new Error('Unmatched [');
+          const inner = expr.slice(i+1, close).trim();
+          i = close + 1;
+
+          // Wildcard [*]
+          if (inner === '*') {
+            tokens.push({ type: 'wildcard' });
+            continue;
+          }
+
+          // Filter [?(...)]
+          if (inner.startsWith('?(') && inner.endsWith(')')) {
+            const filterExpr = inner.slice(2, -1).trim();
+            tokens.push({ type: 'filter', expr: filterExpr });
+            continue;
+          }
+
+          // String key ['key'] or ["key"]
+          if ((inner.startsWith("'") && inner.endsWith("'")) ||
+              (inner.startsWith('"') && inner.endsWith('"'))) {
+            const key = inner.slice(1, -1);
+            tokens.push({ type: 'child', value: key });
+            continue;
+          }
+
+          // Slice [a:b]
+          if (inner.includes(':')) {
+            const parts = inner.split(':');
+            const a = parts[0].trim() === '' ? null : parseInt(parts[0].trim(), 10);
+            const b = parts[1].trim() === '' ? null : parseInt(parts[1].trim(), 10);
+            tokens.push({ type: 'slice', a, b });
+            continue;
+          }
+
+          // Multiple indices [0,1,2]
+          if (inner.includes(',')) {
+            const indices = inner.split(',').map(s => parseInt(s.trim(), 10));
+            tokens.push({ type: 'indices', values: indices });
+            continue;
+          }
+
+          // Single index [n]
+          const idx = parseInt(inner, 10);
+          if (!isNaN(idx)) {
+            tokens.push({ type: 'index', value: idx });
+            continue;
+          }
+
+          // Otherwise treat as child key
+          tokens.push({ type: 'child', value: inner });
+          continue;
+        }
+
+        i++; // skip unexpected char
+      }
+
+      return tokens;
+    }
+
+    function findClose(str, openAt) {
+      let depth = 0;
+      let inStr  = null;
+      for (let i = openAt; i < str.length; i++) {
+        const ch = str[i];
+        if (inStr) {
+          if (ch === inStr && str[i-1] !== '\\') inStr = null;
+          continue;
+        }
+        if (ch === '"' || ch === "'") { inStr = ch; continue; }
+        if (ch === '[') depth++;
+        if (ch === ']') { depth--; if (depth === 0) return i; }
+      }
+      return -1;
+    }
+
+    /** Apply a filter expression to a node. */
+    function applyFilter(node, filterExpr) {
+      // @.key op value
+      const match = filterExpr.match(/^@\.([a-zA-Z0-9_$]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/);
+      if (!match) return false;
+      const [, field, op, rawVal] = match;
+      const actual = node?.[field];
+      if (actual === undefined) return false;
+
+      let expected;
+      const trimmed = rawVal.trim();
+      if (trimmed === 'true')  expected = true;
+      else if (trimmed === 'false') expected = false;
+      else if (trimmed === 'null')  expected = null;
+      else if ((trimmed.startsWith("'") && trimmed.endsWith("'")) ||
+               (trimmed.startsWith('"') && trimmed.endsWith('"'))) {
+        expected = trimmed.slice(1,-1);
+      } else {
+        expected = parseFloat(trimmed);
+        if (isNaN(expected)) expected = trimmed;
+      }
+
+      switch (op) {
+        case '==':  return actual == expected; // intentional loose
+        case '!=':  return actual != expected;
+        case '<':   return actual < expected;
+        case '>':   return actual > expected;
+        case '<=':  return actual <= expected;
+        case '>=':  return actual >= expected;
+        default: return false;
+      }
+    }
+
+    /**
+     * Evaluate the token list against a node.
+     * Returns array of { path, value } matches.
+     */
+    function evaluate(tokens, data) {
+      /** current set of { path, node } candidates */
+      let current = [{ path: '$', node: data }];
+
+      for (const token of tokens) {
+        const next = [];
+
+        for (const { path, node } of current) {
+
+          if (token.type === 'root') {
+            next.push({ path: '$', node: data });
+            continue;
+          }
+
+          if (token.type === 'child') {
+            if (node !== null && typeof node === 'object' && !Array.isArray(node)) {
+              const v = node[token.value];
+              if (v !== undefined) next.push({ path: `${path}.${token.value}`, node: v });
+            }
+            continue;
+          }
+
+          if (token.type === 'wildcard') {
+            if (Array.isArray(node)) {
+              node.forEach((v, i) => next.push({ path: `${path}[${i}]`, node: v }));
+            } else if (node !== null && typeof node === 'object') {
+              Object.keys(node).forEach(k => next.push({ path: `${path}.${k}`, node: node[k] }));
+            }
+            continue;
+          }
+
+          if (token.type === 'index') {
+            if (Array.isArray(node)) {
+              const idx = token.value < 0 ? node.length + token.value : token.value;
+              if (idx >= 0 && idx < node.length) {
+                next.push({ path: `${path}[${idx}]`, node: node[idx] });
+              }
+            }
+            continue;
+          }
+
+          if (token.type === 'indices') {
+            if (Array.isArray(node)) {
+              token.values.forEach(vi => {
+                const idx = vi < 0 ? node.length + vi : vi;
+                if (idx >= 0 && idx < node.length) {
+                  next.push({ path: `${path}[${idx}]`, node: node[idx] });
+                }
+              });
+            }
+            continue;
+          }
+
+          if (token.type === 'slice') {
+            if (Array.isArray(node)) {
+              const len = node.length;
+              const a = token.a === null ? 0 : (token.a < 0 ? Math.max(0, len + token.a) : token.a);
+              const b = token.b === null ? len : (token.b < 0 ? Math.max(0, len + token.b) : Math.min(len, token.b));
+              for (let i = a; i < b; i++) {
+                next.push({ path: `${path}[${i}]`, node: node[i] });
+              }
+            }
+            continue;
+          }
+
+          if (token.type === 'filter') {
+            if (Array.isArray(node)) {
+              node.forEach((item, i) => {
+                if (applyFilter(item, token.expr)) {
+                  next.push({ path: `${path}[${i}]`, node: item });
+                }
+              });
+            }
+            continue;
+          }
+
+          if (token.type === 'recurse') {
+            // Collect all matching nodes at any depth
+            const key = token.value;
+            function recurse(n, p) {
+              if (key === '*') {
+                if (Array.isArray(n)) n.forEach((v, i) => { next.push({ path: `${p}[${i}]`, node: v }); recurse(v, `${p}[${i}]`); });
+                else if (n !== null && typeof n === 'object') { Object.keys(n).forEach(k => { next.push({ path: `${p}.${k}`, node: n[k] }); recurse(n[k], `${p}.${k}`); }); }
+              } else {
+                if (n !== null && typeof n === 'object' && !Array.isArray(n)) {
+                  if (key in n) next.push({ path: `${p}.${key}`, node: n[key] });
+                  Object.keys(n).forEach(k => recurse(n[k], `${p}.${k}`));
+                } else if (Array.isArray(n)) {
+                  n.forEach((v, i) => recurse(v, `${p}[${i}]`));
+                }
+              }
+            }
+            recurse(node, path);
+            continue;
+          }
+        }
+
+        // For recurse, results were pushed inside the loop
+        if (token.type !== 'recurse') {
+          current = next;
+        } else {
+          current = next;
+        }
+      }
+
+      // Remove duplicate paths
+      const seen = new Set();
+      return current.filter(r => {
+        if (seen.has(r.path)) return false;
+        seen.add(r.path);
+        return true;
+      });
+    }
+
+    /* ── Syntax highlighter (inline, same as formatter) ─────── */
+    function buildHighlight(str) {
+      const escH = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      let result = ''; let i = 0; const len = str.length;
+      while (i < len) {
+        const ch = str[i];
+        if (ch === '"') {
+          let raw = '"'; i++;
+          while (i < len) { const c = str[i]; raw += c; if (c === '\\') { i++; if (i < len) raw += str[i]; } else if (c === '"') break; i++; }
+          i++;
+          let j = i;
+          while (j < len && (str[j]===' '||str[j]==='\r'||str[j]==='\n')) j++;
+          result += `<span class="${str[j]===':' ? 'hl-key' : 'hl-str'}">${escH(raw)}</span>`;
+          continue;
+        }
+        if (ch==='t' && str.slice(i,i+4)==='true')  { result+='<span class="hl-bool">true</span>';  i+=4; continue; }
+        if (ch==='f' && str.slice(i,i+5)==='false') { result+='<span class="hl-bool">false</span>'; i+=5; continue; }
+        if (ch==='n' && str.slice(i,i+4)==='null')  { result+='<span class="hl-null">null</span>';  i+=4; continue; }
+        if (ch==='-' || (ch>='0' && ch<='9')) { let num=''; while(i<len && /[-\d.eE+]/.test(str[i])) num+=str[i++]; result+=`<span class="hl-num">${num}</span>`; continue; }
+        result += escH(ch); i++;
+      }
+      return result;
+    }
+
+    /* ── Render results ─────────────────────────────────────── */
+    function renderResults(matches) {
+      if (matches.length === 0) {
+        resultsEl.innerHTML = '<div class="jp-results-placeholder">No matches for this expression.</div>';
+        countEl.textContent = '0 matches';
+        countEl.className   = 'jp-match-count no-match';
+        return;
+      }
+
+      countEl.textContent = `${matches.length} match${matches.length !== 1 ? 'es' : ''}`;
+      countEl.className   = 'jp-match-count';
+
+      resultsEl.innerHTML = matches.map((m, idx) => {
+        const valueStr = JSON.stringify(m.node, null, 2);
+        const isSimple = typeof m.node !== 'object' || m.node === null;
+        return `
+<div class="jp-result-item">
+  <div class="jp-result-path">
+    <span class="jp-result-path__idx">#${idx + 1}</span>
+    ${m.path}
+  </div>
+  <div class="jp-result-val">${isSimple ? buildHighlight(JSON.stringify(m.node)) : buildHighlight(valueStr)}</div>
+</div>`;
+      }).join('');
+    }
+
+    /* ── Run query ──────────────────────────────────────────── */
+    function runQuery() {
+      const exprStr = exprEl.value.trim();
+      errEl.style.display = 'none';
+      exprEl.classList.remove('error', 'has-match');
+
+      if (!parsedData) {
+        countEl.textContent = '0 matches';
+        countEl.className   = 'jp-match-count no-match';
+        resultsEl.innerHTML = '<div class="jp-results-placeholder">Fix the JSON error first.</div>';
+        return;
+      }
+
+      if (!exprStr || exprStr === '$') {
+        const full = JSON.stringify(parsedData, null, 2);
+        renderResults([{ path: '$', node: parsedData }]);
+        return;
+      }
+
+      try {
+        const tokens  = tokenise(exprStr);
+        const matches = evaluate(tokens, parsedData);
+        renderResults(matches);
+        exprEl.classList.toggle('has-match', matches.length > 0);
+        exprEl.classList.toggle('error', matches.length === 0 && exprStr.length > 1);
+      } catch (err) {
+        errMsgEl.textContent = err.message;
+        errEl.style.display  = 'flex';
+        exprEl.classList.add('error');
+        countEl.textContent  = 'Error';
+        countEl.className    = 'jp-match-count error';
+        resultsEl.innerHTML  = '<div class="jp-results-placeholder">Fix the expression above.</div>';
+      }
+    }
+
+    /* ── Parse JSON input ─────────────────────────────────── */
+    function parseInput() {
+      const raw = inputEl.value.trim();
+      document.getElementById('input-meta').textContent = raw ? JT.formatBytes(new Blob([raw]).size) : '';
+
+      const { data, error, line } = JT.parseJSON(raw || 'null');
+      if (error) {
+        inputEl.classList.add('error');
+        parsedData = null;
+        errMsgEl.textContent = `JSON error${line ? ` (line ${line})` : ''}: ${error}`;
+        errEl.style.display  = 'flex';
+        countEl.textContent  = 'JSON error';
+        countEl.className    = 'jp-match-count error';
+        resultsEl.innerHTML  = '<div class="jp-results-placeholder">Fix the JSON error.</div>';
+        return;
+      }
+
+      inputEl.classList.remove('error');
+      errEl.style.display = 'none';
+      parsedData = data;
+      runQuery();
+    }
+
+    /* ── Events ─────────────────────────────────────────────── */
+    inputEl.addEventListener('input', () => {
+      clearTimeout(evalTimeout);
+      evalTimeout = setTimeout(parseInput, 400);
+    });
+
+    exprEl.addEventListener('input', () => {
+      clearTimeout(evalTimeout);
+      evalTimeout = setTimeout(runQuery, 150); // faster for expression changes
+    });
+
+    // Preset buttons
+    document.querySelectorAll('.jp-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        exprEl.value = btn.dataset.expr;
+        runQuery();
+        exprEl.focus();
+      });
+    });
+
+    document.getElementById('copy-results-btn').addEventListener('click', function () {
+      const items = [...resultsEl.querySelectorAll('.jp-result-val')].map(el => el.textContent.trim());
+      if (!items.length) return;
+      JT.copyToClipboard(items.join('\n---\n'))
+        .then(() => { this.innerHTML = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:4px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Copied!'; setTimeout(() => { this.textContent = 'Copy Results'; }, 1800); })
+        .catch(() => alert('Copy failed.'));
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      inputEl.value = '';
+      exprEl.value  = '$';
+      parsedData    = null;
+      errEl.style.display = 'none';
+      inputEl.classList.remove('error');
+      exprEl.classList.remove('error', 'has-match');
+      document.getElementById('input-meta').textContent = '';
+      countEl.textContent = '0 matches';
+      countEl.className   = 'jp-match-count no-match';
+      resultsEl.innerHTML = '<div class="jp-results-placeholder">Results will appear here as you type…</div>';
+    });
+
+    /* ── Drag and drop ─────────────────────────────────────── */
+    document.body.addEventListener('dragover', e => { if ([...e.dataTransfer.types].includes('Files')) e.preventDefault(); });
+    document.body.addEventListener('drop', e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => { inputEl.value = ev.target.result; parseInput(); };
+      reader.readAsText(file);
+    });
+
+    /* ── Initial run ────────────────────────────────────────── */
+    parseInput();
+
+  })();
+  </script>
+</body>
+</html>
