@@ -12,7 +12,8 @@
     "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js",
     "dev": "npx --yes serve -l 8080",
     "start": "npx --yes serve -l 8080",
-    "deploy": "npm test && npx wrangler pages deploy ."
+    "deploy": "npm test && npx wrangler pages deploy . --commit-dirty=true",
+    "deploy:pages": "npx wrangler pages deploy . --commit-dirty=true"
   },
   "keywords": [
     "json",
