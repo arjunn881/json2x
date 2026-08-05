@@ -15,6 +15,7 @@ const CANONICAL_DOMAIN = 'https://json2x.com';
 const PUBLIC_PAGES = [
   'index.html',
   'about.html',
+  'faq.html',
   'privacy.html',
   '404.html',
   '500.html',

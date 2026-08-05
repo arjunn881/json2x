@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://json2x.com/about.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://json2x.com/blog/categories.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -24,7 +24,7 @@
   </url>
   <url>
     <loc>https://json2x.com/blog/index.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://json2x.com/blog/json-guides.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://json2x.com/blog/tutorials.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://json2x.com/changelog.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -64,7 +64,7 @@
   </url>
   <url>
     <loc>https://json2x.com/contact.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://json2x.com/disclaimer.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -84,7 +84,7 @@
   </url>
   <url>
     <loc>https://json2x.com/docs/index.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://json2x.com/docs/json-minification-performance.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -104,7 +104,7 @@
   </url>
   <url>
     <loc>https://json2x.com/docs/parsing-large-json-web-workers.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://json2x.com/docs/rfc8259-json-specification.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -124,7 +124,7 @@
   </url>
   <url>
     <loc>https://json2x.com/docs/typescript-zod-generation-guide.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -134,7 +134,7 @@
   </url>
   <url>
     <loc>https://json2x.com/editorial-policy.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -144,7 +144,7 @@
   </url>
   <url>
     <loc>https://json2x.com/errors/index.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
@@ -154,7 +154,7 @@
   </url>
   <url>
     <loc>https://json2x.com/errors/invalid-character.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -164,7 +164,7 @@
   </url>
   <url>
     <loc>https://json2x.com/errors/trailing-comma.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -174,7 +174,7 @@
   </url>
   <url>
     <loc>https://json2x.com/errors/unexpected-end.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -184,7 +184,7 @@
   </url>
   <url>
     <loc>https://json2x.com/errors/unexpected-token.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -193,8 +193,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/faq.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Frequently Asked Questions (FAQ)</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -204,7 +214,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/csv-to-json-guide.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -214,7 +224,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/index.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -224,7 +234,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-apis.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -234,7 +244,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-arrays.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -244,7 +254,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-diff-checker.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -253,8 +263,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-editors-plugins.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Formatting in VSCode, Notepad++, Extensions &amp; IDEs</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-errors.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -264,7 +284,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-escaping.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -274,7 +294,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-examples.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -284,7 +304,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-formatting.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -294,7 +314,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-keywords.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -304,7 +324,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-minification.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -314,7 +334,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-objects.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -324,7 +344,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-parsing.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -334,7 +354,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-schema.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -344,7 +364,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-to-csv-guide.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -353,8 +373,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-tools-comparison.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Tools &amp; Utilities Comparison — Formatter vs Validator vs Diff</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-tutorials.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -364,7 +394,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-unescape-fixer.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -374,7 +404,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/json-validation.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -384,7 +414,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/jsonpath.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -394,7 +424,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/nested-json.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -404,7 +434,7 @@
   </url>
   <url>
     <loc>https://json2x.com/kb/pretty-print.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -413,8 +443,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/programming-languages-json.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Parsing &amp; Formatting in Python, JavaScript, Java, C#, Go &amp; Rust</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/rest-api-json.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -424,7 +464,7 @@
   </url>
   <url>
     <loc>https://json2x.com/license.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -434,7 +474,7 @@
   </url>
   <url>
     <loc>https://json2x.com/open-source.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -444,7 +484,7 @@
   </url>
   <url>
     <loc>https://json2x.com/privacy.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -454,7 +494,7 @@
   </url>
   <url>
     <loc>https://json2x.com/roadmap.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -464,7 +504,7 @@
   </url>
   <url>
     <loc>https://json2x.com/security.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -474,7 +514,7 @@
   </url>
   <url>
     <loc>https://json2x.com/terms.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
@@ -484,7 +524,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/csv-to-json.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -494,7 +534,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/diff.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -504,7 +544,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/formatter.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -514,7 +554,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/index.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -524,7 +564,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-diff.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -534,7 +574,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-formatter.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -544,7 +584,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-minifier.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -554,7 +594,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-schema-generator.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -564,7 +604,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-to-csv.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -574,7 +614,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-to-ts.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -584,7 +624,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-tree-viewer.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -594,7 +634,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/json-validator.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -604,7 +644,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/jsonpath.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -614,7 +654,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/minifier.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -624,7 +664,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/schema.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -634,7 +674,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/typescript-generator.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -644,7 +684,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/validator.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
@@ -654,7 +694,7 @@
   </url>
   <url>
     <loc>https://json2x.com/tools/viewer.html</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>

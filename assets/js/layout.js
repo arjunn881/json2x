@@ -40,7 +40,7 @@
   const TOOLS = [
     {
       id:    'formatter',
-      aliases: ['json-formatter'],
+      aliases: ['json-formatter', 'json-beautifier', 'json-prettifier', 'json-fixer', 'json-online-formatter', 'format-json'],
       name:  'JSON Formatter',
       desc:  'Prettify, validate and syntax-highlight JSON',
       icon:  ICON.formatter,
@@ -48,7 +48,7 @@
     },
     {
       id:    'validator',
-      aliases: ['json-validator'],
+      aliases: ['json-validator', 'json-checker', 'json-lint', 'json-syntax-checker'],
       name:  'JSON Validator',
       desc:  'Validate JSON with precise line-level error messages',
       icon:  ICON.validator,
@@ -56,7 +56,7 @@
     },
     {
       id:    'minifier',
-      aliases: ['json-minifier'],
+      aliases: ['json-minifier', 'minify-json', 'json-compressor'],
       name:  'JSON Minifier',
       desc:  'Strip whitespace and measure compression savings',
       icon:  ICON.minifier,
@@ -64,7 +64,7 @@
     },
     {
       id:    'diff',
-      aliases: ['json-diff'],
+      aliases: ['json-diff', 'json-compare', 'json-diff-checker', 'compare-json'],
       name:  'JSON Diff',
       desc:  'Compare two JSON objects and highlight every change',
       icon:  ICON.diff,
@@ -72,7 +72,7 @@
     },
     {
       id:    'json-to-csv',
-      aliases: ['json-to-csv'],
+      aliases: ['json-to-csv', 'json2csv', 'json-csv-converter'],
       name:  'JSON to CSV',
       desc:  'Convert JSON arrays to downloadable CSV spreadsheets',
       icon:  ICON['json-to-csv'],
@@ -80,7 +80,7 @@
     },
     {
       id:    'csv-to-json',
-      aliases: ['csv-to-json'],
+      aliases: ['csv-to-json', 'csv2json', 'csv-json-converter'],
       name:  'CSV to JSON',
       desc:  'Parse CSV files into formatted JSON with auto-detect',
       icon:  ICON['csv-to-json'],
@@ -88,7 +88,7 @@
     },
     {
       id:    'json-to-ts',
-      aliases: ['typescript-generator'],
+      aliases: ['typescript-generator', 'json-to-typescript', 'json-to-zod'],
       name:  'JSON to TypeScript',
       desc:  'Generate TypeScript interfaces and Zod schemas from JSON',
       icon:  ICON['json-to-ts'],
@@ -96,7 +96,7 @@
     },
     {
       id:    'jsonpath',
-      aliases: ['jsonpath'],
+      aliases: ['jsonpath', 'jsonpath-evaluator', 'jsonpath-tester'],
       name:  'JSONPath Tester',
       desc:  'Test JSONPath expressions against live JSON data',
       icon:  ICON.jsonpath,
@@ -104,7 +104,7 @@
     },
     {
       id:    'schema',
-      aliases: ['json-schema-generator'],
+      aliases: ['json-schema-generator', 'json-schema', 'schema-generator'],
       name:  'Schema Generator',
       desc:  'Generate a JSON Schema draft-07 from any JSON sample',
       icon:  ICON.schema,
@@ -112,7 +112,7 @@
     },
     {
       id:    'viewer',
-      aliases: ['json-tree-viewer'],
+      aliases: ['json-tree-viewer', 'json-viewer', 'json-tree'],
       name:  'Tree Viewer',
       desc:  'Explore JSON as a collapsible, searchable tree',
       icon:  ICON.viewer,
@@ -159,6 +159,7 @@
     terms: `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 2h6l4 4v8a1.5 1.5 0 01-1.5 1.5h-8A1.5 1.5 0 013 14V3.5A1.5 1.5 0 014.5 2z" stroke="currentColor" stroke-width="1.3"/><path d="M6 7h4M6 10h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
     disclaimer: `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l6 11H2L8 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6v3.5M8 11.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
     license: `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+    faq: `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 6a1.5 1.5 0 113 0c0 1-1.5 1.5-1.5 2.5M8 11.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
   };
 
   /* Theme icons */
@@ -201,6 +202,7 @@
 
     const COMPANY_LINKS = [
       { id: 'about',      name: 'About Us',          href: '/about.html',      icon: SVG.about },
+      { id: 'faq',        name: 'FAQ',               href: '/faq.html',        icon: SVG.faq },
       { id: 'contact',    name: 'Contact',           href: '/contact.html',    icon: SVG.contact },
       { id: 'privacy',    name: 'Privacy Policy',     href: '/privacy.html',    icon: SVG.privacy },
       { id: 'terms',      name: 'Terms & Conditions', href: '/terms.html',      icon: SVG.terms },
@@ -236,8 +238,10 @@
     return `
 <div class="top-bar" role="navigation" aria-label="Utility navigation">
   <div class="container top-bar__inner">
+    <div id="live-user-clock" class="top-bar__clock" title="Live Local Time" aria-label="Live local time"></div>
     <div class="top-bar__links">
       <a href="${resolveHref('/about.html')}" class="top-bar__link${currentId === 'about' ? ' active' : ''}">${SVG.about} About Us</a>
+      <a href="${resolveHref('/faq.html')}" class="top-bar__link${currentId === 'faq' ? ' active' : ''}">${SVG.faq} FAQ</a>
       <a href="${resolveHref('/contact.html')}" class="top-bar__link${currentId === 'contact' ? ' active' : ''}">${SVG.contact} Contact</a>
       <a href="${resolveHref('/privacy.html')}" class="top-bar__link${currentId === 'privacy' ? ' active' : ''}">${SVG.privacy} Privacy Policy</a>
       <a href="${resolveHref('/terms.html')}" class="top-bar__link${currentId === 'terms' ? ' active' : ''}">${SVG.terms} Terms &amp; Conditions</a>
@@ -332,6 +336,7 @@
       <div class="footer-col">
         <h2 class="footer-col__title">Trust &amp; Governance</h2>
         <div class="footer-col__links">
+          <a href="${resolveHref('/faq.html')}" class="footer-col__link">Frequently Asked Questions</a>
           <a href="${resolveHref('/contact.html')}" class="footer-col__link">Contact &amp; Support</a>
           <a href="${resolveHref('/security.html')}" class="footer-col__link">Security Architecture</a>
           <a href="${resolveHref('/editorial-policy.html')}" class="footer-col__link">Editorial Policy</a>
@@ -345,6 +350,7 @@
       <p class="site-footer__copy">© ${year} JSON2X. All processing happens locally in your browser.</p>
       <div class="site-footer__legal">
         <a href="${resolveHref('/about.html')}">About Us</a>
+        <a href="${resolveHref('/faq.html')}">FAQ</a>
         <a href="${resolveHref('/contact.html')}">Contact</a>
         <a href="${resolveHref('/privacy.html')}">Privacy Policy</a>
         <a href="${resolveHref('/terms.html')}">Terms</a>
@@ -843,6 +849,8 @@
       if (!pathname.endsWith('index.html')) breadcrumbItems.push({ name: document.title.split('|')[0].trim(), url: canonicalUrl });
     } else if (pathname.includes('about.html')) {
       breadcrumbItems.push({ name: 'About', url: canonicalUrl });
+    } else if (pathname.includes('faq.html')) {
+      breadcrumbItems.push({ name: 'FAQ', url: canonicalUrl });
     } else if (pathname.includes('privacy.html')) {
       breadcrumbItems.push({ name: 'Privacy Policy', url: canonicalUrl });
     }
@@ -1014,6 +1022,30 @@
     scriptTag.textContent = JSON.stringify(jsonLdGraph, null, 2);
   }
 
+  /* ── Real-Time User Clock ──────────────────────────────── */
+  function startLiveUserClock() {
+    const clockEl = document.getElementById('live-user-clock');
+    if (!clockEl) return;
+
+    function updateTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+
+      const html = `<span class="top-bar__clock-pulse" aria-hidden="true"></span><span class="top-bar__clock-time">${timeStr}</span>`;
+      if (clockEl.innerHTML !== html) {
+        clockEl.innerHTML = html;
+      }
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  }
+
   /* ── Mount ────────────────────────────────────────────────*/
   function mount() {
     const currentId = getCurrentToolId();
@@ -1053,6 +1085,7 @@
     const headerEl = document.getElementById('site-header-placeholder');
     if (headerEl) {
       headerEl.outerHTML = renderHeader(currentId);
+      startLiveUserClock();
     }
 
     // Mid-content leaderboard ad (injected inside main by tools that want it)

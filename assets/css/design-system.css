@@ -275,14 +275,33 @@ main {
   margin-bottom: var(--space-2);
 }
 
-.tool-hero__title {
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+.gradient-title,
+.tool-hero__title,
+.dev-hero__title,
+.about-hero__title,
+.policy-hero__title {
+  font-family: var(--font-sans);
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
   font-weight: var(--font-bold);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.gradient-title span,
+.tool-hero__title span,
+.dev-hero__title span,
+.about-hero__title span,
+.policy-hero__title span {
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .tool-hero__desc {
