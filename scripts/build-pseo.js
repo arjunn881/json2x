@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
-const BASE_URL = 'https://json2x.com';
+const BASE_URL = 'https://json2x.info';
 const KB_DIR = path.join(WORKSPACE_ROOT, 'kb');
 
 if (!fs.existsSync(KB_DIR)) {

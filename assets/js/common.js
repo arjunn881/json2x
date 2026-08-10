@@ -537,6 +537,357 @@
    */
   JT.extractLineNumber = extractLineNumber;
 
+  /* ── YAML Conversion Engine ───────────────────────────── */
+
+  /**
+   * Convert JSON/JS object to YAML string.
+   * @param {any} obj
+   * @param {number} [indent=2]
+   * @returns {{ yaml: string, error: string|null }}
+   */
+  JT.jsonToYaml = function jsonToYaml(obj, indent = 2) {
+    try {
+      function stringify(val, depth = 0) {
+        const ind = ' '.repeat(depth * indent);
+        const type = JT.getType(val);
+
+        if (type === 'null') return 'null';
+        if (type === 'boolean') return val ? 'true' : 'false';
+        if (type === 'number') return String(val);
+        if (type === 'string') {
+          if (val === '') return '""';
+          if (val.includes('\n') || /[^\w\s\.-]/.test(val) || val === 'true' || val === 'false' || val === 'null' || !isNaN(Number(val))) {
+            return JSON.stringify(val);
+          }
+          return val;
+        }
+
+        if (type === 'array') {
+          if (val.length === 0) return '[]';
+          let lines = [];
+          val.forEach(item => {
+            const itemType = JT.getType(item);
+            if (itemType === 'object') {
+              const objStr = stringify(item, depth + 1);
+              const trimmed = objStr.trimStart();
+              lines.push(`${ind}- ${trimmed}`);
+            } else {
+              lines.push(`${ind}- ${stringify(item, depth + 1)}`);
+            }
+          });
+          return lines.join('\n');
+        }
+
+        if (type === 'object') {
+          const keys = Object.keys(val);
+          if (keys.length === 0) return '{}';
+          let lines = [];
+          keys.forEach(k => {
+            const v = val[k];
+            const vType = JT.getType(v);
+            const keyStr = /^\w+$/.test(k) ? k : JSON.stringify(k);
+            if (vType === 'object' || vType === 'array') {
+              if ((vType === 'object' && Object.keys(v).length === 0) || (vType === 'array' && v.length === 0)) {
+                lines.push(`${ind}${keyStr}: ${stringify(v, depth)}`);
+              } else {
+                lines.push(`${ind}${keyStr}:\n${stringify(v, depth + 1)}`);
+              }
+            } else {
+              lines.push(`${ind}${keyStr}: ${stringify(v, depth)}`);
+            }
+          });
+          return lines.join('\n');
+        }
+
+        return '';
+      }
+
+      return { yaml: stringify(obj), error: null };
+    } catch (e) {
+      return { yaml: '', error: e.message || 'YAML serialization failed' };
+    }
+  };
+
+  /**
+   * Lightweight YAML parser to JSON/JS object.
+   * @param {string} yamlStr
+   * @returns {{ data: any, error: string|null }}
+   */
+  JT.yamlToJson = function yamlToJson(yamlStr) {
+    if (typeof yamlStr !== 'string' || yamlStr.trim() === '') {
+      return { data: null, error: 'Input is empty.' };
+    }
+    try {
+      const lines = yamlStr.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+      
+      function parseScalar(val) {
+        const t = val.trim();
+        if (t === 'null' || t === '~' || t === '') return null;
+        if (t === 'true') return true;
+        if (t === 'false') return false;
+        if (!isNaN(Number(t)) && t !== '') return Number(t);
+        if ((t.startsWith('"') && t.endsWith('"')) || (t.startsWith("'") && t.endsWith("'"))) {
+          return t.slice(1, -1);
+        }
+        return t;
+      }
+
+      function parseLines(startIdx, minIndent) {
+        let obj = {};
+        let arr = [];
+        let mode = null;
+        let idx = startIdx;
+
+        while (idx < lines.length) {
+          const line = lines[idx];
+          const trimmed = line.trim();
+          if (trimmed === '' || trimmed.startsWith('#')) { idx++; continue; }
+
+          const indent = line.search(/\S/);
+          if (indent < minIndent) break;
+
+          if (trimmed.startsWith('- ')) {
+            if (mode === null) mode = 'array';
+            const valStr = trimmed.slice(2).trim();
+            if (valStr.includes(': ')) {
+              const colonIdx = valStr.indexOf(':');
+              const k = valStr.slice(0, colonIdx).trim();
+              const v = parseScalar(valStr.slice(colonIdx + 1).trim());
+              arr.push({ [k]: v });
+            } else {
+              arr.push(parseScalar(valStr));
+            }
+            idx++;
+          } else if (trimmed.includes(':')) {
+            if (mode === null) mode = 'object';
+            const colonIdx = trimmed.indexOf(':');
+            const key = trimmed.slice(0, colonIdx).trim();
+            const valStr = trimmed.slice(colonIdx + 1).trim();
+
+            if (valStr !== '') {
+              obj[key] = parseScalar(valStr);
+              idx++;
+            } else {
+              let nextIdx = idx + 1;
+              while (nextIdx < lines.length && (lines[nextIdx].trim() === '' || lines[nextIdx].trim().startsWith('#'))) nextIdx++;
+              if (nextIdx < lines.length) {
+                const subIndent = lines[nextIdx].search(/\S/);
+                if (subIndent > indent) {
+                  const { data: subVal, newIdx } = parseLines(nextIdx, subIndent);
+                  obj[key] = subVal;
+                  idx = newIdx;
+                } else {
+                  obj[key] = null;
+                  idx++;
+                }
+              } else {
+                obj[key] = null;
+                idx++;
+              }
+            }
+          } else {
+            idx++;
+          }
+        }
+        return { data: mode === 'array' ? arr : obj, newIdx: idx };
+      }
+
+      const { data } = parseLines(0, 0);
+      return { data: data || {}, error: null };
+    } catch (e) {
+      return { data: null, error: e.message || 'YAML parse error' };
+    }
+  };
+
+  /* ── XML Conversion Engine ────────────────────────────── */
+
+  /**
+   * Convert JSON/JS object to XML string.
+   * @param {any} obj
+   * @param {string} [rootName='root']
+   * @returns {{ xml: string, error: string|null }}
+   */
+  JT.jsonToXml = function jsonToXml(obj, rootName = 'root') {
+    try {
+      function escXml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
+      }
+
+      function buildXml(val, name, depth = 1) {
+        const ind = '  '.repeat(depth);
+        const type = JT.getType(val);
+
+        if (type === 'null') return `${ind}<${name} xsi:nil="true"/>`;
+        if (type === 'boolean' || type === 'number' || type === 'string') {
+          return `${ind}<${name}>${escXml(val)}</${name}>`;
+        }
+
+        if (type === 'array') {
+          return val.map(item => buildXml(item, name, depth)).join('\n');
+        }
+
+        if (type === 'object') {
+          const keys = Object.keys(val);
+          if (keys.length === 0) return `${ind}<${name}/>`;
+          const children = keys.map(k => {
+            const cleanKey = k.replace(/[^\w-]/g, '_');
+            return buildXml(val[k], cleanKey, depth + 1);
+          }).join('\n');
+          return `${ind}<${name}>\n${children}\n${ind}</${name}>`;
+        }
+
+        return `${ind}<${name}/>`;
+      }
+
+      const cleanRoot = (rootName || 'root').replace(/[^\w-]/g, '_');
+      const inner = buildXml(obj, cleanRoot, 0);
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n${inner}`;
+      return { xml, error: null };
+    } catch (e) {
+      return { xml: '', error: e.message || 'XML serialization failed' };
+    }
+  };
+
+  /**
+   * Convert XML string to JSON/JS object.
+   * @param {string} xmlStr
+   * @returns {{ data: any, error: string|null }}
+   */
+  JT.xmlToJson = function xmlToJson(xmlStr) {
+    if (typeof xmlStr !== 'string' || xmlStr.trim() === '') {
+      return { data: null, error: 'Input is empty.' };
+    }
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(xmlStr, 'text/xml');
+
+      const parserError = doc.querySelector('parsererror');
+      if (parserError) {
+        return { data: null, error: parserError.textContent.split('\n')[0] || 'XML syntax error' };
+      }
+
+      function nodeToObj(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent.trim();
+          if (!text) return null;
+          if (text === 'true') return true;
+          if (text === 'false') return false;
+          if (!isNaN(Number(text)) && text !== '') return Number(text);
+          return text;
+        }
+
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const result = {};
+          let hasChildElements = false;
+
+          Array.from(node.children).forEach(child => {
+            hasChildElements = true;
+            const key = child.nodeName;
+            const val = nodeToObj(child);
+            if (result[key] !== undefined) {
+              if (!Array.isArray(result[key])) {
+                result[key] = [result[key]];
+              }
+              result[key].push(val);
+            } else {
+              result[key] = val;
+            }
+          });
+
+          if (!hasChildElements) {
+            const text = node.textContent.trim();
+            if (text === 'true') return true;
+            if (text === 'false') return false;
+            if (!isNaN(Number(text)) && text !== '') return Number(text);
+            return text;
+          }
+
+          return result;
+        }
+
+        return null;
+      }
+
+      const rootNode = doc.documentElement;
+      const data = { [rootNode.nodeName]: nodeToObj(rootNode) };
+      return { data, error: null };
+    } catch (e) {
+      return { data: null, error: e.message || 'XML parse error' };
+    }
+  };
+
+  /* ── TOML Conversion Engine ───────────────────────────── */
+
+  /**
+   * Convert JSON/JS object to TOML configuration string.
+   * @param {any} obj
+   * @returns {{ toml: string, error: string|null }}
+   */
+  JT.jsonToToml = function jsonToToml(obj) {
+    try {
+      if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+        return { toml: '', error: 'TOML root must be a JSON object.' };
+      }
+
+      function formatVal(val) {
+        const type = JT.getType(val);
+        if (type === 'null') return '""';
+        if (type === 'boolean') return val ? 'true' : 'false';
+        if (type === 'number') return String(val);
+        if (type === 'string') return JSON.stringify(val);
+        if (type === 'array') return `[${val.map(formatVal).join(', ')}]`;
+        return JSON.stringify(val);
+      }
+
+      let tomlLines = [];
+      let tableBlocks = [];
+
+      function processObject(o, prefix = '') {
+        const keys = Object.keys(o);
+        keys.forEach(k => {
+          const v = o[k];
+          const type = JT.getType(v);
+          const keyStr = /^[A-Za-z0-9_-]+$/.test(k) ? k : JSON.stringify(k);
+
+          if (type === 'object') {
+            const tableHeader = prefix ? `${prefix}.${keyStr}` : keyStr;
+            tableBlocks.push({ header: tableHeader, obj: v });
+          } else {
+            if (!prefix) {
+              tomlLines.push(`${keyStr} = ${formatVal(v)}`);
+            }
+          }
+        });
+      }
+
+      processObject(obj, '');
+
+      tableBlocks.forEach(block => {
+        tomlLines.push(`\n[${block.header}]`);
+        const keys = Object.keys(block.obj);
+        keys.forEach(k => {
+          const v = block.obj[k];
+          const type = JT.getType(v);
+          const keyStr = /^[A-Za-z0-9_-]+$/.test(k) ? k : JSON.stringify(k);
+          if (type !== 'object') {
+            tomlLines.push(`${keyStr} = ${formatVal(v)}`);
+          } else {
+            processObject({ [k]: v }, block.header);
+          }
+        });
+      });
+
+      return { toml: tomlLines.join('\n').trim(), error: null };
+    } catch (e) {
+      return { toml: '', error: e.message || 'TOML serialization failed' };
+    }
+  };
+
   /* ── Expose on global ───────────────────────────────────── */
   global.JT = JT;
 

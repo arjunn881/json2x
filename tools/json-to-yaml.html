@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to YAML Converter Online — Fast &amp; Free | JSON2X</title>
+  <meta name="description" content="Convert JSON to YAML and YAML to JSON instantly online. Free browser-based converter for Kubernetes, Docker Compose, and Ansible configurations." />
+  <meta name="keywords" content="json to yaml converter, yaml to json online, json2yaml, yaml2json, kubernetes yaml converter, docker compose yaml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.info/tools/json-to-yaml.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.info/tools/json-to-yaml.html" />
+  <meta property="og:title"       content="JSON to YAML Converter Online — Fast &amp; Free" />
+  <meta property="og:description" content="Convert JSON to YAML and YAML to JSON instantly online. Free browser-based converter for Kubernetes, Docker Compose, and Ansible configurations." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.info/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to YAML Converter Online" />
+  <meta name="twitter:description" content="Convert JSON to YAML and YAML to JSON instantly. 100% browser-based privacy." />
+  <meta name="twitter:image"       content="https://json2x.info/assets/og-image.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to YAML Converter",
+    "url": "https://json2x.info/tools/json-to-yaml.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSON to YAML and YAML to JSON converter. 100% browser-based conversion for Kubernetes, Docker, and CI/CD configs.",
+    "featureList": [
+      "Convert JSON to YAML format",
+      "Convert YAML to JSON format",
+      "Configurable indentation spaces",
+      "100% client-side privacy",
+      "Instant copy and file download"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.info" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.info/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON to YAML Converter", "item": "https://json2x.info/tools/json-to-yaml.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert JSON to YAML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste your JSON payload into the left panel. The tool instantly converts it into valid, clean YAML syntax in the right output panel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I convert YAML back to JSON?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Switch the mode toggle to 'YAML → JSON', paste your YAML config, and get clean, formatted JSON output instantly."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-yaml">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">JSON ↔ YAML</div>
+        <h1 class="tool-hero__title">JSON to YAML Converter</h1>
+      </div>
+
+      <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Mode:
+          <select id="mode-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Conversion direction mode">
+            <option value="json2yaml" selected>JSON → YAML</option>
+            <option value="yaml2json">YAML → JSON</option>
+          </select>
+        </label>
+        <button class="btn btn--primary" id="convert-btn">Convert</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Result</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title" id="input-title">JSON Input</span></div>
+          <textarea class="textarea" id="converter-input"
+            placeholder='{"apiVersion":"v1","kind":"Pod","metadata":{"name":"web-server"},"spec":{"containers":[{"name":"nginx","image":"nginx:1.21"}]}}'
+            aria-label="Input code pane" spellcheck="false" style="min-height:300px;font-family:var(--font-mono);"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title" id="output-title">YAML Output</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:300px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Also try</span>
+        <a href="json-formatter.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+        <a href="json-to-xml.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to XML</a>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Converting JSON data payloads into human-readable YAML configurations is an essential daily workflow for DevOps engineers, Cloud Architects, and developers managing Kubernetes manifests, Docker Compose stacks, and Ansible playbooks. Using our free online json to yaml converter, you can transform complex nested JSON objects into clean, indented YAML syntax instantly. The conversion runs 100% locally in your browser memory, ensuring your API secrets, environment credentials, and infrastructure code are never transmitted to external servers.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-yaml"></div>
+
+      <!-- FAQ Section -->
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
+        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON to YAML Conversion</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Why convert JSON to YAML?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">YAML is significantly cleaner and easier for humans to read and edit than JSON. It removes curly braces, brackets, and quotes where unnecessary, using clean indentation. It is the standard format for Kubernetes manifests, GitHub Actions, Docker Compose, and CI/CD pipelines.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Is JSON valid YAML?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Yes! YAML 1.2 is an official superset of JSON. Every valid JSON document is technically valid YAML. However, converting it to standard YAML formatting replaces JSON braces with indentation for optimal readability.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script>
+    (function() {
+      'use strict';
+      const modeSel = document.getElementById('mode-select');
+      const inputEl = document.getElementById('converter-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+      const inputTitle = document.getElementById('input-title');
+      const outputTitle = document.getElementById('output-title');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function convert() {
+        const text = inputEl.value.trim();
+        const mode = modeSel.value;
+
+        if (!text) {
+          outputEl.textContent = '';
+          showStatus('');
+          return;
+        }
+
+        if (mode === 'json2yaml') {
+          const { data, error } = JT.parseJSON(text);
+          if (error) {
+            showStatus(`JSON Parse Error: ${error}`, 'error');
+            return;
+          }
+          const { yaml, error: yErr } = JT.jsonToYaml(data);
+          if (yErr) {
+            showStatus(`YAML Error: ${yErr}`, 'error');
+            return;
+          }
+          outputEl.textContent = yaml;
+          showStatus('Successfully converted to YAML', 'success');
+        } else {
+          const { data, error } = JT.yamlToJson(text);
+          if (error) {
+            showStatus(`YAML Parse Error: ${error}`, 'error');
+            return;
+          }
+          const { text: jsonText } = JT.stringifyJSON(data, 2);
+          outputEl.textContent = jsonText;
+          showStatus('Successfully converted to JSON', 'success');
+        }
+      }
+
+      modeSel.addEventListener('change', () => {
+        if (modeSel.value === 'json2yaml') {
+          inputTitle.textContent = 'JSON Input';
+          outputTitle.textContent = 'YAML Output';
+        } else {
+          inputTitle.textContent = 'YAML Input';
+          outputTitle.textContent = 'JSON Output';
+        }
+        convert();
+      });
+
+      document.getElementById('convert-btn').addEventListener('click', convert);
+      inputEl.addEventListener('input', JT.debounce(convert, 400));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const ext = modeSel.value === 'json2yaml' ? 'yaml' : 'json';
+        const blob = new Blob([res], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `data.${ext}`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', () => {
+        inputEl.value = '';
+        outputEl.textContent = '';
+        showStatus('');
+      });
+    })();
+  </script>
+</body>
+</html>

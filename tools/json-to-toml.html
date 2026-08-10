@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to TOML Converter Online — Cargo &amp; Go Configs | JSON2X</title>
+  <meta name="description" content="Convert JSON payloads to TOML format online for free. Export Cargo.toml, pyproject.toml, and Go configuration files with 100% browser privacy." />
+  <meta name="keywords" content="json to toml converter, json2toml, toml generator, cargo toml generator, pyproject toml, rust config converter" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.info/tools/json-to-toml.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.info/tools/json-to-toml.html" />
+  <meta property="og:title"       content="JSON to TOML Converter Online — Cargo &amp; Go Configs" />
+  <meta property="og:description" content="Convert JSON payloads to TOML format online for free. Export Cargo.toml, pyproject.toml, and Go configuration files with 100% browser privacy." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.info/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to TOML Converter Online" />
+  <meta name="twitter:description" content="Convert JSON payloads to TOML configuration files. 100% client-side browser privacy." />
+  <meta name="twitter:image"       content="https://json2x.info/assets/og-image.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to TOML Converter",
+    "url": "https://json2x.info/tools/json-to-toml.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSON to TOML converter. Generate Cargo.toml, pyproject.toml, and Hugo/Go config files.",
+    "featureList": [
+      "Convert JSON objects to TOML tables",
+      "Format arrays and primitive types",
+      "100% client-side data privacy",
+      "Instant copy and file download"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.info" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.info/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON to TOML Converter", "item": "https://json2x.info/tools/json-to-toml.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert JSON to TOML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste a JSON object into the input pane and click Convert. The tool parses your JSON object and converts it into valid TOML tables and key-value pairs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is TOML used for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TOML (Tom's Obvious, Minimal Language) is widely used in Rust (Cargo.toml), Python (pyproject.toml), Hugo static site generator (config.toml), and Go applications."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-toml">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">JSON → TOML</div>
+        <h1 class="tool-hero__title">JSON to TOML Converter</h1>
+      </div>
+
+      <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <button class="btn btn--primary" id="convert-btn">Convert</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy TOML</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download .toml</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">JSON Input</span></div>
+          <textarea class="textarea" id="converter-input"
+            placeholder='{"package":{"name":"my-app","version":"1.0.0"},"dependencies":{"serde":"1.0"}}'
+            aria-label="Input code pane" spellcheck="false" style="min-height:300px;font-family:var(--font-mono);"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">TOML Output</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:300px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Also try</span>
+        <a href="json-formatter.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+        <a href="json-to-yaml.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to YAML</a>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">TOML has become the modern standard configuration format across Python, Rust, Go, and static site tools due to its clear key-value semantics and structured table headings. Using our free online json to toml converter, developers can transform JSON objects into valid TOML configuration documents. Processing happens 100% locally in your browser memory to safeguard internal application configs.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-toml"></div>
+
+      <!-- FAQ Section -->
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
+        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON to TOML Conversion</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">What is TOML?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">TOML stands for Tom's Obvious, Minimal Language. It is designed to be easy to read due to obvious semantics and maps unambiguously to a hash table.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Where is TOML used?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">TOML is the default configuration format in Rust (Cargo.toml), Python packaging (pyproject.toml), Hugo static site generator (hugo.toml), and many Go projects.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script>
+    (function() {
+      'use strict';
+      const inputEl = document.getElementById('converter-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function convert() {
+        const text = inputEl.value.trim();
+        if (!text) {
+          outputEl.textContent = '';
+          showStatus('');
+          return;
+        }
+
+        const { data, error } = JT.parseJSON(text);
+        if (error) {
+          showStatus(`JSON Parse Error: ${error}`, 'error');
+          return;
+        }
+
+        const { toml, error: tErr } = JT.jsonToToml(data);
+        if (tErr) {
+          showStatus(`TOML Error: ${tErr}`, 'error');
+          return;
+        }
+
+        outputEl.textContent = toml;
+        showStatus('Successfully converted to TOML', 'success');
+      }
+
+      document.getElementById('convert-btn').addEventListener('click', convert);
+      inputEl.addEventListener('input', JT.debounce(convert, 400));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const blob = new Blob([res], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'config.toml';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', () => {
+        inputEl.value = '';
+        outputEl.textContent = '';
+        showStatus('');
+      });
+    })();
+  </script>
+</body>
+</html>

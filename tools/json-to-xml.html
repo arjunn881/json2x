@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to XML Converter Online — Free XML Exporter | JSON2X</title>
+  <meta name="description" content="Convert JSON to XML and XML to JSON online for free. Custom root tag support, element wrapping, and 100% client-side privacy." />
+  <meta name="keywords" content="json to xml converter, xml to json online, json2xml, xml2json, convert json to xml online, enterprise xml converter" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.info/tools/json-to-xml.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.info/tools/json-to-xml.html" />
+  <meta property="og:title"       content="JSON to XML Converter Online — Free XML Exporter" />
+  <meta property="og:description" content="Convert JSON to XML and XML to JSON online for free. Custom root tag support, element wrapping, and 100% client-side privacy." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.info/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to XML Converter Online" />
+  <meta name="twitter:description" content="Convert JSON to XML and XML to JSON instantly. 100% client-side browser privacy." />
+  <meta name="twitter:image"       content="https://json2x.info/assets/og-image.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to XML Converter",
+    "url": "https://json2x.info/tools/json-to-xml.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSON to XML and XML to JSON converter. Customize root tags and export XML documents.",
+    "featureList": [
+      "Convert JSON objects to XML documents",
+      "Convert XML files to JSON format",
+      "Custom root tag configuration",
+      "100% client-side data privacy",
+      "Instant copy and file download"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.info" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.info/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON to XML Converter", "item": "https://json2x.info/tools/json-to-xml.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I convert JSON to XML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paste your JSON data into the input field, specify a root element name if desired, and click Convert to generate formatted XML."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are array items represented in XML?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Array items are converted into repeated XML elements sharing the key name of the array property."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-xml">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">JSON ↔ XML</div>
+        <h1 class="tool-hero__title">JSON to XML Converter</h1>
+      </div>
+
+      <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Mode:
+          <select id="mode-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Conversion direction mode">
+            <option value="json2xml" selected>JSON → XML</option>
+            <option value="xml2json">XML → JSON</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2 text-sm text-secondary" id="root-tag-wrap">
+          Root Tag:
+          <input type="text" id="root-tag" value="root" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;width:100px;" aria-label="XML Root Tag Name" />
+        </label>
+        <button class="btn btn--primary" id="convert-btn">Convert</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Result</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title" id="input-title">JSON Input</span></div>
+          <textarea class="textarea" id="converter-input"
+            placeholder='{"user":{"id":101,"name":"Alice","roles":["admin","dev"]},"status":"active"}'
+            aria-label="Input code pane" spellcheck="false" style="min-height:300px;font-family:var(--font-mono);"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title" id="output-title">XML Output</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:300px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Also try</span>
+        <a href="json-formatter.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+        <a href="json-to-yaml.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to YAML</a>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Integrating web services between modern REST APIs and legacy enterprise systems often requires translating data between JSON and XML. Using our json to xml converter, developers can transform JSON payloads into structured XML documents complete with customizable root tags and element hierarchies. All parsing takes place 100% in your browser to maintain data privacy.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-xml"></div>
+
+      <!-- FAQ Section -->
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
+        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON to XML Conversion</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Why convert JSON to XML?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Many legacy enterprise systems, SOAP web services, RSS feeds, and financial networks require XML data format. Converting REST JSON responses to XML allows seamless ingestion into these services.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Why is a root tag needed?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">XML specifications strictly mandate that every XML document must have exactly one root element enclosing all other tags. You can set the root tag name to match your API contract.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script>
+    (function() {
+      'use strict';
+      const modeSel = document.getElementById('mode-select');
+      const rootTagInput = document.getElementById('root-tag');
+      const rootTagWrap = document.getElementById('root-tag-wrap');
+      const inputEl = document.getElementById('converter-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+      const inputTitle = document.getElementById('input-title');
+      const outputTitle = document.getElementById('output-title');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function convert() {
+        const text = inputEl.value.trim();
+        const mode = modeSel.value;
+
+        if (!text) {
+          outputEl.textContent = '';
+          showStatus('');
+          return;
+        }
+
+        if (mode === 'json2xml') {
+          const { data, error } = JT.parseJSON(text);
+          if (error) {
+            showStatus(`JSON Parse Error: ${error}`, 'error');
+            return;
+          }
+          const rootName = rootTagInput.value.trim() || 'root';
+          const { xml, error: xErr } = JT.jsonToXml(data, rootName);
+          if (xErr) {
+            showStatus(`XML Error: ${xErr}`, 'error');
+            return;
+          }
+          outputEl.textContent = xml;
+          showStatus('Successfully converted to XML', 'success');
+        } else {
+          const { data, error } = JT.xmlToJson(text);
+          if (error) {
+            showStatus(`XML Parse Error: ${error}`, 'error');
+            return;
+          }
+          const { text: jsonText } = JT.stringifyJSON(data, 2);
+          outputEl.textContent = jsonText;
+          showStatus('Successfully converted to JSON', 'success');
+        }
+      }
+
+      modeSel.addEventListener('change', () => {
+        if (modeSel.value === 'json2xml') {
+          inputTitle.textContent = 'JSON Input';
+          outputTitle.textContent = 'XML Output';
+          rootTagWrap.style.display = 'inline-flex';
+        } else {
+          inputTitle.textContent = 'XML Input';
+          outputTitle.textContent = 'JSON Output';
+          rootTagWrap.style.display = 'none';
+        }
+        convert();
+      });
+
+      document.getElementById('convert-btn').addEventListener('click', convert);
+      inputEl.addEventListener('input', JT.debounce(convert, 400));
+      rootTagInput.addEventListener('input', JT.debounce(convert, 400));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const ext = modeSel.value === 'json2xml' ? 'xml' : 'json';
+        const blob = new Blob([res], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `data.${ext}`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', () => {
+        inputEl.value = '';
+        outputEl.textContent = '';
+        showStatus('');
+      });
+    })();
+  </script>
+</body>
+</html>

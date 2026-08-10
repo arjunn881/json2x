@@ -3,702 +3,732 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <url>
-    <loc>https://json2x.com/about.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/about.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>About JSON2X — Free Browser-Only JSON &amp; CSV Tools</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/blog/categories.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/blog/categories.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Blog Categories — Topics &amp; Resources</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/blog/index.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/blog/index.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Developer Blog &amp; JSON Tutorials</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/blog/json-guides.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/blog/json-guides.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Developer Guides &amp; Specifications</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/blog/tutorials.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/blog/tutorials.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Step-by-Step Developer Tutorials</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/changelog.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/changelog.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Platform Changelog &amp; Release Notes</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/contact.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/contact.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Contact Us &amp; Technical Support</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/disclaimer.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/disclaimer.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Legal &amp; Data Disclaimer</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/docs/index.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/docs/index.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Developer Documentation &amp; Technical Guides</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/docs/json-minification-performance.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/docs/json-minification-performance.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>High-Performance JSON Minification &amp; Payload Compression</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/docs/parsing-large-json-web-workers.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/docs/parsing-large-json-web-workers.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Parsing 100MB+ JSON Payloads with Web Workers</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/docs/rfc8259-json-specification.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/docs/rfc8259-json-specification.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Complete RFC 8259 JSON Specification &amp; Grammar Reference</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/docs/typescript-zod-generation-guide.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/docs/typescript-zod-generation-guide.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>TypeScript Interface &amp; Zod Schema Generation Guide</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/editorial-policy.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/editorial-policy.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Editorial &amp; Technical Accuracy Policy</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/errors/index.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/errors/index.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Syntax Error Knowledge Base &amp; Fixes</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/errors/invalid-character.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/errors/invalid-character.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Fix "Invalid or Unexpected Character" in JSON</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/errors/trailing-comma.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/errors/trailing-comma.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Fix Trailing Comma JSON Errors</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/errors/unexpected-end.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/errors/unexpected-end.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Fix "Unexpected End of JSON Input"</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/errors/unexpected-token.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/errors/unexpected-token.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Fix "SyntaxError: Unexpected token" in JSON</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/faq.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/faq.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Frequently Asked Questions (FAQ)</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON2X — Free Online JSON &amp; CSV Developer Tools</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/csv-to-json-guide.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/csv-to-json-guide.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>CSV to JSON Converter — Header Detection &amp; Array Parsing</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/index.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/index.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Knowledge Base &amp; Technical Reference Index</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-apis.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-apis.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>REST &amp; GraphQL JSON API Design Standards</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-arrays.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-arrays.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Arrays Guide — Syntax, Nesting &amp; Manipulation</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-diff-checker.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-diff-checker.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Diff Checker &amp; Structural Comparison Guide</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-editors-plugins.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-editors-plugins.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Formatting in VSCode, Notepad++, Extensions &amp; IDEs</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-errors.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-errors.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Errors Troubleshooting Guide &amp; Line-by-Line Fixes</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-escaping.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-escaping.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Escaping Rules — Quotes, Newlines &amp; Special Characters</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-examples.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-examples.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Examples &amp; Sample Payloads for API Testing</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-formatting.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-formatting.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Formatting Guide — Pretty Print &amp; Indentation Rules</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-keywords.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-keywords.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Reserved Keywords &amp; Syntax Rules</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-minification.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-minification.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Minification &amp; Whitespace Stripping Guide</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-objects.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-objects.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Objects Reference — Key-Value Pairs &amp; Schemas</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-parsing.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-parsing.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>High-Performance JSON Parsing &amp; Memory Management</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-schema.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-schema.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Schema Draft-07 Guide &amp; Generator</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-to-csv-guide.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-to-csv-guide.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON to CSV Converter — Exporting Data to Excel</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-tools-comparison.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-tools-comparison.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Tools &amp; Utilities Comparison — Formatter vs Validator vs Diff</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-tutorials.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-tutorials.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Developer Tutorials &amp; Data Engineering Guide</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-unescape-fixer.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-unescape-fixer.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Escape &amp; Unescape Guide — Fixing Backslashes &amp; Quotes</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/json-validation.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/json-validation.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Validation Best Practices &amp; Online Syntax Checkers</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/jsonpath.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/jsonpath.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSONPath Expression Reference &amp; Query Tester</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/nested-json.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/nested-json.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Nested JSON Structures — Flattening &amp; Tree Traversal</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/pretty-print.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/pretty-print.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Pretty Print JSON Online — Instant Beautification</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/programming-languages-json.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/programming-languages-json.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Parsing &amp; Formatting in Python, JavaScript, Java, C#, Go &amp; Rust</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/kb/rest-api-json.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/kb/rest-api-json.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>REST API JSON Payloads — Performance &amp; Optimization</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/license.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/license.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>MIT License &amp; Usage Rights</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/open-source.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/open-source.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Open Source &amp; Transparency</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/privacy.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/privacy.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Privacy Policy — JSON2X</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/roadmap.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/roadmap.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Feature Roadmap &amp; Engineering Goals</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/security.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/security.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Security Architecture &amp; Data Privacy Guarantee</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/terms.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/terms.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>Terms of Service</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/csv-to-json.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/csv-to-json.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>CSV to JSON Converter — Free Online Spreadsheet Parser</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/diff.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/diff.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Diff Online — Side-by-Side Visual Comparison Tool</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/formatter.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/formatter.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Formatter Online — Free Browser Prettifier &amp; Viewer</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/index.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/index.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON &amp; CSV Tools Catalog — Free Developer Utilities</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-diff.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-diff.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Diff Online — Side-by-Side Visual Comparison Tool</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-formatter.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-formatter.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Formatter Online — Free Browser Prettifier &amp; Viewer</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-minifier.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-minifier.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Minifier Online — Fast Payload Compressor</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-schema-generator.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-schema-generator.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Schema Generator Online — Draft-07 Creator</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-to-csv.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-to-csv.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON to CSV Converter — Free Spreadsheet Exporter</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-to-ts.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-to-toml.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
+      <image:title>JSON to TOML Converter Online — Cargo &amp; Go Configs</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.info/tools/json-to-ts.html</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON to TypeScript — Interface &amp; Zod Generator Online</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-tree-viewer.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-to-xml.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
+      <image:title>JSON to XML Converter Online — Free XML Exporter</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.info/tools/json-to-yaml.html</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
+      <image:title>JSON to YAML Converter Online — Fast &amp; Free</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.info/tools/json-tree-viewer.html</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Tree Viewer Online — Collapsible Node Explorer</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-validator.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/json-validator.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Validator Online — Precise Syntax &amp; Error Linter</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/jsonpath.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/jsonpath.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSONPath Tester Online — Live Expression Evaluator</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/minifier.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/minifier.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Minifier Online — Fast Payload Compressor</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/schema.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/schema.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Schema Generator Online — Draft-07 Creator</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/typescript-generator.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/typescript-generator.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON to TypeScript — Interface &amp; Zod Generator Online</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/validator.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/validator.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Validator Online — Precise Syntax &amp; Error Linter</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/viewer.html</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/tools/viewer.html</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.info/assets/og-image.png</image:loc>
       <image:title>JSON Tree Viewer Online — Collapsible Node Explorer</image:title>
     </image:image>
   </url>

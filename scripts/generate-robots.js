@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
-const BASE_URL = process.env.SITE_URL || 'https://json2x.com';
+const BASE_URL = process.env.SITE_URL || 'https://json2x.info';
 const IS_STAGING = process.env.NODE_ENV === 'staging' || process.env.IS_STAGING === 'true' || process.env.VERCEL_ENV === 'preview';
 
 function generateRobotsTxt() {
   let content = '';
 
   if (IS_STAGING) {
-    content = `# JSON2X (json2x.com) — Staging Environment Safeguard
+    content = `# JSON2X (json2x.info) — Staging Environment Safeguard
 # Disallow all search engine crawling on staging/preview deploys
 
 User-agent: *
@@ -18,7 +18,7 @@ Disallow: /
 `;
   } else {
     content = `# ============================================
-# JSON2X (json2x.com) — Optimized robots.txt
+# JSON2X (json2x.info) — Optimized robots.txt
 # Conforms to Google Search Central (RFC 9309)
 # ============================================
 

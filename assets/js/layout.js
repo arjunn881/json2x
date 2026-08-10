@@ -35,6 +35,9 @@
     viewer:     `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="4" cy="4" r="1.5" fill="currentColor"/><circle cx="4" cy="9" r="1.5" fill="currentColor"/><circle cx="4" cy="14" r="1.5" fill="currentColor"/><path d="M7 4h7M7 9h5M7 14h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
     'json-to-csv': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M2 7h14M2 11h14M7 7v7" stroke="currentColor" stroke-width="1.5"/></svg>`,
     'csv-to-json': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 5h12M3 9h8M3 13h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 11l3 2-3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'json-to-yaml': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3h12v12H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'json-to-xml': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 4L2 9l3 5M13 4l3 5-3 5M10 3L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'json-to-toml': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 6h4M9 6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
   };
 
   const TOOLS = [
@@ -85,6 +88,30 @@
       desc:  'Parse CSV files into formatted JSON with auto-detect',
       icon:  ICON['csv-to-json'],
       href:  '/tools/csv-to-json.html',
+    },
+    {
+      id:    'json-to-yaml',
+      aliases: ['json-to-yaml', 'yaml-to-json', 'json2yaml', 'yaml2json'],
+      name:  'JSON to YAML',
+      desc:  'Convert JSON payloads to clean YAML and vice versa',
+      icon:  ICON['json-to-yaml'],
+      href:  '/tools/json-to-yaml.html',
+    },
+    {
+      id:    'json-to-xml',
+      aliases: ['json-to-xml', 'xml-to-json', 'json2xml', 'xml2json'],
+      name:  'JSON to XML',
+      desc:  'Convert JSON objects to valid XML with customizable root tag',
+      icon:  ICON['json-to-xml'],
+      href:  '/tools/json-to-xml.html',
+    },
+    {
+      id:    'json-to-toml',
+      aliases: ['json-to-toml', 'json2toml'],
+      name:  'JSON to TOML',
+      desc:  'Convert JSON objects to TOML configuration files',
+      icon:  ICON['json-to-toml'],
+      href:  '/tools/json-to-toml.html',
     },
     {
       id:    'json-to-ts',
@@ -665,8 +692,8 @@
      OpenGraph, Twitter cards, viewport, theme-color, manifest, author,
      and publisher tags for all existing & future pages.
   ────────────────────────────────────────────────────────── */
-  const SITE_BASE_URL = 'https://json2x.com';
-  const DEFAULT_OG_IMAGE = 'https://json2x.com/assets/og-image.png';
+  const SITE_BASE_URL = 'https://json2x.info';
+  const DEFAULT_OG_IMAGE = 'https://json2x.info/assets/og-image.png';
 
   function setMetaTag(attrName, attrValue, content) {
     if (!content) return;
@@ -790,7 +817,7 @@
       "founder": { "@id": `${SITE_BASE_URL}/#person` },
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "hello@json2x.com",
+        "email": "hello@json2x.info",
         "contactType": "customer support"
       }
     });

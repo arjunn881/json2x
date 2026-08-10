@@ -3,46 +3,46 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 
   <url>
-    <loc>https://json2x.com/blog/categories.html</loc>
+    <loc>https://json2x.info/blog/categories.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-05</news:publication_date>
+      <news:publication_date>2026-08-10</news:publication_date>
       <news:title>Blog Categories — Topics &amp; Resources</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://json2x.com/blog/index.html</loc>
+    <loc>https://json2x.info/blog/index.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-05</news:publication_date>
+      <news:publication_date>2026-08-10</news:publication_date>
       <news:title>Developer Blog &amp; JSON Tutorials</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://json2x.com/blog/json-guides.html</loc>
+    <loc>https://json2x.info/blog/json-guides.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-05</news:publication_date>
+      <news:publication_date>2026-08-10</news:publication_date>
       <news:title>JSON Developer Guides &amp; Specifications</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://json2x.com/blog/tutorials.html</loc>
+    <loc>https://json2x.info/blog/tutorials.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-05</news:publication_date>
+      <news:publication_date>2026-08-10</news:publication_date>
       <news:title>Step-by-Step Developer Tutorials</news:title>
     </news:news>
   </url>

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://json2x.com';
+const BASE_URL = 'https://json2x.info';
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
 
 const EXCLUDE_DIRS = ['node_modules', 'scratch', 'scripts', 'admin', 'api', 'private', '.git'];

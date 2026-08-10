@@ -59,7 +59,7 @@
     if (!link) return;
 
     const href = link.getAttribute('href');
-    if (href && (href.startsWith('http://') || href.startsWith('https://')) && !href.includes('json2x.com')) {
+    if (href && (href.startsWith('http://') || href.startsWith('https://')) && !href.includes('json2x.info')) {
       window.JT_Analytics.trackEvent('outbound_click', {
         event_category: 'outbound',
         destination_url: href

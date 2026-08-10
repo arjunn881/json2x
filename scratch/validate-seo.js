@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
-const CANONICAL_DOMAIN = 'https://json2x.com';
+const CANONICAL_DOMAIN = 'https://json2x.info';
 
 // List of public pages to audit
 const PUBLIC_PAGES = [
@@ -32,6 +32,9 @@ const PUBLIC_PAGES = [
   'tools/json-diff.html',
   'tools/json-to-csv.html',
   'tools/csv-to-json.html',
+  'tools/json-to-yaml.html',
+  'tools/json-to-xml.html',
+  'tools/json-to-toml.html',
   'tools/json-to-ts.html',
   'tools/typescript-generator.html',
   'tools/jsonpath.html',

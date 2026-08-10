@@ -2,16 +2,16 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <sitemap>
-    <loc>https://json2x.com/sitemap.xml</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/sitemap.xml</loc>
+    <lastmod>2026-08-10</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://json2x.com/sitemap-images.xml</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/sitemap-images.xml</loc>
+    <lastmod>2026-08-10</lastmod>
   </sitemap>
   <sitemap>
-    <loc>https://json2x.com/sitemap-news.xml</loc>
-    <lastmod>2026-08-05</lastmod>
+    <loc>https://json2x.info/sitemap-news.xml</loc>
+    <lastmod>2026-08-10</lastmod>
   </sitemap>
 
 </sitemapindex>

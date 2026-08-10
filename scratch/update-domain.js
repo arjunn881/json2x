@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
-const OLD_DOMAIN = 'json2x.com';
-const NEW_DOMAIN = 'json2x.com';
+const OLD_DOMAIN = 'json2x.info';
+const NEW_DOMAIN = 'json2x.info';
 
 function walkDir(dir) {
   let results = [];
