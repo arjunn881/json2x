@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON Arrays Guide — Syntax, Nesting & Manipulation | JSON2X</title>
-  <meta name="description" content="Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies." />
-  <meta name="keywords" content="json array, array of objects json, nested json array, json to csv array" />
+  <title>Synthetic JSON Mock Data Generator & API Testing Guide | JSON2X</title>
+  <meta name="description" content="Developer guide to generating synthetic JSON mock data for users, products, transactions, and logs to test REST APIs without leaking PII." />
+  <meta name="keywords" content="json mock generator, fake json dataset, synthetic test data, mock api payload, dummy json generator" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0d1117" />
   <meta name="color-scheme" content="dark light" />
-  <link rel="canonical" href="https://json2x.com/kb/json-arrays.html" />
+  <link rel="canonical" href="https://json2x.com/kb/json-mock-generator-guide.html" />
 
   <meta property="og:type"        content="article" />
-  <meta property="og:url"         content="https://json2x.com/kb/json-arrays.html" />
-  <meta property="og:title"       content="JSON Arrays Guide — Syntax, Nesting & Manipulation" />
-  <meta property="og:description" content="Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies." />
+  <meta property="og:url"         content="https://json2x.com/kb/json-mock-generator-guide.html" />
+  <meta property="og:title"       content="Synthetic JSON Mock Data Generator & API Testing Guide" />
+  <meta property="og:description" content="Developer guide to generating synthetic JSON mock data for users, products, transactions, and logs to test REST APIs without leaking PII." />
   <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
   <meta property="og:locale"      content="en_US" />
 
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Working with JSON Arrays" />
-  <meta name="twitter:description" content="Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies." />
+  <meta name="twitter:title"       content="Generating Synthetic JSON Datasets for API Testing" />
+  <meta name="twitter:description" content="Developer guide to generating synthetic JSON mock data for users, products, transactions, and logs to test REST APIs without leaking PII." />
   <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
 
   <script type="application/ld+json">
@@ -32,10 +32,10 @@
   "@graph": [
     {
       "@type": "TechArticle",
-      "@id": "https://json2x.com/kb/json-arrays.html#article",
-      "headline": "JSON Arrays Guide — Syntax, Nesting & Manipulation",
-      "description": "Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies.",
-      "url": "https://json2x.com/kb/json-arrays.html",
+      "@id": "https://json2x.com/kb/json-mock-generator-guide.html#article",
+      "headline": "Synthetic JSON Mock Data Generator & API Testing Guide",
+      "description": "Developer guide to generating synthetic JSON mock data for users, products, transactions, and logs to test REST APIs without leaking PII.",
+      "url": "https://json2x.com/kb/json-mock-generator-guide.html",
       "publisher": {
         "@type": "Organization",
         "name": "JSON2X",
@@ -44,7 +44,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://json2x.com/kb/json-arrays.html#breadcrumb",
+      "@id": "https://json2x.com/kb/json-mock-generator-guide.html#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -61,29 +61,29 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Working with JSON Arrays",
-          "item": "https://json2x.com/kb/json-arrays.html"
+          "name": "Generating Synthetic JSON Datasets for API Testing",
+          "item": "https://json2x.com/kb/json-mock-generator-guide.html"
         }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://json2x.com/kb/json-arrays.html#faqpage",
+      "@id": "https://json2x.com/kb/json-mock-generator-guide.html#faqpage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Can a JSON array contain mixed data types?",
+          "name": "How many mock records can I generate at once?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, JSON arrays can contain numbers, strings, objects, and nested arrays in a single list."
+            "text": "You can generate between 1 and 500 mock records per click instantly in your browser."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I convert a JSON array of objects to CSV?",
+          "name": "Is any mock data sent over the network?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use our free JSON to CSV converter tool to flatten array objects into columns."
+            "text": "No. All synthetic data algorithms execute 100% locally in your browser."
           }
         }
       ]
@@ -104,32 +104,41 @@
       <div id="breadcrumb-placeholder"></div>
 
       <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
-        <div class="tool-hero__badge">Structures Knowledge Base</div>
-        <h1 class="tool-hero__title">Working with JSON Arrays</h1>
-        <p class="tool-hero__desc">Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies.</p>
+        <div class="tool-hero__badge">Testing Knowledge Base</div>
+        <h1 class="tool-hero__title">Generating Synthetic JSON Datasets for API Testing</h1>
+        <p class="tool-hero__desc">Developer guide to generating synthetic JSON mock data for users, products, transactions, and logs to test REST APIs without leaking PII.</p>
       </div>
 
       <article class="faq-prose" style="margin-bottom:var(--space-12)">
         
-      <h2>Deep Dive into JSON Arrays</h2>
-      <p>A JSON array is an ordered list of values enclosed in square brackets (<code>[ ]</code>). Elements in an array can be any valid JSON data type, including nested arrays or objects.</p>
-      <h3>Array Best Practices:</h3>
+      <h2>Why Use Synthetic JSON Mock Data?</h2>
+      <p>Testing frontend applications, backend services, and database performance requires realistic datasets. Using real production data in local development or staging risks leaking Personally Identifiable Information (PII) or compliance violations under GDPR and CCPA.</p>
+      <h3>Synthetic Dataset Presets:</h3>
       <ul>
-        <li>Maintain uniform object schemas inside arrays for smooth CSV export.</li>
-        <li>Avoid trailing commas after the final array element.</li>
+        <li><strong>User Profiles:</strong> Includes IDs, names, email addresses, roles, active flags, and timestamps.</li>
+        <li><strong>E-Commerce Products:</strong> Includes product IDs, titles, prices, stock levels, tags, and ratings.</li>
+        <li><strong>Financial Transactions:</strong> Includes transaction IDs, user IDs, amounts, currencies, and status codes.</li>
+        <li><strong>Server Access Logs:</strong> Includes timestamps, log levels (INFO, WARN, ERROR), services, endpoints, and HTTP status codes.</li>
       </ul>
     
 
         <h2>Code Example &amp; Usage</h2>
-        <div class="tool-code-example" style="margin-bottom:var(--space-8)">[
-  { "id": 1, "product": "Widget A", "price": 19.99 },
-  { "id": 2, "product": "Widget B", "price": 29.99 }
+        <div class="tool-code-example" style="margin-bottom:var(--space-8)">// Generated Mock User Dataset
+[
+  {
+    "id": 1001,
+    "name": "Alice Smith",
+    "email": "alice.smith@company.io",
+    "role": "developer",
+    "is_active": true,
+    "created_at": "2026-04-15T08:30:00.000Z"
+  }
 ]</div>
 
         <div class="tool-cta-banner">
           <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
           <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
-          <a href="../tools/json-to-csv.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch JSON TO-CSV</a>
+          <a href="../tools/json-mock-generator.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch JSON MOCK-GENERATOR</a>
         </div>
       </article>
 
@@ -139,14 +148,14 @@
         <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
           
     <div class="faq-card">
-      <h3 class="faq-card__q">Can a JSON array contain mixed data types?</h3>
-      <p class="faq-card__a">Yes, JSON arrays can contain numbers, strings, objects, and nested arrays in a single list.</p>
+      <h3 class="faq-card__q">How many mock records can I generate at once?</h3>
+      <p class="faq-card__a">You can generate between 1 and 500 mock records per click instantly in your browser.</p>
     </div>
   
 
     <div class="faq-card">
-      <h3 class="faq-card__q">How do I convert a JSON array of objects to CSV?</h3>
-      <p class="faq-card__a">Use our free JSON to CSV converter tool to flatten array objects into columns.</p>
+      <h3 class="faq-card__q">Is any mock data sent over the network?</h3>
+      <p class="faq-card__a">No. All synthetic data algorithms execute 100% locally in your browser.</p>
     </div>
   
         </div>
@@ -160,7 +169,7 @@
 <li><a href="https://json2x.com/kb/json-tutorials.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Data Workflows & Pipelines</a></li>
 <li><a href="https://json2x.com/kb/json-examples.html" style="color:var(--accent); text-decoration:none;">Real-World JSON Code Examples & Structures</a></li>
 <li><a href="https://json2x.com/kb/json-keywords.html" style="color:var(--accent); text-decoration:none;">Understanding JSON Keywords & Literals</a></li>
-<li><a href="https://json2x.com/kb/json-objects.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Objects</a></li>
+<li><a href="https://json2x.com/kb/json-arrays.html" style="color:var(--accent); text-decoration:none;">Working with JSON Arrays</a></li>
         </ul>
       </section>
     </div>

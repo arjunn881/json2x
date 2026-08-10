@@ -3,7 +3,7 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 
   <url>
-    <loc>https://json2x.info/blog/categories.html</loc>
+    <loc>https://json2x.com/blog/categories.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
@@ -14,7 +14,7 @@
     </news:news>
   </url>
   <url>
-    <loc>https://json2x.info/blog/index.html</loc>
+    <loc>https://json2x.com/blog/index.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
@@ -25,7 +25,7 @@
     </news:news>
   </url>
   <url>
-    <loc>https://json2x.info/blog/json-guides.html</loc>
+    <loc>https://json2x.com/blog/json-guides.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
@@ -36,7 +36,7 @@
     </news:news>
   </url>
   <url>
-    <loc>https://json2x.info/blog/tutorials.html</loc>
+    <loc>https://json2x.com/blog/tutorials.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>

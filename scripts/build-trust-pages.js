@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
-const BASE_URL = 'https://json2x.info';
+const BASE_URL = 'https://json2x.com';
 
 const TRUST_PAGES = [
   {
@@ -16,7 +16,7 @@ const TRUST_PAGES = [
       <div class="faq-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin: var(--space-8) 0;">
         <div class="faq-card">
           <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 5l6 4 6-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>General Inquiries</h3>
-          <p class="faq-card__a">For general questions and platform feedback:<br><strong>support@json2x.info</strong></p>
+          <p class="faq-card__a">For general questions and platform feedback:<br><strong>support@json2x.com</strong></p>
         </div>
         <div class="faq-card">
           <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M5 4l-2-2M11 4l2-2M8 3v10M3 8h10M4 11l-2 2M12 11l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="4" stroke="currentColor" stroke-width="1.3"/></svg>Bug Reports & Issue Tracker</h3>
@@ -24,7 +24,7 @@ const TRUST_PAGES = [
         </div>
         <div class="faq-card">
           <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 7V4.5a3 3 0 016 0V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Security & Privacy Desk</h3>
-          <p class="faq-card__a">For security advisories and vulnerability disclosures:<br><strong>security@json2x.info</strong></p>
+          <p class="faq-card__a">For security advisories and vulnerability disclosures:<br><strong>security@json2x.com</strong></p>
         </div>
       </div>
     `
@@ -38,7 +38,7 @@ const TRUST_PAGES = [
       <p>Last updated: July 28, 2026</p>
       
       <h3>1. Acceptance of Terms</h3>
-      <p>By accessing or using JSON2X (json2x.info), you agree to be bound by these Terms of Service. All utilities provided on this platform are free of charge for personal, commercial, and enterprise usage.</p>
+      <p>By accessing or using JSON2X (json2x.com), you agree to be bound by these Terms of Service. All utilities provided on this platform are free of charge for personal, commercial, and enterprise usage.</p>
 
       <h3>2. Client-Side Processing & Local Execution</h3>
       <p>All data formatting, validation, minification, and schema generation operations occur exclusively within your web browser. No data payload is ever transmitted to external servers or third-party APIs.</p>
@@ -165,7 +165,7 @@ const TRUST_PAGES = [
     desc: 'Official MIT License details for JSON2X scripts and components.',
     content: `
       <h2>MIT License</h2>
-      <p>Copyright (c) 2026 JSON2X (json2x.info)</p>
+      <p>Copyright (c) 2026 JSON2X (json2x.com)</p>
       <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.</p>
     `
   },
@@ -178,10 +178,10 @@ const TRUST_PAGES = [
       "@graph": [
         {
           "@type": "WebPage",
-          "@id": "https://json2x.info/faq.html#webpage",
+          "@id": "https://json2x.com/faq.html#webpage",
           "name": "Frequently Asked Questions (FAQ) | JSON2X",
           "description": "Comprehensive answers to common questions about JSON2X browser-only developer tools, data privacy, Web Worker performance, and JSON specifications.",
-          "url": "https://json2x.info/faq.html",
+          "url": "https://json2x.com/faq.html",
           "publisher": {
             "@type": "Organization",
             "name": "JSON2X",
@@ -190,15 +190,15 @@ const TRUST_PAGES = [
         },
         {
           "@type": "BreadcrumbList",
-          "@id": "https://json2x.info/faq.html#breadcrumb",
+          "@id": "https://json2x.com/faq.html#breadcrumb",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://json2x.info/" },
-            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://json2x.info/faq.html" }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://json2x.com/" },
+            { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://json2x.com/faq.html" }
           ]
         },
         {
           "@type": "FAQPage",
-          "@id": "https://json2x.info/faq.html#faqpage",
+          "@id": "https://json2x.com/faq.html#faqpage",
           "mainEntity": [
             {
               "@type": "Question",
@@ -325,7 +325,7 @@ const TRUST_PAGES = [
               "name": "How can I report a bug or request a new tool?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "You can open an issue on our GitHub repository or contact our engineering desk directly at support@json2x.info."
+                "text": "You can open an issue on our GitHub repository or contact our engineering desk directly at support@json2x.com."
               }
             }
           ]
@@ -476,7 +476,7 @@ const TRUST_PAGES = [
           </div>
           <div class="faq-card" data-keywords="bug report contact support email github issues request feature">
             <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 6a1.5 1.5 0 113 0c0 1-1.5 1.5-1.5 2.5M8 11.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>How can I report a bug or request a new tool?</h3>
-            <p class="faq-card__a">You can open an issue on our GitHub repository or contact our engineering desk directly at <strong>support@json2x.info</strong>.</p>
+            <p class="faq-card__a">You can open an issue on our GitHub repository or contact our engineering desk directly at <strong>support@json2x.com</strong>.</p>
           </div>
         </div>
       </section>

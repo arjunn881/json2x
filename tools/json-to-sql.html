@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to SQL Converter Online — Free DDL & INSERT Generator | JSON2X</title>
+  <meta name="description" content="Convert JSON to SQL CREATE TABLE and INSERT INTO statements online for free. Supports PostgreSQL, MySQL, and SQLite dialects with 100% client-side privacy." />
+  <meta name="keywords" content="json to sql, convert json to sql, json to create table, json to insert into, postgresql json converter, mysql json converter, sqlite json converter" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-to-sql.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/tools/json-to-sql.html" />
+  <meta property="og:title"       content="JSON to SQL Converter Online — Free DDL & INSERT Generator" />
+  <meta property="og:description" content="Convert JSON to SQL CREATE TABLE and INSERT INTO statements online for free. Supports PostgreSQL, MySQL, and SQLite dialects with 100% client-side privacy." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to SQL Converter Online" />
+  <meta name="twitter:description" content="Convert JSON to SQL DDL and DML queries online. 100% browser-based privacy." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to SQL Converter",
+    "url": "https://json2x.com/tools/json-to-sql.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSON to SQL schema and insert query generator.",
+    "featureList": [
+      "Infers database column types automatically",
+      "Generates CREATE TABLE DDL queries",
+      "Generates INSERT INTO DML statements",
+      "Supports PostgreSQL, MySQL, and SQLite",
+      "100% client-side data privacy"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON to SQL Converter", "item": "https://json2x.com/tools/json-to-sql.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does JSON to SQL conversion work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The converter analyzes JSON key-value data types and builds corresponding SQL CREATE TABLE column schemas and INSERT statements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which SQL dialects are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Supports PostgreSQL, MySQL, and SQLite dialects with tailored data types (VARCHAR, TEXT, JSONB, TIMESTAMP, INTEGER, BOOLEAN)."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-sql">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">JSON ➔ SQL</div>
+        <h1 class="tool-hero__title">JSON to SQL Converter</h1>
+      </div>
+
+      <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Table Name:
+          <input type="text" id="table-name" value="users" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;width:120px;" aria-label="Target SQL Table Name" />
+        </label>
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Dialect:
+          <select id="dialect-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Target SQL Dialect">
+            <option value="postgres" selected>PostgreSQL</option>
+            <option value="mysql">MySQL</option>
+            <option value="sqlite">SQLite</option>
+          </select>
+        </label>
+        <button class="btn btn--primary" id="convert-btn">Convert to SQL</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy SQL</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download .sql</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">JSON Input</span></div>
+          <textarea class="textarea" id="converter-input"
+            placeholder='[{"id": 1, "name": "Alice", "email": "alice@example.com", "is_admin": true, "created_at": "2026-08-10T12:00:00Z"}]'
+            aria-label="JSON Input" spellcheck="false" style="min-height:320px;font-family:var(--font-mono);"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">SQL Output</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:320px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Related Tools</span>
+        <a href="json-to-csv.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+        <a href="json-to-ts.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to TypeScript</a>
+        <a href="schema.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Schema Generator</a>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Migrating API payloads into SQL databases requires properly formatted schemas and insert scripts. Our free online JSON to SQL converter analyzes your data structure, infers appropriate column data types (INT, VARCHAR, TIMESTAMP, JSONB), and generates valid CREATE TABLE and INSERT INTO SQL queries. All conversion happens 100% in your browser.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-sql"></div>
+
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
+        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON to SQL Conversion</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">How are SQL data types inferred?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Integers map to INTEGER, decimal numbers to FLOAT/DOUBLE, booleans to BOOLEAN, ISO dates to TIMESTAMP, and nested objects map to native JSON/JSONB types.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Is my JSON data kept private?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Yes. Zero network requests are sent. All parsing and SQL statement building occurs locally inside your browser.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script>
+    (function() {
+      'use strict';
+      const tableNameInput = document.getElementById('table-name');
+      const dialectSel = document.getElementById('dialect-select');
+      const inputEl = document.getElementById('converter-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function convert() {
+        const text = inputEl.value.trim();
+        if (!text) {
+          outputEl.textContent = '';
+          showStatus('');
+          return;
+        }
+
+        const { data, error } = JT.parseJSON(text);
+        if (error) {
+          showStatus(`JSON Parse Error: ${error}`, 'error');
+          return;
+        }
+
+        const { sql, error: sqlErr } = JT.jsonToSql(data, {
+          tableName: tableNameInput.value.trim() || 'users',
+          dialect: dialectSel.value
+        });
+
+        if (sqlErr) {
+          showStatus(`SQL Error: ${sqlErr}`, 'error');
+          return;
+        }
+
+        outputEl.textContent = sql;
+        showStatus('Successfully generated SQL schema and insert queries!', 'success');
+      }
+
+      document.getElementById('convert-btn').addEventListener('click', convert);
+      inputEl.addEventListener('input', JT.debounce(convert, 400));
+      tableNameInput.addEventListener('input', JT.debounce(convert, 400));
+      dialectSel.addEventListener('change', convert);
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied SQL to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const blob = new Blob([res], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${tableNameInput.value.trim() || 'table'}.sql`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', () => {
+        inputEl.value = '';
+        outputEl.textContent = '';
+        showStatus('');
+      });
+    })();
+  </script>
+</body>
+</html>

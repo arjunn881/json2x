@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON Arrays Guide — Syntax, Nesting & Manipulation | JSON2X</title>
-  <meta name="description" content="Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies." />
-  <meta name="keywords" content="json array, array of objects json, nested json array, json to csv array" />
+  <title>JSON to Go, Rust & Python Struct Generator Guide | JSON2X</title>
+  <meta name="description" content="Learn how to generate strongly-typed Go structs, Rust Serde structs, and Python Pydantic models from raw JSON payloads with client-side privacy." />
+  <meta name="keywords" content="json to go struct, json to rust serde, json to python pydantic, backend model generator, json type inference" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0d1117" />
   <meta name="color-scheme" content="dark light" />
-  <link rel="canonical" href="https://json2x.com/kb/json-arrays.html" />
+  <link rel="canonical" href="https://json2x.com/kb/json-to-code-guide.html" />
 
   <meta property="og:type"        content="article" />
-  <meta property="og:url"         content="https://json2x.com/kb/json-arrays.html" />
-  <meta property="og:title"       content="JSON Arrays Guide — Syntax, Nesting & Manipulation" />
-  <meta property="og:description" content="Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies." />
+  <meta property="og:url"         content="https://json2x.com/kb/json-to-code-guide.html" />
+  <meta property="og:title"       content="JSON to Go, Rust & Python Struct Generator Guide" />
+  <meta property="og:description" content="Learn how to generate strongly-typed Go structs, Rust Serde structs, and Python Pydantic models from raw JSON payloads with client-side privacy." />
   <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
   <meta property="og:locale"      content="en_US" />
 
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Working with JSON Arrays" />
-  <meta name="twitter:description" content="Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies." />
+  <meta name="twitter:title"       content="Generating Strongly-Typed Backend Models from JSON" />
+  <meta name="twitter:description" content="Learn how to generate strongly-typed Go structs, Rust Serde structs, and Python Pydantic models from raw JSON payloads with client-side privacy." />
   <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
 
   <script type="application/ld+json">
@@ -32,10 +32,10 @@
   "@graph": [
     {
       "@type": "TechArticle",
-      "@id": "https://json2x.com/kb/json-arrays.html#article",
-      "headline": "JSON Arrays Guide — Syntax, Nesting & Manipulation",
-      "description": "Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies.",
-      "url": "https://json2x.com/kb/json-arrays.html",
+      "@id": "https://json2x.com/kb/json-to-code-guide.html#article",
+      "headline": "JSON to Go, Rust & Python Struct Generator Guide",
+      "description": "Learn how to generate strongly-typed Go structs, Rust Serde structs, and Python Pydantic models from raw JSON payloads with client-side privacy.",
+      "url": "https://json2x.com/kb/json-to-code-guide.html",
       "publisher": {
         "@type": "Organization",
         "name": "JSON2X",
@@ -44,7 +44,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://json2x.com/kb/json-arrays.html#breadcrumb",
+      "@id": "https://json2x.com/kb/json-to-code-guide.html#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -61,29 +61,29 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Working with JSON Arrays",
-          "item": "https://json2x.com/kb/json-arrays.html"
+          "name": "Generating Strongly-Typed Backend Models from JSON",
+          "item": "https://json2x.com/kb/json-to-code-guide.html"
         }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://json2x.com/kb/json-arrays.html#faqpage",
+      "@id": "https://json2x.com/kb/json-to-code-guide.html#faqpage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Can a JSON array contain mixed data types?",
+          "name": "Does it handle nested JSON arrays?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, JSON arrays can contain numbers, strings, objects, and nested arrays in a single list."
+            "text": "Yes. Nested arrays and objects are recursively parsed into sub-structs and sub-classes."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I convert a JSON array of objects to CSV?",
+          "name": "Is Pydantic v2 supported for Python?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use our free JSON to CSV converter tool to flatten array objects into columns."
+            "text": "Yes. Generated Python code uses standard Pydantic BaseModel definitions compatible with Pydantic v1 and v2."
           }
         }
       ]
@@ -104,32 +104,36 @@
       <div id="breadcrumb-placeholder"></div>
 
       <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
-        <div class="tool-hero__badge">Structures Knowledge Base</div>
-        <h1 class="tool-hero__title">Working with JSON Arrays</h1>
-        <p class="tool-hero__desc">Master JSON arrays: ordered lists of values, array of objects, multidimensional arrays, and CSV export strategies.</p>
+        <div class="tool-hero__badge">Backend Knowledge Base</div>
+        <h1 class="tool-hero__title">Generating Strongly-Typed Backend Models from JSON</h1>
+        <p class="tool-hero__desc">Learn how to generate strongly-typed Go structs, Rust Serde structs, and Python Pydantic models from raw JSON payloads with client-side privacy.</p>
       </div>
 
       <article class="faq-prose" style="margin-bottom:var(--space-12)">
         
-      <h2>Deep Dive into JSON Arrays</h2>
-      <p>A JSON array is an ordered list of values enclosed in square brackets (<code>[ ]</code>). Elements in an array can be any valid JSON data type, including nested arrays or objects.</p>
-      <h3>Array Best Practices:</h3>
+      <h2>Generating Strongly-Typed Backend Models</h2>
+      <p>When consuming external REST APIs in statically typed languages like Go, Rust, or Python Pydantic, writing boilerplate model structs manually is time-consuming and error-prone. Automated type inference creates clean, idiomatic struct definitions directly from sample JSON responses.</p>
+      <h3>Supported Language Targets:</h3>
       <ul>
-        <li>Maintain uniform object schemas inside arrays for smooth CSV export.</li>
-        <li>Avoid trailing commas after the final array element.</li>
+        <li><strong>Go (Golang):</strong> Generates PascalCase struct fields with <code>json:"key"</code> struct field tags.</li>
+        <li><strong>Rust (Serde):</strong> Generates snake_case struct fields with <code>#[derive(Serialize, Deserialize)]</code> and <code>#[serde(rename)]</code> attributes.</li>
+        <li><strong>Python (Pydantic):</strong> Generates <code>BaseModel</code> classes with type hints (<code>int</code>, <code>float</code>, <code>str</code>, <code>List[...]</code>, <code>Optional[...]</code>).</li>
       </ul>
     
 
         <h2>Code Example &amp; Usage</h2>
-        <div class="tool-code-example" style="margin-bottom:var(--space-8)">[
-  { "id": 1, "product": "Widget A", "price": 19.99 },
-  { "id": 2, "product": "Widget B", "price": 29.99 }
-]</div>
+        <div class="tool-code-example" style="margin-bottom:var(--space-8)">// Generated Go Struct
+type AutoGenerated struct {
+	ID       int      `json:"id"`
+	Name     string   `json:"name"`
+	IsActive bool     `json:"is_active"`
+	Roles    []string `json:"roles"`
+}</div>
 
         <div class="tool-cta-banner">
           <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
           <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
-          <a href="../tools/json-to-csv.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch JSON TO-CSV</a>
+          <a href="../tools/json-to-code.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch JSON TO-CODE</a>
         </div>
       </article>
 
@@ -139,14 +143,14 @@
         <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
           
     <div class="faq-card">
-      <h3 class="faq-card__q">Can a JSON array contain mixed data types?</h3>
-      <p class="faq-card__a">Yes, JSON arrays can contain numbers, strings, objects, and nested arrays in a single list.</p>
+      <h3 class="faq-card__q">Does it handle nested JSON arrays?</h3>
+      <p class="faq-card__a">Yes. Nested arrays and objects are recursively parsed into sub-structs and sub-classes.</p>
     </div>
   
 
     <div class="faq-card">
-      <h3 class="faq-card__q">How do I convert a JSON array of objects to CSV?</h3>
-      <p class="faq-card__a">Use our free JSON to CSV converter tool to flatten array objects into columns.</p>
+      <h3 class="faq-card__q">Is Pydantic v2 supported for Python?</h3>
+      <p class="faq-card__a">Yes. Generated Python code uses standard Pydantic BaseModel definitions compatible with Pydantic v1 and v2.</p>
     </div>
   
         </div>
@@ -160,7 +164,7 @@
 <li><a href="https://json2x.com/kb/json-tutorials.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Data Workflows & Pipelines</a></li>
 <li><a href="https://json2x.com/kb/json-examples.html" style="color:var(--accent); text-decoration:none;">Real-World JSON Code Examples & Structures</a></li>
 <li><a href="https://json2x.com/kb/json-keywords.html" style="color:var(--accent); text-decoration:none;">Understanding JSON Keywords & Literals</a></li>
-<li><a href="https://json2x.com/kb/json-objects.html" style="color:var(--accent); text-decoration:none;">Mastering JSON Objects</a></li>
+<li><a href="https://json2x.com/kb/json-arrays.html" style="color:var(--accent); text-decoration:none;">Working with JSON Arrays</a></li>
         </ul>
       </section>
     </div>

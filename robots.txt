@@ -1,5 +1,5 @@
 # ============================================
-# JSON2X (json2x.info) — Optimized robots.txt
+# JSON2X (json2x.com) — Optimized robots.txt
 # Conforms to Google Search Central (RFC 9309)
 # ============================================
 
@@ -30,7 +30,7 @@ Disallow: /tools/_template.html
 Disallow: /tools/converter.html
 
 # Sitemaps
-Sitemap: https://json2x.info/sitemap-index.xml
-Sitemap: https://json2x.info/sitemap.xml
-Sitemap: https://json2x.info/sitemap-images.xml
-Sitemap: https://json2x.info/sitemap-news.xml
+Sitemap: https://json2x.com/sitemap-index.xml
+Sitemap: https://json2x.com/sitemap.xml
+Sitemap: https://json2x.com/sitemap-images.xml
+Sitemap: https://json2x.com/sitemap-news.xml

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Mock Data Generator Online — Free Synthetic Data | JSON2X</title>
+  <meta name="description" content="Generate realistic JSON mock data online for free. Create synthetic datasets for users, products, transactions, and logs with instant copy and download." />
+  <meta name="keywords" content="json mock generator, fake json generator, synthetic json data, json dummy data, generate json dataset, mock api generator" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-mock-generator.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/tools/json-mock-generator.html" />
+  <meta property="og:title"       content="JSON Mock Data Generator Online — Free Synthetic Data" />
+  <meta property="og:description" content="Generate realistic JSON mock data online for free. Create synthetic datasets for users, products, transactions, and logs with instant copy and download." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON Mock Data Generator Online" />
+  <meta name="twitter:description" content="Generate synthetic JSON test datasets instantly. 100% browser privacy." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON Mock Data Generator",
+    "url": "https://json2x.com/tools/json-mock-generator.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free online JSON mock data and synthetic dataset generator for API testing.",
+    "featureList": [
+      "Generate synthetic User datasets",
+      "Generate E-commerce Product catalog JSON",
+      "Generate Financial Transactions JSON",
+      "Generate Server Access Logs JSON",
+      "100% client-side browser privacy"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON Mock Data Generator", "item": "https://json2x.com/tools/json-mock-generator.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What types of mock data can I generate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generate realistic datasets for Users, Products, Financial Transactions, and Server Logs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many records can I generate at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Generate up to 500 records instantly with zero latency directly in your browser."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/design-system.css" />
+  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-mock-generator">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">JSON Generator</div>
+        <h1 class="tool-hero__title">JSON Mock Data Generator</h1>
+      </div>
+
+      <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Dataset Template:
+          <select id="template-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Mock Dataset Template">
+            <option value="users" selected>Users Profile</option>
+            <option value="products">E-Commerce Products</option>
+            <option value="transactions">Financial Transactions</option>
+            <option value="logs">Server Logs</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Record Count:
+          <input type="number" id="count-input" value="10" min="1" max="500" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;width:80px;" aria-label="Mock Record Count" />
+        </label>
+        <button class="btn btn--primary" id="generate-btn">Generate JSON</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Output</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download .json</button>
+      </div>
+
+      <div class="split-pane" style="grid-template-columns: 1fr;">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">Generated JSON Dataset</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:360px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Related Tools</span>
+        <a href="json-formatter.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv.html" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Testing APIs, frontend state management, and database queries requires realistic sample datasets. Our free JSON mock data generator creates realistic synthetic data for users, products, financial orders, and access logs with customizable row counts.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-mock-generator"></div>
+
+      <section style="margin-top:var(--space-16);padding-top:var(--space-10);border-top:1px solid var(--bg-border)" aria-label="FAQ">
+        <p style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:var(--space-3)">Guide</p>
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-8)">About JSON Mock Data Generation</h2>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-5);margin-bottom:var(--space-8)">
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Why use synthetic JSON mock data?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Synthetic mock data prevents leaking real user PII in local development, unit tests, or staging environments.</p>
+          </div>
+          <div style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);padding:var(--space-5)">
+            <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-3)">Is the data generated offline?</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed)">Yes. All mock data generation algorithms run client-side in your browser JavaScript engine.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="../assets/js/common.js"></script>
+  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script>
+    (function() {
+      'use strict';
+      const templateSel = document.getElementById('template-select');
+      const countInput = document.getElementById('count-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function generate() {
+        const tpl = templateSel.value;
+        const count = countInput.value;
+
+        const { json, error } = JT.generateMockJson(tpl, count);
+        if (error) {
+          showStatus(`Mock Generation Error: ${error}`, 'error');
+          return;
+        }
+
+        outputEl.textContent = json;
+        showStatus(`Generated ${countInput.value} synthetic ${templateSel.value} records!`, 'success');
+      }
+
+      document.getElementById('generate-btn').addEventListener('click', generate);
+      templateSel.addEventListener('change', generate);
+      countInput.addEventListener('input', JT.debounce(generate, 300));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied mock JSON to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const blob = new Blob([res], { type: 'application/json;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `mock_${templateSel.value}.json`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      // Initial generation
+      generate();
+    })();
+  </script>
+</body>
+</html>

@@ -38,6 +38,9 @@
     'json-to-yaml': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3h12v12H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     'json-to-xml': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 4L2 9l3 5M13 4l3 5-3 5M10 3L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     'json-to-toml': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 6h4M9 6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+    'json-to-sql': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3" width="14" height="4" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 7v4c0 1.5 3 3 7 3s7-1.5 7-3V7M2 11v4c0 1.5 3 3 7 3s7-1.5 7-3v-4" stroke="currentColor" stroke-width="1.5"/></svg>`,
+    'json-to-code': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 4L1 9l4 5M13 4l4 5-4 5M10 2L8 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'json-mock-generator': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="6.5" r="1" fill="currentColor"/><circle cx="11.5" cy="11.5" r="1" fill="currentColor"/><circle cx="9" cy="9" r="1" fill="currentColor"/></svg>`,
   };
 
   const TOOLS = [
@@ -112,6 +115,30 @@
       desc:  'Convert JSON objects to TOML configuration files',
       icon:  ICON['json-to-toml'],
       href:  '/tools/json-to-toml.html',
+    },
+    {
+      id:    'json-to-sql',
+      aliases: ['json-to-sql', 'json2sql', 'json-sql-converter'],
+      name:  'JSON to SQL',
+      desc:  'Convert JSON payloads into CREATE TABLE and INSERT SQL queries',
+      icon:  ICON['json-to-sql'],
+      href:  '/tools/json-to-sql.html',
+    },
+    {
+      id:    'json-to-code',
+      aliases: ['json-to-code', 'json-to-go', 'json-to-rust', 'json-to-python'],
+      name:  'JSON to Code',
+      desc:  'Generate Go structs, Rust Serde models, and Python Pydantic classes',
+      icon:  ICON['json-to-code'],
+      href:  '/tools/json-to-code.html',
+    },
+    {
+      id:    'json-mock-generator',
+      aliases: ['json-mock-generator', 'fake-json', 'mock-json'],
+      name:  'JSON Mock Generator',
+      desc:  'Generate synthetic test JSON datasets for users, products, and logs',
+      icon:  ICON['json-mock-generator'],
+      href:  '/tools/json-mock-generator.html',
     },
     {
       id:    'json-to-ts',
@@ -242,10 +269,13 @@
 
     const isMoreActive = REMAINING_TOOLS.some(t => t.id === currentId || (t.aliases && t.aliases.includes(currentId)));
 
-    const navLinks = PRIMARY_TOOLS.map(t => {
-      const active = (t.id === currentId || (t.aliases && t.aliases.includes(currentId))) ? ' active' : '';
-      return `<a class="site-nav__link${active}" href="${resolveHref(t.href)}" aria-current="${t.id === currentId ? 'page' : 'false'}">${t.name}</a>`;
-    }).join('\n        ');
+    const navLinks = `
+      <a class="site-nav__link${currentId === 'tools-index' ? ' active' : ''}" href="${resolveHref('/tools/index.html')}">Tools Catalog</a>
+      <a class="site-nav__link${currentId === 'docs' ? ' active' : ''}" href="${resolveHref('/docs/index.html')}">Docs</a>
+      <a class="site-nav__link${currentId === 'kb' ? ' active' : ''}" href="${resolveHref('/kb/index.html')}">Knowledge Base</a>
+      <a class="site-nav__link${currentId === 'blog' ? ' active' : ''}" href="${resolveHref('/blog/index.html')}">Blog</a>
+      <a class="site-nav__link${currentId === 'json-formatter' || currentId === 'formatter' ? ' active' : ''}" href="${resolveHref('/tools/json-formatter.html')}">JSON Formatter</a>
+    `;
 
     const remainingToolsDropdownItems = REMAINING_TOOLS.map(t => {
       const active = (t.id === currentId || (t.aliases && t.aliases.includes(currentId))) ? ' active' : '';
@@ -692,8 +722,8 @@
      OpenGraph, Twitter cards, viewport, theme-color, manifest, author,
      and publisher tags for all existing & future pages.
   ────────────────────────────────────────────────────────── */
-  const SITE_BASE_URL = 'https://json2x.info';
-  const DEFAULT_OG_IMAGE = 'https://json2x.info/assets/og-image.png';
+  const SITE_BASE_URL = 'https://json2x.com';
+  const DEFAULT_OG_IMAGE = 'https://json2x.com/assets/og-image.png';
 
   function setMetaTag(attrName, attrValue, content) {
     if (!content) return;
@@ -817,7 +847,7 @@
       "founder": { "@id": `${SITE_BASE_URL}/#person` },
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "hello@json2x.info",
+        "email": "hello@json2x.com",
         "contactType": "customer support"
       }
     });
