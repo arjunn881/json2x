@@ -1,0 +1,38 @@
+---
+title: "JSONPath Query Syntax & Real-Time Evaluator Guide"
+description: "Comprehensive developer manual on JSONPath expressions (RFC 9535), recursive descent operators, slice notations, and filter expressions."
+category: "Query & Inspection"
+tags: ["jsonpath","query","filter","evaluator","rfc9535"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "jsonpath"
+---
+
+# JSONPath Query Syntax & Real-Time Evaluator Guide
+
+JSONPath is an expression language for querying, filtering, and extracting nodes from JSON structures, codified under **IETF RFC 9535**.
+
+## 1. Core Operators Syntax
+
+| Operator | Syntax | Description |
+| :--- | :--- | :--- |
+| Root object | `$` | The root context object or array |
+| Child operator | `.` or `[]` | Access named property or array index |
+| Recursive descent | `..` | Search across all nested depths |
+| Wildcard | `*` | Matches all elements or properties |
+| Array slice | `[start:end:step]` | Subarray slicing |
+| Filter expression | `[?(@.price < 20)]` | Predicate filtering on current node |
+
+## 2. Real-World Query Examples
+
+```javascript
+// Extract all author names across any depth
+$.store.book[*].author
+
+// Filter all items where price is greater than 10
+$..book[?(@.price > 10)]
+
+// Retrieve the last two elements of an array
+$.orders[-2:]
+```
+    

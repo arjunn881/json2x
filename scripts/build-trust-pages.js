@@ -612,9 +612,9 @@ function generateTrustPageHTML(page) {
   ${JSON.stringify(jsonLdSchema, null, 2)}
   </script>
 
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="./assets/css/design-system.css" />
-  <link rel="stylesheet" href="./assets/css/components.css?v=2.8.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -640,20 +640,20 @@ function generateTrustPageHTML(page) {
 
   <div id="site-footer-placeholder">
     <nav aria-label="Footer fallback navigation" style="padding:20px;text-align:center;">
-      <a href="./index.html">Home</a> | <a href="./about.html">About</a> | <a href="./contact.html">Contact</a> | <a href="./privacy.html">Privacy</a>
+      <a href="/index.html">Home</a> | <a href="/about.html">About</a> | <a href="/contact.html">Contact</a> | <a href="/privacy.html">Privacy</a>
     </nav>
   </div>
 
-  <script src="./assets/js/common.js"></script>
-  <script src="./assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 }
 
-console.log('<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg> Building Google Trust & Governance Pages...');
+console.log('Building Google Trust & Governance Pages...');
 TRUST_PAGES.forEach(page => {
   const filePath = path.join(WORKSPACE_ROOT, page.filename);
   fs.writeFileSync(filePath, generateTrustPageHTML(page), 'utf8');
   console.log(`   - Generated Trust page: ${page.filename}`);
 });
-console.log('✅ Successfully compiled all Trust & Governance pages!');
+console.log('Successfully compiled all Trust & Governance pages!');

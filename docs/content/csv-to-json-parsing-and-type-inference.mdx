@@ -1,0 +1,34 @@
+---
+title: "CSV to JSON Parsing & Automatic Type Inference"
+description: "Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types."
+category: "Data Converters"
+tags: ["csv-to-json","csv","parser","type-inference","converter"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "csv-to-json"
+---
+
+# CSV to JSON Parsing & Automatic Type Inference
+
+Converting raw CSV spreadsheets into valid JSON is essential for feeding databases and REST APIs.
+
+## 1. Delimiter Auto-Detection
+
+The parser analyzes the first 5 rows to statistically detect the primary separator:
+- Comma (`,`)
+- Semicolon (`;`)
+- Tab (`\t`)
+- Pipe (`|`)
+
+## 2. Type Inference Engine
+
+Since CSV is pure un-typed text, the engine inspects values against regex patterns:
+
+| Raw CSV Value | Inferred JSON Type | Parsed Output |
+| :--- | :--- | :--- |
+| `"42"` | Integer (`number`) | `42` |
+| `"3.1415"` | Float (`number`) | `3.1415` |
+| `"true"` / `"TRUE"` | Boolean (`boolean`) | `true` |
+| `"null"` / `"NULL"` / `""` | Null | `null` |
+| `"2026-08-16T12:00:00Z"` | String (ISO Date) | `"2026-08-16T12:00:00Z"` |
+    

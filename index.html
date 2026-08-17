@@ -6,8 +6,8 @@
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
   <title>JSON2X — Free Online JSON &amp; CSV Developer Tools</title>
-  <meta name="description" content="Ten free, browser-only JSON and CSV tools: formatter, validator, minifier, diff checker, CSV converter, TypeScript generator, and Tree viewer. 100% private." />
-  <meta name="keywords" content="json tools, json formatter, json validator, json minifier, json diff, csv to json, json to csv, json to typescript, jsonpath tester, json schema generator, json tree viewer" />
+  <meta name="description" content="Free, browser-only JSON and CSV developer tools: formatter, validator, minifier, diff checker, converters (CSV, YAML, XML, TOML, SQL), generators, and tree viewer." />
+  <meta name="keywords" content="json tools, json formatter, json validator, json minifier, json diff, csv to json, json to csv, json to yaml, json to xml, json to toml, json to sql, json mock generator, json to typescript, jsonpath tester, json schema generator, json tree viewer" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0d1117" />
   <meta name="color-scheme" content="dark light" />
@@ -16,14 +16,14 @@
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://json2x.com/" />
   <meta property="og:title"       content="JSON2X — Free Online Developer Tools" />
-  <meta property="og:description" content="Ten fast, free, browser-only JSON and CSV utilities. No server, no tracking, 100% client-side privacy." />
+  <meta property="og:description" content="Sixteen fast, free, browser-only JSON and CSV utilities. No server, no tracking, 100% client-side privacy." />
   <meta property="og:site_name"   content="JSON2X" />
   <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
   <meta property="og:locale"      content="en_US" />
 
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="JSON2X — Free Online JSON &amp; CSV Tools" />
-  <meta name="twitter:description" content="Ten fast, free, browser-only JSON and CSV developer utilities. No server upload required." />
+  <meta name="twitter:description" content="Sixteen fast, free, browser-only JSON and CSV developer utilities. No server upload required." />
   <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
 
   <script type="application/ld+json">
@@ -35,7 +35,7 @@
     "description": "Free browser-only JSON and CSV developer tools: formatter, validator, minifier, diff checker, CSV converter, TypeScript generator, and JSONPath tester.",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://json2x.com/tools/formatter.html",
+      "target": "https://json2x.com/tools/json-formatter.html",
       "query-input": "required name=search_term_string"
     }
   }
@@ -47,16 +47,22 @@
     "name": "JSON2X — All Tools",
     "url": "https://json2x.com/",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "JSON Formatter & Validator", "url": "https://json2x.com/tools/formatter.html" },
-      { "@type": "ListItem", "position": 2, "name": "JSON Validator", "url": "https://json2x.com/tools/validator.html" },
-      { "@type": "ListItem", "position": 3, "name": "JSON Minifier", "url": "https://json2x.com/tools/minifier.html" },
-      { "@type": "ListItem", "position": 4, "name": "JSON Diff Checker", "url": "https://json2x.com/tools/diff.html" },
+      { "@type": "ListItem", "position": 1, "name": "JSON Formatter & Validator", "url": "https://json2x.com/tools/json-formatter.html" },
+      { "@type": "ListItem", "position": 2, "name": "JSON Validator", "url": "https://json2x.com/tools/json-validator.html" },
+      { "@type": "ListItem", "position": 3, "name": "JSON Minifier", "url": "https://json2x.com/tools/json-minifier.html" },
+      { "@type": "ListItem", "position": 4, "name": "JSON Diff Checker", "url": "https://json2x.com/tools/json-diff.html" },
       { "@type": "ListItem", "position": 5, "name": "JSON to CSV Converter", "url": "https://json2x.com/tools/json-to-csv.html" },
       { "@type": "ListItem", "position": 6, "name": "CSV to JSON Converter", "url": "https://json2x.com/tools/csv-to-json.html" },
-      { "@type": "ListItem", "position": 7, "name": "JSON to TypeScript Generator", "url": "https://json2x.com/tools/json-to-ts.html" },
-      { "@type": "ListItem", "position": 8, "name": "JSONPath Tester", "url": "https://json2x.com/tools/jsonpath.html" },
-      { "@type": "ListItem", "position": 9, "name": "JSON Schema Generator", "url": "https://json2x.com/tools/schema.html" },
-      { "@type": "ListItem", "position": 10, "name": "JSON Tree Viewer", "url": "https://json2x.com/tools/viewer.html" }
+      { "@type": "ListItem", "position": 7, "name": "JSON to YAML Converter", "url": "https://json2x.com/tools/json-to-yaml.html" },
+      { "@type": "ListItem", "position": 8, "name": "JSON to XML Converter", "url": "https://json2x.com/tools/json-to-xml.html" },
+      { "@type": "ListItem", "position": 9, "name": "JSON to TOML Converter", "url": "https://json2x.com/tools/json-to-toml.html" },
+      { "@type": "ListItem", "position": 10, "name": "JSON to SQL Converter", "url": "https://json2x.com/tools/json-to-sql.html" },
+      { "@type": "ListItem", "position": 11, "name": "JSON to Code Models", "url": "https://json2x.com/tools/json-to-code.html" },
+      { "@type": "ListItem", "position": 12, "name": "JSON Mock Generator", "url": "https://json2x.com/tools/json-mock-generator.html" },
+      { "@type": "ListItem", "position": 13, "name": "JSON to TypeScript Generator", "url": "https://json2x.com/tools/typescript-generator.html" },
+      { "@type": "ListItem", "position": 14, "name": "JSONPath Tester", "url": "https://json2x.com/tools/jsonpath.html" },
+      { "@type": "ListItem", "position": 15, "name": "JSON Schema Generator", "url": "https://json2x.com/tools/json-schema-generator.html" },
+      { "@type": "ListItem", "position": 16, "name": "JSON Tree Viewer", "url": "https://json2x.com/tools/json-tree-viewer.html" }
     ]
   }
   </script>
@@ -71,9 +77,9 @@
   }
   </script>
 
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="./assets/css/design-system.css" />
-  <link rel="stylesheet" href="./assets/css/components.css?v=2.8.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
 
   <style>
     /* ── Developer-First Landing Page Design System ───────────────── */
@@ -404,14 +410,14 @@
             100% Client-Side <span style="color:var(--accent)">JSON &amp; CSV</span> Tools for Developers
           </h1>
           <p class="dev-hero__sub">
-            Ten fast, browser-native utilities. Format, validate, convert, diff, query, and generate TypeScript types without sending a single byte to any server.
+            Seventeen fast, browser-native utilities. Format, validate, convert, diff, query, generate data models, synthetic datasets, and TypeScript types without sending a single byte to any server.
           </p>
           <div class="dev-hero__actions">
-            <a href="./tools/json-formatter.html" class="btn btn--primary dev-btn">
+            <a href="/tools/json-formatter.html" class="btn btn--primary dev-btn">
               <span class="prompt-symbol">$</span> open_formatter()
             </a>
             <a href="#all-tools" class="btn btn--outline dev-btn--sec">
-              // view_all_tools (10)
+              // view_all_tools (17)
             </a>
           </div>
           <div class="dev-trust-strip">
@@ -471,12 +477,21 @@
       <div class="container">
         <div class="tools-section__header">
           <div class="tools-section__tag">$ ls ./tools/</div>
-          <h2 class="tools-section__title">Developer Utilities (10)</h2>
+          <h2 class="tools-section__title">Developer Utilities (17)</h2>
         </div>
 
         <div class="dev-tools-grid">
 
-          <a class="dev-tool-card" href="./tools/json-formatter.html" aria-label="JSON Formatter: prettify and validate JSON with syntax highlighting">
+          <a class="dev-tool-card" href="/tools/json-converter.html" aria-label="JSON Multi-Converter: convert JSON to TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, and Mock Data">
+            <div class="dev-card__head">
+              <span class="dev-card__title">JSON Multi-Converter</span>
+              <span class="dev-card__badge" style="background:var(--accent);color:#fff">7-in-1</span>
+            </div>
+            <div class="dev-card__snippet">JSON → TS, Zod, Mongoose, SQL, OpenAPI...</div>
+            <div class="dev-card__desc">Convert JSON to 7 formats in one tool: TypeScript, Zod, Mongoose, SQL DDL, OpenAPI 3.0, JSON Schema, and Mock Data.</div>
+          </a>
+
+          <a class="dev-tool-card" href="/tools/json-formatter.html" aria-label="JSON Formatter: prettify and validate JSON with syntax highlighting">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Formatter</span>
               <span class="dev-card__badge">Most Popular</span>
@@ -485,7 +500,7 @@
             <div class="dev-card__desc">Beautify minified JSON with customizable spacing and syntax highlighting. Built-in error linter included.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-validator.html" aria-label="JSON Validator: get exact line and column error messages">
+          <a class="dev-tool-card" href="/tools/json-validator.html" aria-label="JSON Validator: get exact line and column error messages">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Validator</span>
             </div>
@@ -493,7 +508,7 @@
             <div class="dev-card__desc">Check syntax compliance against RFC 8259 with exact line and column error pinpoints.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-minifier.html" aria-label="JSON Minifier: compress JSON and see byte savings">
+          <a class="dev-tool-card" href="/tools/json-minifier.html" aria-label="JSON Minifier: compress JSON and see byte savings">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Minifier</span>
             </div>
@@ -501,7 +516,7 @@
             <div class="dev-card__desc">Strip whitespace and comments to compress payloads for production API responses.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/diff.html" aria-label="JSON Diff: compare two JSON objects visually">
+          <a class="dev-tool-card" href="/tools/json-diff.html" aria-label="JSON Diff: compare two JSON objects visually">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Diff Checker</span>
             </div>
@@ -509,7 +524,7 @@
             <div class="dev-card__desc">Side-by-side structural comparison with color-coded added, removed, and modified fields.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-to-csv.html" aria-label="JSON to CSV: export JSON arrays as downloadable CSV">
+          <a class="dev-tool-card" href="/tools/json-to-csv.html" aria-label="JSON to CSV: export JSON arrays as downloadable CSV">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON to CSV</span>
             </div>
@@ -517,7 +532,7 @@
             <div class="dev-card__desc">Flatten JSON arrays into downloadable CSV spreadsheets with dot-notation headers for nested keys.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/csv-to-json.html" aria-label="CSV to JSON: parse CSV files into JSON with auto-detection">
+          <a class="dev-tool-card" href="/tools/csv-to-json.html" aria-label="CSV to JSON: parse CSV files into JSON with auto-detection">
             <div class="dev-card__head">
               <span class="dev-card__title">CSV to JSON</span>
             </div>
@@ -525,7 +540,34 @@
             <div class="dev-card__desc">Convert CSV files to formatted JSON. Auto-detects delimiters and infers boolean &amp; number types.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-to-ts.html" aria-label="JSON to TypeScript: generate interfaces and Zod schemas">
+          <a class="dev-tool-card" href="/tools/json-to-yaml.html" aria-label="JSON to YAML: convert JSON payloads to clean YAML">
+            <div class="dev-card__head">
+              <span class="dev-card__title">JSON to YAML</span>
+              <span class="dev-card__badge">New</span>
+            </div>
+            <div class="dev-card__snippet">{"a":1} → a: 1</div>
+            <div class="dev-card__desc">Convert JSON objects and arrays into clean, indented YAML configuration files and vice versa.</div>
+          </a>
+
+          <a class="dev-tool-card" href="/tools/json-to-xml.html" aria-label="JSON to XML: convert JSON objects to valid XML">
+            <div class="dev-card__head">
+              <span class="dev-card__title">JSON to XML</span>
+              <span class="dev-card__badge">New</span>
+            </div>
+            <div class="dev-card__snippet">{"a":1} → &lt;root&gt;&lt;a&gt;1&lt;/a&gt;&lt;/root&gt;</div>
+            <div class="dev-card__desc">Convert JSON payloads to structured XML elements with custom root tags and attribute support.</div>
+          </a>
+
+          <a class="dev-tool-card" href="/tools/json-to-toml.html" aria-label="JSON to TOML: convert JSON objects to TOML config files">
+            <div class="dev-card__head">
+              <span class="dev-card__title">JSON to TOML</span>
+              <span class="dev-card__badge">New</span>
+            </div>
+            <div class="dev-card__snippet">{"title":"App"} → title = "App"</div>
+            <div class="dev-card__desc">Transform JSON structures into human-readable TOML documents for Cargo, Hugo, or Python settings.</div>
+          </a>
+
+          <a class="dev-tool-card" href="/tools/typescript-generator.html" aria-label="JSON to TypeScript: generate interfaces and Zod schemas">
             <div class="dev-card__head">
               <span class="dev-card__title">TypeScript Generator</span>
             </div>
@@ -533,7 +575,7 @@
             <div class="dev-card__desc">Generate typed <code>interface</code> declarations and optional Zod validation schemas instantly.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/jsonpath.html" aria-label="JSONPath Tester: test path expressions live">
+          <a class="dev-tool-card" href="/tools/jsonpath.html" aria-label="JSONPath Tester: test path expressions live">
             <div class="dev-card__head">
               <span class="dev-card__title">JSONPath Evaluator</span>
             </div>
@@ -541,7 +583,7 @@
             <div class="dev-card__desc">Evaluate JSONPath queries against live data structures with recursive search and filter expressions.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/schema.html" aria-label="JSON Schema Generator: infer draft-07 schema from JSON">
+          <a class="dev-tool-card" href="/tools/json-schema-generator.html" aria-label="JSON Schema Generator: infer draft-07 schema from JSON">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Schema Generator</span>
             </div>
@@ -549,7 +591,7 @@
             <div class="dev-card__desc">Automatically infer Draft-07 JSON Schemas with <code>type</code>, <code>required</code>, and property rules.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-to-sql.html" aria-label="JSON to SQL: generate CREATE TABLE and INSERT statements">
+          <a class="dev-tool-card" href="/tools/json-to-sql.html" aria-label="JSON to SQL: generate CREATE TABLE and INSERT statements">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON to SQL</span>
               <span class="dev-card__badge">New</span>
@@ -558,7 +600,7 @@
             <div class="dev-card__desc">Convert JSON objects to SQL CREATE TABLE schema DDL and INSERT DML statements for PostgreSQL, MySQL, and SQLite.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-to-code.html" aria-label="JSON to Code: generate Go structs, Rust Serde models, and Python Pydantic classes">
+          <a class="dev-tool-card" href="/tools/json-to-code.html" aria-label="JSON to Code: generate Go structs, Rust Serde models, and Python Pydantic classes">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON to Code</span>
               <span class="dev-card__badge">New</span>
@@ -567,7 +609,7 @@
             <div class="dev-card__desc">Generate strongly-typed Go structs, Rust Serde models, and Python Pydantic classes from sample JSON payloads.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/json-mock-generator.html" aria-label="JSON Mock Generator: generate synthetic datasets for users, products, and logs">
+          <a class="dev-tool-card" href="/tools/json-mock-generator.html" aria-label="JSON Mock Generator: generate synthetic datasets for users, products, and logs">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Mock Generator</span>
               <span class="dev-card__badge">New</span>
@@ -576,11 +618,11 @@
             <div class="dev-card__desc">Create realistic synthetic JSON datasets for API testing, frontend state management, and benchmarking without PII risk.</div>
           </a>
 
-          <a class="dev-tool-card" href="./tools/viewer.html" aria-label="JSON Tree Viewer: explore JSON as a collapsible tree">
+          <a class="dev-tool-card" href="/tools/json-tree-viewer.html" aria-label="JSON Tree Viewer: explore JSON as a collapsible tree">
             <div class="dev-card__head">
               <span class="dev-card__title">JSON Tree Viewer</span>
             </div>
-            <div class="dev-card__snippet">▼ object [3 keys] ▸ user</div>
+            <div class="dev-card__snippet"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:0;margin-right:2px"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>object [3 keys] <svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:0;margin-right:2px"><path d="M3.5 2L6.5 5L3.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>user</div>
             <div class="dev-card__desc">Navigate complex payloads as an interactive, searchable tree diagram with node counts.</div>
           </a>
 
@@ -691,21 +733,21 @@
         <h2 class="hub-section__title">Documentation &amp; Guides</h2>
         <p class="hub-section__lead">In-depth specifications, performance optimizations, and code snippets for modern JSON engineering.</p>
         <div class="hub-list">
-          <a href="./docs/parsing-large-json-web-workers.html" class="hub-item">
+          <a href="/docs/parsing-large-json-web-workers.html" class="hub-item">
             <div class="hub-item__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px"><path d="M9 1L3 9h5l-1 6 6-8H8l1-6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
             <div>
               <div class="hub-item__name">Parsing Large JSON Payloads with Web Workers</div>
               <div class="hub-item__desc">Prevent main-thread UI freezing when parsing multi-megabyte JSON files using asynchronous Web Worker threads.</div>
             </div>
           </a>
-          <a href="./docs/typescript-zod-generation-guide.html" class="hub-item">
+          <a href="/docs/typescript-zod-generation-guide.html" class="hub-item">
             <div class="hub-item__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px"><path d="M3 3h4a2 2 0 012 2v8a2 2 0 00-2-2H3V3zM13 3H9a2 2 0 00-2 2v8a2 2 0 012-2h4V3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
             <div>
               <div class="hub-item__name">TypeScript Interface &amp; Zod Schema Generation Guide</div>
               <div class="hub-item__desc">Learn how to generate strict TypeScript interfaces and runtime Zod validation schemas from sample API responses.</div>
             </div>
           </a>
-          <a href="./docs/rfc8259-json-specification.html" class="hub-item">
+          <a href="/docs/rfc8259-json-specification.html" class="hub-item">
             <div class="hub-item__icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
             <div>
               <div class="hub-item__name">IETF RFC 8259 JSON Specification Reference</div>
@@ -719,8 +761,8 @@
 
   <div id="site-footer-placeholder"></div>
 
-  <script src="./assets/js/common.js"></script>
-  <script src="./assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
   <script>
     /* ── Live JSON Terminal Animation (Option 1) ──────────────────── */
     (function() {

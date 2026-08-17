@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Tree Viewer Architecture & DOM Virtualization — JSON2X</title>
+  <meta name="description" content="Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1a73e8" />
+  <link rel="canonical" href="https://json2x.com/docs/json-tree-viewer-virtualization.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:title" content="JSON Tree Viewer Architecture & DOM Virtualization — JSON2X" />
+  <meta property="og:description" content="Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization." />
+  <meta property="og:url" content="https://json2x.com/docs/json-tree-viewer-virtualization.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON Tree Viewer Architecture & DOM Virtualization — JSON2X" />
+  <meta name="twitter:description" content="Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "JSON Tree Viewer Architecture & DOM Virtualization",
+    "description": "Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization.",
+    "author": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "datePublished": "2026-08-16",
+    "mainEntityOfPage": "https://json2x.com/docs/json-tree-viewer-virtualization.html"
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" class="docs-page container" style="max-width:960px;margin:var(--space-8) auto;padding:0 var(--space-4);">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
+      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
+      <a href="/docs/index.html" style="color:var(--text-muted);text-decoration:none;">Docs</a> /
+      <span style="color:var(--accent);">Query & Inspection</span>
+    </nav>
+
+    <article class="docs-content prose">
+      <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);">
+        <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Query & Inspection</span>
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">Updated: 2026-08-16</span>
+      </div>
+
+      <h1>JSON Tree Viewer Architecture & DOM Virtualization</h1>
+<p>Visualizing deeply nested JSON payloads requires an intuitive, collapsible tree diagram capable of rendering thousands of nodes without browser lag.</p>
+<h2>1. Hierarchical Node Classification</h2>
+Every node in the tree is labeled by its structural data type:
+<ul><li><code>Object</code>: Collapsible container displaying total key count (e.g. <code>object [5 keys]</code>).</li><li><code>Array</code>: Collapsible list displaying element count (e.g. <code>array [100 items]</code>).</li><li><code>Primitives</code>: Color-coded string, number, boolean, and null badges.</li></ul>
+<h2>2. Real-Time Tree Search & Filtering</h2>
+The search engine traverses node keys and primitive values, automatically expanding parent paths containing query matches while dimming non-matching siblings.
+
+      <div class="docs-tool-cta" style="margin-top:var(--space-8);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+        <div>
+          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Test with our free interactive tool</h3>
+          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+        </div>
+        <a href="/tools/viewer.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

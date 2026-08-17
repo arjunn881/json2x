@@ -1,0 +1,35 @@
+---
+title: "JSON to YAML Serialization & Formatting Guide"
+description: "Technical reference on converting JSON structures to clean YAML 1.2 configuration files with custom indentation and block scalar formatting."
+category: "Data Converters"
+tags: ["json-to-yaml","yaml","kubernetes","docker","devops"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-to-yaml"
+---
+
+# JSON to YAML Serialization & Formatting Guide
+
+YAML (YAML Ain't Markup Language) is the de facto standard for cloud-native configurations (Kubernetes manifests, GitHub Actions, Docker Compose, Ansible playbooks).
+
+## 1. Structural Equivalence
+
+Because JSON is a strict subset of YAML 1.2, every valid JSON document is syntactically valid YAML. However, formatting JSON as human-readable YAML eliminates curly braces, brackets, and quotes where safe.
+
+```yaml
+# Output YAML
+name: production-cluster
+replicas: 3
+environment:
+  region: us-east-1
+  tier: api
+services:
+  - name: auth-service
+    port: 8080
+  - name: billing-service
+    port: 9000
+```
+
+## 2. Block Scalars & Multiline Text
+Multiline strings in JSON (with `\n`) serialize into clean YAML block scalars (`|` or `>`), maintaining readability.
+    

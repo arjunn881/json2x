@@ -74,9 +74,9 @@
   }
   </script>
 
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
 
   <style>
     --diff-added:    var(--success);
@@ -256,9 +256,17 @@
       cursor:    pointer;
       user-select: none;
       color:     var(--text-muted);
-      font-size: 10px;
-      padding:   0 4px;
+      display:   inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding:   0 2px;
       flex-shrink: 0;
+    }
+    .dt-toggle svg {
+      transition: transform var(--transition-fast);
+    }
+    .dt-toggle.collapsed svg {
+      transform: rotate(-90deg);
     }
     .dt-children { }
     .dt-children.collapsed { display: none; }
@@ -421,8 +429,8 @@
   </main>
 
   <div id="site-footer-placeholder"></div>
-  <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
 
   <script>
   (function () {
@@ -543,7 +551,7 @@
         return `
 <div class="dt-node" style="padding-left:${indent}px">
   <div class="dt-row">
-    <span class="dt-toggle" data-target="${id}">▼</span>
+    <span class="dt-toggle" data-target="${id}"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     ${keyHtml}<span class="dt-arrow">${bracketO}</span>
   </div>
   <div class="dt-children" id="${id}">${childHtml}</div>
@@ -633,14 +641,14 @@
       const target = document.getElementById(toggle.dataset.target);
       if (!target) return;
       const collapsed = target.classList.toggle('collapsed');
-      toggle.textContent = collapsed ? '▶' : '▼';
+      toggle.classList.toggle('collapsed', collapsed);
     });
 
     document.getElementById('expand-btn').addEventListener('click', () => {
       outEl.querySelectorAll('.dt-children.collapsed').forEach(el => {
         el.classList.remove('collapsed');
         const toggle = outEl.querySelector(`[data-target="${el.id}"]`);
-        if (toggle) toggle.textContent = '▼';
+        if (toggle) toggle.classList.remove('collapsed');
       });
     });
 
@@ -649,7 +657,7 @@
         if (el.children.length > 0) {
           el.classList.add('collapsed');
           const toggle = outEl.querySelector(`[data-target="${el.id}"]`);
-          if (toggle) toggle.textContent = '▶';
+          if (toggle) toggle.classList.add('collapsed');
         }
       });
     });

@@ -4,16 +4,17 @@ description: "Developer guide on offloading heavy JSON parsing and streaming tok
 category: "Performance Notes"
 tags: ["web-workers","performance","parsing","javascript"]
 author: "Staff Developer Tools Engineer"
-date: "2026-07-28"
+date: "2026-08-16"
+primaryTool: "json-formatter"
 ---
 
 # Parsing 100MB+ JSON Payloads with Web Workers
 
-Parsing massive JSON files directly on the main thread causes UI freezing, button unresponsiveness, and poor Core Web Vitals (INP).
+Parsing massive JSON files directly on the main thread causes UI freezing, dropped frames, and poor Core Web Vitals (Interaction to Next Paint - INP).
 
 ## 1. Web Worker Thread Offloading
 
-By delegating `JSON.parse()` to a dedicated background Worker, main-thread event loops remain completely responsive.
+By delegating `JSON.parse()` and AST serialization to a dedicated background Worker, the main-thread event loop remains completely responsive.
 
 ```javascript
 // worker-formatter.js
@@ -27,7 +28,4 @@ self.onmessage = function (e) {
   }
 };
 ```
-
-## 2. Memory Consumption & Stream Processing
-
-For payloads exceeding 100MB, streaming tokenizers parse tokens sequentially without instantiating massive in-memory AST graphs.
+    

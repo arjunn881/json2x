@@ -3,14 +3,69 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 
   <url>
+    <loc>https://json2x.com/blog/automating-api-contracts-with-draft-07-json-schema.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Automating API Contracts with Draft-07 JSON Schema Inference — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/building-bulletproof-typescript-and-zod-schemas-from-json-apis.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Building Bulletproof TypeScript Interfaces &amp; Runtime Zod Schemas  — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
     <loc>https://json2x.com/blog/categories.html</loc>
     <news:news>
       <news:publication>
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-10</news:publication_date>
-      <news:title>Blog Categories — Topics &amp; Resources</news:title>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Blog Categories &amp; Topics — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/exporting-complex-nested-json-to-clean-csv-spreadsheets.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Exporting Complex Nested JSON to Clean CSV Spreadsheets for Analy — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/generating-relational-sql-tables-from-unstructured-json.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Generating Relational SQL Tables &amp; INSERT Statements from JSON Pa — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/how-to-format-validate-large-json-in-the-browser.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>How to Format and Validate Large JSON Payloads in the Browser Wit — JSON2X</news:title>
     </news:news>
   </url>
   <url>
@@ -20,8 +75,8 @@
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-10</news:publication_date>
-      <news:title>Developer Blog &amp; JSON Tutorials</news:title>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Engineering Blog &amp; Developer Tutorials — JSON2X</news:title>
     </news:news>
   </url>
   <url>
@@ -31,8 +86,118 @@
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-10</news:publication_date>
+      <news:publication_date>2026-08-16</news:publication_date>
       <news:title>JSON Developer Guides &amp; Specifications</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/json-minification-benchmarks-network-savings.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>JSON Minification Benchmarks: Network Savings, Compression &amp; Late — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/mastering-jsonpath-filtering-complex-payloads-in-real-time.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Mastering JSONPath: Querying &amp; Filtering Complex JSON Payloads Li — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/mastering-toml-for-rust-cargo-and-python-packages.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Mastering TOML for Rust Cargo and Python pyproject.toml Packages — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/migrating-kubernetes-and-docker-configs-json-to-yaml.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Migrating Infrastructure Configs: Converting JSON to Clean YAML — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/modernizing-legacy-enterprise-soap-services-json-to-xml.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Modernizing Legacy Enterprise Services: Converting JSON to XML — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/navigating-multi-megabyte-payloads-with-virtualized-tree-viewers.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Navigating Multi-Megabyte Payloads with Virtualized JSON Tree Vie — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/parsing-csv-to-typed-json-without-data-loss.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Parsing CSV to Strongly-Typed JSON Without Data Loss — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/preventing-api-breakage-with-rfc8259-validation.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Preventing Production API Breakage with Strict RFC 8259 JSON Vali — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/synthesizing-idiomatic-backend-models-go-rust-python.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Synthesizing Idiomatic Backend Models: Go Structs, Rust Serde &amp; P — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/the-7-in-1-developer-converter-streamlining-full-stack-workflows.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>The 7-in-1 Developer Converter: Streamlining Full-Stack Data Mode — JSON2X</news:title>
     </news:news>
   </url>
   <url>
@@ -42,8 +207,30 @@
         <news:name>JSON2X Blog</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-08-10</news:publication_date>
+      <news:publication_date>2026-08-16</news:publication_date>
       <news:title>Step-by-Step Developer Tutorials</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/visual-semantic-json-diffing-for-ci-cd-pipelines.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Visual &amp; Semantic JSON Diffing: Eliminating False Positives in CI — JSON2X</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/zero-pii-api-testing-with-synthetic-json-mock-data.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>JSON2X Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-08-17</news:publication_date>
+      <news:title>Zero-PII API Testing with Synthetic JSON Mock Data Generation — JSON2X</news:title>
     </news:news>
   </url>
 

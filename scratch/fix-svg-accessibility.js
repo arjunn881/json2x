@@ -32,4 +32,4 @@ files.forEach(filePath => {
   }
 });
 
-console.log(`\n🎉 Added aria-hidden="true" to decorative SVGs across ${updatedCount} HTML files.`);
+console.log(`\nAdded aria-hidden="true" to decorative SVGs across ${updatedCount} HTML files.`);

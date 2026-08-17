@@ -34,4 +34,4 @@ files.forEach(filePath => {
   }
 });
 
-console.log(`\n🎉 Domain replacement complete. Updated ${updatedCount} files to use ${NEW_DOMAIN}.`);
+console.log(`\nDomain replacement complete. Updated ${updatedCount} files to use ${NEW_DOMAIN}.`);

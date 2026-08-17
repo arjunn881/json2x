@@ -167,7 +167,7 @@ async function fetchPayload(url) {
     h1: 'Mastering JSON Objects',
     category: 'Structures',
     metaDesc: 'Complete guide to JSON objects: key-value pairs, nested structures, valid keys, and schema definition techniques.',
-    primaryTool: 'schema',
+    primaryTool: 'json-schema-generator',
     keywords: 'json object, json key value pair, nested json object, json structure',
     content: `
       <h2>JSON Object Architecture</h2>
@@ -713,6 +713,149 @@ print(pretty_json)`,
     faqs: [
       { q: 'Why choose JSON2X over other online JSON formatters?', a: 'JSON2X executes 100% locally in your browser with zero network calls, Web Worker speed, and zero advertising tracking.' }
     ]
+  },
+  {
+    slug: 'json-to-yaml-guide',
+    title: 'JSON to YAML Conversion Guide — Kubernetes & CI/CD Configs',
+    h1: 'Converting JSON to Clean YAML Configurations',
+    category: 'Converters',
+    metaDesc: 'Master JSON to YAML conversion: transform API payloads and JSON trees into clean, indented YAML 1.2 manifests for Kubernetes, Docker Compose, and Ansible.',
+    primaryTool: 'json-to-yaml',
+    keywords: 'json to yaml, convert json to yaml online, kubernetes json to yaml, docker compose yaml converter, json2yaml',
+    content: `
+      <h2>Automating JSON to YAML Conversion</h2>
+      <p>YAML is the industry standard for DevOps and cloud-native infrastructure tooling. Converting JSON to YAML allows developers to generate Kubernetes deployment manifests, GitHub Actions workflows, and Docker Compose files directly from API data structures.</p>
+      <h3>YAML Formatting Features:</h3>
+      <ul>
+        <li><strong>Clean Indentation:</strong> Strips redundant braces and brackets in favor of clean 2-space or 4-space hierarchy.</li>
+        <li><strong>Block Scalar Formatting:</strong> Multiline strings convert to readable literal block scalars (<code>|</code>) or folded blocks (<code>></code>).</li>
+        <li><strong>Zero Data Telemetry:</strong> Converts files completely in browser memory without sending infrastructure configs across the web.</li>
+      </ul>
+    `,
+    codeExample: `# Generated YAML Configuration:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  labels:
+    tier: backend
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+        - name: gateway
+          image: api-gateway:v2.8.0
+          ports:
+            - containerPort: 8080`,
+    faqs: [
+      { q: 'Is JSON valid YAML?', a: 'Yes! JSON is a strict subset of YAML 1.2, so every valid JSON document is structurally valid YAML.' },
+      { q: 'Can I download the converted YAML as a .yaml file?', a: 'Yes. Use our 1-click Download button to export clean .yaml files directly.' }
+    ]
+  },
+  {
+    slug: 'json-to-xml-guide',
+    title: 'JSON to XML Conversion Guide — SOAP, RSS & Enterprise Markup',
+    h1: 'Converting JSON to Structured XML Documents',
+    category: 'Converters',
+    metaDesc: 'Complete guide on converting JSON payloads to XML with custom root elements, item tags, attributes, and XML declaration headers.',
+    primaryTool: 'json-to-xml',
+    keywords: 'json to xml, convert json to xml online, json to xml tree, soap xml payload, json2xml converter',
+    content: `
+      <h2>Bridging JSON and XML in Enterprise Workflows</h2>
+      <p>While REST and GraphQL APIs rely on JSON, many enterprise architectures, banking payment gateways, SOAP web services, and RSS feeds require XML formatting. Converting JSON to XML requires building structured hierarchical XML trees with proper closing tags and attribute mappings.</p>
+      <h3>XML Conversion Features:</h3>
+      <ul>
+        <li><strong>Customizable Root & Item Tags:</strong> Define custom wrapper elements (e.g. <code>&lt;records&gt;</code> and <code>&lt;user&gt;</code>).</li>
+        <li><strong>Attribute Prefixing:</strong> Keys prefixed with <code>@</code> automatically serialize as element attributes.</li>
+        <li><strong>XML Header Options:</strong> Generates standard <code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</code> declarations.</li>
+      </ul>
+    `,
+    codeExample: `<!-- Generated XML Document -->
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <user id="usr_4021">
+    <name>Elena Rostova</name>
+    <email>elena@enterprise.org</email>
+    <roles>
+      <role>Architect</role>
+      <role>Admin</role>
+    </roles>
+  </user>
+</root>`,
+    faqs: [
+      { q: 'How does JSON to XML handle arrays?', a: 'Arrays are mapped to repeated child elements under a parent tag or named item wrapper.' },
+      { q: 'Are special XML characters escaped?', a: 'Yes. Ampersands (&), angle brackets (< >), and quotes are properly escaped to prevent XML parse errors.' }
+    ]
+  },
+  {
+    slug: 'json-to-toml-guide',
+    title: 'JSON to TOML Transformation Guide — Rust, Python & Hugo Configs',
+    h1: 'Transforming JSON into Clean TOML Documents',
+    category: 'Converters',
+    metaDesc: 'Learn how to transform JSON documents into human-readable TOML v1.0.0 configurations for Rust Cargo, Python pyproject.toml, and Hugo static generators.',
+    primaryTool: 'json-to-toml',
+    keywords: 'json to toml, convert json to toml online, cargo toml generator, pyproject toml, toml configuration converter',
+    content: `
+      <h2>Why Convert JSON to TOML?</h2>
+      <p>TOML (Tom's Obvious Minimal Language) is engineered for clear, unambiguous human configuration files. Rust projects (<code>Cargo.toml</code>), Python packaging (<code>pyproject.toml</code>), and static site generators (Hugo) use TOML as their primary configuration standard.</p>
+      <h3>TOML Transformation Rules:</h3>
+      <ul>
+        <li><strong>Root Properties:</strong> Primitive keys map directly to root key-value definitions.</li>
+        <li><strong>Nested Tables:</strong> Nested objects transform into bracketed <code>[table.name]</code> headers.</li>
+        <li><strong>Array of Tables:</strong> Object collections transform into double-bracketed <code>[[array.of.tables]]</code> blocks.</li>
+      </ul>
+    `,
+    codeExample: `# Generated TOML Configuration:
+[package]
+name = "json2x-core"
+version = "2.8.0"
+authors = ["JSON2X Core Team"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.35", features = ["full"] }`,
+    faqs: [
+      { q: 'What is TOML used for?', a: 'TOML is used for configuration in Rust Cargo, Python pyproject.toml, Hugo, and GitLab CI.' },
+      { q: 'Does JSON to TOML run 100% client-side?', a: 'Yes! All parsing and serialization occurs in your browser without server transfers.' }
+    ]
+  },
+  {
+    slug: 'json-multi-converter-guide',
+    title: 'JSON Multi-Converter 7-in-1 Guide — Types, Models & Schemas',
+    h1: '7-in-1 Multi-Format JSON Conversion Architecture',
+    category: 'Generators',
+    metaDesc: 'Discover the 7-in-1 JSON Multi-Converter: synthesize TypeScript interfaces, Zod schemas, Mongoose models, SQL DDL, OpenAPI 3.0, JSON Schema, and Mock datasets in one click.',
+    primaryTool: 'json-converter',
+    keywords: 'json multi converter, 7 in 1 json converter, json to typescript zod mongoose sql openapi, all in one json tool',
+    content: `
+      <h2>The All-in-One Developer Multi-Converter</h2>
+      <p>Rather than jumping between individual tools, the 7-in-1 JSON Multi-Converter ingests raw JSON and synthesizes 7 distinct production-ready models and specifications simultaneously in browser memory.</p>
+      <h3>7 Simultaneous Target Outputs:</h3>
+      <ul>
+        <li><strong>TypeScript:</strong> Strongly-typed <code>interface</code> and <code>type</code> definitions with optional property inference.</li>
+        <li><strong>Zod Schemas:</strong> Runtime validation schemas ready for tRPC, React Hook Form, and Express middleware.</li>
+        <li><strong>Mongoose Schemas:</strong> MongoDB document schema definitions with field types and defaults.</li>
+        <li><strong>SQL DDL:</strong> <code>CREATE TABLE</code> schemas and <code>INSERT</code> statements for PostgreSQL, MySQL, and SQLite.</li>
+        <li><strong>OpenAPI 3.0:</strong> REST API contract component schemas for Swagger specifications.</li>
+        <li><strong>JSON Schema:</strong> Draft-07 compliant specification models.</li>
+        <li><strong>Mock Datasets:</strong> Synthetic test payloads matching the inferred structural schema.</li>
+      </ul>
+    `,
+    codeExample: `// Sample TypeScript & Zod Output from Single JSON Input:
+import { z } from 'zod';
+
+export const UserSchema = z.object({
+  id: z.number().int(),
+  username: z.string(),
+  isVerified: z.boolean()
+});
+
+export type User = z.infer<typeof UserSchema>;`,
+    faqs: [
+      { q: 'How does the 7-in-1 multi-converter work?', a: 'It parses raw JSON once into a shared type node graph, then projects it into all 7 target formats simultaneously.' },
+      { q: 'Is there any rate limit or file size limit?', a: 'No! Because processing is 100% client-side, you can convert payloads without API quotas or signup.' }
+    ]
   }
 ];
 
@@ -806,9 +949,9 @@ function renderPseoHtml(topic) {
   ${JSON.stringify(jsonLdSchema, null, 2)}
   </script>
 
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -832,7 +975,7 @@ function renderPseoHtml(topic) {
         <div class="tool-cta-banner">
           <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
           <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
-          <a href="../tools/${topic.primaryTool}.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch ${topic.primaryTool.replace('-', ' ').toUpperCase()}</a>
+          <a href="/tools/${topic.primaryTool}.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch ${topic.primaryTool.replace('-', ' ').toUpperCase()}</a>
         </div>
       </article>
 
@@ -855,8 +998,8 @@ function renderPseoHtml(topic) {
   </main>
 
   <div id="site-footer-placeholder"></div>
-  <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 }
@@ -866,7 +1009,7 @@ function renderKbHubHtml(topics) {
   const canonicalUrl = `${BASE_URL}/kb/index.html`;
 
   const cardsHtml = topics.map(t => `
-    <a href="./${t.slug}.html" class="faq-card" style="text-decoration:none; display:block;">
+    <a href="/kb/${t.slug}.html" class="faq-card" style="text-decoration:none; display:block;">
       <p class="faq-section__eyebrow">${t.category}</p>
       <h2 class="faq-card__q">${t.h1}</h2>
       <p class="faq-card__a">${t.metaDesc}</p>
@@ -910,9 +1053,9 @@ function renderKbHubHtml(topics) {
   }
   </script>
 
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -934,15 +1077,15 @@ function renderKbHubHtml(topics) {
   </main>
 
   <div id="site-footer-placeholder"></div>
-  <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 }
 
 // ── Build Execution ─────────────────────────────────────────
 function buildPseoEngine() {
-  console.log('<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px"><path d="M9 1L3 9h5l-1 6 6-8H8l1-6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg> Running Programmatic SEO Engine...');
+  console.log('Running Programmatic SEO Engine...');
 
   let generatedCount = 0;
   PSEO_TOPICS.forEach(topic => {
@@ -956,7 +1099,7 @@ function buildPseoEngine() {
   const hubHtml = renderKbHubHtml(PSEO_TOPICS);
   fs.writeFileSync(path.join(KB_DIR, 'index.html'), hubHtml, 'utf8');
 
-  console.log(`✅ Successfully compiled ${generatedCount} programmatic SEO pages + 1 Hub index in /kb/`);
+  console.log(`Successfully compiled ${generatedCount} programmatic SEO pages + 1 Hub index in /kb/`);
 }
 
 buildPseoEngine();

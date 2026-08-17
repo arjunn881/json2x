@@ -1,0 +1,31 @@
+---
+title: "JSON to TOML Transformation & Config Engineering"
+description: "Developer guide to transforming JSON documents into TOML v1.0.0 configurations for Rust Cargo, Python pyproject.toml, and Hugo static sites."
+category: "Data Converters"
+tags: ["json-to-toml","toml","rust","cargo","python"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-to-toml"
+---
+
+# JSON to TOML Transformation & Config Engineering
+
+TOML (Tom's Obvious Minimal Language) is designed for unambiguous human configuration, widely adopted by Rust (`Cargo.toml`), Python (`pyproject.toml`), and Go tools.
+
+## 1. Table Syntax & Array of Tables
+
+- Primitive key-value pairs serialize at the root: `key = "value"`.
+- Nested objects serialize as standard tables: `[package.metadata]`.
+- Arrays of objects serialize as double-bracket tables: `[[dependencies]]`.
+
+```toml
+[package]
+name = "json2x-engine"
+version = "2.8.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.35", features = ["full"] }
+```
+    

@@ -5,7 +5,11 @@ const BASE_URL = 'https://json2x.com';
 const WORKSPACE_ROOT = path.resolve(__dirname, '..');
 
 const EXCLUDE_DIRS = ['node_modules', 'scratch', 'scripts', 'admin', 'api', 'private', '.git'];
-const EXCLUDE_FILES = ['404.html', '500.html', '_template.html', 'converter.html'];
+const EXCLUDE_FILES = [
+  '404.html', '500.html', '_template.html', 'converter.html',
+  'formatter.html', 'validator.html', 'minifier.html', 'diff.html',
+  'schema.html', 'viewer.html', 'json-to-ts.html'
+];
 
 function walkDir(dir) {
   let results = [];
@@ -191,7 +195,7 @@ function buildSitemapIndexXml(today) {
 }
 
 function run() {
-  console.log('🤖 Traversing workspace for dynamic sitemap generation...');
+  console.log('Traversing workspace for dynamic sitemap generation...');
   const pages = processPages();
   const today = formatDate(new Date());
 
@@ -205,7 +209,7 @@ function run() {
   fs.writeFileSync(path.join(WORKSPACE_ROOT, 'sitemap-news.xml'), newsSitemapContent);
   fs.writeFileSync(path.join(WORKSPACE_ROOT, 'sitemap-index.xml'), indexSitemapContent);
 
-  console.log(`✅ Successfully generated 4 dynamic sitemaps for ${pages.length} public URLs:`);
+  console.log(`Successfully generated 4 dynamic sitemaps for ${pages.length} public URLs:`);
   console.log(`   - sitemap.xml (${pages.length} URLs)`);
   console.log(`   - sitemap-images.xml`);
   console.log(`   - sitemap-news.xml (${pages.filter(p => p.isBlog).length} news URLs)`);

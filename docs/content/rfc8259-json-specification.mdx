@@ -1,53 +1,67 @@
 ---
 title: "Complete RFC 8259 JSON Specification & Grammar Reference"
 description: "An authoritative developer reference on official RFC 8259 JSON syntax rules, primitive data types, string escaping, and number encoding."
-category: "Guides"
-tags: ["json","rfc8259","specification","syntax"]
+category: "Format & Validate"
+tags: ["json","rfc8259","specification","syntax","validator"]
 author: "JSON2X Engineering Team"
-date: "2026-07-28"
+date: "2026-08-16"
+primaryTool: "json-validator"
 ---
 
 # Complete RFC 8259 JSON Specification & Grammar Reference
 
-JSON (JavaScript Object Notation) is defined by **IETF RFC 8259** and **ECMA-404**. It is a text-based format for data interchange that is completely language independent.
+JSON (JavaScript Object Notation) is governed by **IETF RFC 8259** and **ECMA-404**. It is a lightweight, text-based, language-independent data interchange format.
 
-## 1. Primary Data Types in JSON
+## 1. Core Data Types in RFC 8259
 
-RFC 8259 defines six fundamental data types:
+RFC 8259 defines six fundamental primitive and structural data types:
 
-- **Objects:** Unordered collections of key-value pairs wrapped in `{}`.
-- **Arrays:** Ordered sequences of values wrapped in `[]`.
-- **Strings:** Double-quoted Unicode character sequences.
-- **Numbers:** Decimal numbers (integers or floating point).
-- **Booleans:** `true` or `false` (strictly lowercase).
-- **Null:** Represented by the keyword literal `null`.
-
-## 2. Object Grammar & Key Rules
-
-Objects consist of zero or more key-value pairs. Every key MUST be a double-quoted string.
+- **Objects (`{ }`):** Unordered collections of zero or more key-value pairs. Keys MUST be double-quoted strings.
+- **Arrays (`[ ]`):** Ordered sequences of zero or more values of any type.
+- **Strings (`"..."`):** Sequences of Unicode code points enclosed in double quotes (`"...`).
+- **Numbers:** Signed decimal numbers in standard or scientific exponential notation.
+- **Booleans:** Keyword literals `true` or `false` (strictly lowercase).
+- **Null:** The keyword literal `null`.
 
 ```json
 {
-  "name": "JSON2X",
-  "version": 1.0,
-  "isProduction": true
+  "name": "JSON2X Enterprise API",
+  "version": 2.4,
+  "isActive": true,
+  "metadata": null,
+  "tags": ["developer", "tools", "privacy-first"]
 }
 ```
 
-## 3. String Escaping & Special Characters
+## 2. String Escaping & Special Characters
 
-Characters that must be escaped using a backslash (`\`):
+RFC 8259 mandates backslash (`\`) escaping for special control characters:
 
-- Double quote: `\"`
-- Backslash: `\\`
-- Line feed: `\n`
-- Carriage return: `\r`
-- Tab: `\t`
+| Character | Escape Sequence | Description |
+| :--- | :--- | :--- |
+| Quotation mark | `\"` | Double quote character |
+| Reverse solidus | `\\` | Backslash character |
+| Solidus | `\/` | Forward slash (optional) |
+| Backspace | `\b` | Backspace control code |
+| Form feed | `\f` | Form feed control code |
+| Line feed | `\n` | Standard Unix newline |
+| Carriage return | `\r` | Carriage return |
+| Tab | `\t` | Horizontal tab |
+| Unicode code point | `\uXXXX` | 4-hex digit Unicode hex |
+
+## 3. Strict RFC 8259 Parsing Rules
+
+1. **No Single Quotes:** Keys and string values must strictly use double quotes (`"key": "value"`).
+2. **No Trailing Commas:** A comma after the final element in an object or array causes a syntax violation.
+3. **No Unquoted Keys:** Property names like `{ age: 30 }` are valid JavaScript object literals, but invalid JSON.
+4. **No Comments:** Comments (`//` or `/* */`) are prohibited under standard RFC 8259.
+5. **No Leading Zeros:** Numbers like `0123` or `+42` are invalid in JSON.
 
 ## 4. Frequently Asked Questions
 
-### Is single quotes allowed in RFC 8259?
-No. RFC 8259 strictly requires double quotes for keys and string values. Single quotes trigger parse exceptions.
+### Why does JSON reject single quotes?
+RFC 8259 explicitly standardized on double quotes (`"`) to ensure absolute cross-platform interoperability across all programming language parsers (C, Java, Python, Go, Rust).
 
-### Can JSON numbers have leading zeros?
-No. Numbers with leading zeros (e.g. `0123`) are invalid in JSON.
+### How does client-side validation prevent data corruption?
+Client-side validation runs in the browser's JavaScript engine before network transmission, preventing invalid payloads from hitting backend databases and APIs.
+    

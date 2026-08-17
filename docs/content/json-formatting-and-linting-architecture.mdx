@@ -1,0 +1,52 @@
+---
+title: "JSON Formatting & Line-Level Linting Architecture"
+description: "In-depth guide on JSON pretty-printing algorithms, recursive AST indentation, syntax highlighting, and exact line/column error pinpointing."
+category: "Format & Validate"
+tags: ["formatter","beautify","linter","ast","formatting"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-formatter"
+---
+
+# JSON Formatting & Line-Level Linting Architecture
+
+Formatting unformatted JSON transforms dense single-line network payloads into structured, human-readable representations.
+
+## 1. Indentation Mechanics & Spacing Algorithms
+
+The JSON formatter supports 2-space, 4-space, and tab-based recursive tree formatting.
+
+```javascript
+// High-performance native formatting
+function formatJson(rawText, indentLevel = 2) {
+  const parsed = JSON.parse(rawText);
+  return JSON.stringify(parsed, null, indentLevel);
+}
+```
+
+## 2. Line and Column Error Pinpointing
+
+When parsing fails, the linter identifies the exact byte offset, calculating:
+- **Line Number:** Count of newline characters (`\n`) prior to the error offset + 1.
+- **Column Number:** Number of characters between the previous newline and the error offset.
+- **Error Excerpt:** A 3-line contextual window with an arrow pointer directly beneath the offending character.
+
+## 3. Key Sorting & Deterministic Canonical JSON
+
+In cryptographic workflows, deterministic hashing, and Git version control, sorting object keys alphabetically ensures idempotent diffs:
+
+```javascript
+function sortObjectKeys(obj) {
+  if (typeof obj !== 'object' || obj === null) return obj;
+  if (Array.isArray(obj)) return obj.map(sortObjectKeys);
+  return Object.keys(obj).sort().reduce((acc, key) => {
+    acc[key] = sortObjectKeys(obj[key]);
+    return acc;
+  }, {});
+}
+```
+
+## 4. Best Practices for Large JSON Payloads
+1. Offload formatting of files over 1MB to Web Workers to prevent main-thread UI jank.
+2. Use streaming serializers for memory-constrained environments.
+    

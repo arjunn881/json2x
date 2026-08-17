@@ -1,0 +1,32 @@
+---
+title: "JSON to XML Mapping, Root Elements & Attribute Syntax"
+description: "Engineering guide on converting JSON hierarchies to valid XML documents, managing root tags, XML declaration headers, and attribute prefixes."
+category: "Data Converters"
+tags: ["json-to-xml","xml","soap","rss","markup"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-to-xml"
+---
+
+# JSON to XML Mapping, Root Elements & Attribute Syntax
+
+While modern web applications utilize JSON, enterprise SOAP services, legacy finance systems, and RSS feeds rely on XML.
+
+## 1. Tree Mapping Rules
+- **Objects:** Converted into parent XML tags containing child element tags.
+- **Arrays:** Repeated sibling tags with a configurable item tag (e.g. `<item>` or pluralized root).
+- **Attributes:** Keys prefixed with `@` (e.g. `"@id": "100"`) map directly to XML element attributes.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <user id="usr_101">
+    <name>Alice Smith</name>
+    <roles>
+      <role>Admin</role>
+      <role>Developer</role>
+    </roles>
+  </user>
+</root>
+```
+    

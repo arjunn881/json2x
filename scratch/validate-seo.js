@@ -85,6 +85,16 @@ if (fs.existsSync(docsDir)) {
   });
 }
 
+// Dynamically include all Blog pages in /blog/
+const blogDir = path.join(WORKSPACE_ROOT, 'blog');
+if (fs.existsSync(blogDir)) {
+  fs.readdirSync(blogDir).forEach(f => {
+    if (f.endsWith('.html')) {
+      PUBLIC_PAGES.push(`blog/${f}`);
+    }
+  });
+}
+
 let totalChecks = 0;
 let passedChecks = 0;
 let errors = [];
@@ -98,7 +108,7 @@ function check(pageName, condition, message) {
   }
 }
 
-console.log('🔍 Starting Comprehensive SEO & Technical Audit...\n');
+console.log('Starting Comprehensive SEO & Technical Audit...\n');
 
 PUBLIC_PAGES.forEach(relPath => {
   const fullPath = path.join(WORKSPACE_ROOT, relPath);
@@ -217,10 +227,10 @@ console.log('====================================================');
 console.log(`Results: ${passedChecks} / ${totalChecks} audit checks passed.`);
 
 if (errors.length === 0) {
-  console.log('✅ ALL SEO, ACCESSIBILITY & TECHNICAL AUDITS PASSED WITH ZERO REGRESSIONS!');
+  console.log('[SUCCESS] ALL SEO, ACCESSIBILITY & TECHNICAL AUDITS PASSED WITH ZERO REGRESSIONS!');
   process.exit(0);
 } else {
-  console.log('\n❌ Found the following issues:');
+  console.log('\n[ERROR] Found the following issues:');
   errors.forEach(err => console.log(`   - ${err}`));
   process.exit(1);
 }

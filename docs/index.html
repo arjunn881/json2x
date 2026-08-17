@@ -3,40 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
-
-  <title>Developer Documentation &amp; Technical Guides | JSON2X</title>
-  <meta name="description" content="Scalable developer documentation system covering JSON RFC 8259 specifications, TypeScript type generation, Web Worker performance, and error handling." />
-  <meta name="keywords" content="json docs, developer documentation, rfc 8259, typescript schema, web worker parsing" />
+  <title>Developer Documentation Hub &amp; Specifications — JSON2X</title>
+  <meta name="description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0d1117" />
-  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#1a73e8" />
   <link rel="canonical" href="https://json2x.com/docs/index.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://json2x.com/docs/index.html" />
-  <meta property="og:title"       content="Developer Documentation | JSON2X" />
-  <meta property="og:description" content="Comprehensive guides and technical references for JSON and CSV developers." />
-  <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:title" content="Developer Documentation Hub &amp; Specifications — JSON2X" />
+  <meta property="og:description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
+  <meta property="og:url" content="https://json2x.com/docs/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
 
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Developer Documentation" />
-  <meta name="twitter:description" content="Comprehensive guides and technical references." />
-  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Developer Documentation Hub &amp; Specifications — JSON2X" />
+  <meta name="twitter:description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
 
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "JSON2X Documentation Hub",
-    "url": "https://json2x.com/docs/index.html"
+    "headline": "Developer Documentation Hub & Specifications — JSON2X",
+    "description": "Technical documentation, IETF specifications, and code generation manuals for all 17 JSON2X utilities.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "mainEntityOfPage": "https://json2x.com/docs/index.html"
   }
   </script>
-
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -46,46 +47,198 @@
       <div id="breadcrumb-placeholder"></div>
 
       <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
-        <div class="tool-hero__badge">Docs System</div>
-        <h1 class="tool-hero__title">Developer Documentation &amp; Guides</h1>
-        <p class="tool-hero__desc">Technical specifications, API explanations, TypeScript generators, and performance notes.</p>
+        <div class="tool-hero__badge">Documentation Hub</div>
+        <h1 class="tool-hero__title">Developer Documentation &amp; Specifications</h1>
+        <p class="tool-hero__desc">Authoritative architectural references, IETF RFC standards, parser mechanics, and type-safety guides for our suite of 17 browser-native tools.</p>
       </div>
 
-      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:var(--space-4);margin-bottom:var(--space-12);">
         
-    <a href="./json-minification-performance.html" class="faq-card" style="text-decoration:none; display:block;">
-      <p class="faq-section__eyebrow">Performance Notes</p>
-      <h2 class="faq-card__q">High-Performance JSON Minification & Payload Compression</h2>
-      <p class="faq-card__a">Engineering guide on JSON payload minification, whitespace elimination algorithms, network bandwidth optimization, and HTTP compression interactions.</p>
-    </a>
-  
+  <a class="doc-card" href="/docs/rfc8259-json-specification.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Format & Validate</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">Complete RFC 8259 JSON Specification & Grammar Reference</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">An authoritative developer reference on official RFC 8259 JSON syntax rules, primitive data types, string escaping, and number encoding.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
 
-    <a href="./parsing-large-json-web-workers.html" class="faq-card" style="text-decoration:none; display:block;">
-      <p class="faq-section__eyebrow">Performance Notes</p>
-      <h2 class="faq-card__q">Parsing 100MB+ JSON Payloads with Web Workers</h2>
-      <p class="faq-card__a">Developer guide on offloading heavy JSON parsing and streaming tokenization to dedicated background Web Workers to maintain 60FPS UI performance.</p>
-    </a>
-  
+  <a class="doc-card" href="/docs/json-formatting-and-linting-architecture.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Format & Validate</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON Formatting & Line-Level Linting Architecture</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">In-depth guide on JSON pretty-printing algorithms, recursive AST indentation, syntax highlighting, and exact line/column error pinpointing.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
 
-    <a href="./rfc8259-json-specification.html" class="faq-card" style="text-decoration:none; display:block;">
-      <p class="faq-section__eyebrow">Guides</p>
-      <h2 class="faq-card__q">Complete RFC 8259 JSON Specification & Grammar Reference</h2>
-      <p class="faq-card__a">An authoritative developer reference on official RFC 8259 JSON syntax rules, primitive data types, string escaping, and number encoding.</p>
-    </a>
-  
+  <a class="doc-card" href="/docs/json-minification-performance.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Format & Validate</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">High-Performance JSON Minification & Payload Compression</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Engineering guide on JSON payload minification, whitespace elimination algorithms, network bandwidth optimization, and HTTP compression interactions.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
 
-    <a href="./typescript-zod-generation-guide.html" class="faq-card" style="text-decoration:none; display:block;">
-      <p class="faq-section__eyebrow">Tutorials</p>
-      <h2 class="faq-card__q">TypeScript Interface & Zod Schema Generation Guide</h2>
-      <p class="faq-card__a">Step-by-step tutorial on converting raw JSON API responses into strongly-typed TypeScript declarations and runtime Zod validation schemas.</p>
-    </a>
-  
+  <a class="doc-card" href="/docs/structural-json-diffing-algorithms.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Format & Validate</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">Structural JSON Diffing & Semantic Comparison Algorithms</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Deep-dive into structural JSON diff algorithms, key ordering normalization, LCS diff engines, and visual delta rendering.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-to-csv-flattening-mechanics.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON to CSV Flattening Mechanics & Dot-Notation Mapping</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/csv-to-json-parsing-and-type-inference.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">CSV to JSON Parsing & Automatic Type Inference</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-to-yaml-serialization-rules.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON to YAML Serialization & Formatting Guide</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Technical reference on converting JSON structures to clean YAML 1.2 configuration files with custom indentation and block scalar formatting.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-to-xml-mapping-and-attributes.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON to XML Mapping, Root Elements & Attribute Syntax</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Engineering guide on converting JSON hierarchies to valid XML documents, managing root tags, XML declaration headers, and attribute prefixes.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-to-toml-specification-guide.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON to TOML Transformation & Config Engineering</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Developer guide to transforming JSON documents into TOML v1.0.0 configurations for Rust Cargo, Python pyproject.toml, and Hugo static sites.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-to-sql-schema-inference-ddl.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON to SQL Schema Inference, DDL & INSERT Generation</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Learn how to generate relational SQL CREATE TABLE schemas and INSERT statement migrations from JSON object collections.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-multi-converter-architecture.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Code & Schema</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">7-in-1 JSON Multi-Converter Architecture & AST Pipelines</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Technical architecture of the unified 7-in-1 JSON multi-converter: simultaneous synthesis of TypeScript, Zod, Mongoose, SQL, OpenAPI 3.0, JSON Schema, and Mock Data.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/typescript-zod-generation-guide.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Code & Schema</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">TypeScript Interface & Zod Schema Generation Guide</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Step-by-step tutorial on converting raw JSON API responses into strongly-typed TypeScript declarations and runtime Zod validation schemas.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-to-code-models-go-rust-python.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Code & Schema</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">Generating Idiomatic Code Models: Go, Rust & Python</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Technical guide on synthesizing strongly-typed Go structs with json tags, Rust Serde models with derive macros, and Python Pydantic BaseModel classes.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-schema-draft-07-inference.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Code & Schema</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON Schema Draft-07 Automated Inference & Validation</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Deep dive into Draft-07 JSON Schema inference, required properties detection, format validators (email, uri, date-time), and contract testing.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/synthetic-json-mock-generation.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Code & Schema</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">Generating Realistic Synthetic Mock JSON Datasets</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Complete guide on generating high-fidelity synthetic JSON datasets for API testing, frontend state mockups, and benchmarking without PII compliance risk.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/jsonpath-syntax-and-evaluator-engine.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Query & Inspection</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSONPath Query Syntax & Real-Time Evaluator Guide</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Comprehensive developer manual on JSONPath expressions (RFC 9535), recursive descent operators, slice notations, and filter expressions.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/json-tree-viewer-virtualization.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Query & Inspection</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">JSON Tree Viewer Architecture & DOM Virtualization</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
+
+  <a class="doc-card" href="/docs/parsing-large-json-web-workers.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Performance Notes</span>
+      <span style="font-size:11px;color:var(--text-muted);">2026-08-16</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">Parsing 100MB+ JSON Payloads with Web Workers</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">Developer guide on offloading heavy JSON parsing and streaming tokenization to dedicated background Web Workers to maintain 60FPS UI performance.</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>
       </div>
     </div>
   </main>
 
   <div id="site-footer-placeholder"></div>
-  <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
 </body>
 </html>

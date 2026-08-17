@@ -1,0 +1,37 @@
+---
+title: "JSON Schema Draft-07 Automated Inference & Validation"
+description: "Deep dive into Draft-07 JSON Schema inference, required properties detection, format validators (email, uri, date-time), and contract testing."
+category: "Code & Schema"
+tags: ["json-schema","schema","draft-07","validation","api-contracts"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "schema"
+---
+
+# JSON Schema Draft-07 Automated Inference & Validation
+
+JSON Schema provides a formal contract for validating payload structure, data types, and required fields across microservices.
+
+## 1. Draft-07 Schema Anatomy
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UserRecord",
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string", "format": "email" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "email"]
+}
+```
+
+## 2. Automated Format Inference
+The schema generator detects string formats automatically:
+- `email`: Strings matching RFC 5322 email patterns.
+- `date-time`: ISO 8601 timestamps (e.g. `2026-08-16T12:00:00Z`).
+- `uri`: URLs starting with `http://` or `https://`.
+- `uuid`: Canonical 36-character hexadecimal UUIDs.
+    

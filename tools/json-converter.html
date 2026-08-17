@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Converter — TypeScript, Zod, Mongoose, SQL, OpenAPI &amp; More | JSON2X</title>
+  <meta name="description" content="Convert JSON to TypeScript interfaces, Zod schemas, Mongoose models, SQL DDL, OpenAPI specs, JSON Schema draft-07, and mock data — all in one free browser-based tool." />
+  <meta name="keywords" content="json to typescript, json to zod, json to mongoose, json to sql, json to openapi, json to json schema, json mock data generator, json converter online" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-converter.html" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://json2x.com/tools/json-converter.html" />
+  <meta property="og:title"       content="JSON Converter — TypeScript, Zod, Mongoose, SQL, OpenAPI &amp; More" />
+  <meta property="og:description" content="Convert JSON to TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, and Mock Data in one tool. 100% client-side." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON Converter — 7 Output Formats in One Tool" />
+  <meta name="twitter:description" content="TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, and Mock Data from a single JSON paste. Free &amp; browser-only." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON Multi-Format Converter",
+    "url": "https://json2x.com/tools/json-converter.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Convert JSON to TypeScript interfaces, Zod schemas, Mongoose models, SQL DDL, OpenAPI specifications, JSON Schema draft-07, and mock data.",
+    "featureList": [
+      "JSON to TypeScript interface or type alias",
+      "JSON to Zod validation schema",
+      "JSON to Mongoose model schema",
+      "JSON to SQL CREATE TABLE + INSERT",
+      "JSON to OpenAPI 3.0 component schema",
+      "JSON to JSON Schema draft-07",
+      "JSON to Mock Data (repeatable synthetic records)",
+      "100% client-side data privacy"
+    ],
+    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.com" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "JSON Converter", "item": "https://json2x.com/tools/json-converter.html" }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+
+  <style>
+    /* ── Layout ──────────────────────────────────────────────── */
+    .jc-layout {
+      display: grid;
+      gap: var(--space-5);
+    }
+    @media (min-width: 900px) {
+      .jc-layout { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+
+    /* ── Input pane ──────────────────────────────────────────── */
+    .jc-input-pane { display: flex; flex-direction: column; }
+    .jc-pane-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+    .jc-pane-title {
+      font-size: var(--text-xs); font-weight: var(--font-semibold);
+      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .jc-textarea {
+      background: var(--bg-base); border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg); padding: var(--space-4);
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      line-height: var(--leading-relaxed); color: var(--text-primary);
+      outline: none; resize: vertical; min-height: 380px; tab-size: 2;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .jc-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .jc-textarea.error  { border-color: var(--error);  box-shadow: 0 0 0 3px var(--error-bg); }
+
+    /* ── Output pane ─────────────────────────────────────────── */
+    .jc-output-pane { display: flex; flex-direction: column; }
+
+    /* ── Tab strip ───────────────────────────────────────────── */
+    .jc-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: var(--space-2);
+      border-bottom: none;
+    }
+    .jc-tab {
+      flex: 1 1 calc(33.333% - 4px);
+      min-width: 85px;
+      text-align: center;
+      justify-content: center;
+      padding: var(--space-2) var(--space-2);
+      font-size: 11px; font-weight: var(--font-semibold);
+      letter-spacing: 0.03em;
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface); color: var(--text-muted);
+      cursor: pointer; transition: all var(--transition-fast);
+      user-select: none; white-space: nowrap;
+    }
+    .jc-tab:hover { color: var(--text-primary); background: var(--bg-raised); border-color: var(--accent); }
+    .jc-tab.active {
+      background: var(--accent); color: #fff;
+      border-color: var(--accent);
+    }
+    .jc-tab.active .jc-tab-badge {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .jc-tab-badge {
+      display: inline-block; font-size: 9px; font-weight: 700;
+      padding: 1px 5px; border-radius: 99px; margin-left: 4px;
+      background: var(--accent-glow); color: var(--accent);
+      vertical-align: middle;
+    }
+
+    /* ── Output area ─────────────────────────────────────────── */
+    .jc-panel-options {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: var(--space-2); padding: var(--space-3) var(--space-3);
+      background: var(--bg-raised); border: 1px solid var(--bg-border);
+      border-top: none; border-bottom: none;
+      font-size: var(--text-xs);
+    }
+    .jc-panel-label { color: var(--text-muted); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+    .jc-panel-divider { width: 1px; height: 18px; background: var(--bg-border); flex-shrink: 0; }
+    .jc-select {
+      padding: 3px var(--space-3); background: var(--bg-base); color: var(--text-primary);
+      border: 1px solid var(--bg-border); border-radius: var(--radius-md);
+      font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer; outline: none;
+      transition: border-color var(--transition-fast);
+    }
+    .jc-select:focus { border-color: var(--accent); }
+    .jc-input-sm {
+      padding: 3px var(--space-3); background: var(--bg-base); color: var(--text-primary);
+      border: 1px solid var(--bg-border); border-radius: var(--radius-md);
+      font-size: var(--text-xs); font-family: var(--font-mono);
+      outline: none; width: 120px; transition: border-color var(--transition-fast);
+    }
+    .jc-input-sm:focus { border-color: var(--accent); }
+    .jc-toggle {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-xs); font-weight: var(--font-medium);
+      color: var(--text-secondary); cursor: pointer; user-select: none;
+    }
+    .jc-toggle input { accent-color: var(--accent); width: 13px; height: 13px; }
+
+    .jc-output {
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      line-height: var(--leading-relaxed);
+      background: var(--bg-base); border: 1px solid var(--bg-border);
+      border-top: none;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      padding: var(--space-4); min-height: 320px; max-height: 560px;
+      overflow: auto; white-space: pre; tab-size: 2; color: var(--text-primary);
+    }
+    .jc-output--empty { color: var(--text-muted); font-style: italic; white-space: pre-wrap; }
+
+    /* ── Error strip ─────────────────────────────────────────── */
+    .jc-error {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); background: var(--error-bg); color: var(--error);
+      border: 1px solid hsla(0,82%,63%,0.3); border-radius: var(--radius-md);
+      font-size: var(--text-xs); margin-bottom: var(--space-3);
+    }
+    .jc-error__badge {
+      flex-shrink: 0; background: var(--error); color: #fff;
+      border-radius: var(--radius-sm); padding: 1px var(--space-2);
+      font-weight: var(--font-semibold); font-family: var(--font-mono);
+    }
+
+    /* ── Action bar ──────────────────────────────────────────── */
+    .jc-actions {
+      display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
+      margin-top: var(--space-3);
+    }
+
+    /* ── Syntax colors (reusing ts- prefix tokens) ───────────── */
+    .ts-kw      { color: var(--ts-kw); }
+    .ts-name    { color: var(--ts-name); }
+    .ts-key     { color: var(--ts-key); }
+    .ts-type    { color: var(--ts-type); }
+    .ts-punc    { color: var(--text-muted); }
+    .ts-comment { color: var(--text-muted); font-style: italic; }
+    .ts-str     { color: var(--ts-str); }
+    .ts-num     { color: var(--ts-name); }
+
+    /* ── Stats ───────────────────────────────────────────────── */
+    .jc-stats {
+      display: flex; gap: var(--space-4); font-size: var(--text-xs);
+      color: var(--text-muted); margin-bottom: var(--space-2);
+    }
+    .jc-stat { display: flex; gap: var(--space-2); align-items: center; }
+    .jc-stat__val { font-family: var(--font-mono); font-weight: var(--font-semibold); color: var(--text-secondary); }
+
+    /* ── FAQ ─────────────────────────────────────────────────── */
+    .faq-section { margin-top: var(--space-16); padding-top: var(--space-10); border-top: 1px solid var(--bg-border); }
+    .faq-eyebrow { font-size: var(--text-xs); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-3); }
+    .faq-title   { font-size: var(--text-2xl); font-weight: var(--font-bold); margin-bottom: var(--space-8); }
+    .faq-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-5); margin-bottom: var(--space-8); }
+    .faq-card    { background: var(--bg-surface); border: 1px solid var(--bg-border); border-radius: var(--radius-xl); padding: var(--space-5); }
+    .faq-card h3 { font-size: var(--text-base); font-weight: var(--font-semibold); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
+    .faq-card p  { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-relaxed); margin: 0; }
+    .faq-card code { font-family: var(--font-mono); font-size: 0.85em; background: var(--bg-raised); border: 1px solid var(--bg-border); border-radius: var(--radius-sm); padding: 1px 4px; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-converter">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">7 Formats · One Paste</div>
+        <h1 class="tool-hero__title">JSON Converter</h1>
+        <p class="tool-hero__desc">Paste JSON once — get TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, or Mock Data instantly. 100% browser-side, zero uploads.</p>
+      </div>
+
+      <!-- ── Error strip ────────────────────────────────────── -->
+      <div id="jc-error" class="jc-error" style="display:none">
+        <span class="jc-error__badge">ERR</span>
+        <span id="jc-error-msg"></span>
+      </div>
+
+      <!-- ── Main layout ────────────────────────────────────── -->
+      <div class="jc-layout">
+
+        <!-- Input pane -->
+        <div class="jc-input-pane">
+          <div class="jc-pane-header">
+            <span class="jc-pane-title">JSON Input</span>
+            <span id="jc-input-meta" class="text-xs text-muted"></span>
+          </div>
+          <textarea
+            class="jc-textarea"
+            id="jc-input"
+            aria-label="JSON input"
+            spellcheck="false"
+            autocorrect="off"
+            placeholder='{&#10;  "user": {&#10;    "id": 1,&#10;    "name": "Alice",&#10;    "email": "alice@example.com",&#10;    "roles": ["admin", "editor"],&#10;    "active": true,&#10;    "createdAt": "2026-01-15T10:30:00Z"&#10;  }&#10;}'
+          ></textarea>
+
+          <div class="jc-actions" style="margin-top:var(--space-3)">
+            <button class="btn btn--primary" id="jc-generate-btn">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:4px">
+                <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Convert
+            </button>
+            <button class="btn btn--ghost" id="jc-sample-btn">Load sample</button>
+            <button class="btn btn--ghost" id="jc-clear-btn" style="margin-left:auto">Clear</button>
+          </div>
+        </div>
+
+        <!-- Output pane -->
+        <div class="jc-output-pane">
+
+          <!-- Tab strip -->
+          <div class="jc-tabs" role="tablist" id="jc-tab-list">
+            <button class="jc-tab active" role="tab" data-tab="ts"        aria-selected="true">TypeScript</button>
+            <button class="jc-tab"        role="tab" data-tab="zod"       aria-selected="false">Zod</button>
+            <button class="jc-tab"        role="tab" data-tab="mongoose"  aria-selected="false">Mongoose</button>
+            <button class="jc-tab"        role="tab" data-tab="sql"       aria-selected="false">SQL</button>
+            <button class="jc-tab"        role="tab" data-tab="openapi"   aria-selected="false">OpenAPI</button>
+            <button class="jc-tab"        role="tab" data-tab="jsonschema" aria-selected="false">JSON Schema</button>
+            <button class="jc-tab"        role="tab" data-tab="mock"      aria-selected="false">Mock Data <span class="jc-tab-badge">NEW</span></button>
+          </div>
+
+          <!-- Per-tab options bars -->
+          <div id="opts-ts" class="jc-panel-options">
+            <span class="jc-panel-label">Root</span>
+            <input class="jc-input-sm" id="ts-root-name" type="text" value="Root" aria-label="Root interface name" maxlength="60" />
+            <div class="jc-panel-divider"></div>
+            <span class="jc-panel-label">Style</span>
+            <select class="jc-select" id="ts-style">
+              <option value="interface">interface</option>
+              <option value="type">type alias</option>
+            </select>
+            <div class="jc-panel-divider"></div>
+            <label class="jc-toggle"><input type="checkbox" id="ts-export" checked /> export</label>
+            <label class="jc-toggle"><input type="checkbox" id="ts-optional" /> optional</label>
+          </div>
+
+          <div id="opts-zod" class="jc-panel-options" style="display:none">
+            <span class="jc-panel-label">Root</span>
+            <input class="jc-input-sm" id="zod-root-name" type="text" value="Root" aria-label="Root schema name" maxlength="60" />
+            <div class="jc-panel-divider"></div>
+            <label class="jc-toggle"><input type="checkbox" id="zod-export" checked /> export</label>
+            <label class="jc-toggle"><input type="checkbox" id="zod-infer" checked /> z.infer type</label>
+          </div>
+
+          <div id="opts-mongoose" class="jc-panel-options" style="display:none">
+            <span class="jc-panel-label">Model</span>
+            <input class="jc-input-sm" id="mg-model-name" type="text" value="MyModel" aria-label="Mongoose model name" maxlength="60" />
+            <div class="jc-panel-divider"></div>
+            <label class="jc-toggle"><input type="checkbox" id="mg-timestamps" checked /> timestamps</label>
+          </div>
+
+          <div id="opts-sql" class="jc-panel-options" style="display:none">
+            <span class="jc-panel-label">Table</span>
+            <input class="jc-input-sm" id="sql-table" type="text" value="my_table" aria-label="SQL table name" maxlength="60" />
+            <div class="jc-panel-divider"></div>
+            <span class="jc-panel-label">Dialect</span>
+            <select class="jc-select" id="sql-dialect">
+              <option value="postgres">PostgreSQL</option>
+              <option value="mysql">MySQL</option>
+              <option value="sqlite">SQLite</option>
+            </select>
+            <div class="jc-panel-divider"></div>
+            <label class="jc-toggle"><input type="checkbox" id="sql-inserts" checked /> INSERT</label>
+          </div>
+
+          <div id="opts-openapi" class="jc-panel-options" style="display:none">
+            <span class="jc-panel-label">Schema name</span>
+            <input class="jc-input-sm" id="oa-schema-name" type="text" value="MySchema" aria-label="OpenAPI schema name" maxlength="60" />
+            <div class="jc-panel-divider"></div>
+            <label class="jc-toggle"><input type="checkbox" id="oa-required" checked /> mark required</label>
+          </div>
+
+          <div id="opts-jsonschema" class="jc-panel-options" style="display:none">
+            <label class="jc-toggle"><input type="checkbox" id="js-required" checked /> mark required</label>
+            <div class="jc-panel-divider"></div>
+            <label class="jc-toggle"><input type="checkbox" id="js-examples" checked /> include examples</label>
+          </div>
+
+          <div id="opts-mock" class="jc-panel-options" style="display:none">
+            <span class="jc-panel-label">Records</span>
+            <input class="jc-input-sm" id="mock-count" type="number" value="5" min="1" max="100" style="width:70px" aria-label="Number of mock records" />
+          </div>
+
+          <!-- Output pre -->
+          <div id="jc-stats" class="jc-stats" style="display:none;margin-top:var(--space-2)">
+            <div class="jc-stat"><span>Interfaces</span><span class="jc-stat__val" id="jc-stat-ifaces">0</span></div>
+            <div class="jc-stat"><span>Properties</span><span class="jc-stat__val" id="jc-stat-props">0</span></div>
+          </div>
+
+          <pre class="jc-output jc-output--empty" id="jc-output" tabindex="0" role="region" aria-label="Conversion output">Select a tab and paste JSON to begin…</pre>
+
+          <!-- Action buttons -->
+          <div class="jc-actions">
+            <button class="btn btn--ghost" id="jc-copy-btn">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:3px">
+                <rect x="1" y="3" width="7" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M3.5 3V2a1 1 0 011-1h4.5a1 1 0 011 1v7a1 1 0 01-1 1H8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              Copy
+            </button>
+            <button class="btn btn--ghost" id="jc-download-btn">Download</button>
+          </div>
+        </div>
+
+      </div><!-- /jc-layout -->
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Paste any JSON and switch between seven output formats using the tabs above. TypeScript and Zod handle compile-time and runtime type safety. Mongoose generates a ready-to-use Node.js schema. SQL emits <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">CREATE TABLE</code> DDL. OpenAPI produces a reusable component schema. JSON Schema draft-07 gives a language-agnostic validator. Mock Data generates a synthetic dataset based on your JSON shape.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-converter"></div>
+
+      <!-- ── FAQ ────────────────────────────────────────────── -->
+      <section class="faq-section">
+        <p class="faq-eyebrow">Guide</p>
+        <h2 class="faq-title">About the JSON Multi-Format Converter</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>When do I use TypeScript vs Zod?</h3>
+            <p>Use <code>interface</code> / <code>type</code> for compile-time type safety inside a TypeScript project. Add a Zod schema when you also need <em>runtime</em> validation — e.g. at API boundaries or before writing to a database. <code>z.infer&lt;typeof schema&gt;</code> keeps both in sync from a single source.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What does the Mongoose output include?</h3>
+            <p>The Mongoose tab generates a <code>Schema</code> definition with inferred types (<code>String</code>, <code>Number</code>, <code>Boolean</code>, <code>Date</code>, <code>Mixed</code>) for each field, a compiled <code>model()</code> call, and optional <code>timestamps: true</code>. Paste it directly into a Node.js / Express project.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Which SQL dialects are supported?</h3>
+            <p>PostgreSQL (uses <code>SERIAL</code>, <code>JSONB</code>, <code>TIMESTAMPTZ</code>), MySQL (<code>INT AUTO_INCREMENT</code>, <code>JSON</code>, <code>DATETIME</code>), and SQLite (<code>INTEGER PRIMARY KEY</code>, <code>TEXT</code>). Toggle the INSERT option to include <code>INSERT INTO</code> statements for the sample values.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What is the OpenAPI output?</h3>
+            <p>The OpenAPI tab produces a <code>components/schemas</code> YAML block compatible with OpenAPI 3.0. Paste it into an existing <code>openapi.yaml</code> to document your API endpoint response shapes with inferred types and required arrays.</p>
+          </div>
+          <div class="faq-card">
+            <h3>How does Mock Data generation work?</h3>
+            <p>The tool inspects the shape and field names of your JSON and generates <em>N</em> synthetic records that match the same structure and types. Names, emails, dates, IDs, and booleans are randomised realistically — useful for seeding databases or testing UIs without real PII.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Is my JSON data private?</h3>
+            <p>Yes — completely. All seven conversion engines run inside your browser using JavaScript. No data is sent to any server. You can even disconnect from the internet and the tool will still work.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ─────────────────────────────────────────────────────────
+       DOM refs
+    ───────────────────────────────────────────────────────── */
+    const inputEl    = document.getElementById('jc-input');
+    const outputEl   = document.getElementById('jc-output');
+    const errEl      = document.getElementById('jc-error');
+    const errMsgEl   = document.getElementById('jc-error-msg');
+    const statsEl    = document.getElementById('jc-stats');
+    const tabList    = document.getElementById('jc-tab-list');
+
+    let activeTab    = 'ts';
+    let lastOutput   = '';
+
+    /* ─────────────────────────────────────────────────────────
+       Shared type helpers
+    ───────────────────────────────────────────────────────── */
+    function toPascal(str) {
+      return String(str)
+        .replace(/[^a-zA-Z0-9]+(.)/g, (_, ch) => ch.toUpperCase())
+        .replace(/^[a-z]/, ch => ch.toUpperCase())
+        .replace(/[^a-zA-Z0-9]/g, '');
+    }
+    function toSnake(str) {
+      return String(str)
+        .replace(/([A-Z])/g, '_$1').toLowerCase()
+        .replace(/^_/, '').replace(/[^a-z0-9_]/g, '_');
+    }
+    function escHTML(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       TypeScript + Zod engine (reused from json-to-ts.html)
+    ───────────────────────────────────────────────────────── */
+    const ifaceRegistry = new Map();
+    let totalProps = 0;
+
+    function inferTSType(val, parentName, key) {
+      if (val === null)             return 'null';
+      if (typeof val === 'string')  return 'string';
+      if (typeof val === 'number')  return 'number';
+      if (typeof val === 'boolean') return 'boolean';
+      if (Array.isArray(val)) {
+        if (!val.length) return 'unknown[] /* TODO: specify element type */';
+        const types = [...new Set(val.map(item => inferTSType(item, parentName, key)))];
+        if (types.length === 1) return `${types[0]}[]`;
+        return `(${types.join(' | ')})[]`;
+      }
+      if (typeof val === 'object') {
+        const sub = parentName + toPascal(String(key));
+        buildTSInterface(sub, val);
+        return sub;
+      }
+      return 'unknown';
+    }
+
+    function buildTSInterface(name, obj) {
+      if (ifaceRegistry.has(name)) return;
+      const props = Object.entries(obj).map(([k, v]) => {
+        totalProps++;
+        return { key: k, type: inferTSType(v, name, k) };
+      });
+      ifaceRegistry.set(name, props);
+    }
+
+    function renderTS(style, addExport, makeOptional) {
+      const exp = addExport ? 'export ' : '';
+      const opt = makeOptional ? '?' : '';
+      const lines = [];
+      [...ifaceRegistry.entries()].reverse().forEach(([name, props]) => {
+        if (style === 'interface') {
+          lines.push(`${exp}interface ${name} {`);
+          props.forEach(p => lines.push(`  ${p.key}${opt}: ${p.type};`));
+          lines.push('}');
+        } else {
+          lines.push(`${exp}type ${name} = {`);
+          props.forEach(p => lines.push(`  ${p.key}${opt}: ${p.type};`));
+          lines.push('};');
+        }
+        lines.push('');
+      });
+      return lines.join('\n');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Zod renderer
+    ───────────────────────────────────────────────────────── */
+    function tsTypeToZod(t) {
+      t = t.trim();
+      if (t === 'string')  return 'z.string()';
+      if (t === 'number')  return 'z.number()';
+      if (t === 'boolean') return 'z.boolean()';
+      if (t === 'null')    return 'z.null()';
+      if (t.startsWith('unknown[]')) return 'z.array(z.unknown())';
+      if (t.endsWith('[]')) return `z.array(${tsTypeToZod(t.slice(0, -2))})`;
+      if (t.startsWith('(') && t.endsWith(')[]')) {
+        const inner = t.slice(1, -3);
+        const parts = inner.split('|').map(s => tsTypeToZod(s.trim()));
+        return `z.array(z.union([${parts.join(', ')}]))`;
+      }
+      if (ifaceRegistry.has(t)) return `${t[0].toLowerCase() + t.slice(1)}Schema`;
+      if (t.includes(' | ')) {
+        const parts = t.split('|').map(s => tsTypeToZod(s.trim()));
+        return `z.union([${parts.join(', ')}])`;
+      }
+      return 'z.unknown()';
+    }
+
+    function renderZod(addExport, addInfer) {
+      const exp = addExport ? 'export ' : '';
+      const lines = [`import { z } from 'zod';`, ''];
+      [...ifaceRegistry.entries()].reverse().forEach(([name, props]) => {
+        const schemaName = `${name[0].toLowerCase() + name.slice(1)}Schema`;
+        lines.push(`${exp}const ${schemaName} = z.object({`);
+        props.forEach(p => lines.push(`  ${p.key}: ${tsTypeToZod(p.type)},`));
+        lines.push('});');
+        if (addInfer) {
+          lines.push('');
+          lines.push(`${exp}type ${name} = z.infer<typeof ${schemaName}>;`);
+        }
+        lines.push('');
+      });
+      return lines.join('\n');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Mongoose renderer
+    ───────────────────────────────────────────────────────── */
+    function inferMongooseType(val) {
+      if (val === null)             return 'Mixed';
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T/.test(val) || /^\d{4}-\d{2}-\d{2}$/.test(val)) return 'Date';
+        return 'String';
+      }
+      if (typeof val === 'number')  return Number.isInteger(val) ? 'Number' : 'Number';
+      if (typeof val === 'boolean') return 'Boolean';
+      if (Array.isArray(val)) {
+        if (!val.length) return '[Mixed]';
+        const inner = inferMongooseType(val[0]);
+        return `[${inner}]`;
+      }
+      if (typeof val === 'object') return 'Object';
+      return 'Mixed';
+    }
+
+    function renderMongoose(obj, modelName, timestamps) {
+      if (!obj || typeof obj !== 'object' || Array.isArray(obj)) {
+        const sample = Array.isArray(obj) && obj.length > 0 ? obj[0] : null;
+        if (sample && typeof sample === 'object') {
+          return renderMongoose(sample, modelName, timestamps);
+        }
+        return '// Input must be a JSON object or array of objects';
+      }
+      const lines = [`import mongoose, { Schema, Document } from 'mongoose';`, ''];
+      lines.push(`export interface I${modelName} extends Document {`);
+      Object.entries(obj).forEach(([k, v]) => {
+        const ts = inferTSType(v, '', k);
+        lines.push(`  ${k}: ${ts};`);
+      });
+      lines.push('}');
+      lines.push('');
+      lines.push(`const ${modelName}Schema = new Schema<I${modelName}>({`);
+      Object.entries(obj).forEach(([k, v]) => {
+        const mtype = inferMongooseType(v);
+        lines.push(`  ${k}: { type: ${mtype} },`);
+      });
+      if (timestamps) {
+        lines.push(`}, { timestamps: true });`);
+      } else {
+        lines.push(`});`);
+      }
+      lines.push('');
+      lines.push(`export default mongoose.model<I${modelName}>('${modelName}', ${modelName}Schema);`);
+      return lines.join('\n');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       SQL renderer
+    ───────────────────────────────────────────────────────── */
+    function inferSQLType(val, dialect) {
+      if (val === null) return { pg: 'TEXT', mysql: 'TEXT', sqlite: 'TEXT' }[dialect];
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T/.test(val)) {
+          return { pg: 'TIMESTAMPTZ', mysql: 'DATETIME', sqlite: 'TEXT' }[dialect];
+        }
+        return { pg: 'TEXT', mysql: 'VARCHAR(255)', sqlite: 'TEXT' }[dialect];
+      }
+      if (typeof val === 'boolean') {
+        return { pg: 'BOOLEAN', mysql: 'TINYINT(1)', sqlite: 'INTEGER' }[dialect];
+      }
+      if (typeof val === 'number') {
+        if (Number.isInteger(val)) return { pg: 'INTEGER', mysql: 'INT', sqlite: 'INTEGER' }[dialect];
+        return { pg: 'DOUBLE PRECISION', mysql: 'DOUBLE', sqlite: 'REAL' }[dialect];
+      }
+      if (typeof val === 'object') {
+        return { pg: 'JSONB', mysql: 'JSON', sqlite: 'TEXT' }[dialect];
+      }
+      return 'TEXT';
+    }
+
+    function sqlEscape(val, dialect) {
+      if (val === null) return 'NULL';
+      if (typeof val === 'boolean') {
+        if (dialect === 'sqlite') return val ? '1' : '0';
+        if (dialect === 'mysql')  return val ? '1' : '0';
+        return val ? 'TRUE' : 'FALSE';
+      }
+      if (typeof val === 'number') return String(val);
+      if (typeof val === 'object') return `'${JSON.stringify(val).replace(/'/g, "''")}'`;
+      return `'${String(val).replace(/'/g, "''")}'`;
+    }
+
+    function renderSQL(data, tableName, dialect, includeInserts) {
+      const rows = Array.isArray(data) ? data : [data];
+      const sample = rows[0];
+      if (!sample || typeof sample !== 'object') return '-- Input must be a JSON object or array of objects';
+
+      const lines = [];
+      const ql = s => dialect === 'mysql' ? `\`${s}\`` : `"${s}"`;
+
+      // CREATE TABLE
+      if (dialect === 'postgres') {
+        lines.push(`CREATE TABLE IF NOT EXISTS ${ql(tableName)} (`);
+        lines.push(`  "id" SERIAL PRIMARY KEY,`);
+      } else if (dialect === 'mysql') {
+        lines.push(`CREATE TABLE IF NOT EXISTS ${ql(tableName)} (`);
+        lines.push(`  \`id\` INT AUTO_INCREMENT PRIMARY KEY,`);
+      } else {
+        lines.push(`CREATE TABLE IF NOT EXISTS ${ql(tableName)} (`);
+        lines.push(`  "id" INTEGER PRIMARY KEY AUTOINCREMENT,`);
+      }
+
+      const cols = Object.entries(sample);
+      cols.forEach(([k, v], i) => {
+        const sqlType = inferSQLType(v, dialect);
+        const comma = i < cols.length - 1 ? ',' : '';
+        lines.push(`  ${ql(toSnake(k))} ${sqlType}${comma}`);
+      });
+      lines.push(');');
+
+      if (includeInserts && rows.length > 0) {
+        lines.push('');
+        const colNames = cols.map(([k]) => ql(toSnake(k))).join(', ');
+        rows.forEach(row => {
+          if (!row || typeof row !== 'object') return;
+          const vals = cols.map(([k]) => sqlEscape(row[k] ?? null, dialect)).join(', ');
+          lines.push(`INSERT INTO ${ql(tableName)} (${colNames}) VALUES (${vals});`);
+        });
+      }
+      return lines.join('\n');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       OpenAPI 3.0 YAML renderer
+    ───────────────────────────────────────────────────────── */
+    function inferOAType(val) {
+      if (val === null)             return { type: 'string', nullable: true };
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T/.test(val)) return { type: 'string', format: 'date-time' };
+        if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return { type: 'string', format: 'date' };
+        if (/^[^@]+@[^@]+\.[^@]+$/.test(val)) return { type: 'string', format: 'email' };
+        if (/^https?:\/\//.test(val))          return { type: 'string', format: 'uri' };
+        return { type: 'string' };
+      }
+      if (typeof val === 'boolean') return { type: 'boolean' };
+      if (typeof val === 'number')  return { type: Number.isInteger(val) ? 'integer' : 'number' };
+      if (Array.isArray(val)) {
+        const itemSpec = val.length > 0 ? inferOAType(val[0]) : { type: 'string' };
+        if (itemSpec.properties) {
+          return { type: 'array', items: { type: 'object', properties: itemSpec.properties, required: itemSpec.required } };
+        }
+        return { type: 'array', items: itemSpec };
+      }
+      if (typeof val === 'object') {
+        return buildOASchema(val);
+      }
+      return { type: 'string' };
+    }
+
+    function buildOASchema(obj, markRequired) {
+      const schema = { type: 'object', properties: {} };
+      const required = [];
+      Object.entries(obj).forEach(([k, v]) => {
+        schema.properties[k] = inferOAType(v);
+        required.push(k);
+      });
+      if (markRequired && required.length) schema.required = required;
+      return schema;
+    }
+
+    function schemaToYAML(schema, indent) {
+      const pad = ' '.repeat(indent);
+      const lines = [];
+      if (schema.type) {
+        lines.push(`${pad}type: ${schema.type}`);
+      }
+      if (schema.format)   lines.push(`${pad}format: ${schema.format}`);
+      if (schema.nullable) lines.push(`${pad}nullable: true`);
+      if (schema.required) {
+        lines.push(`${pad}required:`);
+        schema.required.forEach(r => lines.push(`${pad}  - ${r}`));
+      }
+      if (schema.properties) {
+        lines.push(`${pad}properties:`);
+        Object.entries(schema.properties).forEach(([k, v]) => {
+          lines.push(`${pad}  ${k}:`);
+          lines.push(...schemaToYAML(v, indent + 4));
+        });
+      }
+      if (schema.items) {
+        lines.push(`${pad}items:`);
+        lines.push(...schemaToYAML(schema.items, indent + 2));
+      }
+      return lines;
+    }
+
+    function renderOpenAPI(data, schemaName, markRequired) {
+      const obj = Array.isArray(data) ? (data[0] || {}) : (data || {});
+      if (typeof obj !== 'object') return '# Input must be a JSON object';
+      const schema = buildOASchema(obj, markRequired);
+      const lines = [
+        'components:',
+        '  schemas:',
+        `    ${schemaName}:`,
+        ...schemaToYAML(schema, 6)
+      ];
+      return lines.join('\n');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       JSON Schema draft-07 renderer
+    ───────────────────────────────────────────────────────── */
+    function inferJSONSchema(val, addExamples) {
+      if (val === null)             return { type: 'null' };
+      if (typeof val === 'boolean') return addExamples ? { type: 'boolean', examples: [val] } : { type: 'boolean' };
+      if (typeof val === 'number')  return addExamples ? { type: 'number',  examples: [val] } : { type: 'number' };
+      if (typeof val === 'string')  return addExamples ? { type: 'string',  examples: [val] } : { type: 'string' };
+      if (Array.isArray(val)) {
+        const s = { type: 'array' };
+        if (val.length > 0) s.items = inferJSONSchema(val[0], addExamples);
+        return s;
+      }
+      if (typeof val === 'object') {
+        const s = { type: 'object', properties: {} };
+        const keys = Object.keys(val);
+        keys.forEach(k => { s.properties[k] = inferJSONSchema(val[k], addExamples); });
+        if (document.getElementById('js-required').checked && keys.length > 0) s.required = keys;
+        return s;
+      }
+      return {};
+    }
+
+    function renderJSONSchema(data) {
+      const addEx = document.getElementById('js-examples').checked;
+      const schema = {
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        ...inferJSONSchema(data, addEx)
+      };
+      return JSON.stringify(schema, null, 2);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Mock data renderer
+    ───────────────────────────────────────────────────────── */
+    const FIRST_NAMES  = ['Alice','Bob','Charlie','Diana','Eve','Frank','Grace','Hana','Ivan','Julia','Kevin','Laura'];
+    const LAST_NAMES   = ['Smith','Jones','Brown','García','Müller','Tanaka','Okafor','Singh','Tremblay','Rossi'];
+    const DOMAINS      = ['example.com','acme.org','devmail.io','testco.net','fakecorp.dev'];
+    const WORDS        = ['alpha','beta','gamma','delta','epsilon','zeta','eta','theta','iota','kappa','lambda'];
+
+    let _mockSeed = 1;
+    function rng() { _mockSeed = (_mockSeed * 1664525 + 1013904223) & 0xffffffff; return ((_mockSeed >>> 0) / 0x100000000); }
+    function pick(arr) { return arr[Math.floor(rng() * arr.length)]; }
+    function randInt(min, max) { return Math.floor(rng() * (max - min + 1)) + min; }
+    function randFloat() { return Math.round(rng() * 10000) / 100; }
+    function randBool() { return rng() > 0.5; }
+    function randISO() {
+      const d = new Date(2020 + randInt(0,5), randInt(0,11), randInt(1,28));
+      return d.toISOString().replace(/\.\d+Z$/, 'Z');
+    }
+
+    function mockValue(key, val) {
+      const k = key.toLowerCase();
+      if (typeof val === 'boolean') return randBool();
+      if (typeof val === 'number') {
+        if (k.includes('price') || k.includes('amount') || k.includes('cost') || k.includes('total')) return randFloat();
+        if (k === 'id' || k.endsWith('_id') || k.endsWith('id')) return randInt(1, 99999);
+        if (k.includes('count') || k.includes('qty') || k.includes('quantity')) return randInt(1, 500);
+        if (k.includes('age')) return randInt(18, 80);
+        return Number.isInteger(val) ? randInt(1, 1000) : randFloat();
+      }
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T/.test(val) || k.includes('date') || k.includes('_at') || k.includes('time')) return randISO();
+        if (k.includes('email')) return `${pick(FIRST_NAMES).toLowerCase()}.${pick(LAST_NAMES).toLowerCase()}@${pick(DOMAINS)}`;
+        if (k.includes('name') && !k.includes('user')) return `${pick(FIRST_NAMES)} ${pick(LAST_NAMES)}`;
+        if (k === 'username' || k.includes('user_name')) return `${pick(FIRST_NAMES).toLowerCase()}${randInt(10,99)}`;
+        if (k.includes('url') || k.includes('link') || k.includes('href') || k.includes('website')) return `https://${pick(DOMAINS)}/${pick(WORDS)}`;
+        if (k.includes('phone')) return `+1-${randInt(200,999)}-${randInt(100,999)}-${randInt(1000,9999)}`;
+        if (k.includes('address') || k.includes('street')) return `${randInt(1,999)} ${pick(WORDS).charAt(0).toUpperCase()+pick(WORDS).slice(1)} St`;
+        if (k.includes('city')) return pick(['New York','London','Tokyo','Paris','Berlin','Sydney','Toronto']);
+        if (k.includes('country')) return pick(['US','GB','JP','FR','DE','AU','CA']);
+        if (k.includes('status')) return pick(['active','inactive','pending','completed','cancelled']);
+        if (k.includes('role')) return pick(['user','admin','editor','viewer','moderator']);
+        if (k.includes('color') || k.includes('colour')) return pick(['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6']);
+        if (k.includes('id')) return `${pick(WORDS).slice(0,3).toUpperCase()}-${randInt(1000,9999)}`;
+        // Generic string
+        return `${pick(WORDS)} ${pick(WORDS)}`;
+      }
+      if (Array.isArray(val)) {
+        if (!val.length) return [];
+        const template = val[0];
+        if (typeof template === 'string') {
+          return Array.from({ length: randInt(1, 4) }, () => pick(WORDS));
+        }
+        if (typeof template === 'number') {
+          return Array.from({ length: randInt(1, 4) }, () => randInt(1, 100));
+        }
+        if (typeof template === 'object' && template !== null) {
+          return Array.from({ length: randInt(1, 3) }, () => mockObject(template));
+        }
+        return [];
+      }
+      if (val !== null && typeof val === 'object') {
+        return mockObject(val);
+      }
+      return null;
+    }
+
+    function mockObject(template) {
+      const result = {};
+      Object.entries(template).forEach(([k, v]) => {
+        result[k] = mockValue(k, v);
+      });
+      return result;
+    }
+
+    function renderMock(data, count) {
+      _mockSeed = Date.now() & 0xffff; // slightly random seed
+      const template = Array.isArray(data) ? (data[0] || {}) : data;
+      if (!template || typeof template !== 'object') {
+        return JSON.stringify([data], null, 2);
+      }
+      const records = Array.from({ length: Math.max(1, Math.min(100, count)) }, (_, i) => {
+        const rec = mockObject(template);
+        // Make id sequential if present
+        if ('id' in rec && typeof template.id === 'number') rec.id = i + 1;
+        return rec;
+      });
+      return JSON.stringify(records, null, 2);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Syntax highlight (generic)
+    ───────────────────────────────────────────────────────── */
+    function hlTS(code) {
+      return code.split('\n').map(line => {
+        let l = escHTML(line);
+        l = l.replace(/\b(export|interface|type|import|from|const|extends|Document|Schema|mongoose|model)\b/g, '<span class="ts-kw">$1</span>');
+        l = l.replace(/'([^']*)'/g, '<span class="ts-str">\'$1\'</span>');
+        l = l.replace(/\b([A-Z][a-zA-Z0-9]+)\b/g, '<span class="ts-name">$1</span>');
+        l = l.replace(/\b(string|number|boolean|null|unknown|Date|Mixed|String|Number|Boolean|Object)\b/g, '<span class="ts-type">$1</span>');
+        l = l.replace(/(\/\/ TODO[^<]*)/g, '<span class="ts-comment">$1</span>');
+        return l;
+      }).join('\n');
+    }
+
+    function hlJSON(code) {
+      return code.split('\n').map(line => {
+        let l = escHTML(line);
+        // Keys
+        l = l.replace(/"([^"]+)"(\s*:)/g, '<span class="ts-key">"$1"</span><span class="ts-punc">$2</span>');
+        // String values
+        l = l.replace(/:\s*"([^"]*)"/g, ': <span class="ts-str">"$1"</span>');
+        // Number values
+        l = l.replace(/:\s*(-?\d+\.?\d*)/g, ': <span class="ts-num">$1</span>');
+        // Boolean/null
+        l = l.replace(/:\s*(true|false|null)\b/g, ': <span class="ts-type">$1</span>');
+        return l;
+      }).join('\n');
+    }
+
+    function hlYAML(code) {
+      return code.split('\n').map(line => {
+        let l = escHTML(line);
+        // Keys
+        l = l.replace(/^(\s*)([a-zA-Z_$][a-zA-Z0-9_$]*)(\s*:)/gm, '$1<span class="ts-key">$2</span><span class="ts-punc">$3</span>');
+        // String values after colon
+        l = l.replace(/:\s*(.+)$/, (match, val) => {
+          const kw = ['string','integer','number','boolean','array','object','null'].includes(val.trim());
+          return ': ' + (kw ? `<span class="ts-type">${escHTML(val)}</span>` : `<span class="ts-str">${escHTML(val)}</span>`);
+        });
+        return l;
+      }).join('\n');
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Main generate function
+    ───────────────────────────────────────────────────────── */
+    function generate() {
+      const raw = inputEl.value.trim();
+      document.getElementById('jc-input-meta').textContent = raw ? JT.formatBytes(new Blob([raw]).size) : '';
+
+      if (!raw) { clearOutput(); return; }
+
+      const { data, error, line } = JT.parseJSON(raw);
+      if (error) {
+        inputEl.classList.add('error');
+        errMsgEl.textContent = `JSON error${line ? ` (line ${line})` : ''}: ${error}`;
+        errEl.style.display = 'flex';
+        clearOutput(false);
+        return;
+      }
+      inputEl.classList.remove('error');
+      errEl.style.display = 'none';
+
+      renderActiveTab(data);
+    }
+
+    function renderActiveTab(data) {
+      // Reset TS registry for tabs that need it
+      ifaceRegistry.clear();
+      totalProps = 0;
+
+      // Build TS registry for ts / zod / mongoose (they all use inferTSType)
+      if (['ts','zod','mongoose'].includes(activeTab)) {
+        const rootName = getOption('ts-root-name');
+        const rootSafe = (rootName || 'Root').replace(/[^a-zA-Z0-9_]/g, '') || 'Root';
+        if (typeof data === 'object' && data !== null && !Array.isArray(data)) {
+          buildTSInterface(rootSafe, data);
+        } else if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object' && data[0] !== null) {
+          buildTSInterface(rootSafe, data[0]);
+        } else {
+          const rt = inferTSType(data, '', rootSafe);
+          ifaceRegistry.set(rootSafe, [{ key: 'value', type: rt }]);
+          totalProps++;
+        }
+      }
+
+      let output = '';
+      let highlight = 'ts';
+
+      switch (activeTab) {
+        case 'ts': {
+          const style  = getOption('ts-style');
+          const addExp = getChecked('ts-export');
+          const makeOpt = getChecked('ts-optional');
+          output    = renderTS(style, addExp, makeOpt);
+          highlight = 'ts';
+          statsEl.style.display = 'flex';
+          document.getElementById('jc-stat-ifaces').textContent = ifaceRegistry.size;
+          document.getElementById('jc-stat-props').textContent  = totalProps;
+          break;
+        }
+        case 'zod': {
+          const addExp  = getChecked('zod-export');
+          const addInf  = getChecked('zod-infer');
+          // Use zod root name
+          const zRootName = getOption('zod-root-name') || 'Root';
+          ifaceRegistry.clear(); totalProps = 0;
+          const rootSafe = zRootName.replace(/[^a-zA-Z0-9_]/g, '') || 'Root';
+          if (typeof data === 'object' && data !== null && !Array.isArray(data)) {
+            buildTSInterface(rootSafe, data);
+          } else if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object' && data[0] !== null) {
+            buildTSInterface(rootSafe, data[0]);
+          }
+          output    = renderZod(addExp, addInf);
+          highlight = 'ts';
+          statsEl.style.display = 'none';
+          break;
+        }
+        case 'mongoose': {
+          const modelName = (getOption('mg-model-name') || 'MyModel').replace(/[^a-zA-Z0-9_]/g, '') || 'MyModel';
+          const timestamps = getChecked('mg-timestamps');
+          const obj = Array.isArray(data) ? data[0] : data;
+          output    = renderMongoose(obj, modelName, timestamps);
+          highlight = 'ts';
+          statsEl.style.display = 'none';
+          break;
+        }
+        case 'sql': {
+          const tableName     = (getOption('sql-table') || 'my_table').replace(/[^a-zA-Z0-9_]/g, '_').toLowerCase() || 'my_table';
+          const dialect       = getOption('sql-dialect');
+          const includeInserts = getChecked('sql-inserts');
+          output    = renderSQL(data, tableName, dialect, includeInserts);
+          highlight = 'yaml'; // SQL — use basic YAML-ish highlighter (good enough for SQL keywords)
+          statsEl.style.display = 'none';
+          break;
+        }
+        case 'openapi': {
+          const schemaName  = (getOption('oa-schema-name') || 'MySchema').replace(/[^a-zA-Z0-9_]/g, '') || 'MySchema';
+          const markRequired = getChecked('oa-required');
+          output    = renderOpenAPI(data, schemaName, markRequired);
+          highlight = 'yaml';
+          statsEl.style.display = 'none';
+          break;
+        }
+        case 'jsonschema': {
+          output    = renderJSONSchema(data);
+          highlight = 'json';
+          statsEl.style.display = 'none';
+          break;
+        }
+        case 'mock': {
+          const count = parseInt(document.getElementById('mock-count').value, 10) || 5;
+          output    = renderMock(data, count);
+          highlight = 'json';
+          statsEl.style.display = 'none';
+          break;
+        }
+      }
+
+      lastOutput = output;
+      if (!output) { outputEl.innerHTML = ''; outputEl.classList.add('jc-output--empty'); return; }
+
+      if (highlight === 'ts') {
+        outputEl.innerHTML = hlTS(output);
+      } else if (highlight === 'json') {
+        outputEl.innerHTML = hlJSON(output);
+      } else {
+        outputEl.innerHTML = hlYAML(output);
+      }
+      outputEl.classList.remove('jc-output--empty');
+    }
+
+    function clearOutput(resetText = true) {
+      if (resetText) {
+        outputEl.innerHTML = 'Select a tab and paste JSON to begin…';
+        outputEl.classList.add('jc-output--empty');
+      }
+      statsEl.style.display = 'none';
+      lastOutput = '';
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Helpers
+    ───────────────────────────────────────────────────────── */
+    function getOption(id) {
+      const el = document.getElementById(id);
+      return el ? el.value : '';
+    }
+    function getChecked(id) {
+      const el = document.getElementById(id);
+      return el ? el.checked : false;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Per-tab options visibility
+    ───────────────────────────────────────────────────────── */
+    const optPanels = {
+      ts:         document.getElementById('opts-ts'),
+      zod:        document.getElementById('opts-zod'),
+      mongoose:   document.getElementById('opts-mongoose'),
+      sql:        document.getElementById('opts-sql'),
+      openapi:    document.getElementById('opts-openapi'),
+      jsonschema: document.getElementById('opts-jsonschema'),
+      mock:       document.getElementById('opts-mock'),
+    };
+
+    function showOptsFor(tab) {
+      Object.entries(optPanels).forEach(([key, el]) => {
+        if (el) el.style.display = key === tab ? '' : 'none';
+      });
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Download filename mapping
+    ───────────────────────────────────────────────────────── */
+    function getDownloadName() {
+      const map = {
+        ts:         ['types.ts',     'text/typescript'],
+        zod:        ['schema.ts',    'text/typescript'],
+        mongoose:   ['model.ts',     'text/typescript'],
+        sql:        ['schema.sql',   'text/plain'],
+        openapi:    ['openapi.yaml', 'text/yaml'],
+        jsonschema: ['schema.json',  'application/json'],
+        mock:       ['mock.json',    'application/json'],
+      };
+      return map[activeTab] || ['output.txt', 'text/plain'];
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Tab switching
+    ───────────────────────────────────────────────────────── */
+    tabList.addEventListener('click', e => {
+      const btn = e.target.closest('[data-tab]');
+      if (!btn) return;
+      const tab = btn.dataset.tab;
+      if (tab === activeTab) return;
+
+      [...tabList.querySelectorAll('.jc-tab')].forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      activeTab = tab;
+      showOptsFor(tab);
+
+      // re-render if we have data
+      const raw = inputEl.value.trim();
+      if (raw) {
+        const { data, error } = JT.parseJSON(raw);
+        if (!error) renderActiveTab(data);
+      }
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       Events
+    ───────────────────────────────────────────────────────── */
+    document.getElementById('jc-generate-btn').addEventListener('click', generate);
+    inputEl.addEventListener('input', JT.debounce(generate, 400));
+
+    // Option changes re-render
+    ['ts-root-name','ts-style','ts-export','ts-optional',
+     'zod-root-name','zod-export','zod-infer',
+     'mg-model-name','mg-timestamps',
+     'sql-table','sql-dialect','sql-inserts',
+     'oa-schema-name','oa-required',
+     'js-required','js-examples',
+     'mock-count'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const event = el.type === 'checkbox' || el.tagName === 'SELECT' ? 'change' : 'input';
+      el.addEventListener(event, JT.debounce(generate, 250));
+    });
+
+    document.getElementById('jc-clear-btn').addEventListener('click', () => {
+      inputEl.value = '';
+      inputEl.classList.remove('error');
+      errEl.style.display = 'none';
+      document.getElementById('jc-input-meta').textContent = '';
+      clearOutput();
+    });
+
+    document.getElementById('jc-sample-btn').addEventListener('click', () => {
+      inputEl.value = JSON.stringify({
+        user: {
+          id: 1,
+          name: "Alice Johnson",
+          email: "alice@example.com",
+          roles: ["admin", "editor"],
+          active: true,
+          age: 32,
+          createdAt: "2026-01-15T10:30:00Z",
+          address: {
+            street: "123 Main St",
+            city: "San Francisco",
+            country: "US"
+          }
+        }
+      }, null, 2);
+      generate();
+    });
+
+    document.getElementById('jc-copy-btn').addEventListener('click', function () {
+      if (!lastOutput) return;
+      JT.copyToClipboard(lastOutput)
+        .then(() => {
+          const orig = this.innerHTML;
+          this.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Copied!';
+          setTimeout(() => { this.innerHTML = orig; }, 1800);
+        })
+        .catch(() => alert('Copy failed.'));
+    });
+
+    document.getElementById('jc-download-btn').addEventListener('click', () => {
+      if (!lastOutput) return;
+      const [fname, mime] = getDownloadName();
+      const blob = new Blob([lastOutput], { type: mime });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = fname; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       Drag & drop
+    ───────────────────────────────────────────────────────── */
+    document.body.addEventListener('dragover', e => {
+      if ([...e.dataTransfer.types].includes('Files')) e.preventDefault();
+    });
+    document.body.addEventListener('drop', e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => { inputEl.value = ev.target.result; generate(); };
+      reader.readAsText(file);
+    });
+
+    // Initial state
+    showOptsFor('ts');
+
+  })();
+  </script>
+
+</body>
+</html>

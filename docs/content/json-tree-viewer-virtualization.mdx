@@ -1,0 +1,23 @@
+---
+title: "JSON Tree Viewer Architecture & DOM Virtualization"
+description: "Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization."
+category: "Query & Inspection"
+tags: ["json-tree-viewer","viewer","tree","virtualization","dom"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "viewer"
+---
+
+# JSON Tree Viewer Architecture & DOM Virtualization
+
+Visualizing deeply nested JSON payloads requires an intuitive, collapsible tree diagram capable of rendering thousands of nodes without browser lag.
+
+## 1. Hierarchical Node Classification
+Every node in the tree is labeled by its structural data type:
+- `Object`: Collapsible container displaying total key count (e.g. `object [5 keys]`).
+- `Array`: Collapsible list displaying element count (e.g. `array [100 items]`).
+- `Primitives`: Color-coded string, number, boolean, and null badges.
+
+## 2. Real-Time Tree Search & Filtering
+The search engine traverses node keys and primitive values, automatically expanding parent paths containing query matches while dimming non-matching siblings.
+    

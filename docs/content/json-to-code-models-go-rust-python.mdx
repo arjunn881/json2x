@@ -1,0 +1,57 @@
+---
+title: "Generating Idiomatic Code Models: Go, Rust & Python"
+description: "Technical guide on synthesizing strongly-typed Go structs with json tags, Rust Serde models with derive macros, and Python Pydantic BaseModel classes."
+category: "Code & Schema"
+tags: ["json-to-code","go","golang","rust","serde","python","pydantic"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-to-code"
+---
+
+# Generating Idiomatic Code Models: Go, Rust & Python
+
+Transforming sample API responses into backend models saves hours of boilerplate coding across microservices.
+
+## 1. Go Structs (with JSON tags)
+
+```go
+package models
+
+type UserPayload struct {
+    ID        int64    `json:"id"`
+    Username  string   `json:"username"`
+    Email     string   `json:"email"`
+    IsAdmin   bool     `json:"is_admin"`
+    Roles     []string `json:"roles"`
+}
+```
+
+## 2. Rust Structs (Serde Serialize & Deserialize)
+
+```rust
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UserPayload {
+    pub id: i64,
+    pub username: String,
+    pub email: String,
+    pub is_admin: bool,
+    pub roles: Vec<String>,
+}
+```
+
+## 3. Python (Pydantic v2 BaseModels)
+
+```python
+from pydantic import BaseModel, EmailStr
+from typing import List
+
+class UserPayload(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    is_admin: bool
+    roles: List[str]
+```
+    

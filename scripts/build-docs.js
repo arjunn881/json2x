@@ -10,63 +10,470 @@ if (!fs.existsSync(CONTENT_DIR)) {
   fs.mkdirSync(CONTENT_DIR, { recursive: true });
 }
 
-// ── Sample MD / MDX Content Files ────────────────────────────
+// ── Complete 17-Tool Documentation Matrix (AdSense Compliant) ───
 const SAMPLE_DOCS = [
   {
     filename: 'rfc8259-json-specification.mdx',
     frontmatter: {
       title: 'Complete RFC 8259 JSON Specification & Grammar Reference',
       description: 'An authoritative developer reference on official RFC 8259 JSON syntax rules, primitive data types, string escaping, and number encoding.',
-      category: 'Guides',
-      tags: ['json', 'rfc8259', 'specification', 'syntax'],
+      category: 'Format & Validate',
+      tags: ['json', 'rfc8259', 'specification', 'syntax', 'validator'],
       author: 'JSON2X Engineering Team',
-      date: '2026-07-28'
+      date: '2026-08-16',
+      primaryTool: 'json-validator'
     },
     markdown: `
 # Complete RFC 8259 JSON Specification & Grammar Reference
 
-JSON (JavaScript Object Notation) is defined by **IETF RFC 8259** and **ECMA-404**. It is a text-based format for data interchange that is completely language independent.
+JSON (JavaScript Object Notation) is governed by **IETF RFC 8259** and **ECMA-404**. It is a lightweight, text-based, language-independent data interchange format.
 
-## 1. Primary Data Types in JSON
+## 1. Core Data Types in RFC 8259
 
-RFC 8259 defines six fundamental data types:
+RFC 8259 defines six fundamental primitive and structural data types:
 
-- **Objects:** Unordered collections of key-value pairs wrapped in \`{\}\`.
-- **Arrays:** Ordered sequences of values wrapped in \`[]\`.
-- **Strings:** Double-quoted Unicode character sequences.
-- **Numbers:** Decimal numbers (integers or floating point).
-- **Booleans:** \`true\` or \`false\` (strictly lowercase).
-- **Null:** Represented by the keyword literal \`null\`.
-
-## 2. Object Grammar & Key Rules
-
-Objects consist of zero or more key-value pairs. Every key MUST be a double-quoted string.
+- **Objects (\`{ }\`):** Unordered collections of zero or more key-value pairs. Keys MUST be double-quoted strings.
+- **Arrays (\`[ ]\`):** Ordered sequences of zero or more values of any type.
+- **Strings (\`"..."\`):** Sequences of Unicode code points enclosed in double quotes (\`"...\`).
+- **Numbers:** Signed decimal numbers in standard or scientific exponential notation.
+- **Booleans:** Keyword literals \`true\` or \`false\` (strictly lowercase).
+- **Null:** The keyword literal \`null\`.
 
 \`\`\`json
 {
-  "name": "JSON2X",
-  "version": 1.0,
-  "isProduction": true
+  "name": "JSON2X Enterprise API",
+  "version": 2.4,
+  "isActive": true,
+  "metadata": null,
+  "tags": ["developer", "tools", "privacy-first"]
 }
 \`\`\`
 
-## 3. String Escaping & Special Characters
+## 2. String Escaping & Special Characters
 
-Characters that must be escaped using a backslash (\`\\\`):
+RFC 8259 mandates backslash (\`\\\`) escaping for special control characters:
 
-- Double quote: \`\\"\`
-- Backslash: \`\\\\\`
-- Line feed: \`\\n\`
-- Carriage return: \`\\r\`
-- Tab: \`\\t\`
+| Character | Escape Sequence | Description |
+| :--- | :--- | :--- |
+| Quotation mark | \`\\"\` | Double quote character |
+| Reverse solidus | \`\\\\\` | Backslash character |
+| Solidus | \`\\/\` | Forward slash (optional) |
+| Backspace | \`\\b\` | Backspace control code |
+| Form feed | \`\\f\` | Form feed control code |
+| Line feed | \`\\n\` | Standard Unix newline |
+| Carriage return | \`\\r\` | Carriage return |
+| Tab | \`\\t\` | Horizontal tab |
+| Unicode code point | \`\\uXXXX\` | 4-hex digit Unicode hex |
+
+## 3. Strict RFC 8259 Parsing Rules
+
+1. **No Single Quotes:** Keys and string values must strictly use double quotes (\`"key": "value"\`).
+2. **No Trailing Commas:** A comma after the final element in an object or array causes a syntax violation.
+3. **No Unquoted Keys:** Property names like \`{ age: 30 }\` are valid JavaScript object literals, but invalid JSON.
+4. **No Comments:** Comments (\`//\` or \`/* */\`) are prohibited under standard RFC 8259.
+5. **No Leading Zeros:** Numbers like \`0123\` or \`+42\` are invalid in JSON.
 
 ## 4. Frequently Asked Questions
 
-### Is single quotes allowed in RFC 8259?
-No. RFC 8259 strictly requires double quotes for keys and string values. Single quotes trigger parse exceptions.
+### Why does JSON reject single quotes?
+RFC 8259 explicitly standardized on double quotes (\`"\`) to ensure absolute cross-platform interoperability across all programming language parsers (C, Java, Python, Go, Rust).
 
-### Can JSON numbers have leading zeros?
-No. Numbers with leading zeros (e.g. \`0123\`) are invalid in JSON.
+### How does client-side validation prevent data corruption?
+Client-side validation runs in the browser's JavaScript engine before network transmission, preventing invalid payloads from hitting backend databases and APIs.
+    `
+  },
+  {
+    filename: 'json-formatting-and-linting-architecture.mdx',
+    frontmatter: {
+      title: 'JSON Formatting & Line-Level Linting Architecture',
+      description: 'In-depth guide on JSON pretty-printing algorithms, recursive AST indentation, syntax highlighting, and exact line/column error pinpointing.',
+      category: 'Format & Validate',
+      tags: ['formatter', 'beautify', 'linter', 'ast', 'formatting'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-formatter'
+    },
+    markdown: `
+# JSON Formatting & Line-Level Linting Architecture
+
+Formatting unformatted JSON transforms dense single-line network payloads into structured, human-readable representations.
+
+## 1. Indentation Mechanics & Spacing Algorithms
+
+The JSON formatter supports 2-space, 4-space, and tab-based recursive tree formatting.
+
+\`\`\`javascript
+// High-performance native formatting
+function formatJson(rawText, indentLevel = 2) {
+  const parsed = JSON.parse(rawText);
+  return JSON.stringify(parsed, null, indentLevel);
+}
+\`\`\`
+
+## 2. Line and Column Error Pinpointing
+
+When parsing fails, the linter identifies the exact byte offset, calculating:
+- **Line Number:** Count of newline characters (\`\\n\`) prior to the error offset + 1.
+- **Column Number:** Number of characters between the previous newline and the error offset.
+- **Error Excerpt:** A 3-line contextual window with an arrow pointer directly beneath the offending character.
+
+## 3. Key Sorting & Deterministic Canonical JSON
+
+In cryptographic workflows, deterministic hashing, and Git version control, sorting object keys alphabetically ensures idempotent diffs:
+
+\`\`\`javascript
+function sortObjectKeys(obj) {
+  if (typeof obj !== 'object' || obj === null) return obj;
+  if (Array.isArray(obj)) return obj.map(sortObjectKeys);
+  return Object.keys(obj).sort().reduce((acc, key) => {
+    acc[key] = sortObjectKeys(obj[key]);
+    return acc;
+  }, {});
+}
+\`\`\`
+
+## 4. Best Practices for Large JSON Payloads
+1. Offload formatting of files over 1MB to Web Workers to prevent main-thread UI jank.
+2. Use streaming serializers for memory-constrained environments.
+    `
+  },
+  {
+    filename: 'json-minification-performance.mdx',
+    frontmatter: {
+      title: 'High-Performance JSON Minification & Payload Compression',
+      description: 'Engineering guide on JSON payload minification, whitespace elimination algorithms, network bandwidth optimization, and HTTP compression interactions.',
+      category: 'Format & Validate',
+      tags: ['json', 'minification', 'performance', 'bandwidth', 'optimization'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-minifier'
+    },
+    markdown: `
+# High-Performance JSON Minification & Payload Compression
+
+Minifying JSON payloads strips all non-structural whitespace, tabs, and line feeds to produce the smallest possible text representation.
+
+## 1. Single-Pass Token Scanning
+
+Minification identifies quotes, escape sequences, and structural delimiters without allocating complex intermediate AST nodes:
+
+\`\`\`javascript
+function minifyJson(jsonString) {
+  return JSON.stringify(JSON.parse(jsonString));
+}
+\`\`\`
+
+## 2. Byte Savings Analysis & HTTP Compression
+
+| Payload Type | Unformatted (KB) | Formatted (KB) | Minified (KB) | Minified + Brotli (KB) |
+| :--- | :--- | :--- | :--- | :--- |
+| User Profile API | 12.4 | 18.2 | 11.8 | 2.6 |
+| Catalog Dataset | 245.0 | 380.5 | 231.2 | 34.8 |
+| Large Log Export | 4,200.0 | 6,500.0 | 3,950.0 | 480.0 |
+
+Minification combined with Brotli or Gzip HTTP transfer compression yields up to 90% bandwidth reductions.
+    `
+  },
+  {
+    filename: 'structural-json-diffing-algorithms.mdx',
+    frontmatter: {
+      title: 'Structural JSON Diffing & Semantic Comparison Algorithms',
+      description: 'Deep-dive into structural JSON diff algorithms, key ordering normalization, LCS diff engines, and visual delta rendering.',
+      category: 'Format & Validate',
+      tags: ['diff', 'comparison', 'algorithms', 'json-diff'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-diff'
+    },
+    markdown: `
+# Structural JSON Diffing & Semantic Comparison Algorithms
+
+Standard line-by-line diff tools (like Git diff) often fail on JSON because unordered keys and formatting variations produce false positives. Structural JSON diffing analyzes the hierarchical tree.
+
+## 1. Semantic vs Lexical Diffing
+
+- **Lexical Diff:** Compares text line-by-line. Sensitive to spaces, indentation, and key reordering.
+- **Structural / Semantic Diff:** Parses both inputs into abstract syntax trees, normalizes key orders, and compares value types and leaves.
+
+## 2. The Myers Diff & Tree Delta Model
+
+The diff engine classifies changes into 4 atomic states:
+- \`ADDED\`: A key or array index present in the Right payload but absent in Left.
+- \`REMOVED\`: A key or array index present in Left but absent in Right.
+- \`MODIFIED\`: The key exists in both, but primitive values or types differ.
+- \`UNCHANGED\`: Identical key and value.
+
+\`\`\`javascript
+// Delta node representation
+type Delta = {
+  path: string;
+  type: 'added' | 'removed' | 'modified' | 'unchanged';
+  leftValue?: any;
+  rightValue?: any;
+};
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-to-csv-flattening-mechanics.mdx',
+    frontmatter: {
+      title: 'JSON to CSV Flattening Mechanics & Dot-Notation Mapping',
+      description: 'Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls.',
+      category: 'Data Converters',
+      tags: ['json-to-csv', 'csv', 'converter', 'export', 'data-engineering'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-to-csv'
+    },
+    markdown: `
+# JSON to CSV Flattening Mechanics & Dot-Notation Mapping
+
+Relational spreadsheets and analytics platforms (Excel, Google Sheets, Pandas) require tabular 2D structures. JSON to CSV conversion flattens multi-level objects into rectangular rows and columns.
+
+## 1. Recursive Key Flattening (Dot-Notation)
+
+Nested object properties are transformed into delimited column headers:
+
+\`\`\`json
+// Input JSON
+[
+  {
+    "id": 101,
+    "user": { "name": "Alice", "address": { "city": "London" } }
+  }
+]
+\`\`\`
+
+\`\`\`csv
+id,user.name,user.address.city
+101,Alice,London
+\`\`\`
+
+## 2. Array Serialization Modes
+- **JSON String Mode:** Encodes inner arrays as stringified JSON (e.g. \`"[\"admin\", \"billing\"]"\`).
+- **Joined String Mode:** Joins primitive array values with semicolons or pipes (e.g. \`"admin;billing"\`).
+
+## 3. RFC 4180 Escaping Compliance
+Fields containing commas, line breaks, or double quotes must be wrapped in double quotes, with internal quotes escaped as \`""\`.
+    `
+  },
+  {
+    filename: 'csv-to-json-parsing-and-type-inference.mdx',
+    frontmatter: {
+      title: 'CSV to JSON Parsing & Automatic Type Inference',
+      description: 'Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types.',
+      category: 'Data Converters',
+      tags: ['csv-to-json', 'csv', 'parser', 'type-inference', 'converter'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'csv-to-json'
+    },
+    markdown: `
+# CSV to JSON Parsing & Automatic Type Inference
+
+Converting raw CSV spreadsheets into valid JSON is essential for feeding databases and REST APIs.
+
+## 1. Delimiter Auto-Detection
+
+The parser analyzes the first 5 rows to statistically detect the primary separator:
+- Comma (\`,\`)
+- Semicolon (\`;\`)
+- Tab (\`\\t\`)
+- Pipe (\`|\`)
+
+## 2. Type Inference Engine
+
+Since CSV is pure un-typed text, the engine inspects values against regex patterns:
+
+| Raw CSV Value | Inferred JSON Type | Parsed Output |
+| :--- | :--- | :--- |
+| \`"42"\` | Integer (\`number\`) | \`42\` |
+| \`"3.1415"\` | Float (\`number\`) | \`3.1415\` |
+| \`"true"\` / \`"TRUE"\` | Boolean (\`boolean\`) | \`true\` |
+| \`"null"\` / \`"NULL"\` / \`""\` | Null | \`null\` |
+| \`"2026-08-16T12:00:00Z"\` | String (ISO Date) | \`"2026-08-16T12:00:00Z"\` |
+    `
+  },
+  {
+    filename: 'json-to-yaml-serialization-rules.mdx',
+    frontmatter: {
+      title: 'JSON to YAML Serialization & Formatting Guide',
+      description: 'Technical reference on converting JSON structures to clean YAML 1.2 configuration files with custom indentation and block scalar formatting.',
+      category: 'Data Converters',
+      tags: ['json-to-yaml', 'yaml', 'kubernetes', 'docker', 'devops'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-to-yaml'
+    },
+    markdown: `
+# JSON to YAML Serialization & Formatting Guide
+
+YAML (YAML Ain't Markup Language) is the de facto standard for cloud-native configurations (Kubernetes manifests, GitHub Actions, Docker Compose, Ansible playbooks).
+
+## 1. Structural Equivalence
+
+Because JSON is a strict subset of YAML 1.2, every valid JSON document is syntactically valid YAML. However, formatting JSON as human-readable YAML eliminates curly braces, brackets, and quotes where safe.
+
+\`\`\`yaml
+# Output YAML
+name: production-cluster
+replicas: 3
+environment:
+  region: us-east-1
+  tier: api
+services:
+  - name: auth-service
+    port: 8080
+  - name: billing-service
+    port: 9000
+\`\`\`
+
+## 2. Block Scalars & Multiline Text
+Multiline strings in JSON (with \`\\n\`) serialize into clean YAML block scalars (\`|\` or \`>\`), maintaining readability.
+    `
+  },
+  {
+    filename: 'json-to-xml-mapping-and-attributes.mdx',
+    frontmatter: {
+      title: 'JSON to XML Mapping, Root Elements & Attribute Syntax',
+      description: 'Engineering guide on converting JSON hierarchies to valid XML documents, managing root tags, XML declaration headers, and attribute prefixes.',
+      category: 'Data Converters',
+      tags: ['json-to-xml', 'xml', 'soap', 'rss', 'markup'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-to-xml'
+    },
+    markdown: `
+# JSON to XML Mapping, Root Elements & Attribute Syntax
+
+While modern web applications utilize JSON, enterprise SOAP services, legacy finance systems, and RSS feeds rely on XML.
+
+## 1. Tree Mapping Rules
+- **Objects:** Converted into parent XML tags containing child element tags.
+- **Arrays:** Repeated sibling tags with a configurable item tag (e.g. \`<item>\` or pluralized root).
+- **Attributes:** Keys prefixed with \`@\` (e.g. \`"@id": "100"\`) map directly to XML element attributes.
+
+\`\`\`xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <user id="usr_101">
+    <name>Alice Smith</name>
+    <roles>
+      <role>Admin</role>
+      <role>Developer</role>
+    </roles>
+  </user>
+</root>
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-to-toml-specification-guide.mdx',
+    frontmatter: {
+      title: 'JSON to TOML Transformation & Config Engineering',
+      description: 'Developer guide to transforming JSON documents into TOML v1.0.0 configurations for Rust Cargo, Python pyproject.toml, and Hugo static sites.',
+      category: 'Data Converters',
+      tags: ['json-to-toml', 'toml', 'rust', 'cargo', 'python'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-to-toml'
+    },
+    markdown: `
+# JSON to TOML Transformation & Config Engineering
+
+TOML (Tom's Obvious Minimal Language) is designed for unambiguous human configuration, widely adopted by Rust (\`Cargo.toml\`), Python (\`pyproject.toml\`), and Go tools.
+
+## 1. Table Syntax & Array of Tables
+
+- Primitive key-value pairs serialize at the root: \`key = "value"\`.
+- Nested objects serialize as standard tables: \`[package.metadata]\`.
+- Arrays of objects serialize as double-bracket tables: \`[[dependencies]]\`.
+
+\`\`\`toml
+[package]
+name = "json2x-engine"
+version = "2.8.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.35", features = ["full"] }
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-to-sql-schema-inference-ddl.mdx',
+    frontmatter: {
+      title: 'JSON to SQL Schema Inference, DDL & INSERT Generation',
+      description: 'Learn how to generate relational SQL CREATE TABLE schemas and INSERT statement migrations from JSON object collections.',
+      category: 'Data Converters',
+      tags: ['json-to-sql', 'sql', 'postgres', 'mysql', 'sqlite', 'database'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-to-sql'
+    },
+    markdown: `
+# JSON to SQL Schema Inference, DDL & INSERT Generation
+
+Converting document-oriented JSON into relational SQL requires inspecting sample records, determining optimal column data types, and synthesizing DDL.
+
+## 1. Supported SQL Dialects
+- **PostgreSQL:** Uses \`SERIAL PRIMARY KEY\`, \`VARCHAR\`, \`BOOLEAN\`, \`TIMESTAMP WITH TIME ZONE\`, \`JSONB\`.
+- **MySQL:** Uses \`AUTO_INCREMENT\`, \`DATETIME\`, \`TEXT\`, \`JSON\`.
+- **SQLite:** Uses \`INTEGER PRIMARY KEY AUTOINCREMENT\`, \`TEXT\`, \`REAL\`.
+
+\`\`\`sql
+-- Generated PostgreSQL DDL
+CREATE TABLE users (
+  id INT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Generated INSERT DML
+INSERT INTO users (id, name, email, is_active) VALUES
+(1, 'Alice Smith', 'alice@example.com', true),
+(2, 'Bob Jones', 'bob@example.com', false);
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-multi-converter-architecture.mdx',
+    frontmatter: {
+      title: '7-in-1 JSON Multi-Converter Architecture & AST Pipelines',
+      description: 'Technical architecture of the unified 7-in-1 JSON multi-converter: simultaneous synthesis of TypeScript, Zod, Mongoose, SQL, OpenAPI 3.0, JSON Schema, and Mock Data.',
+      category: 'Code & Schema',
+      tags: ['json-converter', 'multi-converter', 'typescript', 'zod', 'openapi', 'mongoose'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-converter'
+    },
+    markdown: `
+# 7-in-1 JSON Multi-Converter Architecture & AST Pipelines
+
+The 7-in-1 Multi-Converter parses raw JSON once into an intermediate type graph, emitting 7 targets concurrently in memory without server network latency.
+
+## 1. Conversion Targets
+
+1. **TypeScript:** Interfaces and optional Type aliases.
+2. **Zod:** Runtime validation schemas with chained type checks.
+3. **Mongoose:** MongoDB schema definitions with field types.
+4. **SQL DDL:** Relational schema tables and insert statements.
+5. **OpenAPI 3.0:** REST API contract schema components.
+6. **JSON Schema:** Draft-07 compliant specification models.
+7. **Mock Data:** Synthetic test records matching the inferred structure.
+
+\`\`\`typescript
+// Shared Type Node Graph
+interface TypeNode {
+  kind: 'string' | 'number' | 'boolean' | 'null' | 'array' | 'object';
+  optional: boolean;
+  properties?: Record<string, TypeNode>;
+  itemType?: TypeNode;
+}
+\`\`\`
     `
   },
   {
@@ -74,41 +481,256 @@ No. Numbers with leading zeros (e.g. \`0123\`) are invalid in JSON.
     frontmatter: {
       title: 'TypeScript Interface & Zod Schema Generation Guide',
       description: 'Step-by-step tutorial on converting raw JSON API responses into strongly-typed TypeScript declarations and runtime Zod validation schemas.',
-      category: 'Tutorials',
-      tags: ['typescript', 'zod', 'schema', 'api'],
+      category: 'Code & Schema',
+      tags: ['typescript', 'zod', 'schema', 'api', 'types'],
       author: 'Staff Developer Tools Engineer',
-      date: '2026-07-28'
+      date: '2026-08-16',
+      primaryTool: 'json-to-ts'
     },
     markdown: `
 # TypeScript Interface & Zod Schema Generation Guide
 
-Type safety is crucial for modern frontend and backend development. Converting raw JSON payloads into TypeScript interfaces prevents runtime null reference errors.
+Type safety is critical for modern full-stack web applications. Converting raw JSON payloads into TypeScript interfaces eliminates runtime undefined errors.
 
-## 1. Why Automate Type Generation?
+## 1. Inferring Types from Dynamic Data
 
-Manual type writing is prone to typos and missing properties. Automated type generation analyzes JSON payload structures, inferring primitive types, optional fields, and array item schemas.
+The generator inspects primitive values, nullability, nested dictionaries, and homogeneous arrays:
 
-## 2. Synthesizing Zod Schemas
+\`\`\`typescript
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  age: number;
+  tags: string[];
+  settings: {
+    theme: 'dark' | 'light';
+    notifications: boolean;
+  };
+}
+\`\`\`
 
-Zod enables runtime validation alongside compile-time TypeScript static types.
+## 2. Synthesizing Runtime Zod Schemas
 
 \`\`\`typescript
 import { z } from 'zod';
 
-export const UserSchema = z.object({
+export const UserProfileSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.string().email(),
-  isActive: z.boolean()
+  age: z.number().int().positive(),
+  tags: z.array(z.string()),
+  settings: z.object({
+    theme: z.enum(['dark', 'light']),
+    notifications: z.boolean()
+  })
 });
 
-export type User = z.infer<typeof UserSchema>;
+export type UserProfile = z.infer<typeof UserProfileSchema>;
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-to-code-models-go-rust-python.mdx',
+    frontmatter: {
+      title: 'Generating Idiomatic Code Models: Go, Rust & Python',
+      description: 'Technical guide on synthesizing strongly-typed Go structs with json tags, Rust Serde models with derive macros, and Python Pydantic BaseModel classes.',
+      category: 'Code & Schema',
+      tags: ['json-to-code', 'go', 'golang', 'rust', 'serde', 'python', 'pydantic'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-to-code'
+    },
+    markdown: `
+# Generating Idiomatic Code Models: Go, Rust & Python
+
+Transforming sample API responses into backend models saves hours of boilerplate coding across microservices.
+
+## 1. Go Structs (with JSON tags)
+
+\`\`\`go
+package models
+
+type UserPayload struct {
+    ID        int64    \`json:"id"\`
+    Username  string   \`json:"username"\`
+    Email     string   \`json:"email"\`
+    IsAdmin   bool     \`json:"is_admin"\`
+    Roles     []string \`json:"roles"\`
+}
 \`\`\`
 
-## 3. Best Practices for API Integration
+## 2. Rust Structs (Serde Serialize & Deserialize)
 
-1. Store generated types in a shared \`types/\` directory.
-2. Validate incoming fetch responses against Zod schemas before passing data to UI components.
+\`\`\`rust
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UserPayload {
+    pub id: i64,
+    pub username: String,
+    pub email: String,
+    pub is_admin: bool,
+    pub roles: Vec<String>,
+}
+\`\`\`
+
+## 3. Python (Pydantic v2 BaseModels)
+
+\`\`\`python
+from pydantic import BaseModel, EmailStr
+from typing import List
+
+class UserPayload(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    is_admin: bool
+    roles: List[str]
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-schema-draft-07-inference.mdx',
+    frontmatter: {
+      title: 'JSON Schema Draft-07 Automated Inference & Validation',
+      description: 'Deep dive into Draft-07 JSON Schema inference, required properties detection, format validators (email, uri, date-time), and contract testing.',
+      category: 'Code & Schema',
+      tags: ['json-schema', 'schema', 'draft-07', 'validation', 'api-contracts'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'schema'
+    },
+    markdown: `
+# JSON Schema Draft-07 Automated Inference & Validation
+
+JSON Schema provides a formal contract for validating payload structure, data types, and required fields across microservices.
+
+## 1. Draft-07 Schema Anatomy
+
+\`\`\`json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UserRecord",
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string", "format": "email" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  },
+  "required": ["id", "email"]
+}
+\`\`\`
+
+## 2. Automated Format Inference
+The schema generator detects string formats automatically:
+- \`email\`: Strings matching RFC 5322 email patterns.
+- \`date-time\`: ISO 8601 timestamps (e.g. \`2026-08-16T12:00:00Z\`).
+- \`uri\`: URLs starting with \`http://\` or \`https://\`.
+- \`uuid\`: Canonical 36-character hexadecimal UUIDs.
+    `
+  },
+  {
+    filename: 'synthetic-json-mock-generation.mdx',
+    frontmatter: {
+      title: 'Generating Realistic Synthetic Mock JSON Datasets',
+      description: 'Complete guide on generating high-fidelity synthetic JSON datasets for API testing, frontend state mockups, and benchmarking without PII compliance risk.',
+      category: 'Code & Schema',
+      tags: ['json-mock-generator', 'mock', 'synthetic-data', 'testing', 'api'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'json-mock-generator'
+    },
+    markdown: `
+# Generating Realistic Synthetic Mock JSON Datasets
+
+Real-world API testing and frontend prototyping require realistic mock datasets without exposing sensitive Personally Identifiable Information (PII).
+
+## 1. Pre-Configured Templates
+
+- **User Accounts:** Realistic first/last names, company emails, avatars, UUIDs, phone numbers.
+- **E-Commerce Orders:** Product catalogs, SKU identifiers, currency prices, shipping addresses.
+- **Server Logs:** HTTP status codes, latency timings, user agent strings, client IP addresses.
+
+\`\`\`json
+[
+  {
+    "id": "usr_9912",
+    "fullName": "Sarah Connor",
+    "email": "sarah.connor@cyberdyne.org",
+    "role": "Security Engineer",
+    "isActive": true
+  }
+]
+\`\`\`
+    `
+  },
+  {
+    filename: 'jsonpath-syntax-and-evaluator-engine.mdx',
+    frontmatter: {
+      title: 'JSONPath Query Syntax & Real-Time Evaluator Guide',
+      description: 'Comprehensive developer manual on JSONPath expressions (RFC 9535), recursive descent operators, slice notations, and filter expressions.',
+      category: 'Query & Inspection',
+      tags: ['jsonpath', 'query', 'filter', 'evaluator', 'rfc9535'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'jsonpath'
+    },
+    markdown: `
+# JSONPath Query Syntax & Real-Time Evaluator Guide
+
+JSONPath is an expression language for querying, filtering, and extracting nodes from JSON structures, codified under **IETF RFC 9535**.
+
+## 1. Core Operators Syntax
+
+| Operator | Syntax | Description |
+| :--- | :--- | :--- |
+| Root object | \`$\` | The root context object or array |
+| Child operator | \`.\` or \`[]\` | Access named property or array index |
+| Recursive descent | \`..\` | Search across all nested depths |
+| Wildcard | \`*\` | Matches all elements or properties |
+| Array slice | \`[start:end:step]\` | Subarray slicing |
+| Filter expression | \`[?(@.price < 20)]\` | Predicate filtering on current node |
+
+## 2. Real-World Query Examples
+
+\`\`\`javascript
+// Extract all author names across any depth
+$.store.book[*].author
+
+// Filter all items where price is greater than 10
+$..book[?(@.price > 10)]
+
+// Retrieve the last two elements of an array
+$.orders[-2:]
+\`\`\`
+    `
+  },
+  {
+    filename: 'json-tree-viewer-virtualization.mdx',
+    frontmatter: {
+      title: 'JSON Tree Viewer Architecture & DOM Virtualization',
+      description: 'Engineering guide on building collapsible, searchable interactive JSON tree diagrams with node counts, depth management, and memory virtualization.',
+      category: 'Query & Inspection',
+      tags: ['json-tree-viewer', 'viewer', 'tree', 'virtualization', 'dom'],
+      author: 'Staff Developer Tools Engineer',
+      date: '2026-08-16',
+      primaryTool: 'viewer'
+    },
+    markdown: `
+# JSON Tree Viewer Architecture & DOM Virtualization
+
+Visualizing deeply nested JSON payloads requires an intuitive, collapsible tree diagram capable of rendering thousands of nodes without browser lag.
+
+## 1. Hierarchical Node Classification
+Every node in the tree is labeled by its structural data type:
+- \`Object\`: Collapsible container displaying total key count (e.g. \`object [5 keys]\`).
+- \`Array\`: Collapsible list displaying element count (e.g. \`array [100 items]\`).
+- \`Primitives\`: Color-coded string, number, boolean, and null badges.
+
+## 2. Real-Time Tree Search & Filtering
+The search engine traverses node keys and primitive values, automatically expanding parent paths containing query matches while dimming non-matching siblings.
     `
   },
   {
@@ -119,16 +741,17 @@ export type User = z.infer<typeof UserSchema>;
       category: 'Performance Notes',
       tags: ['web-workers', 'performance', 'parsing', 'javascript'],
       author: 'Staff Developer Tools Engineer',
-      date: '2026-07-28'
+      date: '2026-08-16',
+      primaryTool: 'json-formatter'
     },
     markdown: `
 # Parsing 100MB+ JSON Payloads with Web Workers
 
-Parsing massive JSON files directly on the main thread causes UI freezing, button unresponsiveness, and poor Core Web Vitals (INP).
+Parsing massive JSON files directly on the main thread causes UI freezing, dropped frames, and poor Core Web Vitals (Interaction to Next Paint - INP).
 
 ## 1. Web Worker Thread Offloading
 
-By delegating \`JSON.parse()\` to a dedicated background Worker, main-thread event loops remain completely responsive.
+By delegating \`JSON.parse()\` and AST serialization to a dedicated background Worker, the main-thread event loop remains completely responsive.
 
 \`\`\`javascript
 // worker-formatter.js
@@ -142,326 +765,214 @@ self.onmessage = function (e) {
   }
 };
 \`\`\`
-
-## 2. Memory Consumption & Stream Processing
-
-For payloads exceeding 100MB, streaming tokenizers parse tokens sequentially without instantiating massive in-memory AST graphs.
-    `
-  },
-  {
-    filename: 'json-minification-performance.mdx',
-    frontmatter: {
-      title: 'High-Performance JSON Minification & Payload Compression',
-      description: 'Engineering guide on JSON payload minification, whitespace elimination algorithms, network bandwidth optimization, and HTTP compression interactions.',
-      category: 'Performance Notes',
-      tags: ['json', 'minification', 'performance', 'bandwidth', 'optimization'],
-      author: 'Staff Developer Tools Engineer',
-      date: '2026-07-28'
-    },
-    markdown: `
-# High-Performance JSON Minification & Payload Compression
-
-Minifying JSON payloads reduces uncompressed network payload size by eliminating non-structural whitespace, tabs, and newlines.
-
-## 1. Minification Algorithm Mechanics
-
-A single-pass tokenization scanner identifies quotes, escape sequences, and structural delimiters (\`{\`, \`}\`, \`[\`, \`]\`, \`:\`, \`,\`).
-
-\`\`\`javascript
-// Single-pass whitespace stripper
-function minifyJson(jsonString) {
-  return JSON.stringify(JSON.parse(jsonString));
-}
-\`\`\`
-
-## 2. Combined Gzip/Brotli Compression Benefits
-
-While minification reduces raw byte count, it also enhances dictionary compression algorithms (Gzip/Brotli) by reducing entropy.
     `
   }
 ];
 
-// Write sample files if not present
+// Write out MDX content files
 SAMPLE_DOCS.forEach(doc => {
   const filePath = path.join(CONTENT_DIR, doc.filename);
-  let fileContent = `---\n`;
-  Object.keys(doc.frontmatter).forEach(key => {
-    fileContent += `${key}: ${JSON.stringify(doc.frontmatter[key])}\n`;
-  });
-  fileContent += `---\n\n${doc.markdown.trim()}\n`;
-  fs.writeFileSync(filePath, fileContent, 'utf8');
+  const fileBody = `---
+title: "${doc.frontmatter.title}"
+description: "${doc.frontmatter.description}"
+category: "${doc.frontmatter.category}"
+tags: ${JSON.stringify(doc.frontmatter.tags)}
+author: "${doc.frontmatter.author}"
+date: "${doc.frontmatter.date}"
+primaryTool: "${doc.frontmatter.primaryTool || 'json-formatter'}"
+---
+${doc.markdown}`;
+  fs.writeFileSync(filePath, fileBody, 'utf8');
 });
 
-// ── Markdown & Frontmatter Compiler ─────────────────────────
-function parseFrontmatter(rawContent) {
-  const fmMatch = rawContent.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
-  if (!fmMatch) {
-    return { metadata: {}, body: rawContent };
-  }
-
-  const fmLines = fmMatch[1].split(/\r?\n/);
-  const metadata = {};
-  fmLines.forEach(line => {
-    const colonIdx = line.indexOf(':');
-    if (colonIdx !== -1) {
-      const key = line.slice(0, colonIdx).trim();
-      let val = line.slice(colonIdx + 1).trim();
-      try {
-        val = JSON.parse(val);
-      } catch (e) {}
-      metadata[key] = val;
-    }
+// Simple Markdown to HTML parser
+function parseMarkdown(md) {
+  let html = md;
+  // Tables
+  html = html.replace(/\n\|(.+)\|\n\| *[-:]+[-| :]*\|\n((?:\|.+\|\n?)+)/g, (match, header, rows) => {
+    const headers = header.split('|').filter(h => h.trim() !== '').map(h => `<th>${h.trim()}</th>`).join('');
+    const bodyRows = rows.trim().split('\n').map(row => {
+      const cols = row.split('|').filter(c => c.trim() !== '').map(c => `<td>${c.trim()}</td>`).join('');
+      return `<tr>${cols}</tr>`;
+    }).join('\n');
+    return `<div class="table-responsive"><table class="docs-table"><thead><tr>${headers}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   });
-
-  return { metadata, body: fmMatch[2] };
-}
-
-function calculateReadingTime(text) {
-  const words = text.trim().split(/\s+/).length;
-  return Math.ceil(words / 200);
-}
-
-function extractTocAndHtml(markdownBody) {
-  const lines = markdownBody.split(/\r?\n/);
-  const toc = [];
-  let htmlResult = '';
-
-  lines.forEach(line => {
-    if (line.startsWith('# ')) {
-      // H1 heading processed in hero
-    } else if (line.startsWith('## ')) {
-      const title = line.replace('## ', '').trim();
-      const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-      toc.push({ level: 2, title, slug });
-      htmlResult += `<h2 id="${slug}">${title}</h2>\n`;
-    } else if (line.startsWith('### ')) {
-      const title = line.replace('### ', '').trim();
-      const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
-      toc.push({ level: 3, title, slug });
-      htmlResult += `<h3 id="${slug}">${title}</h3>\n`;
-    } else if (line.startsWith('```')) {
-      const lang = line.replace('```', '').trim();
-      if (lang) {
-        htmlResult += `<pre><code class="language-${lang}">`;
-      } else {
-        htmlResult += `</code></pre>\n`;
-      }
-    } else if (line.startsWith('- ')) {
-      htmlResult += `<li>${line.replace('- ', '')}</li>\n`;
-    } else if (line.trim() !== '') {
-      let parsedParagraph = line
-        .replace(/`([^`]+)`/g, '<code>$1</code>')
-        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      htmlResult += `<p>${parsedParagraph}</p>\n`;
-    }
+  // Fenced Code blocks
+  html = html.replace(/```([a-z0-9_-]+)?\n([\s\S]*?)```/g, (m, lang, code) => {
+    const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return `<div class="code-block-wrap"><div class="code-block-header"><span class="code-lang">${lang || 'code'}</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)">Copy</button></div><pre><code class="language-${lang || 'text'}">${escaped.trim()}</code></pre></div>`;
   });
+  // Headings
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  // Lists
+  html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+  html = html.replace(/(<li>[\s\S]*?<\/li>)/gm, '<ul>$1</ul>');
+  html = html.replace(/<\/ul>\s*<ul>/g, '');
+  // Bold & Italic
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  // Inline code
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // Paragraphs
+  html = html.split('\n\n').map(p => {
+    p = p.trim();
+    if (!p) return '';
+    if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<div') || p.startsWith('<table')) return p;
+    return `<p>${p}</p>`;
+  }).join('\n');
 
-  return { toc, htmlResult };
+  return html;
 }
 
-// ── HTML Document Generator ────────────────────────────────
-function generateDocPage(slug, metadata, bodyText) {
-  const canonicalUrl = `${BASE_URL}/docs/${slug}.html`;
-  const readingTime = calculateReadingTime(bodyText);
-  const { toc, htmlResult } = extractTocAndHtml(bodyText);
+// Build individual Doc HTML pages
+console.log('Building Scalable MD/MDX Documentation System...');
 
-  const tocHtml = toc.map(item => `
-    <li class="toc-item toc-item--level-${item.level}" style="margin-bottom:var(--space-2); padding-left:${item.level === 3 ? 'var(--space-4)' : '0'};">
-      <a href="#${item.slug}" style="color:var(--text-secondary); text-decoration:none; font-size:var(--text-sm);">${item.title}</a>
-    </li>
-  `).join('');
+const compiledDocs = [];
 
-  const jsonLdSchema = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "TechArticle",
-        "@id": `${canonicalUrl}#article`,
-        "headline": metadata.title,
-        "description": metadata.description,
-        "url": canonicalUrl,
-        "datePublished": metadata.date || '2026-07-28',
-        "author": {
-          "@type": "Person",
-          "name": metadata.author || "JSON2X Engineering Team"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "JSON2X",
-          "url": BASE_URL
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${canonicalUrl}#breadcrumb`,
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${BASE_URL}/` },
-          { "@type": "ListItem", "position": 2, "name": "Documentation", "item": `${BASE_URL}/docs/index.html` },
-          { "@type": "ListItem", "position": 3, "name": metadata.title, "item": canonicalUrl }
-        ]
-      }
-    ]
-  };
+SAMPLE_DOCS.forEach(doc => {
+  const slug = doc.filename.replace(/\.mdx?$/, '');
+  const htmlContent = parseMarkdown(doc.markdown);
+  const toolSlug = doc.frontmatter.primaryTool || 'json-formatter';
+  const toolHref = `/tools/${toolSlug.endsWith('.html') ? toolSlug : toolSlug + '.html'}`;
 
-  return `<!DOCTYPE html>
+  const docHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
-
-  <title>${metadata.title} | JSON2X Docs</title>
-  <meta name="description" content="${metadata.description}" />
-  <meta name="keywords" content="${(metadata.tags || []).join(', ')}" />
+  <title>${doc.frontmatter.title} — JSON2X</title>
+  <meta name="description" content="${doc.frontmatter.description.slice(0, 165)}" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0d1117" />
-  <meta name="color-scheme" content="dark light" />
-  <link rel="canonical" href="${canonicalUrl}" />
+  <meta name="theme-color" content="#1a73e8" />
+  <link rel="canonical" href="${BASE_URL}/docs/${slug}.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <meta property="og:type"        content="article" />
-  <meta property="og:url"         content="${canonicalUrl}" />
-  <meta property="og:title"       content="${metadata.title}" />
-  <meta property="og:description" content="${metadata.description}" />
-  <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
+  <meta property="og:title" content="${doc.frontmatter.title} — JSON2X" />
+  <meta property="og:description" content="${doc.frontmatter.description.slice(0, 165)}" />
+  <meta property="og:url" content="${BASE_URL}/docs/${slug}.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="${BASE_URL}/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
 
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="${metadata.title}" />
-  <meta name="twitter:description" content="${metadata.description}" />
-  <meta name="twitter:image"       content="${BASE_URL}/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${doc.frontmatter.title} — JSON2X" />
+  <meta name="twitter:description" content="${doc.frontmatter.description.slice(0, 165)}" />
+  <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
   <script type="application/ld+json">
-  ${JSON.stringify(jsonLdSchema, null, 2)}
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "${doc.frontmatter.title}",
+    "description": "${doc.frontmatter.description}",
+    "author": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "datePublished": "${doc.frontmatter.date}",
+    "mainEntityOfPage": "${BASE_URL}/docs/${slug}.html"
+  }
   </script>
-
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
-
-  <style>
-    /* Reading Progress Bar */
-    .reading-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: var(--accent);
-      width: 0%;
-      z-index: 1000;
-      transition: width 0.1s ease-out;
-    }
-  </style>
 </head>
 <body>
-  <div class="reading-progress" id="reading-progress"></div>
   <div id="site-header-placeholder"></div>
 
-  <main id="main-content">
-    <div class="container" style="padding: var(--space-12) var(--space-4);">
-      <div id="breadcrumb-placeholder"></div>
+  <main id="main-content" class="docs-page container" style="max-width:960px;margin:var(--space-8) auto;padding:0 var(--space-4);">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
+      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
+      <a href="/docs/index.html" style="color:var(--text-muted);text-decoration:none;">Docs</a> /
+      <span style="color:var(--accent);">${doc.frontmatter.category}</span>
+    </nav>
 
-      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
-        <div class="tool-hero__badge">${metadata.category || 'Documentation'}</div>
-        <h1 class="tool-hero__title">${metadata.title}</h1>
-        <p class="tool-hero__desc">${metadata.description}</p>
-        <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:var(--space-4);">
-          <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M12 2l2 2-9 9H3v-2l9-9z" stroke="currentColor" stroke-width="1.3"/></svg> Author: ${metadata.author || 'Engineering Team'}</span> &bull;
-          <span>⏱️ Estimated Reading Time: ${readingTime} min read</span> &bull;
-          <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6h12M5 2v2M11 2v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Updated: ${metadata.date || '2026-07-28'}</span>
+    <article class="docs-content prose">
+      <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);">
+        <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">${doc.frontmatter.category}</span>
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">Updated: ${doc.frontmatter.date}</span>
+      </div>
+
+      ${htmlContent}
+
+      <div class="docs-tool-cta" style="margin-top:var(--space-8);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+        <div>
+          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Test with our free interactive tool</h3>
+          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
         </div>
+        <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
       </div>
-
-      <div style="display:grid; grid-template-columns: 260px 1fr; gap:var(--space-8);">
-        <!-- Sidebar Sticky Table of Contents -->
-        <aside style="position:sticky; top:var(--space-8); height:fit-content; background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-6);">
-          <h3 style="font-size:var(--text-sm); font-weight:var(--font-bold); margin-bottom:var(--space-4); text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Table of Contents</h3>
-          <ul style="list-style:none; padding:0; margin:0;">
-            ${tocHtml}
-          </ul>
-        </aside>
-
-        <!-- Main Article Content -->
-        <article class="faq-prose">
-          ${htmlResult}
-
-          <div class="tool-cta-banner" style="margin-top:var(--space-12)">
-            <h2 class="tool-cta-banner__title">Test Your Code in the Browser</h2>
-            <p class="tool-cta-banner__desc">Format, validate, or convert your JSON data locally with 100% data privacy.</p>
-            <a href="../tools/json-formatter.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Interactive Tools</a>
-          </div>
-        </article>
-      </div>
-    </div>
+    </article>
   </main>
 
   <div id="site-footer-placeholder"></div>
-
-  <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.8.0"></script>
-  <script>
-    // Reading Progress Indicator Script
-    window.addEventListener('scroll', function() {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById('reading-progress').style.width = scrolled + '%';
-    });
-  </script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
 </body>
 </html>`;
-}
 
-// ── Documentation Hub Page ──────────────────────────────────
-function generateDocsIndexPage(docItems) {
-  const canonicalUrl = `${BASE_URL}/docs/index.html`;
+  const outputPath = path.join(DOCS_DIR, `${slug}.html`);
+  fs.writeFileSync(outputPath, docHtml, 'utf8');
+  compiledDocs.push({ slug, ...doc.frontmatter });
+  console.log(`   - Compiled docs page: docs/${slug}.html`);
+});
 
-  const cardsHtml = docItems.map(d => `
-    <a href="./${d.slug}.html" class="faq-card" style="text-decoration:none; display:block;">
-      <p class="faq-section__eyebrow">${d.metadata.category || 'Guide'}</p>
-      <h2 class="faq-card__q">${d.metadata.title}</h2>
-      <p class="faq-card__a">${d.metadata.description}</p>
-    </a>
-  `).join('\n');
+// Build Docs Hub Index
+const docsHubCardsHtml = compiledDocs.map(d => {
+  return `
+  <a class="doc-card" href="/docs/${d.slug}.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">${d.category}</span>
+      <span style="font-size:11px;color:var(--text-muted);">${d.date}</span>
+    </div>
+    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">${d.title}</h3>
+    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">${d.description}</p>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+  </a>`;
+}).join('\n');
 
-  return `<!DOCTYPE html>
+const docsIndexHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
-
-  <title>Developer Documentation &amp; Technical Guides | JSON2X</title>
-  <meta name="description" content="Scalable developer documentation system covering JSON RFC 8259 specifications, TypeScript type generation, Web Worker performance, and error handling." />
-  <meta name="keywords" content="json docs, developer documentation, rfc 8259, typescript schema, web worker parsing" />
+  <title>Developer Documentation Hub &amp; Specifications — JSON2X</title>
+  <meta name="description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0d1117" />
-  <meta name="color-scheme" content="dark light" />
-  <link rel="canonical" href="${canonicalUrl}" />
+  <meta name="theme-color" content="#1a73e8" />
+  <link rel="canonical" href="${BASE_URL}/docs/index.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="${canonicalUrl}" />
-  <meta property="og:title"       content="Developer Documentation | JSON2X" />
-  <meta property="og:description" content="Comprehensive guides and technical references for JSON and CSV developers." />
-  <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="${BASE_URL}/assets/og-image.png" />
+  <meta property="og:title" content="Developer Documentation Hub &amp; Specifications — JSON2X" />
+  <meta property="og:description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
+  <meta property="og:url" content="${BASE_URL}/docs/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="${BASE_URL}/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
 
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Developer Documentation" />
-  <meta name="twitter:description" content="Comprehensive guides and technical references." />
-  <meta name="twitter:image"       content="${BASE_URL}/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Developer Documentation Hub &amp; Specifications — JSON2X" />
+  <meta name="twitter:description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
+  <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "JSON2X Documentation Hub",
-    "url": "${canonicalUrl}"
+    "headline": "Developer Documentation Hub & Specifications — JSON2X",
+    "description": "Technical documentation, IETF specifications, and code generation manuals for all 17 JSON2X utilities.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "mainEntityOfPage": "${BASE_URL}/docs/index.html"
   }
   </script>
-
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/css/design-system.css" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.8.0" />
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -471,51 +982,22 @@ function generateDocsIndexPage(docItems) {
       <div id="breadcrumb-placeholder"></div>
 
       <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
-        <div class="tool-hero__badge">Docs System</div>
-        <h1 class="tool-hero__title">Developer Documentation &amp; Guides</h1>
-        <p class="tool-hero__desc">Technical specifications, API explanations, TypeScript generators, and performance notes.</p>
+        <div class="tool-hero__badge">Documentation Hub</div>
+        <h1 class="tool-hero__title">Developer Documentation &amp; Specifications</h1>
+        <p class="tool-hero__desc">Authoritative architectural references, IETF RFC standards, parser mechanics, and type-safety guides for our suite of 17 browser-native tools.</p>
       </div>
 
-      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
-        ${cardsHtml}
+      <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:var(--space-4);margin-bottom:var(--space-12);">
+        ${docsHubCardsHtml}
       </div>
     </div>
   </main>
 
   <div id="site-footer-placeholder"></div>
-  <script src="../assets/js/common.js"></script>
-  <script src="../assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
 </body>
 </html>`;
-}
 
-// ── Build Execution ─────────────────────────────────────────
-function buildDocsSystem() {
-  console.log('📚 Building Scalable MD/MDX Documentation System...');
-
-  const files = fs.readdirSync(CONTENT_DIR);
-  const docItems = [];
-
-  files.forEach(file => {
-    if (file.endsWith('.md') || file.endsWith('.mdx')) {
-      const filePath = path.join(CONTENT_DIR, file);
-      const rawContent = fs.readFileSync(filePath, 'utf8');
-      const { metadata, body } = parseFrontmatter(rawContent);
-
-      const slug = file.replace(/\.(md|mdx)$/, '');
-      const htmlPage = generateDocPage(slug, metadata, body);
-
-      fs.writeFileSync(path.join(DOCS_DIR, `${slug}.html`), htmlPage, 'utf8');
-      docItems.push({ slug, metadata });
-      console.log(`   - Compiled docs page: docs/${slug}.html`);
-    }
-  });
-
-  // Build Docs Hub Index
-  const hubHtml = generateDocsIndexPage(docItems);
-  fs.writeFileSync(path.join(DOCS_DIR, 'index.html'), hubHtml, 'utf8');
-
-  console.log(`✅ Successfully compiled Documentation System (${docItems.length} articles + 1 Hub index)`);
-}
-
-buildDocsSystem();
+fs.writeFileSync(path.join(DOCS_DIR, 'index.html'), docsIndexHtml, 'utf8');
+console.log(`Successfully compiled Documentation System (${compiledDocs.length} articles + 1 Hub index)`);

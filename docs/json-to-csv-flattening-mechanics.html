@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON to CSV Flattening Mechanics & Dot-Notation Mapping — JSON2X</title>
+  <meta name="description" content="Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1a73e8" />
+  <link rel="canonical" href="https://json2x.com/docs/json-to-csv-flattening-mechanics.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:title" content="JSON to CSV Flattening Mechanics & Dot-Notation Mapping — JSON2X" />
+  <meta property="og:description" content="Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls." />
+  <meta property="og:url" content="https://json2x.com/docs/json-to-csv-flattening-mechanics.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON to CSV Flattening Mechanics & Dot-Notation Mapping — JSON2X" />
+  <meta name="twitter:description" content="Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "JSON to CSV Flattening Mechanics & Dot-Notation Mapping",
+    "description": "Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls.",
+    "author": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "datePublished": "2026-08-16",
+    "mainEntityOfPage": "https://json2x.com/docs/json-to-csv-flattening-mechanics.html"
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" class="docs-page container" style="max-width:960px;margin:var(--space-8) auto;padding:0 var(--space-4);">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
+      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
+      <a href="/docs/index.html" style="color:var(--text-muted);text-decoration:none;">Docs</a> /
+      <span style="color:var(--accent);">Data Converters</span>
+    </nav>
+
+    <article class="docs-content prose">
+      <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);">
+        <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">Updated: 2026-08-16</span>
+      </div>
+
+      <h1>JSON to CSV Flattening Mechanics & Dot-Notation Mapping</h1>
+<p>Relational spreadsheets and analytics platforms (Excel, Google Sheets, Pandas) require tabular 2D structures. JSON to CSV conversion flattens multi-level objects into rectangular rows and columns.</p>
+<h2>1. Recursive Key Flattening (Dot-Notation)</h2>
+<p>Nested object properties are transformed into delimited column headers:</p>
+<div class="code-block-wrap"><div class="code-block-header"><span class="code-lang">json</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)">Copy</button></div><pre><code class="language-json">// Input JSON
+[
+  {
+    "id": 101,
+    "user": { "name": "Alice", "address": { "city": "London" } }
+  }
+]</code></pre></div>
+<div class="code-block-wrap"><div class="code-block-header"><span class="code-lang">csv</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)">Copy</button></div><pre><code class="language-csv">id,user.name,user.address.city
+101,Alice,London</code></pre></div>
+<h2>2. Array Serialization Modes</h2>
+<ul><li><strong>JSON String Mode:</strong> Encodes inner arrays as stringified JSON (e.g. <code>"["admin", "billing"]"</code>).</li><li><strong>Joined String Mode:</strong> Joins primitive array values with semicolons or pipes (e.g. <code>"admin;billing"</code>).</li></ul>
+<h2>3. RFC 4180 Escaping Compliance</h2>
+Fields containing commas, line breaks, or double quotes must be wrapped in double quotes, with internal quotes escaped as <code>""</code>.
+
+      <div class="docs-tool-cta" style="margin-top:var(--space-8);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+        <div>
+          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Test with our free interactive tool</h3>
+          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+        </div>
+        <a href="/tools/json-to-csv.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+---
+title: "7-in-1 JSON Multi-Converter Architecture & AST Pipelines"
+description: "Technical architecture of the unified 7-in-1 JSON multi-converter: simultaneous synthesis of TypeScript, Zod, Mongoose, SQL, OpenAPI 3.0, JSON Schema, and Mock Data."
+category: "Code & Schema"
+tags: ["json-converter","multi-converter","typescript","zod","openapi","mongoose"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-converter"
+---
+
+# 7-in-1 JSON Multi-Converter Architecture & AST Pipelines
+
+The 7-in-1 Multi-Converter parses raw JSON once into an intermediate type graph, emitting 7 targets concurrently in memory without server network latency.
+
+## 1. Conversion Targets
+
+1. **TypeScript:** Interfaces and optional Type aliases.
+2. **Zod:** Runtime validation schemas with chained type checks.
+3. **Mongoose:** MongoDB schema definitions with field types.
+4. **SQL DDL:** Relational schema tables and insert statements.
+5. **OpenAPI 3.0:** REST API contract schema components.
+6. **JSON Schema:** Draft-07 compliant specification models.
+7. **Mock Data:** Synthetic test records matching the inferred structure.
+
+```typescript
+// Shared Type Node Graph
+interface TypeNode {
+  kind: 'string' | 'number' | 'boolean' | 'null' | 'array' | 'object';
+  optional: boolean;
+  properties?: Record<string, TypeNode>;
+  itemType?: TypeNode;
+}
+```
+    

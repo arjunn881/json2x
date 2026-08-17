@@ -1,0 +1,40 @@
+---
+title: "JSON to CSV Flattening Mechanics & Dot-Notation Mapping"
+description: "Complete guide on converting nested JSON object arrays to RFC 4180 CSV tables with dot-notation column flattening and delimiter controls."
+category: "Data Converters"
+tags: ["json-to-csv","csv","converter","export","data-engineering"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-to-csv"
+---
+
+# JSON to CSV Flattening Mechanics & Dot-Notation Mapping
+
+Relational spreadsheets and analytics platforms (Excel, Google Sheets, Pandas) require tabular 2D structures. JSON to CSV conversion flattens multi-level objects into rectangular rows and columns.
+
+## 1. Recursive Key Flattening (Dot-Notation)
+
+Nested object properties are transformed into delimited column headers:
+
+```json
+// Input JSON
+[
+  {
+    "id": 101,
+    "user": { "name": "Alice", "address": { "city": "London" } }
+  }
+]
+```
+
+```csv
+id,user.name,user.address.city
+101,Alice,London
+```
+
+## 2. Array Serialization Modes
+- **JSON String Mode:** Encodes inner arrays as stringified JSON (e.g. `"["admin", "billing"]"`).
+- **Joined String Mode:** Joins primitive array values with semicolons or pipes (e.g. `"admin;billing"`).
+
+## 3. RFC 4180 Escaping Compliance
+Fields containing commas, line breaks, or double quotes must be wrapped in double quotes, with internal quotes escaped as `""`.
+    

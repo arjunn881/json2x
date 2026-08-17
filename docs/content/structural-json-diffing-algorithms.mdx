@@ -1,0 +1,37 @@
+---
+title: "Structural JSON Diffing & Semantic Comparison Algorithms"
+description: "Deep-dive into structural JSON diff algorithms, key ordering normalization, LCS diff engines, and visual delta rendering."
+category: "Format & Validate"
+tags: ["diff","comparison","algorithms","json-diff"]
+author: "Staff Developer Tools Engineer"
+date: "2026-08-16"
+primaryTool: "json-diff"
+---
+
+# Structural JSON Diffing & Semantic Comparison Algorithms
+
+Standard line-by-line diff tools (like Git diff) often fail on JSON because unordered keys and formatting variations produce false positives. Structural JSON diffing analyzes the hierarchical tree.
+
+## 1. Semantic vs Lexical Diffing
+
+- **Lexical Diff:** Compares text line-by-line. Sensitive to spaces, indentation, and key reordering.
+- **Structural / Semantic Diff:** Parses both inputs into abstract syntax trees, normalizes key orders, and compares value types and leaves.
+
+## 2. The Myers Diff & Tree Delta Model
+
+The diff engine classifies changes into 4 atomic states:
+- `ADDED`: A key or array index present in the Right payload but absent in Left.
+- `REMOVED`: A key or array index present in Left but absent in Right.
+- `MODIFIED`: The key exists in both, but primitive values or types differ.
+- `UNCHANGED`: Identical key and value.
+
+```javascript
+// Delta node representation
+type Delta = {
+  path: string;
+  type: 'added' | 'removed' | 'modified' | 'unchanged';
+  leftValue?: any;
+  rightValue?: any;
+};
+```
+    

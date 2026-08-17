@@ -44,9 +44,16 @@ Disallow: /preview/
 Disallow: /*?preview=*
 Disallow: /*?draft=*
 
-# Block Unindexed Templates & Draft Tools
+# Block Unindexed Templates & Duplicate Aliases
 Disallow: /tools/_template.html
 Disallow: /tools/converter.html
+Disallow: /tools/formatter.html
+Disallow: /tools/validator.html
+Disallow: /tools/minifier.html
+Disallow: /tools/diff.html
+Disallow: /tools/schema.html
+Disallow: /tools/viewer.html
+Disallow: /tools/json-to-ts.html
 
 # Sitemaps
 Sitemap: ${BASE_URL}/sitemap-index.xml
@@ -57,7 +64,7 @@ Sitemap: ${BASE_URL}/sitemap-news.xml
   }
 
   fs.writeFileSync(path.join(WORKSPACE_ROOT, 'robots.txt'), content, 'utf8');
-  console.log(`🤖 Generated optimized robots.txt (${IS_STAGING ? 'STAGING DISALLOW ALL' : 'PRODUCTION OPTIMIZED'})`);
+  console.log(`Generated optimized robots.txt (${IS_STAGING ? 'STAGING DISALLOW ALL' : 'PRODUCTION OPTIMIZED'})`);
 }
 
 generateRobotsTxt();

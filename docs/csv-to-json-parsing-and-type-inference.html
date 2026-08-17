@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSV to JSON Parsing & Automatic Type Inference — JSON2X</title>
+  <meta name="description" content="Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1a73e8" />
+  <link rel="canonical" href="https://json2x.com/docs/csv-to-json-parsing-and-type-inference.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:title" content="CSV to JSON Parsing & Automatic Type Inference — JSON2X" />
+  <meta property="og:description" content="Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types." />
+  <meta property="og:url" content="https://json2x.com/docs/csv-to-json-parsing-and-type-inference.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CSV to JSON Parsing & Automatic Type Inference — JSON2X" />
+  <meta name="twitter:description" content="Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "CSV to JSON Parsing & Automatic Type Inference",
+    "description": "Comprehensive guide to parsing RFC 4180 CSV documents, auto-detecting delimiters, and inferring boolean, integer, float, and null types.",
+    "author": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "datePublished": "2026-08-16",
+    "mainEntityOfPage": "https://json2x.com/docs/csv-to-json-parsing-and-type-inference.html"
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" class="docs-page container" style="max-width:960px;margin:var(--space-8) auto;padding:0 var(--space-4);">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
+      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
+      <a href="/docs/index.html" style="color:var(--text-muted);text-decoration:none;">Docs</a> /
+      <span style="color:var(--accent);">Data Converters</span>
+    </nav>
+
+    <article class="docs-content prose">
+      <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);">
+        <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Converters</span>
+        <span style="font-size:var(--text-xs);color:var(--text-muted);">Updated: 2026-08-16</span>
+      </div>
+
+      <h1>CSV to JSON Parsing & Automatic Type Inference</h1>
+<p>Converting raw CSV spreadsheets into valid JSON is essential for feeding databases and REST APIs.</p>
+<h2>1. Delimiter Auto-Detection</h2>
+<p>The parser analyzes the first 5 rows to statistically detect the primary separator:
+<ul><li>Comma (<code>,</code>)</li><li>Semicolon (<code>;</code>)</li><li>Tab (<code>\t</code>)</li><li>Pipe (<code>|</code>)</li></ul></p>
+<h2>2. Type Inference Engine</h2>
+<p>Since CSV is pure un-typed text, the engine inspects values against regex patterns:
+<div class="table-responsive"><table class="docs-table"><thead><tr><th>Raw CSV Value</th><th>Inferred JSON Type</th><th>Parsed Output</th></tr></thead><tbody><tr><td><code>"42"</code></td><td>Integer (<code>number</code>)</td><td><code>42</code></td></tr>
+<tr><td><code>"3.1415"</code></td><td>Float (<code>number</code>)</td><td><code>3.1415</code></td></tr>
+<tr><td><code>"true"</code> / <code>"TRUE"</code></td><td>Boolean (<code>boolean</code>)</td><td><code>true</code></td></tr>
+<tr><td><code>"null"</code> / <code>"NULL"</code> / <code>""</code></td><td>Null</td><td><code>null</code></td></tr>
+<tr><td><code>"2026-08-16T12:00:00Z"</code></td><td>String (ISO Date)</td><td><code>"2026-08-16T12:00:00Z"</code></td></tr></tbody></table></div></p>
+
+      <div class="docs-tool-cta" style="margin-top:var(--space-8);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+        <div>
+          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Test with our free interactive tool</h3>
+          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+        </div>
+        <a href="/tools/csv-to-json.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

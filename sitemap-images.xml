@@ -10,17 +10,52 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/blog/automating-api-contracts-with-draft-07-json-schema.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Automating API Contracts with Draft-07 JSON Schema Inference — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/building-bulletproof-typescript-and-zod-schemas-from-json-apis.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Building Bulletproof TypeScript Interfaces &amp; Runtime Zod Schemas  — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/blog/categories.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>Blog Categories — Topics &amp; Resources</image:title>
+      <image:title>Blog Categories &amp; Topics — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/exporting-complex-nested-json-to-clean-csv-spreadsheets.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Exporting Complex Nested JSON to Clean CSV Spreadsheets for Analy — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/generating-relational-sql-tables-from-unstructured-json.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Generating Relational SQL Tables &amp; INSERT Statements from JSON Pa — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/how-to-format-validate-large-json-in-the-browser.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>How to Format and Validate Large JSON Payloads in the Browser Wit — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/blog/index.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>Developer Blog &amp; JSON Tutorials</image:title>
+      <image:title>Engineering Blog &amp; Developer Tutorials — JSON2X</image:title>
     </image:image>
   </url>
   <url>
@@ -31,10 +66,94 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/blog/json-minification-benchmarks-network-savings.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Minification Benchmarks: Network Savings, Compression &amp; Late — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/mastering-jsonpath-filtering-complex-payloads-in-real-time.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Mastering JSONPath: Querying &amp; Filtering Complex JSON Payloads Li — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/mastering-toml-for-rust-cargo-and-python-packages.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Mastering TOML for Rust Cargo and Python pyproject.toml Packages — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/migrating-kubernetes-and-docker-configs-json-to-yaml.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Migrating Infrastructure Configs: Converting JSON to Clean YAML — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/modernizing-legacy-enterprise-soap-services-json-to-xml.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Modernizing Legacy Enterprise Services: Converting JSON to XML — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/navigating-multi-megabyte-payloads-with-virtualized-tree-viewers.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Navigating Multi-Megabyte Payloads with Virtualized JSON Tree Vie — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/parsing-csv-to-typed-json-without-data-loss.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Parsing CSV to Strongly-Typed JSON Without Data Loss — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/preventing-api-breakage-with-rfc8259-validation.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Preventing Production API Breakage with Strict RFC 8259 JSON Vali — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/synthesizing-idiomatic-backend-models-go-rust-python.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Synthesizing Idiomatic Backend Models: Go Structs, Rust Serde &amp; P — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/the-7-in-1-developer-converter-streamlining-full-stack-workflows.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>The 7-in-1 Developer Converter: Streamlining Full-Stack Data Mode — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/blog/tutorials.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>Step-by-Step Developer Tutorials</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/visual-semantic-json-diffing-for-ci-cd-pipelines.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Visual &amp; Semantic JSON Diffing: Eliminating False Positives in CI — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/blog/zero-pii-api-testing-with-synthetic-json-mock-data.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Zero-PII API Testing with Synthetic JSON Mock Data Generation — JSON2X</image:title>
     </image:image>
   </url>
   <url>
@@ -59,38 +178,136 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/docs/csv-to-json-parsing-and-type-inference.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>CSV to JSON Parsing &amp; Automatic Type Inference — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/docs/index.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>Developer Documentation &amp; Technical Guides</image:title>
+      <image:title>Developer Documentation Hub &amp; Specifications — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-formatting-and-linting-architecture.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Formatting &amp; Line-Level Linting Architecture — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/docs/json-minification-performance.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>High-Performance JSON Minification &amp; Payload Compression</image:title>
+      <image:title>High-Performance JSON Minification &amp; Payload Compression — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-multi-converter-architecture.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>7-in-1 JSON Multi-Converter Architecture &amp; AST Pipelines — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-schema-draft-07-inference.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Schema Draft-07 Automated Inference &amp; Validation — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-to-code-models-go-rust-python.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Generating Idiomatic Code Models: Go, Rust &amp; Python — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-to-csv-flattening-mechanics.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to CSV Flattening Mechanics &amp; Dot-Notation Mapping — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-to-sql-schema-inference-ddl.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to SQL Schema Inference, DDL &amp; INSERT Generation — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-to-toml-specification-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to TOML Transformation &amp; Config Engineering — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-to-xml-mapping-and-attributes.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to XML Mapping, Root Elements &amp; Attribute Syntax — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-to-yaml-serialization-rules.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to YAML Serialization &amp; Formatting Guide — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/json-tree-viewer-virtualization.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Tree Viewer Architecture &amp; DOM Virtualization — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/jsonpath-syntax-and-evaluator-engine.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSONPath Query Syntax &amp; Real-Time Evaluator Guide — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/docs/parsing-large-json-web-workers.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>Parsing 100MB+ JSON Payloads with Web Workers</image:title>
+      <image:title>Parsing 100MB+ JSON Payloads with Web Workers — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/docs/rfc8259-json-specification.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>Complete RFC 8259 JSON Specification &amp; Grammar Reference</image:title>
+      <image:title>Complete RFC 8259 JSON Specification &amp; Grammar Reference — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/structural-json-diffing-algorithms.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Structural JSON Diffing &amp; Semantic Comparison Algorithms — JSON2X</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/docs/synthetic-json-mock-generation.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>Generating Realistic Synthetic Mock JSON Datasets — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/docs/typescript-zod-generation-guide.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>TypeScript Interface &amp; Zod Schema Generation Guide</image:title>
+      <image:title>TypeScript Interface &amp; Zod Schema Generation Guide — JSON2X</image:title>
     </image:image>
   </url>
   <url>
@@ -241,6 +458,13 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/kb/json-multi-converter-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Multi-Converter 7-in-1 Guide — Types, Models &amp; Schemas</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/kb/json-objects.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
@@ -280,6 +504,27 @@
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON to SQL Schema &amp; Query Generation Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-to-toml-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to TOML Transformation Guide — Rust, Python &amp; Hugo Configs</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-to-xml-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to XML Conversion Guide — SOAP, RSS &amp; Enterprise Markup</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/kb/json-to-yaml-guide.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to YAML Conversion Guide — Kubernetes &amp; CI/CD Configs</image:title>
     </image:image>
   </url>
   <url>
@@ -395,24 +640,17 @@
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/diff.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Diff Online — Side-by-Side Visual Comparison Tool</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://json2x.com/tools/formatter.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Formatter Online — Free Browser Prettifier &amp; Viewer</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://json2x.com/tools/index.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON &amp; CSV Tools Catalog — Free Developer Utilities</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-converter.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON Converter — TypeScript, Zod, Mongoose, SQL, OpenAPI &amp; More</image:title>
     </image:image>
   </url>
   <url>
@@ -479,13 +717,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/json-to-ts.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON to TypeScript — Interface &amp; Zod Generator Online</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://json2x.com/tools/json-to-xml.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
@@ -521,38 +752,10 @@
     </image:image>
   </url>
   <url>
-    <loc>https://json2x.com/tools/minifier.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Minifier Online — Fast Payload Compressor</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://json2x.com/tools/schema.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Schema Generator Online — Draft-07 Creator</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://json2x.com/tools/typescript-generator.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
       <image:title>JSON to TypeScript — Interface &amp; Zod Generator Online</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://json2x.com/tools/validator.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Validator Online — Precise Syntax &amp; Error Linter</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://json2x.com/tools/viewer.html</loc>
-    <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Tree Viewer Online — Collapsible Node Explorer</image:title>
     </image:image>
   </url>
 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parsing CSV to Strongly-Typed JSON Without Data Loss — JSON2X</title>
+  <meta name="description" content="How to convert CSV spreadsheets into valid typed JSON arrays with automatic delimiter detection and boolean/numeric type inference." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1a73e8" />
+  <link rel="canonical" href="https://json2x.com/blog/parsing-csv-to-typed-json-without-data-loss.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <meta property="og:title" content="Parsing CSV to Strongly-Typed JSON Without Data Loss — JSON2X" />
+  <meta property="og:description" content="How to convert CSV spreadsheets into valid typed JSON arrays with automatic delimiter detection and boolean/numeric type inference." />
+  <meta property="og:url" content="https://json2x.com/blog/parsing-csv-to-typed-json-without-data-loss.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Parsing CSV to Strongly-Typed JSON Without Data Loss — JSON2X" />
+  <meta name="twitter:description" content="How to convert CSV spreadsheets into valid typed JSON arrays with automatic delimiter detection and boolean/numeric type inference." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Parsing CSV to Strongly-Typed JSON Without Data Loss",
+    "description": "How to convert CSV spreadsheets into valid typed JSON arrays with automatic delimiter detection and boolean/numeric type inference.",
+    "author": {
+      "@type": "Person",
+      "name": "Data Platform Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "JSON2X"
+    },
+    "datePublished": "2026-08-10",
+    "mainEntityOfPage": "https://json2x.com/blog/parsing-csv-to-typed-json-without-data-loss.html"
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" class="container" style="max-width:860px;margin:var(--space-8) auto;padding:0 var(--space-4);">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
+      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
+      <a href="/blog/index.html" style="color:var(--text-muted);text-decoration:none;">Blog</a> /
+      <span style="color:var(--accent);">Data Engineering</span>
+    </nav>
+
+    <article class="prose">
+      <header style="margin-bottom:var(--space-8);">
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3);flex-wrap:wrap;">
+          <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Data Engineering</span>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">2026-08-10</span>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">• 7 min read</span>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">• By Data Platform Engineer</span>
+        </div>
+        <h1 style="font-size:var(--text-3xl);font-weight:var(--font-bold);line-height:1.25;margin-bottom:var(--space-4);">Converting CSV Spreadsheets to Typed JSON</h1>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-6);">
+          <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">CSV to JSON</span> <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Type Inference</span> <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Data Migration</span>
+        </div>
+        <div style="padding:var(--space-4) var(--space-5);background:var(--bg-surface);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.6;">
+          Ingesting CSV files into modern web databases often results in numeric or boolean values being mistakenly stored as strings. Converting CSV to JSON with intelligent type inference restores true primitive types.
+        </div>
+      </header>
+
+      
+    <section style="margin:var(--space-8) 0;">
+      <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-3);">Automatic Delimiter Detection</h2>
+      <p>CSV files across global regions utilize commas, semicolons, or tabs as separators. Automated heuristic analysis inspects column counts across lines to detect the optimal delimiter.</p>
+    </section>
+  
+
+      
+    <section style="margin:var(--space-10) 0;padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);">
+      <h2 style="font-size:var(--text-xl);font-weight:var(--font-bold);margin-bottom:var(--space-4);">Frequently Asked Questions</h2>
+      
+        <div style="margin-bottom:var(--space-4);">
+          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-1);">Can headerless CSV files be parsed?</h3>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);margin:0;">Yes. When no headers are present, columns are automatically labeled col_1, col_2, etc.</p>
+        </div>
+      
+    </section>
+  
+
+      <div style="margin-top:var(--space-10);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+        <div>
+          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Try our free interactive developer tool</h3>
+          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+        </div>
+        <a href="/tools/csv-to-json.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>
