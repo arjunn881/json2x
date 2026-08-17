@@ -20,7 +20,7 @@ const TRUST_PAGES = [
         </div>
         <div class="faq-card">
           <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M5 4l-2-2M11 4l2-2M8 3v10M3 8h10M4 11l-2 2M12 11l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="4" stroke="currentColor" stroke-width="1.3"/></svg>Bug Reports & Issue Tracker</h3>
-          <p class="faq-card__a">Found a syntax edge case or parsing issue?<br><a href="https://github.com" target="_blank" rel="noopener">Open an issue on GitHub →</a></p>
+          <p class="faq-card__a">Found a syntax edge case or parsing issue?<br><a href="https://github.com/arjunn881/json2x/issues" target="_blank" rel="noopener">Open an issue on GitHub →</a></p>
         </div>
         <div class="faq-card">
           <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 7V4.5a3 3 0 016 0V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Security & Privacy Desk</h3>
@@ -156,7 +156,7 @@ const TRUST_PAGES = [
     content: `
       <h2>Open Source & Transparency</h2>
       <p>JSON2X is committed to open developer tooling.</p>
-      <p>Our client-side parsing engines, schema generators, and formatting algorithms are open for public audit. We believe developer tools should be transparent, free from trackers, and 100% reliable.</p>
+      <p>Our client-side parsing engines, schema generators, and formatting algorithms are open for public audit on our <a href="https://github.com/arjunn881/json2x" target="_blank" rel="noopener">GitHub repository</a>. We believe developer tools should be transparent, free from trackers, and 100% reliable.</p>
     `
   },
   {
@@ -167,6 +167,7 @@ const TRUST_PAGES = [
       <h2>MIT License</h2>
       <p>Copyright (c) 2026 JSON2X (json2x.com)</p>
       <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.</p>
+      <p>View source code and contribute on <a href="https://github.com/arjunn881/json2x" target="_blank" rel="noopener">GitHub</a>.</p>
     `
   },
   {
@@ -476,7 +477,7 @@ const TRUST_PAGES = [
           </div>
           <div class="faq-card" data-keywords="bug report contact support email github issues request feature">
             <h3 class="faq-card__q"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 6a1.5 1.5 0 113 0c0 1-1.5 1.5-1.5 2.5M8 11.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>How can I report a bug or request a new tool?</h3>
-            <p class="faq-card__a">You can open an issue on our GitHub repository or contact our engineering desk directly at <strong>support@json2x.com</strong>.</p>
+            <p class="faq-card__a">You can <a href="https://github.com/arjunn881/json2x/issues" target="_blank" rel="noopener">open an issue on our GitHub repository</a> or contact our engineering desk directly at <strong>support@json2x.com</strong>.</p>
           </div>
         </div>
       </section>
@@ -644,6 +645,7 @@ function generateTrustPageHTML(page) {
     </nav>
   </div>
 
+  <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
   <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>

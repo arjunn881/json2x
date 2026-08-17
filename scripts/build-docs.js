@@ -908,8 +908,9 @@ SAMPLE_DOCS.forEach(doc => {
   </main>
 
   <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 
@@ -994,8 +995,9 @@ const docsIndexHtml = `<!DOCTYPE html>
   </main>
 
   <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>
 </html>`;
 

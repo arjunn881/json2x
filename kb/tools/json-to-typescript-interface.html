@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to TypeScript Interface Generator — Auto-Generate Types Online | JSON2X</title>
+  <meta name="description" content="Generate TypeScript interfaces and type aliases from any JSON. Handles nested objects, optional fields, and union types. Free online, 100% browser-based." />
+  <meta name="keywords" content="json to typescript, json to typescript interface, generate typescript from json, json to ts type, typescript interface generator" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/tools/json-to-typescript-interface.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/tools/json-to-typescript-interface.html" />
+  <meta property="og:title"       content="JSON to TypeScript Interface Generator — Auto-Generate Types Online" />
+  <meta property="og:description" content="Generate TypeScript interfaces and type aliases from any JSON. Handles nested objects, optional fields, and union types. Free online, 100% browser-based." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to TypeScript Interface: Generate TS Types Instantly" />
+  <meta name="twitter:description" content="Generate TypeScript interfaces and type aliases from any JSON. Handles nested objects, optional fields, and union types. Free online, 100% browser-based." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/tools/json-to-typescript-interface.html#article",
+      "headline": "JSON to TypeScript Interface Generator — Auto-Generate Types Online",
+      "description": "Generate TypeScript interfaces and type aliases from any JSON. Handles nested objects, optional fields, and union types. Free online, 100% browser-based.",
+      "url": "https://json2x.com/kb/tools/json-to-typescript-interface.html",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "JSON to TypeScript Interface",
+        "url": "https://json2x.com/tools/typescript-generator.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON2X",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/tools/json-to-typescript-interface.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Generator",
+          "item": "https://json2x.com/kb/tools/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "JSON to TypeScript Interface",
+          "item": "https://json2x.com/kb/tools/json-to-typescript-interface.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/tools/json-to-typescript-interface.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I generate a type alias instead of an interface?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Use the Output dropdown in the toolbar to switch between interface and type alias output."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the generator add export keywords?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, by default all interfaces are exported. Toggle the export checkbox in the toolbar to change this."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens with empty arrays?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Empty JSON arrays generate unknown[] with a comment indicating the type could not be inferred."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customise the root interface name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Edit the \"Root name\" field in the toolbar to use any valid TypeScript identifier."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+  <style>
+    .prose h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin:var(--space-8) 0 var(--space-3); }
+    .prose h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin:var(--space-5) 0 var(--space-2); color:var(--text-secondary); }
+    .prose p  { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-4); }
+    .prose ul, .prose ol { padding-left:var(--space-6); margin-bottom:var(--space-4); }
+    .prose li { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-2); }
+    .prose code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 5px; color:var(--accent); }
+    .prose a { color:var(--accent); }
+    .code-block { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-5); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); white-space:pre; overflow-x:auto; margin-bottom:var(--space-8); color:var(--text-primary); }
+    .faq-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--space-5); }
+    .faq-card { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card__q { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); }
+    .faq-card__a { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .cta-banner { background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-8); text-align:center; margin:var(--space-10) 0; }
+    .cta-banner h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin-bottom:var(--space-3); }
+    .cta-banner p { font-size:var(--text-base); color:var(--text-secondary); margin-bottom:var(--space-5); }
+    .sidebar-links { margin-top:var(--space-3); padding-left:var(--space-4); }
+    .sidebar-links li { font-size:var(--text-sm); margin-bottom:var(--space-2); }
+    @media (min-width: 900px) {
+      .content-layout { display:grid; grid-template-columns:1fr 280px; gap:var(--space-10); align-items:start; }
+    }
+    .sidebar { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); position:sticky; top:80px; }
+    .sidebar h3 { font-size:var(--text-sm); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:var(--space-3); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding:var(--space-10) var(--space-4) var(--space-16)">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+        <div class="tool-hero__badge">Generator</div>
+        <h1 class="tool-hero__title">JSON to TypeScript Interface: Generate TS Types Instantly</h1>
+        <p class="tool-hero__desc">Generate TypeScript interfaces and type aliases from any JSON. Handles nested objects, optional fields, and union types. Free online, 100% browser-based.</p>
+      </div>
+
+      <div class="content-layout">
+        <!-- ── Main Content ─────────────────────────────── -->
+        <article class="prose">
+          
+      <h2>Stop Writing TypeScript Interfaces by Hand</h2>
+      <p>When working with third-party APIs, copying JSON responses and manually writing TypeScript interfaces wastes developer time and introduces bugs. Our generator analyzes any JSON object and produces accurate, nested interfaces in seconds.</p>
+      <h3>How Type Inference Works</h3>
+      <ul>
+        <li><code>string</code> values → <code>string</code> type</li>
+        <li>Integer values → <code>number</code> type</li>
+        <li><code>true</code> / <code>false</code> → <code>boolean</code> type</li>
+        <li><code>null</code> → <code>null</code> or optional field (<code>?</code>)</li>
+        <li>Nested objects → separate named <code>interface</code> declarations</li>
+        <li>Arrays of objects → typed array <code>ChildType[]</code></li>
+        <li>Mixed arrays → union type <code>(string | number)[]</code></li>
+      </ul>
+      <h2>Generating Zod Schemas Too</h2>
+      <p>Switch to the Zod tab to also get a runtime validation schema that mirrors your TypeScript interface. Use <code>z.infer&lt;typeof schema&gt;</code> for zero-duplication type safety.</p>
+
+          <h2>Code Example</h2>
+          <div class="code-block">// JSON Input
+{
+  "user": {
+    "id": 1,
+    "name": "Alice",
+    "roles": ["admin"],
+    "preferences": { "theme": "dark", "lang": "en" }
+  }
+}
+
+// Generated TypeScript Interface
+export interface RootUserPreferences {
+  theme: string;
+  lang: string;
+}
+export interface RootUser {
+  id: number;
+  name: string;
+  roles: string[];
+  preferences: RootUserPreferences;
+}
+export interface Root {
+  user: RootUser;
+}</div>
+
+          <!-- CTA -->
+          <div class="cta-banner">
+            <h2>Try It Free — No Sign-Up Required</h2>
+            <p>100% browser-based. Your data never leaves your machine.</p>
+            <a href="https://json2x.com/tools/typescript-generator.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8);text-decoration:none;font-size:var(--text-base);font-weight:var(--font-semibold);">
+              Open JSON to TypeScript Interface →
+            </a>
+          </div>
+
+          <!-- FAQ -->
+          <section style="margin-top:var(--space-10)">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid" style="margin-top:var(--space-5)">
+              
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I generate a type alias instead of an interface?</h3>
+      <p class="faq-card__a">Yes. Use the Output dropdown in the toolbar to switch between interface and type alias output.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Does the generator add export keywords?</h3>
+      <p class="faq-card__a">Yes, by default all interfaces are exported. Toggle the export checkbox in the toolbar to change this.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">What happens with empty arrays?</h3>
+      <p class="faq-card__a">Empty JSON arrays generate unknown[] with a comment indicating the type could not be inferred.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I customise the root interface name?</h3>
+      <p class="faq-card__a">Yes. Edit the "Root name" field in the toolbar to use any valid TypeScript identifier.</p>
+    </div>
+            </div>
+          </section>
+        </article>
+
+        <!-- ── Sidebar ──────────────────────────────────── -->
+        <aside class="sidebar">
+          <h3>Open the Tool</h3>
+          <a href="https://json2x.com/tools/typescript-generator.html" class="btn btn--primary" style="display:block;text-align:center;padding:var(--space-3);text-decoration:none;font-weight:var(--font-semibold);margin-bottom:var(--space-5);">
+            Launch Tool →
+          </a>
+
+          <h3>Related Tools</h3><ul class="sidebar-links"><li><a href="https://json2x.com/tools/json-to-zod.html" style="color:var(--accent);text-decoration:none;">JSON to Zod →</a></li>
+<li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter Online →</a></li>
+<li><a href="https://json2x.com/tools/json-schema-generator.html" style="color:var(--accent);text-decoration:none;">JSON Schema Generator →</a></li></ul>
+          
+
+          <h3 style="margin-top:var(--space-4)">All Tools</h3>
+          <ul class="sidebar-links">
+            <li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter</a></li>
+            <li><a href="https://json2x.com/tools/json-validator.html" style="color:var(--accent);text-decoration:none;">JSON Validator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-csv.html" style="color:var(--accent);text-decoration:none;">JSON to CSV</a></li>
+            <li><a href="https://json2x.com/tools/csv-to-json.html" style="color:var(--accent);text-decoration:none;">CSV to JSON</a></li>
+            <li><a href="https://json2x.com/tools/typescript-generator.html" style="color:var(--accent);text-decoration:none;">TypeScript Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-yaml.html" style="color:var(--accent);text-decoration:none;">JSON to YAML</a></li>
+            <li><a href="https://json2x.com/tools/json-diff.html" style="color:var(--accent);text-decoration:none;">JSON Diff</a></li>
+            <li><a href="https://json2x.com/tools/json-to-sql.html" style="color:var(--accent);text-decoration:none;">JSON to SQL</a></li>
+            <li><a href="https://json2x.com/tools/jsonpath.html" style="color:var(--accent);text-decoration:none;">JSONPath Tester</a></li>
+            <li><a href="https://json2x.com/tools/json-schema-generator.html" style="color:var(--accent);text-decoration:none;">Schema Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-prisma.html" style="color:var(--accent);text-decoration:none;">JSON to Prisma</a></li>
+            <li><a href="https://json2x.com/tools/json-to-drizzle.html" style="color:var(--accent);text-decoration:none;">JSON to Drizzle</a></li>
+            <li><a href="https://json2x.com/tools/json-to-graphql.html" style="color:var(--accent);text-decoration:none;">JSON to GraphQL</a></li>
+            <li><a href="https://json2x.com/tools/json-to-zod.html" style="color:var(--accent);text-decoration:none;">JSON to Zod</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+</body>
+</html>

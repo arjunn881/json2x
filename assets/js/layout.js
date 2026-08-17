@@ -302,11 +302,60 @@
     btn.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
   }
 
+  /* ── Multi-Language (i18n) Helper ────────────────────────*/
+  function getI18nLanguages() {
+    const i18n = window.JSON2X_I18N;
+    return (i18n && i18n.LANGUAGES) ? i18n.LANGUAGES : [
+      { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr' },
+      { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
+      { code: 'zh', name: '简体中文', flag: '🇨🇳', dir: 'ltr' },
+      { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr' },
+      { code: 'pt', name: 'Português', flag: '🇧🇷', dir: 'ltr' },
+      { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
+      { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
+      { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
+      { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
+      { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' }
+    ];
+  }
+
+  function renderLanguagePicker() {
+    const languages = getI18nLanguages();
+    const i18n = window.JSON2X_I18N;
+    const currentCode = (i18n && typeof i18n.getLanguage === 'function') ? i18n.getLanguage() : (document.documentElement.getAttribute('lang') || 'en');
+    const currentLang = languages.find(l => l.code === currentCode) || languages[0];
+
+    const menuItemsHtml = languages.map(l => {
+      const active = l.code === currentCode ? ' active' : '';
+      return `
+        <button class="lang-picker__item${active}" data-lang="${l.code}" role="menuitem" aria-label="${l.name}">
+          <span class="lang-picker__flag" aria-hidden="true">${l.flag}</span>
+          <span class="lang-picker__item-name">${l.name}</span>
+        </button>`;
+    }).join('');
+
+    return `
+    <div class="lang-picker" id="lang-picker-wrapper">
+      <button class="lang-picker__btn" id="lang-picker-btn" aria-label="Language: ${currentLang.name}" aria-haspopup="true" aria-expanded="false" title="Change Language / 语言 / Idioma">
+        <span class="lang-picker__flag" id="lang-current-flag" aria-hidden="true">${currentLang.flag}</span>
+        <span class="lang-picker__code" id="lang-current-code">${currentLang.code.toUpperCase()}</span>
+        <svg width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lang-picker__menu" id="lang-picker-menu" role="menu" aria-label="Select Language">
+        ${menuItemsHtml}
+      </div>
+    </div>`;
+  }
+
   /* ── Render: Site Header ──────────────────────────────────*/
   function renderHeader(currentId) {
     const currentTheme = getEffectiveTheme();
     const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
     const toggleIcon = currentTheme === 'dark' ? SUN_ICON : MOON_ICON;
+
+    const languages = getI18nLanguages();
+    const i18n = window.JSON2X_I18N;
+    const currentLangCode = (i18n && typeof i18n.getLanguage === 'function') ? i18n.getLanguage() : (document.documentElement.getAttribute('lang') || 'en');
 
     const COMPANY_LINKS = [
       { id: 'about',      name: 'About Us',          href: '/about.html',      icon: SVG.about },
@@ -372,6 +421,11 @@
       return `<a class="mobile-nav__link${active}" href="${resolveHref(c.href)}">${c.icon} ${c.name}</a>`;
     }).join('\n        ');
 
+    const mobileLangButtons = languages.map(l => {
+      const active = l.code === currentLangCode ? ' active' : '';
+      return `<button class="mobile-nav__lang-btn${active}" data-lang="${l.code}"><span>${l.flag}</span><span>${l.name}</span></button>`;
+    }).join('\n        ');
+
     return `
 <div class="top-bar" role="navigation" aria-label="Utility navigation">
   <div class="container top-bar__inner">
@@ -385,6 +439,7 @@
       <a href="${resolveHref('/disclaimer.html')}" class="top-bar__link${currentId === 'disclaimer' ? ' active' : ''}">${SVG.disclaimer} Disclaimer</a>
       <a href="${resolveHref('/license.html')}" class="top-bar__link${currentId === 'license' ? ' active' : ''}">${SVG.license} License</a>
     </div>
+    ${renderLanguagePicker()}
   </div>
 </div>
 <header class="site-header" role="banner">
@@ -425,6 +480,12 @@
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
   <div style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);background:var(--bg-raised);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:space-between;">
     <a href="${resolveHref('/tools/index.html')}" style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">Browse All 17 Tools Catalog →</a>
+  </div>
+  <div class="mobile-nav__cat">
+    <div class="mobile-nav__cat-head"><span>Language / 语言 / Idioma</span></div>
+    <div class="mobile-nav__lang">
+      ${mobileLangButtons}
+    </div>
   </div>
   ${mobileCategoriesHtml}
   <span class="mobile-nav__sep" aria-hidden="true"></span>
@@ -1364,6 +1425,18 @@
     // Contextual internal linking engine
     autoLinkProse();
 
+    // Initial DOM translation for newly inserted header/footer/related tools
+    if (window.JSON2X_I18N && typeof window.JSON2X_I18N.translateDOM === 'function') {
+      window.JSON2X_I18N.translateDOM();
+    }
+
+    // Listen to language change events and re-translate
+    window.addEventListener('i18n:change', function () {
+      if (window.JSON2X_I18N && typeof window.JSON2X_I18N.translateDOM === 'function') {
+        window.JSON2X_I18N.translateDOM();
+      }
+    });
+
     // Mobile nav toggle & Theme toggle event delegation
     document.addEventListener('click', function (e) {
       const navBtn = e.target.closest('#nav-toggle');
@@ -1664,6 +1737,48 @@
       if (searchBtn) {
         e.preventDefault();
         openPalette();
+      }
+    });
+
+    // Multi-Language (i18n) Dropdown & Selector Handling
+    document.addEventListener('click', (e) => {
+      const langBtn = e.target.closest('#lang-picker-btn');
+      const langPicker = document.getElementById('lang-picker-wrapper');
+      if (langBtn && langPicker) {
+        e.stopPropagation();
+        const isOpen = langPicker.classList.toggle('is-open');
+        langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        return;
+      }
+
+      const langItem = e.target.closest('.lang-picker__item, .mobile-nav__lang-btn');
+      if (langItem) {
+        const code = langItem.getAttribute('data-lang');
+        if (code && window.JSON2X_I18N) {
+          window.JSON2X_I18N.setLanguage(code);
+          if (langPicker) {
+            langPicker.classList.remove('is-open');
+            const btn = document.getElementById('lang-picker-btn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+          }
+          // Update active states
+          document.querySelectorAll('.lang-picker__item, .mobile-nav__lang-btn').forEach(btn => {
+            const isActive = btn.getAttribute('data-lang') === code;
+            btn.classList.toggle('active', isActive);
+          });
+          const flagEl = document.getElementById('lang-current-flag');
+          const codeEl = document.getElementById('lang-current-code');
+          const currentConfig = window.JSON2X_I18N.LANGUAGES.find(l => l.code === code);
+          if (flagEl && currentConfig) flagEl.textContent = currentConfig.flag;
+          if (codeEl) codeEl.textContent = code.toUpperCase();
+        }
+        return;
+      }
+
+      if (langPicker && !e.target.closest('#lang-picker-wrapper')) {
+        langPicker.classList.remove('is-open');
+        const btn = document.getElementById('lang-picker-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
       }
     });
   }

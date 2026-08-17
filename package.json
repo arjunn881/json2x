@@ -6,11 +6,11 @@
   "scripts": {
     "blog": "node scripts/build-blog.js",
     "docs": "node scripts/build-docs.js",
-    "pseo": "node scripts/build-pseo.js",
+    "pseo": "node scripts/build-pseo.js && node scripts/build-tool-pseo.js",
     "trust": "node scripts/build-trust-pages.js",
     "robots": "node scripts/generate-robots.js",
-    "sitemap": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/build-blog.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js",
-    "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/build-blog.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js",
+    "sitemap": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/build-tool-pseo.js && node scripts/build-blog.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js",
+    "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/build-tool-pseo.js && node scripts/build-blog.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js",
     "dev": "npx --yes serve -l 8080",
     "start": "npx --yes serve -l 8080",
     "deploy": "npm test && npx wrangler pages deploy . --commit-dirty=true",
@@ -25,5 +25,13 @@
     "schema-generator"
   ],
   "author": "JSON2X Engineering Team",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arjunn881/json2x.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arjunn881/json2x/issues"
+  },
+  "homepage": "https://json2x.com"
 }

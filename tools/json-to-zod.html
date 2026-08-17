@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to Zod Schema Generator — Free Online Tool | JSON2X</title>
+  <meta name="description" content="Generate Zod validation schemas from JSON instantly. Produces runtime-ready z.object(), z.string(), z.number() schemas with optional fields and nested objects. Free, 100% browser-only." />
+  <meta name="keywords" content="json to zod schema, zod schema generator, json to zod, generate zod schema from json, zod validator generator, zod object from json" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-to-zod.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://json2x.com/tools/json-to-zod.html" />
+  <meta property="og:title" content="JSON to Zod Schema Generator" />
+  <meta property="og:description" content="Generate Zod runtime validation schemas from any JSON. Handles nested objects, arrays, optional fields, and inferred TypeScript types." />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON to Zod Schema — JSON2X" />
+  <meta name="twitter:description" content="Generate Zod validation schemas from JSON free in your browser." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to Zod Schema Generator",
+    "url": "https://json2x.com/tools/json-to-zod.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Generate Zod runtime validation schemas from any JSON object. Produces z.object() schemas with correct Zod types (z.string(), z.number(), z.boolean(), z.null(), z.array()) and optional .infer<> TypeScript type exports. 100% client-side.",
+    "featureList": [
+      "Generate Zod schema from JSON",
+      "Correct Zod type mapping (z.string, z.number, z.boolean, z.null, z.array)",
+      "Nested objects become nested z.object() schemas",
+      "Optional .optional() for nullable fields",
+      "Export z.infer<> TypeScript type",
+      "Copy and Download .ts output"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://json2x.com/tools/index.html" },
+      { "@type": "ListItem", "position": 3, "name": "JSON to Zod Schema", "item": "https://json2x.com/tools/json-to-zod.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a Zod schema?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Zod is a TypeScript-first schema validation library. A Zod schema describes the expected shape of data at runtime. Unlike TypeScript interfaces (which are erased at compile time), Zod schemas are real JavaScript objects that can parse, validate, and transform data. They are commonly used to validate API responses, form inputs, and environment variables." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between JSON to TypeScript and JSON to Zod?",
+        "acceptedAnswer": { "@type": "Answer", "text": "JSON to TypeScript generates compile-time type definitions (interface or type) that are erased when TypeScript compiles to JavaScript. JSON to Zod generates runtime validators (z.object() schemas) that actually run in production to validate incoming data. The two complement each other — Zod can also infer TypeScript types from schemas using z.infer<typeof schema>." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does JSON to Zod handle null values?",
+        "acceptedAnswer": { "@type": "Answer", "text": "JSON null values are mapped to z.null(). When a field can be null or a specific type, it generates z.string().nullable() or z.number().nullable(). When 'Mark null fields optional' is enabled, null fields generate .optional() in addition to .nullable()." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+
+  <style>
+    .z-kw    { color: var(--ts-kw); }
+    .z-fn    { color: var(--ts-name); }
+    .z-field { color: var(--ts-key); }
+    .z-type  { color: var(--ts-type); }
+    .z-str   { color: var(--hl-str); }
+    .z-punc  { color: var(--text-muted); }
+    .z-comment { color: var(--text-muted); font-style: italic; }
+
+    .ts-workspace { display:grid; gap:var(--space-5); margin-bottom:var(--space-5); }
+    @media (min-width: 800px) { .ts-workspace { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .ts-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:var(--space-2); padding:var(--space-3) var(--space-4); background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-lg); margin-bottom:var(--space-4); }
+    .ts-toolbar__divider { width:1px; height:24px; background:var(--bg-border); flex-shrink:0; margin-inline:var(--space-1); }
+    .ts-toolbar__label   { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+    .ts-input { padding:var(--space-2) var(--space-3); background:var(--bg-base); color:var(--text-primary); border:1px solid var(--bg-border); border-radius:var(--radius-md); font-size:var(--text-xs); font-family:var(--font-mono); outline:none; width:140px; transition:border-color var(--transition-fast); }
+    .ts-input:focus { border-color:var(--accent); }
+    .toggle-check { display:inline-flex; align-items:center; gap:var(--space-2); font-size:var(--text-xs); font-weight:var(--font-medium); color:var(--text-secondary); cursor:pointer; user-select:none; }
+    .toggle-check input { accent-color:var(--accent); width:14px; height:14px; }
+    .ts-pane { display:flex; flex-direction:column; }
+    .ts-pane__header { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-2); }
+    .ts-pane__title  { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.08em; }
+    .ts-textarea { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-4); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); color:var(--text-primary); outline:none; resize:vertical; min-height:320px; tab-size:2; transition:border-color var(--transition-fast), box-shadow var(--transition-fast); }
+    .ts-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .ts-textarea.error { border-color:var(--error); box-shadow:0 0 0 3px var(--error-bg); }
+    .ts-output { font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-4); min-height:320px; max-height:600px; overflow:auto; white-space:pre; tab-size:2; color:var(--text-primary); }
+    .ts-output--empty { color:var(--text-muted); font-style:italic; white-space:pre-wrap; }
+    .ts-error { display:flex; align-items:flex-start; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--error-bg); color:var(--error); border:1px solid hsla(0,82%,63%,0.3); border-radius:var(--radius-md); font-size:var(--text-xs); margin-bottom:var(--space-4); }
+    .ts-error__badge { flex-shrink:0; background:var(--error); color:#fff; border-radius:var(--radius-sm); padding:1px var(--space-2); font-weight:var(--font-semibold); font-family:var(--font-mono); }
+    .ts-stats { display:flex; gap:var(--space-4); font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3); }
+    .ts-stat  { display:flex; gap:var(--space-2); align-items:center; }
+    .ts-stat__val { font-family:var(--font-mono); font-weight:var(--font-semibold); color:var(--text-secondary); }
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-card code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 4px; color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-zod">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">Zod Validation</div>
+        <h1 class="tool-hero__title">JSON to Zod Schema</h1>
+      </div>
+
+      <div class="ts-toolbar" role="toolbar">
+        <span class="ts-toolbar__label">Schema name</span>
+        <input class="ts-input" id="root-name" type="text" value="mySchema" aria-label="Schema variable name" maxlength="60" />
+
+        <div class="ts-toolbar__divider"></div>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="infer-toggle" checked />
+          Export inferred type
+        </label>
+        <label class="toggle-check">
+          <input type="checkbox" id="strict-toggle" />
+          .strict() mode
+        </label>
+        <label class="toggle-check">
+          <input type="checkbox" id="nullable-toggle" checked />
+          .nullable() for nulls
+        </label>
+
+        <div class="ts-toolbar__divider"></div>
+
+        <button class="btn btn--primary" id="generate-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Generate
+        </button>
+        <button class="btn btn--ghost" id="copy-btn">Copy</button>
+        <button class="btn btn--ghost" id="download-btn">Download .ts</button>
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <div class="ts-workspace">
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">JSON Input</span>
+          </div>
+          <textarea class="ts-textarea" id="json-input" aria-label="JSON input" spellcheck="false" autocorrect="off"
+            placeholder='{&#10;  "id": 1,&#10;  "name": "Alice",&#10;  "email": "alice@example.com",&#10;  "age": 28,&#10;  "active": true,&#10;  "score": 4.5,&#10;  "bio": null,&#10;  "tags": ["admin", "user"]&#10;}'></textarea>
+        </div>
+
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">Zod Schema Output</span>
+          </div>
+          <div id="ts-error" class="ts-error" style="display:none">
+            <span class="ts-error__badge">ERR</span>
+            <span id="ts-error-msg"></span>
+          </div>
+          <div class="ts-stats" id="ts-stats" style="display:none">
+            <div class="ts-stat"><span>Schemas</span><span class="ts-stat__val" id="stat-schemas">0</span></div>
+            <div class="ts-stat"><span>Fields</span><span class="ts-stat__val" id="stat-fields">0</span></div>
+          </div>
+          <pre class="ts-output ts-output--empty" id="ts-output">Zod schema will appear here…</pre>
+        </div>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Paste any JSON and get a runtime-ready <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">z.object()</code> Zod schema — plus an optional <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">z.infer&lt;&gt;</code> TypeScript type export. Nested objects become nested <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">z.object()</code> schemas. 100% client-side.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-zod"></div>
+
+      <section class="faq-section">
+        <p class="faq-eyebrow">Guide</p>
+        <h2 class="faq-title">About JSON to Zod Schema Generation</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>Zod type mapping</h3>
+            <p><code>string</code> → <code>z.string()</code>, integer/float → <code>z.number()</code>, boolean → <code>z.boolean()</code>, null → <code>z.null()</code> or <code>.nullable()</code>, array → <code>z.array()</code>, object → nested <code>z.object()</code>.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What is .strict() mode?</h3>
+            <p>By default Zod ignores unknown keys in objects. With <code>.strict()</code> enabled, Zod throws a validation error if the input contains any keys not defined in the schema. Enable this for strict API contract enforcement.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Inferred TypeScript types</h3>
+            <p>When "Export inferred type" is enabled, the output includes <code>export type MyType = z.infer&lt;typeof mySchema&gt;</code>. This gives you a TypeScript type that is always in sync with the Zod schema — no duplication needed.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Arrays of mixed types</h3>
+            <p>If a JSON array contains mixed types (e.g., <code>[1, "hello", true]</code>), the generator produces <code>z.array(z.union([z.number(), z.string(), z.boolean()]))</code>. Empty arrays produce <code>z.array(z.unknown())</code>.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    const inputEl     = document.getElementById('json-input');
+    const outputEl    = document.getElementById('ts-output');
+    const errorEl     = document.getElementById('ts-error');
+    const errorMsgEl  = document.getElementById('ts-error-msg');
+    const statsEl     = document.getElementById('ts-stats');
+    const statSchemas = document.getElementById('stat-schemas');
+    const statFields  = document.getElementById('stat-fields');
+    const rootNameEl  = document.getElementById('root-name');
+    const inferToggle = document.getElementById('infer-toggle');
+    const strictToggle= document.getElementById('strict-toggle');
+    const nullToggle  = document.getElementById('nullable-toggle');
+    const genBtn      = document.getElementById('generate-btn');
+    const copyBtn     = document.getElementById('copy-btn');
+    const dlBtn       = document.getElementById('download-btn');
+    const clearBtn    = document.getElementById('clear-btn');
+
+    let lastRaw = '';
+    let schemaCount = 0;
+    let fieldCount = 0;
+
+    function toCamel(s) { return s.replace(/[_\-\s](.)/g, (_, c) => c.toUpperCase()); }
+    function toPascal(s) { const c = toCamel(s); return c.charAt(0).toUpperCase() + c.slice(1); }
+
+    function inferZod(val, indent) {
+      const sp = '  '.repeat(indent);
+      if (val === null) return nullToggle.checked ? 'z.null()' : 'z.unknown()';
+      if (typeof val === 'boolean') return 'z.boolean()';
+      if (typeof val === 'number') return 'z.number()';
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val)) return 'z.string().datetime()';
+        if (/^[\w.+-]+@[\w-]+\.\w+$/.test(val)) return 'z.string().email()';
+        if (/^https?:\/\//.test(val)) return 'z.string().url()';
+        if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}/.test(val)) return 'z.string().uuid()';
+        return 'z.string()';
+      }
+      if (Array.isArray(val)) {
+        if (val.length === 0) return 'z.array(z.unknown())';
+        if (val.every(v => typeof v === typeof val[0] && !Array.isArray(v) && (v === null) === (val[0] === null))) {
+          return `z.array(${inferZod(val[0], indent)})`;
+        }
+        const types = [...new Set(val.map(v => inferZod(v, indent)))];
+        return types.length === 1 ? `z.array(${types[0]})` : `z.array(z.union([${types.join(', ')}]))`;
+      }
+      if (typeof val === 'object') {
+        return buildZodObject(val, indent);
+      }
+      return 'z.unknown()';
+    }
+
+    function buildZodObject(obj, indent) {
+      schemaCount++;
+      const strict = strictToggle.checked;
+      const sp = '  '.repeat(indent);
+      const isp = '  '.repeat(indent + 1);
+      const fields = [];
+      for (const [key, val] of Object.entries(obj)) {
+        fieldCount++;
+        let zodType = inferZod(val, indent + 1);
+        if (val === null && nullToggle.checked) zodType = 'z.unknown().nullable().optional()';
+        fields.push(`${isp}${key}: ${zodType}`);
+      }
+      const body = fields.join(',\n');
+      const strictStr = strict ? '.strict()' : '';
+      return `z.object({\n${body}\n${sp}})${strictStr}`;
+    }
+
+    function highlight(raw) {
+      return raw
+        .replace(/\b(import|from|export|const|type)\b/g, '<span class="z-kw">$1</span>')
+        .replace(/\b(z)\.(object|string|number|boolean|null|array|union|unknown|literal|enum|infer|datetime|email|url|uuid|nullable|optional|strict)\b/g, '<span class="z-fn">z</span>.<span class="z-type">$2</span>')
+        .replace(/('zod')/g, '<span class="z-str">$1</span>')
+        .replace(/(\/\/ [^\n]*)/g, '<span class="z-comment">$1</span>');
+    }
+
+    function render() {
+      const raw = inputEl.value.trim();
+      if (!raw) { showEmpty(); return; }
+
+      let parsed;
+      try { parsed = JSON.parse(raw); } catch (e) { showError(e.message); return; }
+      if (Array.isArray(parsed)) {
+        if (parsed.length > 0 && typeof parsed[0] === 'object') parsed = parsed[0];
+        else { showError('Root array must contain at least one object.'); return; }
+      }
+      if (typeof parsed !== 'object' || parsed === null) { showError('Root JSON must be an object.'); return; }
+
+      schemaCount = 0;
+      fieldCount = 0;
+      const name = toCamel(rootNameEl.value.trim() || 'mySchema');
+      const typeName = toPascal(name);
+
+      const zodExpr = buildZodObject(parsed, 0);
+      let output = `import { z } from 'zod';\n\nexport const ${name} = ${zodExpr};\n`;
+      if (inferToggle.checked) {
+        output += `\nexport type ${typeName} = z.infer<typeof ${name}>;\n`;
+      }
+
+      lastRaw = output;
+      hideError();
+      outputEl.classList.remove('ts-output--empty');
+      outputEl.innerHTML = highlight(output);
+      statsEl.style.display = 'flex';
+      statSchemas.textContent = schemaCount;
+      statFields.textContent = fieldCount;
+    }
+
+    function showEmpty() { outputEl.textContent = 'Zod schema will appear here…'; outputEl.classList.add('ts-output--empty'); hideError(); statsEl.style.display = 'none'; }
+    function showError(msg) { errorMsgEl.textContent = msg; errorEl.style.display = 'flex'; inputEl.classList.add('error'); statsEl.style.display = 'none'; }
+    function hideError() { errorEl.style.display = 'none'; inputEl.classList.remove('error'); }
+
+    genBtn.addEventListener('click', render);
+    let t;
+    inputEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 400); });
+    rootNameEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 200); });
+    [inferToggle, strictToggle, nullToggle].forEach(el => el.addEventListener('change', render));
+
+    copyBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      navigator.clipboard.writeText(lastRaw).then(() => { copyBtn.textContent = 'Copied!'; setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1800); });
+    });
+    dlBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([lastRaw], { type: 'text/plain' }));
+      a.download = (rootNameEl.value.trim() || 'schema') + '.zod.ts';
+      a.click();
+    });
+    clearBtn.addEventListener('click', () => { inputEl.value = ''; showEmpty(); });
+
+    render();
+  })();
+  </script>
+</body>
+</html>

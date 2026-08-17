@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to TOML Converter — Convert JSON Config to TOML Format | JSON2X</title>
+  <meta name="description" content="Convert JSON to TOML online for Rust Cargo.toml, Python pyproject.toml, and Hugo config files. Free, browser-only JSON to TOML converter." />
+  <meta name="keywords" content="json to toml, convert json to toml, json to toml converter, json to toml online, toml from json, cargo toml from json" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/tools/json-to-toml-converter.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/tools/json-to-toml-converter.html" />
+  <meta property="og:title"       content="JSON to TOML Converter — Convert JSON Config to TOML Format" />
+  <meta property="og:description" content="Convert JSON to TOML online for Rust Cargo.toml, Python pyproject.toml, and Hugo config files. Free, browser-only JSON to TOML converter." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to TOML: Convert JSON to TOML for Rust, Python & Go" />
+  <meta name="twitter:description" content="Convert JSON to TOML online for Rust Cargo.toml, Python pyproject.toml, and Hugo config files. Free, browser-only JSON to TOML converter." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/tools/json-to-toml-converter.html#article",
+      "headline": "JSON to TOML Converter — Convert JSON Config to TOML Format",
+      "description": "Convert JSON to TOML online for Rust Cargo.toml, Python pyproject.toml, and Hugo config files. Free, browser-only JSON to TOML converter.",
+      "url": "https://json2x.com/kb/tools/json-to-toml-converter.html",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "JSON to TOML",
+        "url": "https://json2x.com/tools/json-to-toml.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON2X",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/tools/json-to-toml-converter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Converter",
+          "item": "https://json2x.com/kb/tools/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "JSON to TOML",
+          "item": "https://json2x.com/kb/tools/json-to-toml-converter.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/tools/json-to-toml-converter.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I use this to generate Cargo.toml from JSON?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Paste your package metadata JSON and the converter produces TOML suitable for Cargo.toml (manual tweaking of [dependencies] format may be needed)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does TOML support nested objects like JSON?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, via [section.subsection] syntax and inline tables { key = \"value\" }."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the TOML equivalent of a JSON array?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TOML arrays use the same square bracket syntax: tags = [\"rust\", \"web\", \"api\"]. Arrays of tables use [[tablename]] syntax."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+  <style>
+    .prose h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin:var(--space-8) 0 var(--space-3); }
+    .prose h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin:var(--space-5) 0 var(--space-2); color:var(--text-secondary); }
+    .prose p  { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-4); }
+    .prose ul, .prose ol { padding-left:var(--space-6); margin-bottom:var(--space-4); }
+    .prose li { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-2); }
+    .prose code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 5px; color:var(--accent); }
+    .prose a { color:var(--accent); }
+    .code-block { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-5); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); white-space:pre; overflow-x:auto; margin-bottom:var(--space-8); color:var(--text-primary); }
+    .faq-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--space-5); }
+    .faq-card { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card__q { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); }
+    .faq-card__a { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .cta-banner { background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-8); text-align:center; margin:var(--space-10) 0; }
+    .cta-banner h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin-bottom:var(--space-3); }
+    .cta-banner p { font-size:var(--text-base); color:var(--text-secondary); margin-bottom:var(--space-5); }
+    .sidebar-links { margin-top:var(--space-3); padding-left:var(--space-4); }
+    .sidebar-links li { font-size:var(--text-sm); margin-bottom:var(--space-2); }
+    @media (min-width: 900px) {
+      .content-layout { display:grid; grid-template-columns:1fr 280px; gap:var(--space-10); align-items:start; }
+    }
+    .sidebar { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); position:sticky; top:80px; }
+    .sidebar h3 { font-size:var(--text-sm); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:var(--space-3); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding:var(--space-10) var(--space-4) var(--space-16)">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+        <div class="tool-hero__badge">Converter</div>
+        <h1 class="tool-hero__title">JSON to TOML: Convert JSON to TOML for Rust, Python & Go</h1>
+        <p class="tool-hero__desc">Convert JSON to TOML online for Rust Cargo.toml, Python pyproject.toml, and Hugo config files. Free, browser-only JSON to TOML converter.</p>
+      </div>
+
+      <div class="content-layout">
+        <!-- ── Main Content ─────────────────────────────── -->
+        <article class="prose">
+          
+      <h2>What is TOML?</h2>
+      <p>TOML (Tom's Obvious Minimal Language) is a configuration file format designed to be human-readable and unambiguous. It is the primary config format for Rust (<code>Cargo.toml</code>), Python (<code>pyproject.toml</code>), and Hugo static sites.</p>
+      <h3>JSON vs TOML: Key Differences</h3>
+      <ul>
+        <li><strong>Comments:</strong> TOML supports <code># hash comments</code>; JSON does not</li>
+        <li><strong>Dates:</strong> TOML has a native datetime type; JSON uses strings</li>
+        <li><strong>Readability:</strong> TOML uses flat dot-notation sections; JSON uses nested braces</li>
+        <li><strong>Use case:</strong> JSON for APIs and data; TOML for configuration files</li>
+      </ul>
+      <h2>When to Use JSON to TOML Conversion</h2>
+      <ul>
+        <li>Migrating a Node.js <code>package.json</code> config to <code>pyproject.toml</code></li>
+        <li>Building a Rust package and needing to write <code>Cargo.toml</code> from JSON specs</li>
+        <li>Converting Hugo or Zola site configuration between formats</li>
+      </ul>
+
+          <h2>Code Example</h2>
+          <div class="code-block">// JSON Input
+{
+  "package": {
+    "name": "my-lib",
+    "version": "0.1.0",
+    "authors": ["Alice <alice@example.com>"],
+    "edition": "2021"
+  },
+  "dependencies": {
+    "serde": { "version": "1.0", "features": ["derive"] }
+  }
+}
+
+# TOML Output (Cargo.toml style)
+[package]
+name = "my-lib"
+version = "0.1.0"
+authors = ["Alice <alice@example.com>"]
+edition = "2021"
+
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]</div>
+
+          <!-- CTA -->
+          <div class="cta-banner">
+            <h2>Try It Free — No Sign-Up Required</h2>
+            <p>100% browser-based. Your data never leaves your machine.</p>
+            <a href="https://json2x.com/tools/json-to-toml.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8);text-decoration:none;font-size:var(--text-base);font-weight:var(--font-semibold);">
+              Open JSON to TOML →
+            </a>
+          </div>
+
+          <!-- FAQ -->
+          <section style="margin-top:var(--space-10)">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid" style="margin-top:var(--space-5)">
+              
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I use this to generate Cargo.toml from JSON?</h3>
+      <p class="faq-card__a">Yes. Paste your package metadata JSON and the converter produces TOML suitable for Cargo.toml (manual tweaking of [dependencies] format may be needed).</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Does TOML support nested objects like JSON?</h3>
+      <p class="faq-card__a">Yes, via [section.subsection] syntax and inline tables { key = "value" }.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">What is the TOML equivalent of a JSON array?</h3>
+      <p class="faq-card__a">TOML arrays use the same square bracket syntax: tags = ["rust", "web", "api"]. Arrays of tables use [[tablename]] syntax.</p>
+    </div>
+            </div>
+          </section>
+        </article>
+
+        <!-- ── Sidebar ──────────────────────────────────── -->
+        <aside class="sidebar">
+          <h3>Open the Tool</h3>
+          <a href="https://json2x.com/tools/json-to-toml.html" class="btn btn--primary" style="display:block;text-align:center;padding:var(--space-3);text-decoration:none;font-weight:var(--font-semibold);margin-bottom:var(--space-5);">
+            Launch Tool →
+          </a>
+
+          <h3>Related Tools</h3><ul class="sidebar-links"><li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter Online →</a></li>
+<li><a href="https://json2x.com/tools/json-to-yaml.html" style="color:var(--accent);text-decoration:none;">JSON to YAML Converter →</a></li>
+<li><a href="https://json2x.com/tools/json-to-xml.html" style="color:var(--accent);text-decoration:none;">JSON to XML Converter →</a></li></ul>
+          
+
+          <h3 style="margin-top:var(--space-4)">All Tools</h3>
+          <ul class="sidebar-links">
+            <li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter</a></li>
+            <li><a href="https://json2x.com/tools/json-validator.html" style="color:var(--accent);text-decoration:none;">JSON Validator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-csv.html" style="color:var(--accent);text-decoration:none;">JSON to CSV</a></li>
+            <li><a href="https://json2x.com/tools/csv-to-json.html" style="color:var(--accent);text-decoration:none;">CSV to JSON</a></li>
+            <li><a href="https://json2x.com/tools/typescript-generator.html" style="color:var(--accent);text-decoration:none;">TypeScript Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-yaml.html" style="color:var(--accent);text-decoration:none;">JSON to YAML</a></li>
+            <li><a href="https://json2x.com/tools/json-diff.html" style="color:var(--accent);text-decoration:none;">JSON Diff</a></li>
+            <li><a href="https://json2x.com/tools/json-to-sql.html" style="color:var(--accent);text-decoration:none;">JSON to SQL</a></li>
+            <li><a href="https://json2x.com/tools/jsonpath.html" style="color:var(--accent);text-decoration:none;">JSONPath Tester</a></li>
+            <li><a href="https://json2x.com/tools/json-schema-generator.html" style="color:var(--accent);text-decoration:none;">Schema Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-prisma.html" style="color:var(--accent);text-decoration:none;">JSON to Prisma</a></li>
+            <li><a href="https://json2x.com/tools/json-to-drizzle.html" style="color:var(--accent);text-decoration:none;">JSON to Drizzle</a></li>
+            <li><a href="https://json2x.com/tools/json-to-graphql.html" style="color:var(--accent);text-decoration:none;">JSON to GraphQL</a></li>
+            <li><a href="https://json2x.com/tools/json-to-zod.html" style="color:var(--accent);text-decoration:none;">JSON to Zod</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+</body>
+</html>

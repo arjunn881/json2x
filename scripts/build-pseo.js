@@ -998,6 +998,7 @@ function renderPseoHtml(topic) {
   </main>
 
   <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
   <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>
@@ -1077,6 +1078,7 @@ function renderKbHubHtml(topics) {
   </main>
 
   <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
   <script src="/assets/js/layout.js?v=2.8.0"></script>
 </body>

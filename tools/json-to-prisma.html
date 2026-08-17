@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ── Performance: DNS prefetch & preconnect ─────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to Prisma Schema Generator — Free Online Tool | JSON2X</title>
+  <meta name="description" content="Convert JSON to a Prisma schema instantly. Generate model definitions with correct field types, @id, @default, and relation hints. Free, 100% browser-only." />
+  <meta name="keywords" content="json to prisma schema, prisma schema generator, json to prisma model, prisma schema from json, generate prisma model" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-to-prisma.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://json2x.com/tools/json-to-prisma.html" />
+  <meta property="og:title" content="JSON to Prisma Schema Generator" />
+  <meta property="og:description" content="Generate Prisma schema model definitions from any JSON object instantly. Handles nested types and arrays." />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON to Prisma Schema — JSON2X" />
+  <meta name="twitter:description" content="Convert JSON to Prisma schema models free in your browser." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to Prisma Schema Generator",
+    "url": "https://json2x.com/tools/json-to-prisma.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Convert any JSON object into a Prisma schema definition. Generates model blocks with correct Prisma scalar types (String, Int, Float, Boolean, DateTime), @id annotations, and nested model references. Runs 100% client-side.",
+    "featureList": [
+      "Generate Prisma model from JSON",
+      "Correct scalar type mapping (String, Int, Float, Boolean, DateTime)",
+      "@id and @default annotations",
+      "Nested models with relation references",
+      "Copy and Download .prisma output"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://json2x.com/tools/index.html" },
+      { "@type": "ListItem", "position": 3, "name": "JSON to Prisma Schema", "item": "https://json2x.com/tools/json-to-prisma.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a Prisma schema?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A Prisma schema is a declarative configuration file (schema.prisma) that defines your database models, field types, relations, and datasource. Prisma uses this schema to generate a type-safe database client for Node.js and TypeScript." }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the JSON to Prisma generator work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The tool recursively walks your JSON object. Each key becomes a Prisma model field. JavaScript primitives are mapped to Prisma scalar types: string → String, number → Int or Float, boolean → Boolean, null → optional fields. Nested objects become separate model blocks with a relation field." }
+      },
+      {
+        "@type": "Question",
+        "name": "What Prisma field types are generated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The generator maps: string → String, integer → Int, float → Float, boolean → Boolean, null → String? (nullable), ISO date strings → DateTime, arrays of objects → separate model with relation, arrays of primitives → Json." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <!-- ── Performance: Preload critical CSS ──────────────── -->
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+
+  <style>
+    /* ── Syntax tokens for Prisma output ─────────────── */
+    .pr-kw    { color: var(--ts-kw); }      /* model, enum, datasource */
+    .pr-model { color: var(--ts-name); }    /* model name */
+    .pr-field { color: var(--ts-key); }     /* field name */
+    .pr-type  { color: var(--ts-type); }    /* String, Int, Boolean */
+    .pr-attr  { color: var(--hl-str); }     /* @id, @default */
+    .pr-punc  { color: var(--text-muted); } /* { } ? [] */
+    .pr-comment{ color: var(--text-muted); font-style: italic; }
+
+    /* ── Layout ───────────────────────────────────── */
+    .ts-workspace {
+      display: grid;
+      gap: var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+    @media (min-width: 800px) {
+      .ts-workspace { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+
+    /* ── Toolbar ─────────────────────────────────── */
+    .ts-toolbar {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: var(--space-2); padding: var(--space-3) var(--space-4);
+      background: var(--bg-raised); border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg); margin-bottom: var(--space-4);
+    }
+    .ts-toolbar__divider { width:1px; height:24px; background:var(--bg-border); flex-shrink:0; margin-inline:var(--space-1); }
+    .ts-toolbar__label   { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+
+    .ts-input {
+      padding:var(--space-2) var(--space-3); background:var(--bg-base); color:var(--text-primary);
+      border:1px solid var(--bg-border); border-radius:var(--radius-md);
+      font-size:var(--text-xs); font-family:var(--font-mono);
+      outline:none; width:140px; transition:border-color var(--transition-fast);
+    }
+    .ts-input:focus { border-color:var(--accent); }
+
+    .toggle-check {
+      display:inline-flex; align-items:center; gap:var(--space-2);
+      font-size:var(--text-xs); font-weight:var(--font-medium);
+      color:var(--text-secondary); cursor:pointer; user-select:none;
+    }
+    .toggle-check input { accent-color:var(--accent); width:14px; height:14px; }
+
+    /* ── Panes ───────────────────────────────────── */
+    .ts-pane { display:flex; flex-direction:column; }
+    .ts-pane__header { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-2); }
+    .ts-pane__title  { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.08em; }
+
+    .ts-textarea {
+      background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg);
+      padding:var(--space-4); font-family:var(--font-mono); font-size:var(--text-xs);
+      line-height:var(--leading-relaxed); color:var(--text-primary); outline:none; resize:vertical;
+      min-height:320px; tab-size:2; transition:border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .ts-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .ts-textarea.error { border-color:var(--error); box-shadow:0 0 0 3px var(--error-bg); }
+
+    .ts-output {
+      font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed);
+      background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg);
+      padding:var(--space-4); min-height:320px; max-height:600px; overflow:auto;
+      white-space:pre; tab-size:2; color:var(--text-primary);
+    }
+    .ts-output--empty { color:var(--text-muted); font-style:italic; white-space:pre-wrap; }
+
+    .ts-error {
+      display:flex; align-items:flex-start; gap:var(--space-3);
+      padding:var(--space-3) var(--space-4); background:var(--error-bg); color:var(--error);
+      border:1px solid hsla(0,82%,63%,0.3); border-radius:var(--radius-md);
+      font-size:var(--text-xs); margin-bottom:var(--space-4);
+    }
+    .ts-error__badge { flex-shrink:0; background:var(--error); color:#fff; border-radius:var(--radius-sm); padding:1px var(--space-2); font-weight:var(--font-semibold); font-family:var(--font-mono); }
+
+    .ts-stats { display:flex; gap:var(--space-4); font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3); }
+    .ts-stat  { display:flex; gap:var(--space-2); align-items:center; }
+    .ts-stat__val { font-family:var(--font-mono); font-weight:var(--font-semibold); color:var(--text-secondary); }
+
+    /* ── FAQ ──────────────────────────────────────── */
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-card code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 4px; color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-prisma">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">Prisma ORM</div>
+        <h1 class="tool-hero__title">JSON to Prisma Schema</h1>
+      </div>
+
+      <!-- ── Toolbar ─────────────────────────────────────── -->
+      <div class="ts-toolbar" role="toolbar">
+        <span class="ts-toolbar__label">Model name</span>
+        <input class="ts-input" id="root-name" type="text" value="MyModel" aria-label="Root model name" maxlength="60" />
+
+        <div class="ts-toolbar__divider"></div>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="add-id-toggle" checked />
+          Auto @id field
+        </label>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="datasource-toggle" />
+          Include datasource
+        </label>
+
+        <div class="ts-toolbar__divider"></div>
+
+        <button class="btn btn--primary" id="generate-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Generate
+        </button>
+        <button class="btn btn--ghost" id="copy-btn">Copy</button>
+        <button class="btn btn--ghost" id="download-btn">Download .prisma</button>
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <!-- ── Workspace ──────────────────────────────────── -->
+      <div class="ts-workspace">
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">JSON Input</span>
+            <span id="input-meta" class="text-xs text-muted"></span>
+          </div>
+          <textarea
+            class="ts-textarea"
+            id="json-input"
+            aria-label="JSON input"
+            spellcheck="false"
+            autocorrect="off"
+            placeholder='{&#10;  "id": 1,&#10;  "name": "Alice",&#10;  "email": "alice@example.com",&#10;  "age": 28,&#10;  "active": true,&#10;  "createdAt": "2024-01-01T00:00:00.000Z",&#10;  "score": 4.5&#10;}'
+          ></textarea>
+        </div>
+
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">Prisma Schema Output</span>
+          </div>
+
+          <div id="ts-error" class="ts-error" style="display:none">
+            <span class="ts-error__badge">ERR</span>
+            <span id="ts-error-msg"></span>
+          </div>
+
+          <div class="ts-stats" id="ts-stats" style="display:none">
+            <div class="ts-stat"><span>Models</span><span class="ts-stat__val" id="stat-models">0</span></div>
+            <div class="ts-stat"><span>Fields</span><span class="ts-stat__val" id="stat-fields">0</span></div>
+          </div>
+
+          <pre class="ts-output ts-output--empty" id="ts-output">Prisma schema will appear here…</pre>
+        </div>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Paste any JSON and get a ready-to-use <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">model</code> block for your <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">schema.prisma</code>. Nested objects become separate models with relation references. Runs 100% in your browser — your data never leaves your machine.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-prisma"></div>
+
+      <!-- ── FAQ ──────────────────────────────────────── -->
+      <section class="faq-section">
+        <p class="faq-eyebrow">Guide</p>
+        <h2 class="faq-title">About JSON to Prisma Schema Generation</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>How are types mapped?</h3>
+            <p>JSON primitives map to Prisma scalars: <code>string</code> → <code>String</code>, integer → <code>Int</code>, float → <code>Float</code>, boolean → <code>Boolean</code>, null → <code>String?</code>, ISO date string → <code>DateTime</code>.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What about nested objects?</h3>
+            <p>Nested JSON objects generate separate <code>model</code> blocks. The parent model gets a relation field (e.g., <code>address Address?</code>) and the child model gets a back-relation with <code>@relation</code>.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Are arrays supported?</h3>
+            <p>Arrays of objects generate a related model with a one-to-many relation (<code>posts Post[]</code>). Arrays of primitives are mapped to <code>Json</code> type since Prisma doesn't natively support scalar arrays in all databases.</p>
+          </div>
+          <div class="faq-card">
+            <h3>What is the @id annotation?</h3>
+            <p>When "Auto @id field" is enabled, the generator detects fields named <code>id</code>, <code>_id</code>, or <code>uuid</code> and marks them with <code>@id</code>. If none is found, a synthetic <code>id Int @id @default(autoincrement())</code> is added.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+
+  <!-- ── Shared scripts ─────────────────────────────────── -->
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+
+  <!-- ── Prisma Generator Logic ─────────────────────────── -->
+  <script>
+  (function () {
+    'use strict';
+
+    const inputEl    = document.getElementById('json-input');
+    const outputEl   = document.getElementById('ts-output');
+    const errorEl    = document.getElementById('ts-error');
+    const errorMsgEl = document.getElementById('ts-error-msg');
+    const statsEl    = document.getElementById('ts-stats');
+    const statModels = document.getElementById('stat-models');
+    const statFields = document.getElementById('stat-fields');
+    const rootNameEl = document.getElementById('root-name');
+    const addIdEl    = document.getElementById('add-id-toggle');
+    const dsToggle   = document.getElementById('datasource-toggle');
+    const genBtn     = document.getElementById('generate-btn');
+    const copyBtn    = document.getElementById('copy-btn');
+    const dlBtn      = document.getElementById('download-btn');
+    const clearBtn   = document.getElementById('clear-btn');
+
+    let lastRaw = '';
+    let modelCount = 0;
+    let fieldCount = 0;
+
+    // ── Type inference ─────────────────────────────────
+    function inferPrismaType(val, key) {
+      if (val === null) return 'String?';
+      if (typeof val === 'boolean') return 'Boolean';
+      if (typeof val === 'number') return Number.isInteger(val) ? 'Int' : 'Float';
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val)) return 'DateTime';
+        if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return 'DateTime';
+        return 'String';
+      }
+      if (Array.isArray(val)) return null; // handled separately
+      if (typeof val === 'object') return null; // nested model
+      return 'String';
+    }
+
+    function toPascal(str) {
+      return str.replace(/(?:^|[_\-\s])(\w)/g, (_, c) => c.toUpperCase());
+    }
+
+    // ── Model generation ──────────────────────────────
+    function generateModels(obj, modelName, models) {
+      const fields = [];
+      modelCount++;
+
+      // Check if there's already an @id field
+      const hasId = Object.keys(obj).some(k => ['id', '_id', 'uuid', 'guid'].includes(k.toLowerCase()));
+      if (addIdEl.checked && !hasId) {
+        fields.push({ name: 'id', type: 'Int', attrs: ['@id', '@default(autoincrement())'] });
+        fieldCount++;
+      }
+
+      for (const [key, val] of Object.entries(obj)) {
+        fieldCount++;
+        const isIdKey = ['id', '_id', 'uuid', 'guid'].includes(key.toLowerCase());
+
+        if (Array.isArray(val)) {
+          if (val.length > 0 && typeof val[0] === 'object' && val[0] !== null) {
+            const childName = toPascal(key.replace(/s$/, '')); // pluralization heuristic
+            generateModels(val[0], childName, models);
+            const attrs = [];
+            if (isIdKey && addIdEl.checked) attrs.push('@id');
+            fields.push({ name: key, type: childName + '[]', attrs });
+          } else {
+            fields.push({ name: key, type: 'Json', attrs: ['// array of primitives'] });
+          }
+        } else if (val !== null && typeof val === 'object') {
+          const childName = toPascal(key);
+          generateModels(val, childName, models);
+          const fkName = key + 'Id';
+          fields.push({ name: key, type: childName + '?', attrs: ['@relation(fields: [' + fkName + '], references: [id])'] });
+          fields.push({ name: fkName, type: 'Int?', attrs: [] });
+        } else {
+          const type = inferPrismaType(val, key);
+          const attrs = [];
+          if (isIdKey && addIdEl.checked) {
+            attrs.push('@id');
+            if (type === 'Int') attrs.push('@default(autoincrement())');
+          }
+          fields.push({ name: key, type, attrs });
+        }
+      }
+
+      models.push({ name: modelName, fields });
+    }
+
+    // ── Syntax highlight ──────────────────────────────
+    function highlight(raw) {
+      return raw
+        .replace(/^(model|enum|datasource|generator)(\s)/gm, '<span class="pr-kw">$1</span>$2')
+        .replace(/^(\s+)(\w+)(\s+)([\w?\[\]!]+)/gm, '$1<span class="pr-field">$2</span>$3<span class="pr-type">$4</span>')
+        .replace(/(@\w+(?:\([^)]*\))?)/g, '<span class="pr-attr">$1</span>')
+        .replace(/(\/\/[^\n]*)/g, '<span class="pr-comment">$1</span>');
+    }
+
+    // ── Render ────────────────────────────────────────
+    function render() {
+      const raw = inputEl.value.trim();
+      if (!raw) {
+        showEmpty();
+        return;
+      }
+
+      let parsed;
+      try {
+        parsed = JSON.parse(raw);
+      } catch (e) {
+        showError(e.message);
+        return;
+      }
+
+      if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+        // If root is array, use first element
+        if (Array.isArray(parsed) && parsed.length > 0 && typeof parsed[0] === 'object') {
+          parsed = parsed[0];
+        } else {
+          showError('Root JSON value must be an object (or array of objects).');
+          return;
+        }
+      }
+
+      modelCount = 0;
+      fieldCount = 0;
+      const models = [];
+      const rootName = toPascal(rootNameEl.value.trim() || 'MyModel');
+      generateModels(parsed, rootName, models);
+
+      let output = '';
+
+      // Optional datasource block
+      if (dsToggle.checked) {
+        output += `datasource db {\n  provider = "postgresql"\n  url      = env("DATABASE_URL")\n}\n\ngenerator client {\n  provider = "prisma-client-js"\n}\n\n`;
+      }
+
+      for (const model of models) {
+        output += `model ${model.name} {\n`;
+        for (const f of model.fields) {
+          const attrStr = f.attrs.length ? '  ' + f.attrs.join(' ') : '';
+          const nameCol = f.name.padEnd(20);
+          const typeCol = f.type.padEnd(16);
+          output += `  ${nameCol}${typeCol}${attrStr}\n`;
+        }
+        output += `}\n\n`;
+      }
+
+      lastRaw = output.trim();
+      hideError();
+      outputEl.classList.remove('ts-output--empty');
+      outputEl.innerHTML = highlight(output.trim());
+      statsEl.style.display = 'flex';
+      statModels.textContent = modelCount;
+      statFields.textContent = fieldCount;
+    }
+
+    function showEmpty() {
+      outputEl.textContent = 'Prisma schema will appear here…';
+      outputEl.classList.add('ts-output--empty');
+      hideError();
+      statsEl.style.display = 'none';
+    }
+    function showError(msg) {
+      errorMsgEl.textContent = msg;
+      errorEl.style.display = 'flex';
+      inputEl.classList.add('error');
+      statsEl.style.display = 'none';
+    }
+    function hideError() {
+      errorEl.style.display = 'none';
+      inputEl.classList.remove('error');
+    }
+
+    // ── Events ────────────────────────────────────────
+    genBtn.addEventListener('click', render);
+
+    let debounceTimer;
+    inputEl.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(render, 400);
+    });
+    rootNameEl.addEventListener('input', () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(render, 200); });
+    addIdEl.addEventListener('change', render);
+    dsToggle.addEventListener('change', render);
+
+    copyBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      navigator.clipboard.writeText(lastRaw).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1800);
+      });
+    });
+
+    dlBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      const blob = new Blob([lastRaw], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'schema.prisma';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      inputEl.value = '';
+      showEmpty();
+    });
+
+    // Auto-generate on load with placeholder hint
+    render();
+  })();
+  </script>
+
+</body>
+</html>

@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <!-- ── Performance: DNS prefetch & preconnect ─────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
   <title>JSON Tree Viewer Online — Collapsible Node Explorer | JSON2X</title>
   <meta name="description" content="Explore complex nested objects with our interactive json tree viewer online. Search keys, expand nodes, and inspect data visually." />
   <meta name="keywords" content="json tree viewer online, chrome extension, tree structure viewer" />
   <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0d1117" />
   <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="https://json2x.com/tools/json-tree-viewer.html" />
@@ -17,13 +22,13 @@
   <meta property="og:title"       content="JSON Tree Viewer Online — Collapsible Node Explorer" />
   <meta property="og:description" content="Explore complex nested objects with our interactive json tree viewer online. Search keys, expand nodes, and inspect data visually." />
   <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image"       content="https://json2x.com/assets/images/tools/json-tree-viewer.jpg" />
   <meta property="og:locale"      content="en_US" />
 
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="JSON Tree Viewer Online — Collapsible Node Explorer" />
   <meta name="twitter:description" content="Explore JSON as a collapsible, searchable tree. Free and browser-side." />
-  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:image"       content="https://json2x.com/assets/images/tools/json-tree-viewer.jpg" />
 
   <!-- SoftwareApplication Schema -->
   <script type="application/ld+json">
@@ -84,6 +89,10 @@
   }
   </script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <!-- ── Performance: Preload critical CSS ──────────────── -->
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+
   <link rel="stylesheet" href="/assets/css/design-system.css" />
   <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
   <style>
@@ -262,8 +271,9 @@
   </main>
 
   <div id="site-footer-placeholder"></div>
-  <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
   <script>
     /**
      * Recursive tree renderer.

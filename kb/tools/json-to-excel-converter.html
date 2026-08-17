@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to Excel Converter — Export JSON to CSV for Excel | JSON2X</title>
+  <meta name="description" content="Convert JSON to Excel format by exporting as CSV. Works with nested JSON objects, arrays, and custom delimiters. Opens directly in Excel and Google Sheets." />
+  <meta name="keywords" content="json to excel, convert json to excel, json to xlsx, json export to excel, json to spreadsheet, json to csv excel" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/tools/json-to-excel-converter.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/tools/json-to-excel-converter.html" />
+  <meta property="og:title"       content="JSON to Excel Converter — Export JSON to CSV for Excel" />
+  <meta property="og:description" content="Convert JSON to Excel format by exporting as CSV. Works with nested JSON objects, arrays, and custom delimiters. Opens directly in Excel and Google Sheets." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON to Excel: Export JSON Arrays to Spreadsheet Format" />
+  <meta name="twitter:description" content="Convert JSON to Excel format by exporting as CSV. Works with nested JSON objects, arrays, and custom delimiters. Opens directly in Excel and Google Sheets." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/tools/json-to-excel-converter.html#article",
+      "headline": "JSON to Excel Converter — Export JSON to CSV for Excel",
+      "description": "Convert JSON to Excel format by exporting as CSV. Works with nested JSON objects, arrays, and custom delimiters. Opens directly in Excel and Google Sheets.",
+      "url": "https://json2x.com/kb/tools/json-to-excel-converter.html",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "JSON to Excel",
+        "url": "https://json2x.com/tools/json-to-csv.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON2X",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/tools/json-to-excel-converter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Converter",
+          "item": "https://json2x.com/kb/tools/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "JSON to Excel",
+          "item": "https://json2x.com/kb/tools/json-to-excel-converter.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/tools/json-to-excel-converter.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I open the JSON2X CSV output directly in Excel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Click Download CSV and the file opens directly in Excel with columns auto-populated from your JSON keys."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Excel support nested JSON?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not natively. Our converter flattens nested objects using dot notation (e.g., address.city becomes a separate column), making it compatible with Excel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What delimiter should I use for European Excel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "European locale Excel uses semicolon (;) as the CSV separator because the comma is the decimal separator. Select semicolon delimiter in our tool before downloading."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert to .xlsx format directly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our tool exports CSV, which Excel opens natively. For true .xlsx output, import the CSV into Excel and re-save as .xlsx."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+  <style>
+    .prose h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin:var(--space-8) 0 var(--space-3); }
+    .prose h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin:var(--space-5) 0 var(--space-2); color:var(--text-secondary); }
+    .prose p  { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-4); }
+    .prose ul, .prose ol { padding-left:var(--space-6); margin-bottom:var(--space-4); }
+    .prose li { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-2); }
+    .prose code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 5px; color:var(--accent); }
+    .prose a { color:var(--accent); }
+    .code-block { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-5); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); white-space:pre; overflow-x:auto; margin-bottom:var(--space-8); color:var(--text-primary); }
+    .faq-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--space-5); }
+    .faq-card { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card__q { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); }
+    .faq-card__a { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .cta-banner { background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-8); text-align:center; margin:var(--space-10) 0; }
+    .cta-banner h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin-bottom:var(--space-3); }
+    .cta-banner p { font-size:var(--text-base); color:var(--text-secondary); margin-bottom:var(--space-5); }
+    .sidebar-links { margin-top:var(--space-3); padding-left:var(--space-4); }
+    .sidebar-links li { font-size:var(--text-sm); margin-bottom:var(--space-2); }
+    @media (min-width: 900px) {
+      .content-layout { display:grid; grid-template-columns:1fr 280px; gap:var(--space-10); align-items:start; }
+    }
+    .sidebar { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); position:sticky; top:80px; }
+    .sidebar h3 { font-size:var(--text-sm); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:var(--space-3); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding:var(--space-10) var(--space-4) var(--space-16)">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+        <div class="tool-hero__badge">Converter</div>
+        <h1 class="tool-hero__title">JSON to Excel: Export JSON Arrays to Spreadsheet Format</h1>
+        <p class="tool-hero__desc">Convert JSON to Excel format by exporting as CSV. Works with nested JSON objects, arrays, and custom delimiters. Opens directly in Excel and Google Sheets.</p>
+      </div>
+
+      <div class="content-layout">
+        <!-- ── Main Content ─────────────────────────────── -->
+        <article class="prose">
+          
+      <h2>Convert JSON to Excel in 3 Steps</h2>
+      <p>Excel cannot open JSON files natively, but it reads CSV files perfectly. Converting your JSON array to CSV and opening in Excel is the fastest way to get JSON data into a spreadsheet.</p>
+      <ol>
+        <li>Paste your JSON array into our JSON to CSV tool</li>
+        <li>Click Download CSV</li>
+        <li>Open the downloaded <code>.csv</code> file in Excel, Google Sheets, or Numbers</li>
+      </ol>
+      <h3>Why CSV Instead of .xlsx?</h3>
+      <p>CSV is a universal format that all spreadsheet applications open natively. XLSX files require specific library support. By exporting CSV, we ensure compatibility with Excel 2007+, Google Sheets, LibreOffice Calc, Apple Numbers, and any data analysis tool.</p>
+      <h2>Handling Nested JSON for Excel</h2>
+      <p>Excel's flat structure doesn't naturally accommodate nested JSON. Our converter automatically flattens nested objects using dot notation (<code>address.city</code>) so every piece of data fits into a spreadsheet column.</p>
+      <h3>Best Practices for JSON to Excel</h3>
+      <ul>
+        <li>Keep all objects in the array with the same structure for clean column headers</li>
+        <li>Avoid deeply nested arrays — they become complex to flatten into rows</li>
+        <li>Use the semicolon delimiter for European locale Excel (comma is decimal separator)</li>
+      </ul>
+
+          <h2>Code Example</h2>
+          <div class="code-block">// JSON Array Input
+[
+  { "id": 1, "name": "Alice", "dept": "Engineering", "salary": 95000 },
+  { "id": 2, "name": "Bob",   "dept": "Design",      "salary": 82000 },
+  { "id": 3, "name": "Carol", "dept": "Marketing",   "salary": 78000 }
+]
+
+// CSV Output (opens directly in Excel)
+id,name,dept,salary
+1,Alice,Engineering,95000
+2,Bob,Design,82000
+3,Carol,Marketing,78000
+
+// After opening in Excel:
+// → Auto-creates columns: id | name | dept | salary
+// → Ready for pivot tables, charts, and VLOOKUP</div>
+
+          <!-- CTA -->
+          <div class="cta-banner">
+            <h2>Try It Free — No Sign-Up Required</h2>
+            <p>100% browser-based. Your data never leaves your machine.</p>
+            <a href="https://json2x.com/tools/json-to-csv.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8);text-decoration:none;font-size:var(--text-base);font-weight:var(--font-semibold);">
+              Open JSON to Excel →
+            </a>
+          </div>
+
+          <!-- FAQ -->
+          <section style="margin-top:var(--space-10)">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid" style="margin-top:var(--space-5)">
+              
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I open the JSON2X CSV output directly in Excel?</h3>
+      <p class="faq-card__a">Yes. Click Download CSV and the file opens directly in Excel with columns auto-populated from your JSON keys.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Does Excel support nested JSON?</h3>
+      <p class="faq-card__a">Not natively. Our converter flattens nested objects using dot notation (e.g., address.city becomes a separate column), making it compatible with Excel.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">What delimiter should I use for European Excel?</h3>
+      <p class="faq-card__a">European locale Excel uses semicolon (;) as the CSV separator because the comma is the decimal separator. Select semicolon delimiter in our tool before downloading.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I convert to .xlsx format directly?</h3>
+      <p class="faq-card__a">Our tool exports CSV, which Excel opens natively. For true .xlsx output, import the CSV into Excel and re-save as .xlsx.</p>
+    </div>
+            </div>
+          </section>
+        </article>
+
+        <!-- ── Sidebar ──────────────────────────────────── -->
+        <aside class="sidebar">
+          <h3>Open the Tool</h3>
+          <a href="https://json2x.com/tools/json-to-csv.html" class="btn btn--primary" style="display:block;text-align:center;padding:var(--space-3);text-decoration:none;font-weight:var(--font-semibold);margin-bottom:var(--space-5);">
+            Launch Tool →
+          </a>
+
+          <h3>Related Tools</h3><ul class="sidebar-links"><li><a href="https://json2x.com/tools/json-to-csv.html" style="color:var(--accent);text-decoration:none;">JSON to CSV Converter →</a></li>
+<li><a href="https://json2x.com/tools/csv-to-json.html" style="color:var(--accent);text-decoration:none;">CSV to JSON Converter →</a></li>
+<li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter Online →</a></li></ul>
+          <h3 style="margin-top:var(--space-4)">More Guides</h3><ul class="sidebar-links"><li><a href="https://json2x.com/kb/tools/json-to-csv-converter.html" style="color:var(--accent);text-decoration:none;">JSON to CSV Converter: Flatten JSON Arrays to CSV Instantly</a></li></ul>
+
+          <h3 style="margin-top:var(--space-4)">All Tools</h3>
+          <ul class="sidebar-links">
+            <li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter</a></li>
+            <li><a href="https://json2x.com/tools/json-validator.html" style="color:var(--accent);text-decoration:none;">JSON Validator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-csv.html" style="color:var(--accent);text-decoration:none;">JSON to CSV</a></li>
+            <li><a href="https://json2x.com/tools/csv-to-json.html" style="color:var(--accent);text-decoration:none;">CSV to JSON</a></li>
+            <li><a href="https://json2x.com/tools/typescript-generator.html" style="color:var(--accent);text-decoration:none;">TypeScript Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-yaml.html" style="color:var(--accent);text-decoration:none;">JSON to YAML</a></li>
+            <li><a href="https://json2x.com/tools/json-diff.html" style="color:var(--accent);text-decoration:none;">JSON Diff</a></li>
+            <li><a href="https://json2x.com/tools/json-to-sql.html" style="color:var(--accent);text-decoration:none;">JSON to SQL</a></li>
+            <li><a href="https://json2x.com/tools/jsonpath.html" style="color:var(--accent);text-decoration:none;">JSONPath Tester</a></li>
+            <li><a href="https://json2x.com/tools/json-schema-generator.html" style="color:var(--accent);text-decoration:none;">Schema Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-prisma.html" style="color:var(--accent);text-decoration:none;">JSON to Prisma</a></li>
+            <li><a href="https://json2x.com/tools/json-to-drizzle.html" style="color:var(--accent);text-decoration:none;">JSON to Drizzle</a></li>
+            <li><a href="https://json2x.com/tools/json-to-graphql.html" style="color:var(--accent);text-decoration:none;">JSON to GraphQL</a></li>
+            <li><a href="https://json2x.com/tools/json-to-zod.html" style="color:var(--accent);text-decoration:none;">JSON to Zod</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+</body>
+</html>

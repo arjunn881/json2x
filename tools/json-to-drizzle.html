@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ── Performance ────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON to Drizzle ORM Schema Generator — Free Online | JSON2X</title>
+  <meta name="description" content="Generate Drizzle ORM table schemas from JSON instantly. Produces pgTable, mysqlTable, or sqliteTable definitions with correct column types. Free, 100% client-side." />
+  <meta name="keywords" content="json to drizzle orm, drizzle schema generator, json to drizzle table, drizzle orm from json, generate drizzle schema" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/tools/json-to-drizzle.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://json2x.com/tools/json-to-drizzle.html" />
+  <meta property="og:title" content="JSON to Drizzle ORM Schema Generator" />
+  <meta property="og:description" content="Convert JSON to Drizzle ORM table definitions (pgTable, mysqlTable, sqliteTable) with correct column types." />
+  <meta property="og:site_name" content="JSON2X" />
+  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON to Drizzle ORM — JSON2X" />
+  <meta name="twitter:description" content="Generate Drizzle ORM table schemas from JSON free in your browser." />
+  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JSON to Drizzle ORM Schema Generator",
+    "url": "https://json2x.com/tools/json-to-drizzle.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any (browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Convert any JSON object into a Drizzle ORM schema definition. Supports pgTable, mysqlTable, and sqliteTable with correct column types and primaryKey annotations. 100% client-side.",
+    "featureList": [
+      "Generate Drizzle ORM table schema from JSON",
+      "Supports pgTable, mysqlTable, sqliteTable",
+      "Correct column types (text, integer, real, boolean, timestamp)",
+      "primaryKey and notNull annotations",
+      "Copy and Download .ts output"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://json2x.com/tools/index.html" },
+      { "@type": "ListItem", "position": 3, "name": "JSON to Drizzle ORM", "item": "https://json2x.com/tools/json-to-drizzle.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Drizzle ORM?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Drizzle ORM is a lightweight, type-safe TypeScript ORM for Node.js that supports PostgreSQL, MySQL, and SQLite. Unlike Prisma, Drizzle schemas are defined in TypeScript using builder functions like pgTable(), giving you full type inference without a separate schema file." }
+      },
+      {
+        "@type": "Question",
+        "name": "What databases does the generator support?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The generator supports all three Drizzle-supported databases: PostgreSQL (pgTable), MySQL (mysqlTable), and SQLite (sqliteTable). Switch the dialect using the toolbar dropdown." }
+      },
+      {
+        "@type": "Question",
+        "name": "How are JSON types mapped to Drizzle column types?",
+        "acceptedAnswer": { "@type": "Answer", "text": "string → text(), integer → integer(), float → real() / doublePrecision(), boolean → boolean() (pg) or integer() (sqlite), ISO date strings → timestamp() / datetime(), null → optional field, nested objects → json() or separate table reference." }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+
+  <style>
+    .dr-kw      { color: var(--ts-kw); }
+    .dr-fn      { color: var(--ts-name); }
+    .dr-field   { color: var(--ts-key); }
+    .dr-type    { color: var(--ts-type); }
+    .dr-str     { color: var(--hl-str); }
+    .dr-punc    { color: var(--text-muted); }
+    .dr-comment { color: var(--text-muted); font-style: italic; }
+
+    .ts-workspace { display:grid; gap:var(--space-5); margin-bottom:var(--space-5); }
+    @media (min-width: 800px) { .ts-workspace { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+    .ts-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:var(--space-2); padding:var(--space-3) var(--space-4); background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-lg); margin-bottom:var(--space-4); }
+    .ts-toolbar__divider { width:1px; height:24px; background:var(--bg-border); flex-shrink:0; margin-inline:var(--space-1); }
+    .ts-toolbar__label   { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+    .ts-select { padding:var(--space-2) var(--space-3); background:var(--bg-base); color:var(--text-primary); border:1px solid var(--bg-border); border-radius:var(--radius-md); font-size:var(--text-xs); font-weight:var(--font-semibold); cursor:pointer; outline:none; transition:border-color var(--transition-fast); }
+    .ts-select:focus { border-color:var(--accent); }
+    .ts-input { padding:var(--space-2) var(--space-3); background:var(--bg-base); color:var(--text-primary); border:1px solid var(--bg-border); border-radius:var(--radius-md); font-size:var(--text-xs); font-family:var(--font-mono); outline:none; width:140px; transition:border-color var(--transition-fast); }
+    .ts-input:focus { border-color:var(--accent); }
+    .toggle-check { display:inline-flex; align-items:center; gap:var(--space-2); font-size:var(--text-xs); font-weight:var(--font-medium); color:var(--text-secondary); cursor:pointer; user-select:none; }
+    .toggle-check input { accent-color:var(--accent); width:14px; height:14px; }
+
+    .ts-pane { display:flex; flex-direction:column; }
+    .ts-pane__header { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-2); }
+    .ts-pane__title  { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.08em; }
+    .ts-textarea { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-4); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); color:var(--text-primary); outline:none; resize:vertical; min-height:320px; tab-size:2; transition:border-color var(--transition-fast), box-shadow var(--transition-fast); }
+    .ts-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .ts-textarea.error { border-color:var(--error); box-shadow:0 0 0 3px var(--error-bg); }
+    .ts-output { font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-4); min-height:320px; max-height:600px; overflow:auto; white-space:pre; tab-size:2; color:var(--text-primary); }
+    .ts-output--empty { color:var(--text-muted); font-style:italic; white-space:pre-wrap; }
+    .ts-error { display:flex; align-items:flex-start; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--error-bg); color:var(--error); border:1px solid hsla(0,82%,63%,0.3); border-radius:var(--radius-md); font-size:var(--text-xs); margin-bottom:var(--space-4); }
+    .ts-error__badge { flex-shrink:0; background:var(--error); color:#fff; border-radius:var(--radius-sm); padding:1px var(--space-2); font-weight:var(--font-semibold); font-family:var(--font-mono); }
+    .ts-stats { display:flex; gap:var(--space-4); font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3); }
+    .ts-stat { display:flex; gap:var(--space-2); align-items:center; }
+    .ts-stat__val { font-family:var(--font-mono); font-weight:var(--font-semibold); color:var(--text-secondary); }
+
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-card code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 4px; color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content" data-tool="json-to-drizzle">
+    <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">Drizzle ORM</div>
+        <h1 class="tool-hero__title">JSON to Drizzle ORM Schema</h1>
+      </div>
+
+      <div class="ts-toolbar" role="toolbar">
+        <span class="ts-toolbar__label">Table name</span>
+        <input class="ts-input" id="table-name" type="text" value="myTable" aria-label="Table name" maxlength="60" />
+
+        <div class="ts-toolbar__divider"></div>
+
+        <span class="ts-toolbar__label">Dialect</span>
+        <select class="ts-select" id="dialect-sel" aria-label="Database dialect">
+          <option value="pg">PostgreSQL (pgTable)</option>
+          <option value="mysql">MySQL (mysqlTable)</option>
+          <option value="sqlite">SQLite (sqliteTable)</option>
+        </select>
+
+        <div class="ts-toolbar__divider"></div>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="add-id-toggle" checked />
+          Auto primary key
+        </label>
+
+        <div class="ts-toolbar__divider"></div>
+
+        <button class="btn btn--primary" id="generate-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Generate
+        </button>
+        <button class="btn btn--ghost" id="copy-btn">Copy</button>
+        <button class="btn btn--ghost" id="download-btn">Download .ts</button>
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <div class="ts-workspace">
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">JSON Input</span>
+            <span id="input-meta" class="text-xs text-muted"></span>
+          </div>
+          <textarea class="ts-textarea" id="json-input" aria-label="JSON input" spellcheck="false" autocorrect="off"
+            placeholder='{&#10;  "id": 1,&#10;  "name": "Alice",&#10;  "email": "alice@example.com",&#10;  "age": 28,&#10;  "active": true,&#10;  "score": 4.5,&#10;  "createdAt": "2024-01-01T00:00:00.000Z"&#10;}'></textarea>
+        </div>
+
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">Drizzle Schema Output</span>
+          </div>
+
+          <div id="ts-error" class="ts-error" style="display:none">
+            <span class="ts-error__badge">ERR</span>
+            <span id="ts-error-msg"></span>
+          </div>
+
+          <div class="ts-stats" id="ts-stats" style="display:none">
+            <div class="ts-stat"><span>Columns</span><span class="ts-stat__val" id="stat-cols">0</span></div>
+          </div>
+
+          <pre class="ts-output ts-output--empty" id="ts-output">Drizzle schema will appear here…</pre>
+        </div>
+      </div>
+
+      <div class="tool-info-prose" style="margin-top:var(--space-8);margin-bottom:var(--space-6);max-width:800px;">
+        <p class="tool-hero__desc" style="font-size:var(--text-base);color:var(--text-secondary);line-height:var(--leading-relaxed)">Paste any JSON and get a ready-to-use <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">pgTable()</code>, <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">mysqlTable()</code>, or <code style="font-size:0.8em;background:var(--bg-raised);padding:2px 6px;border-radius:4px">sqliteTable()</code> definition for Drizzle ORM. Includes correct column types and import statements.</p>
+      </div>
+      <div id="related-tools-placeholder" data-current="json-to-drizzle"></div>
+
+      <section class="faq-section">
+        <p class="faq-eyebrow">Guide</p>
+        <h2 class="faq-title">About JSON to Drizzle ORM Generation</h2>
+        <div class="faq-grid">
+          <div class="faq-card">
+            <h3>Column type mapping</h3>
+            <p><code>string</code> → <code>text()</code>, integer → <code>integer()</code>, float → <code>real()</code> (SQLite) / <code>doublePrecision()</code> (PG), boolean → <code>boolean()</code>, ISO date → <code>timestamp()</code>, null → column marked <code>.default(null)</code>.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Dialect differences</h3>
+            <p>PostgreSQL uses <code>pgTable</code> and supports native <code>boolean()</code> and <code>timestamp()</code>. MySQL uses <code>mysqlTable</code> with <code>tinyint()</code> for booleans. SQLite uses <code>sqliteTable</code> with <code>integer()</code> for booleans and <code>text()</code> for dates.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Primary keys</h3>
+            <p>If "Auto primary key" is enabled, the generator detects <code>id</code> fields and marks them with <code>.primaryKey()</code>. If none exist, a synthetic <code>id: integer('id').primaryKey().notNull()</code> is prepended.</p>
+          </div>
+          <div class="faq-card">
+            <h3>Import statement</h3>
+            <p>The output includes the correct import line for the selected dialect, e.g. <code>import &#123; pgTable, text, integer &#125; from 'drizzle-orm/pg-core'</code> so you can paste directly into your project.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    const inputEl    = document.getElementById('json-input');
+    const outputEl   = document.getElementById('ts-output');
+    const errorEl    = document.getElementById('ts-error');
+    const errorMsgEl = document.getElementById('ts-error-msg');
+    const statsEl    = document.getElementById('ts-stats');
+    const statCols   = document.getElementById('stat-cols');
+    const tableNameEl= document.getElementById('table-name');
+    const dialectSel = document.getElementById('dialect-sel');
+    const addIdEl    = document.getElementById('add-id-toggle');
+    const genBtn     = document.getElementById('generate-btn');
+    const copyBtn    = document.getElementById('copy-btn');
+    const dlBtn      = document.getElementById('download-btn');
+    const clearBtn   = document.getElementById('clear-btn');
+
+    let lastRaw = '';
+
+    const DIALECTS = {
+      pg:     { pkg: 'drizzle-orm/pg-core',    tbl: 'pgTable',     bool: 'boolean', date: 'timestamp', float: 'doublePrecision' },
+      mysql:  { pkg: 'drizzle-orm/mysql-core',  tbl: 'mysqlTable',  bool: 'tinyint', date: 'datetime',  float: 'double' },
+      sqlite: { pkg: 'drizzle-orm/sqlite-core', tbl: 'sqliteTable', bool: 'integer', date: 'text',       float: 'real' },
+    };
+
+    function inferDrizzle(val, dialect) {
+      const d = DIALECTS[dialect];
+      if (val === null) return { fn: 'text', extra: '.default(null)' };
+      if (typeof val === 'boolean') return { fn: d.bool, extra: '' };
+      if (typeof val === 'number') {
+        return Number.isInteger(val) ? { fn: 'integer', extra: '' } : { fn: d.float, extra: '' };
+      }
+      if (typeof val === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val) || /^\d{4}-\d{2}-\d{2}$/.test(val)) {
+          return { fn: d.date, extra: '' };
+        }
+        return { fn: 'text', extra: '' };
+      }
+      return { fn: 'text', extra: '' }; // fallback for objects/arrays → json or text
+    }
+
+    function toCamel(str) {
+      return str.replace(/[_\-\s](.)/g, (_, c) => c.toUpperCase());
+    }
+
+    function render() {
+      const raw = inputEl.value.trim();
+      if (!raw) { showEmpty(); return; }
+
+      let parsed;
+      try { parsed = JSON.parse(raw); } catch (e) { showError(e.message); return; }
+      if (Array.isArray(parsed)) {
+        if (parsed.length > 0 && typeof parsed[0] === 'object') parsed = parsed[0];
+        else { showError('Root array must contain at least one object.'); return; }
+      }
+      if (typeof parsed !== 'object' || parsed === null) { showError('Root JSON must be an object.'); return; }
+
+      const dialect = dialectSel.value;
+      const d = DIALECTS[dialect];
+      const tableName = toCamel(tableNameEl.value.trim() || 'myTable');
+      const entries = Object.entries(parsed);
+
+      // Collect used column functions for import
+      const usedFns = new Set([d.tbl]);
+      const cols = [];
+
+      const hasId = entries.some(([k]) => ['id', '_id'].includes(k.toLowerCase()));
+      if (addIdEl.checked && !hasId) {
+        usedFns.add('integer');
+        cols.push(`  id: integer('id').primaryKey().notNull()`);
+      }
+
+      for (const [key, val] of entries) {
+        const isId = addIdEl.checked && ['id', '_id'].includes(key.toLowerCase());
+        if (Array.isArray(val) || (val !== null && typeof val === 'object')) {
+          // JSON column for nested
+          usedFns.add('text');
+          cols.push(`  ${key}: text('${key}') // nested object — consider a separate table`);
+        } else {
+          const { fn, extra } = inferDrizzle(val, dialect);
+          usedFns.add(fn);
+          let chain = `.notNull()${extra}`;
+          if (isId) chain = `.primaryKey()${chain}`;
+          cols.push(`  ${key}: ${fn}('${key}')${chain}`);
+        }
+      }
+
+      const importLine = `import { ${[...usedFns].join(', ')} } from '${d.pkg}';`;
+      const tableBlock = `export const ${tableName} = ${d.tbl}('${tableName}', {\n${cols.join(',\n')}\n});`;
+      const output = `${importLine}\n\n${tableBlock}`;
+      lastRaw = output;
+
+      hideError();
+      outputEl.classList.remove('ts-output--empty');
+      outputEl.innerHTML = highlight(output);
+      statsEl.style.display = 'flex';
+      statCols.textContent = cols.length;
+    }
+
+    function highlight(raw) {
+      return raw
+        .replace(/\b(import|from|export|const)\b/g, '<span class="dr-kw">$1</span>')
+        .replace(/('drizzle-orm\/[^']*')/g, '<span class="dr-str">$1</span>')
+        .replace(/\b(pgTable|mysqlTable|sqliteTable|text|integer|real|boolean|timestamp|datetime|doublePrecision|double|tinyint)\b/g, '<span class="dr-fn">$1</span>')
+        .replace(/(\/\/ [^\n]*)/g, '<span class="dr-comment">$1</span>');
+    }
+
+    function showEmpty() {
+      outputEl.textContent = 'Drizzle schema will appear here…';
+      outputEl.classList.add('ts-output--empty');
+      hideError();
+      statsEl.style.display = 'none';
+    }
+    function showError(msg) {
+      errorMsgEl.textContent = msg;
+      errorEl.style.display = 'flex';
+      inputEl.classList.add('error');
+    }
+    function hideError() {
+      errorEl.style.display = 'none';
+      inputEl.classList.remove('error');
+    }
+
+    genBtn.addEventListener('click', render);
+    let t;
+    inputEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 400); });
+    tableNameEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 200); });
+    dialectSel.addEventListener('change', render);
+    addIdEl.addEventListener('change', render);
+
+    copyBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      navigator.clipboard.writeText(lastRaw).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1800);
+      });
+    });
+    dlBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      const blob = new Blob([lastRaw], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = tableNameEl.value.trim() + '.schema.ts';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+    clearBtn.addEventListener('click', () => { inputEl.value = ''; showEmpty(); });
+
+    render();
+  })();
+  </script>
+</body>
+</html>

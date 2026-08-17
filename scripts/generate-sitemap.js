@@ -11,6 +11,27 @@ const EXCLUDE_FILES = [
   'schema.html', 'viewer.html', 'json-to-ts.html'
 ];
 
+// Per-tool unique OG preview images for Google Image Search
+const TOOL_IMAGES = {
+  'tools/json-formatter.html':       { file: '/assets/images/tools/json-formatter.jpg',       caption: 'JSON Formatter & Beautifier — JSON2X' },
+  'tools/json-validator.html':       { file: '/assets/images/tools/json-validator.jpg',       caption: 'JSON Validator & Linter — JSON2X' },
+  'tools/json-to-csv.html':          { file: '/assets/images/tools/json-to-csv.jpg',          caption: 'JSON to CSV Converter — JSON2X' },
+  'tools/csv-to-json.html':          { file: '/assets/images/tools/csv-to-json.jpg',          caption: 'CSV to JSON Parser — JSON2X' },
+  'tools/typescript-generator.html': { file: '/assets/images/tools/typescript-generator.jpg', caption: 'JSON to TypeScript Interface & Zod Schema Generator — JSON2X' },
+  'tools/json-to-yaml.html':         { file: '/assets/images/tools/json-to-yaml.jpg',         caption: 'JSON to YAML Converter — JSON2X' },
+  'tools/json-diff.html':            { file: '/assets/images/tools/json-diff.jpg',            caption: 'JSON Diff Checker — Compare JSON Objects Visually — JSON2X' },
+  'tools/json-to-sql.html':          { file: '/assets/images/tools/json-to-sql.jpg',          caption: 'JSON to SQL Table & INSERT Statements Generator — JSON2X' },
+  'tools/json-tree-viewer.html':     { file: '/assets/images/tools/json-tree-viewer.jpg',     caption: 'JSON Tree Viewer — Interactive JSON Explorer — JSON2X' },
+  'tools/json-minifier.html':        { file: '/assets/images/tools/json-minifier.jpg',        caption: 'JSON Minifier & Compressor — Compress JSON for Production — JSON2X' },
+  'tools/json-to-xml.html':          { file: '/assets/images/tools/json-to-xml.jpg',          caption: 'JSON to XML Converter — JSON2X' },
+  'tools/json-to-toml.html':         { file: '/assets/images/tools/json-to-toml.jpg',         caption: 'JSON to TOML Converter — JSON2X' },
+  'tools/json-schema-generator.html':{ file: '/assets/images/tools/json-schema-generator.jpg',caption: 'JSON Schema Generator — Draft-07 Schema Inference — JSON2X' },
+  'tools/json-to-prisma.html':       { file: '/assets/og-image.png',                          caption: 'JSON to Prisma Schema Generator — JSON2X' },
+  'tools/json-to-drizzle.html':      { file: '/assets/og-image.png',                          caption: 'JSON to Drizzle ORM Schema Generator — JSON2X' },
+  'tools/json-to-graphql.html':      { file: '/assets/og-image.png',                          caption: 'JSON to GraphQL Type Definitions Generator — JSON2X' },
+  'tools/json-to-zod.html':          { file: '/assets/og-image.png',                          caption: 'JSON to Zod Schema Generator — JSON2X' },
+};
+
 function walkDir(dir) {
   let results = [];
   const list = fs.readdirSync(dir);
@@ -35,12 +56,51 @@ function formatDate(date) {
 }
 
 function getPriorityAndFreq(relPath) {
-  if (relPath === 'index.html') return { priority: '1.0', freq: 'weekly' };
-  if (relPath === 'tools/index.html') return { priority: '0.95', freq: 'weekly' };
-  if (relPath.startsWith('tools/')) return { priority: '0.90', freq: 'monthly' };
-  if (relPath === 'blog/index.html' || relPath === 'errors/index.html') return { priority: '0.80', freq: 'weekly' };
-  if (relPath.startsWith('blog/') || relPath.startsWith('errors/')) return { priority: '0.75', freq: 'monthly' };
-  return { priority: '0.50', freq: 'yearly' };
+  // Tier 1: Highest Priority (1.0 - 0.90) — Core Interactive Tools & Hub
+  if (relPath === 'index.html') return { priority: '1.0', freq: 'daily' };
+  
+  const topTierTools = [
+    'tools/json-formatter.html', 'tools/json-validator.html',
+    'tools/json-to-csv.html', 'tools/csv-to-json.html'
+  ];
+  if (topTierTools.includes(relPath)) return { priority: '0.95', freq: 'weekly' };
+
+  if (relPath === 'tools/index.html' || relPath.startsWith('tools/')) {
+    return { priority: '0.90', freq: 'weekly' };
+  }
+
+  // Tier 2: High Priority (0.85 - 0.80) — Error Troubleshooting & Top Guides
+  const topErrors = [
+    'errors/unexpected-token.html', 'errors/trailing-comma.html',
+    'errors/invalid-character.html', 'errors/unexpected-end.html'
+  ];
+  if (topErrors.includes(relPath)) return { priority: '0.85', freq: 'weekly' };
+
+  const topGuides = [
+    'errors/index.html', 'docs/rfc8259-json-specification.html',
+    'kb/json-to-yaml-guide.html', 'kb/json-to-csv-guide.html',
+    'kb/typescript-json-guide.html',
+    'blog/how-to-format-validate-large-json-in-the-browser.html'
+  ];
+  if (topGuides.includes(relPath)) return { priority: '0.80', freq: 'weekly' };
+
+  // Tier 3: Medium Priority (0.75 - 0.65) — Documentation, Knowledge Base & Blog
+  if (relPath === 'docs/index.html' || relPath === 'kb/index.html' || relPath === 'blog/index.html') {
+    return { priority: '0.75', freq: 'weekly' };
+  }
+  if (relPath.startsWith('docs/') || relPath.startsWith('kb/') || relPath.startsWith('blog/')) {
+    return { priority: '0.70', freq: 'monthly' };
+  }
+
+  // Tier 4: Trust & Brand Signals (0.50 - 0.40)
+  const trustHigh = ['about.html', 'faq.html', 'security.html'];
+  if (trustHigh.includes(relPath)) return { priority: '0.50', freq: 'monthly' };
+
+  const trustMid = ['open-source.html', 'roadmap.html', 'changelog.html', 'editorial-policy.html', 'contact.html'];
+  if (trustMid.includes(relPath)) return { priority: '0.40', freq: 'monthly' };
+
+  // Tier 5: Legal & Administrative (0.25)
+  return { priority: '0.25', freq: 'yearly' };
 }
 
 function processPages() {
@@ -69,10 +129,23 @@ function processPages() {
 
     // Extract images
     const images = [];
-    const ogImg = content.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i);
-    if (ogImg) images.push({ url: ogImg[1].startsWith('http') ? ogImg[1] : BASE_URL + ogImg[1], title: title });
 
-    const imgTags = content.matchAll(/<img\s+[^>]*src=["']([^"']+)["'][^>]*alt=["']([^"']*)["']/gi);
+    // Inject unique per-tool OG image if available (takes priority over generic og-image.png)
+    if (TOOL_IMAGES[relPath]) {
+      const ti = TOOL_IMAGES[relPath];
+      images.push({ url: BASE_URL + ti.file, title: ti.caption });
+    }
+
+    const ogImg = content.match(/<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i);
+    if (ogImg) {
+      const ogUrl = ogImg[1].startsWith('http') ? ogImg[1] : BASE_URL + ogImg[1];
+      // Add the og:image only if it's NOT the generic image (we already have a unique one) OR if no unique image was added
+      if (!TOOL_IMAGES[relPath] && !images.some(i => i.url === ogUrl)) {
+        images.push({ url: ogUrl, title: title });
+      }
+    }
+
+    const imgTags = content.matchAll(/<img\s+[^>]*src=["']([^"']+)["'][^>]*alt=["']([^"']*)['"]/gi);
     for (const match of imgTags) {
       const src = match[1];
       const alt = match[2] || title;
@@ -98,9 +171,12 @@ function processPages() {
   return validPages;
 }
 
+const SUPPORTED_LANGUAGES = ['en', 'es', 'zh', 'ja', 'pt', 'de', 'fr', 'hi', 'ru', 'ar'];
+
 function buildSitemapXml(pages) {
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n`;
+  xml += `        xmlns:xhtml="http://www.w3.org/1999/xhtml"\n`;
   xml += `        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n\n`;
 
   pages.forEach(p => {
@@ -109,6 +185,13 @@ function buildSitemapXml(pages) {
     xml += `    <lastmod>${p.lastMod}</lastmod>\n`;
     xml += `    <changefreq>${p.freq}</changefreq>\n`;
     xml += `    <priority>${p.priority}</priority>\n`;
+    
+    // Multi-Language hreflang annotations
+    xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${p.url}"/>\n`;
+    SUPPORTED_LANGUAGES.forEach(lang => {
+      xml += `    <xhtml:link rel="alternate" hreflang="${lang}" href="${p.url}"/>\n`;
+    });
+
     if (p.images.length > 0) {
       p.images.forEach(img => {
         xml += `    <image:image>\n`;
@@ -208,12 +291,13 @@ function run() {
   fs.writeFileSync(path.join(WORKSPACE_ROOT, 'sitemap-images.xml'), imageSitemapContent);
   fs.writeFileSync(path.join(WORKSPACE_ROOT, 'sitemap-news.xml'), newsSitemapContent);
   fs.writeFileSync(path.join(WORKSPACE_ROOT, 'sitemap-index.xml'), indexSitemapContent);
+  fs.writeFileSync(path.join(WORKSPACE_ROOT, 'sitemap_index.xml'), indexSitemapContent);
 
-  console.log(`Successfully generated 4 dynamic sitemaps for ${pages.length} public URLs:`);
+  console.log(`Successfully generated 5 dynamic sitemaps for ${pages.length} public URLs:`);
   console.log(`   - sitemap.xml (${pages.length} URLs)`);
   console.log(`   - sitemap-images.xml`);
   console.log(`   - sitemap-news.xml (${pages.filter(p => p.isBlog).length} news URLs)`);
-  console.log(`   - sitemap-index.xml`);
+  console.log(`   - sitemap-index.xml & sitemap_index.xml`);
 }
 
 run();

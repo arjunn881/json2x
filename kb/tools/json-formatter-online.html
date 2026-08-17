@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>JSON Formatter Online — Prettify & Beautify JSON Instantly | JSON2X</title>
+  <meta name="description" content="Use our free JSON formatter online to prettify minified JSON with custom indentation, dark mode, and syntax highlighting. No upload, 100% client-side." />
+  <meta name="keywords" content="json formatter online, online json formatter, json beautifier online, json prettifier, format json online" />
+  <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://json2x.com/kb/tools/json-formatter-online.html" />
+
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://json2x.com/kb/tools/json-formatter-online.html" />
+  <meta property="og:title"       content="JSON Formatter Online — Prettify & Beautify JSON Instantly" />
+  <meta property="og:description" content="Use our free JSON formatter online to prettify minified JSON with custom indentation, dark mode, and syntax highlighting. No upload, 100% client-side." />
+  <meta property="og:site_name"   content="JSON2X" />
+  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:locale"      content="en_US" />
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="JSON Formatter Online: Free Browser-Based Prettifier" />
+  <meta name="twitter:description" content="Use our free JSON formatter online to prettify minified JSON with custom indentation, dark mode, and syntax highlighting. No upload, 100% client-side." />
+  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://json2x.com/kb/tools/json-formatter-online.html#article",
+      "headline": "JSON Formatter Online — Prettify & Beautify JSON Instantly",
+      "description": "Use our free JSON formatter online to prettify minified JSON with custom indentation, dark mode, and syntax highlighting. No upload, 100% client-side.",
+      "url": "https://json2x.com/kb/tools/json-formatter-online.html",
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "JSON Formatter Online",
+        "url": "https://json2x.com/tools/json-formatter.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "JSON2X",
+        "url": "https://json2x.com"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://json2x.com/kb/tools/json-formatter-online.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Knowledge Base",
+          "item": "https://json2x.com/kb/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Formatter",
+          "item": "https://json2x.com/kb/tools/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "JSON Formatter Online",
+          "item": "https://json2x.com/kb/tools/json-formatter-online.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://json2x.com/kb/tools/json-formatter-online.html#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the JSON formatter upload my data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. JSON2X processes all formatting entirely inside your browser using JavaScript. Your JSON never leaves your machine."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum JSON file size the formatter supports?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The formatter uses a Web Worker to handle files up to 100 MB without blocking the browser tab."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I format JSON with 4 spaces or tabs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Use the toolbar to switch between 2 spaces, 4 spaces, or tab indentation at any time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a JSON formatter and a JSON validator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A formatter only adjusts whitespace and indentation for readability. A validator checks the JSON against RFC 8259 syntax rules and reports errors with line numbers."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
+  <style>
+    .prose h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin:var(--space-8) 0 var(--space-3); }
+    .prose h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin:var(--space-5) 0 var(--space-2); color:var(--text-secondary); }
+    .prose p  { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-4); }
+    .prose ul, .prose ol { padding-left:var(--space-6); margin-bottom:var(--space-4); }
+    .prose li { font-size:var(--text-base); color:var(--text-secondary); line-height:var(--leading-relaxed); margin-bottom:var(--space-2); }
+    .prose code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 5px; color:var(--accent); }
+    .prose a { color:var(--accent); }
+    .code-block { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-5); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); white-space:pre; overflow-x:auto; margin-bottom:var(--space-8); color:var(--text-primary); }
+    .faq-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:var(--space-5); }
+    .faq-card { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card__q { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); }
+    .faq-card__a { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .cta-banner { background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-8); text-align:center; margin:var(--space-10) 0; }
+    .cta-banner h2 { font-size:var(--text-xl); font-weight:var(--font-bold); margin-bottom:var(--space-3); }
+    .cta-banner p { font-size:var(--text-base); color:var(--text-secondary); margin-bottom:var(--space-5); }
+    .sidebar-links { margin-top:var(--space-3); padding-left:var(--space-4); }
+    .sidebar-links li { font-size:var(--text-sm); margin-bottom:var(--space-2); }
+    @media (min-width: 900px) {
+      .content-layout { display:grid; grid-template-columns:1fr 280px; gap:var(--space-10); align-items:start; }
+    }
+    .sidebar { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); position:sticky; top:80px; }
+    .sidebar h3 { font-size:var(--text-sm); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:var(--space-3); }
+  </style>
+</head>
+<body>
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+    <div class="container" style="padding:var(--space-10) var(--space-4) var(--space-16)">
+      <div id="breadcrumb-placeholder"></div>
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+        <div class="tool-hero__badge">Formatter</div>
+        <h1 class="tool-hero__title">JSON Formatter Online: Free Browser-Based Prettifier</h1>
+        <p class="tool-hero__desc">Use our free JSON formatter online to prettify minified JSON with custom indentation, dark mode, and syntax highlighting. No upload, 100% client-side.</p>
+      </div>
+
+      <div class="content-layout">
+        <!-- ── Main Content ─────────────────────────────── -->
+        <article class="prose">
+          
+      <h2>What is a JSON Formatter?</h2>
+      <p>A JSON formatter (also called a JSON beautifier or prettifier) takes compact, hard-to-read JSON text and adds consistent indentation and line breaks. This makes the structure immediately readable for debugging, code reviews, and API development.</p>
+      <h3>Why Use a Browser-Based JSON Formatter?</h3>
+      <ul>
+        <li><strong>Instant results:</strong> No page reload, no file upload, no waiting for a server response.</li>
+        <li><strong>100% private:</strong> Your JSON payload never leaves your browser. No server logs, no tracking.</li>
+        <li><strong>Large file support:</strong> Web Worker processing handles files up to 100 MB without freezing the tab.</li>
+        <li><strong>Dark mode:</strong> Easy on the eyes during long debugging sessions.</li>
+      </ul>
+      <h2>How to Format JSON in Your Browser</h2>
+      <ol>
+        <li>Paste your raw or minified JSON into the input textarea.</li>
+        <li>Select your preferred indentation: 2 spaces, 4 spaces, or tabs.</li>
+        <li>The formatted output appears instantly with colour syntax highlighting.</li>
+        <li>Copy the output to clipboard or download as a <code>.json</code> file.</li>
+      </ol>
+      <h3>Common Use Cases</h3>
+      <ul>
+        <li>Debugging API responses from REST endpoints or GraphQL queries.</li>
+        <li>Making sense of minified production payloads copied from browser DevTools.</li>
+        <li>Reviewing JSON configuration files (webpack, tsconfig, package.json).</li>
+        <li>Cleaning up data exports from databases or CMS platforms.</li>
+      </ul>
+
+          <h2>Code Example</h2>
+          <div class="code-block">// Minified API response (hard to read)
+{"user":{"id":1,"name":"Alice","roles":["admin","editor"],"active":true}}
+
+// After JSON Formatter (2-space indent)
+{
+  "user": {
+    "id": 1,
+    "name": "Alice",
+    "roles": ["admin", "editor"],
+    "active": true
+  }
+}</div>
+
+          <!-- CTA -->
+          <div class="cta-banner">
+            <h2>Try It Free — No Sign-Up Required</h2>
+            <p>100% browser-based. Your data never leaves your machine.</p>
+            <a href="https://json2x.com/tools/json-formatter.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-8);text-decoration:none;font-size:var(--text-base);font-weight:var(--font-semibold);">
+              Open JSON Formatter Online →
+            </a>
+          </div>
+
+          <!-- FAQ -->
+          <section style="margin-top:var(--space-10)">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid" style="margin-top:var(--space-5)">
+              
+    <div class="faq-card">
+      <h3 class="faq-card__q">Does the JSON formatter upload my data?</h3>
+      <p class="faq-card__a">No. JSON2X processes all formatting entirely inside your browser using JavaScript. Your JSON never leaves your machine.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">What is the maximum JSON file size the formatter supports?</h3>
+      <p class="faq-card__a">The formatter uses a Web Worker to handle files up to 100 MB without blocking the browser tab.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">Can I format JSON with 4 spaces or tabs?</h3>
+      <p class="faq-card__a">Yes. Use the toolbar to switch between 2 spaces, 4 spaces, or tab indentation at any time.</p>
+    </div>
+
+    <div class="faq-card">
+      <h3 class="faq-card__q">What is the difference between a JSON formatter and a JSON validator?</h3>
+      <p class="faq-card__a">A formatter only adjusts whitespace and indentation for readability. A validator checks the JSON against RFC 8259 syntax rules and reports errors with line numbers.</p>
+    </div>
+            </div>
+          </section>
+        </article>
+
+        <!-- ── Sidebar ──────────────────────────────────── -->
+        <aside class="sidebar">
+          <h3>Open the Tool</h3>
+          <a href="https://json2x.com/tools/json-formatter.html" class="btn btn--primary" style="display:block;text-align:center;padding:var(--space-3);text-decoration:none;font-weight:var(--font-semibold);margin-bottom:var(--space-5);">
+            Launch Tool →
+          </a>
+
+          <h3>Related Tools</h3><ul class="sidebar-links"><li><a href="https://json2x.com/tools/json-validator.html" style="color:var(--accent);text-decoration:none;">JSON Validator Online →</a></li>
+<li><a href="https://json2x.com/tools/json-minifier.html" style="color:var(--accent);text-decoration:none;">JSON Minifier →</a></li>
+<li><a href="https://json2x.com/tools/json-to-csv.html" style="color:var(--accent);text-decoration:none;">JSON to CSV Converter →</a></li>
+<li><a href="https://json2x.com/tools/json-diff.html" style="color:var(--accent);text-decoration:none;">JSON Diff Checker →</a></li></ul>
+          <h3 style="margin-top:var(--space-4)">More Guides</h3><ul class="sidebar-links"><li><a href="https://json2x.com/kb/tools/json-formatter-free.html" style="color:var(--accent);text-decoration:none;">Free JSON Formatter: No Sign-Up, No File Upload Required</a></li>
+<li><a href="https://json2x.com/kb/tools/json-beautifier.html" style="color:var(--accent);text-decoration:none;">JSON Beautifier: Make Your JSON Beautiful & Readable</a></li>
+<li><a href="https://json2x.com/kb/tools/json-pretty-print.html" style="color:var(--accent);text-decoration:none;">JSON Pretty Print: Format JSON with Proper Indentation</a></li></ul>
+
+          <h3 style="margin-top:var(--space-4)">All Tools</h3>
+          <ul class="sidebar-links">
+            <li><a href="https://json2x.com/tools/json-formatter.html" style="color:var(--accent);text-decoration:none;">JSON Formatter</a></li>
+            <li><a href="https://json2x.com/tools/json-validator.html" style="color:var(--accent);text-decoration:none;">JSON Validator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-csv.html" style="color:var(--accent);text-decoration:none;">JSON to CSV</a></li>
+            <li><a href="https://json2x.com/tools/csv-to-json.html" style="color:var(--accent);text-decoration:none;">CSV to JSON</a></li>
+            <li><a href="https://json2x.com/tools/typescript-generator.html" style="color:var(--accent);text-decoration:none;">TypeScript Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-yaml.html" style="color:var(--accent);text-decoration:none;">JSON to YAML</a></li>
+            <li><a href="https://json2x.com/tools/json-diff.html" style="color:var(--accent);text-decoration:none;">JSON Diff</a></li>
+            <li><a href="https://json2x.com/tools/json-to-sql.html" style="color:var(--accent);text-decoration:none;">JSON to SQL</a></li>
+            <li><a href="https://json2x.com/tools/jsonpath.html" style="color:var(--accent);text-decoration:none;">JSONPath Tester</a></li>
+            <li><a href="https://json2x.com/tools/json-schema-generator.html" style="color:var(--accent);text-decoration:none;">Schema Generator</a></li>
+            <li><a href="https://json2x.com/tools/json-to-prisma.html" style="color:var(--accent);text-decoration:none;">JSON to Prisma</a></li>
+            <li><a href="https://json2x.com/tools/json-to-drizzle.html" style="color:var(--accent);text-decoration:none;">JSON to Drizzle</a></li>
+            <li><a href="https://json2x.com/tools/json-to-graphql.html" style="color:var(--accent);text-decoration:none;">JSON to GraphQL</a></li>
+            <li><a href="https://json2x.com/tools/json-to-zod.html" style="color:var(--accent);text-decoration:none;">JSON to Zod</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
+</body>
+</html>

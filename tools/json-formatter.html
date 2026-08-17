@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <!-- ── Performance: DNS prefetch & preconnect ─────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
@@ -10,6 +14,7 @@
   <meta name="description" content="Prettify, beautify, and inspect complex data with our free json formatter online. Clean indentation, dark mode, tree view, and large file support." />
   <meta name="keywords" content="json formatter online, json formatter and validator, json formatter chrome extension, json formatter vscode, json formatter free, json formatter dark mode, json formatter for large files, json formatter tree view" />
   <meta name="robots" content="index, follow" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0d1117" />
   <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="https://json2x.com/tools/json-formatter.html" />
@@ -20,14 +25,14 @@
   <meta property="og:title"       content="JSON Formatter Online — Free Browser Prettifier &amp; Viewer" />
   <meta property="og:description" content="Prettify, beautify, and inspect complex data with our free json formatter online. Clean indentation, dark mode, tree view, and large file support." />
   <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image"       content="https://json2x.com/assets/images/tools/json-formatter.jpg" />
   <meta property="og:locale"      content="en_US" />
 
   <!-- ── Twitter Card ──────────────────────────────────────── -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="JSON Formatter Online — Free Browser Prettifier" />
   <meta name="twitter:description" content="Prettify and inspect JSON payloads in your browser. Dark mode, tree view, large file support." />
-  <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:image"       content="https://json2x.com/assets/images/tools/json-formatter.jpg" />
 
   <!-- ── Schema.org: SoftwareApplication ──────────────────── -->
   <script type="application/ld+json">
@@ -109,6 +114,10 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
   <!-- ── Stylesheets ───────────────────────────────────────── -->
+  <!-- ── Performance: Preload critical CSS ──────────────── -->
+  <link rel="preload" href="/assets/css/design-system.css" as="style" />
+  <link rel="preload" href="/assets/css/components.css" as="style" />
+
   <link rel="stylesheet" href="/assets/css/design-system.css" />
   <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
 
@@ -909,8 +918,9 @@
   <div id="site-footer-placeholder"></div>
 
   <!-- ── Shared scripts ─────────────────────────────────────── -->
-  <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+  <script src="/assets/js/layout.js?v=2.8.0" defer></script>
 
   <!-- ── Formatter Logic ───────────────────────────────────── -->
   <script>
