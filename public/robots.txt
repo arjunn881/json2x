@@ -38,6 +38,4 @@ Disallow: /tools/json-to-ts.html
 
 # Sitemaps
 Sitemap: https://json2x.com/sitemap-index.xml
-Sitemap: https://json2x.com/sitemap.xml
 Sitemap: https://json2x.com/sitemap-images.xml
-Sitemap: https://json2x.com/sitemap-news.xml
