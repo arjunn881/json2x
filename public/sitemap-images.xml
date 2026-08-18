@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://json2x.com/</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON2X — Free Online JSON &amp; CSV Developer Tools</image:title>
+      <image:caption>Twenty-one fast, free, browser-only JSON and CSV developer tools with 100% client-side privacy</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-formatter</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-formatter.jpg</image:loc>
+      <image:title>JSON Formatter &amp; Beautifier Online Preview</image:title>
+      <image:caption>Prettify and format minified JSON with syntax highlighting and error linting</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-validator</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-validator.jpg</image:loc>
+      <image:title>JSON Validator &amp; RFC 8259 Linter Preview</image:title>
+      <image:caption>Validate JSON against RFC 8259 specifications with exact line and column errors</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-minifier</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-minifier.jpg</image:loc>
+      <image:title>JSON Minifier &amp; Compressor Online Preview</image:title>
+      <image:caption>Compress and minify JSON payloads for production performance</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-diff</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-diff.jpg</image:loc>
+      <image:title>JSON Diff &amp; Comparison Checker Preview</image:title>
+      <image:caption>Compare two JSON objects side-by-side with color-coded diff highlighting</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-csv</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-csv.jpg</image:loc>
+      <image:title>JSON to CSV Converter Online Preview</image:title>
+      <image:caption>Convert and flatten JSON arrays into downloadable CSV spreadsheets</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/csv-to-json</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/csv-to-json.jpg</image:loc>
+      <image:title>CSV to JSON Converter Online Preview</image:title>
+      <image:caption>Convert CSV spreadsheets into structured JSON arrays with type auto-detection</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-yaml</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-yaml.jpg</image:loc>
+      <image:title>JSON to YAML Converter Online Preview</image:title>
+      <image:caption>Convert JSON payloads into clean YAML configuration files</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-xml</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-xml.jpg</image:loc>
+      <image:title>JSON to XML Converter Online Preview</image:title>
+      <image:caption>Transform JSON data structures into valid XML documents</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-toml</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-toml.jpg</image:loc>
+      <image:title>JSON to TOML Converter Online Preview</image:title>
+      <image:caption>Convert JSON objects into human-readable TOML documents for Cargo and Python</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-sql</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-sql.jpg</image:loc>
+      <image:title>JSON to SQL Schema &amp; DDL Generator Preview</image:title>
+      <image:caption>Generate SQL CREATE TABLE and INSERT statements from JSON objects</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-converter</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-converter.jpg</image:loc>
+      <image:title>JSON Multi-Format Converter (7-in-1) Preview</image:title>
+      <image:caption>Convert JSON to TypeScript, Zod, Mongoose, SQL, OpenAPI, Schema, and Mock data</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/typescript-generator</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/typescript-generator.jpg</image:loc>
+      <image:title>JSON to TypeScript Interface Generator Preview</image:title>
+      <image:caption>Generate TypeScript interface definitions and types from sample JSON</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-code</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-code.jpg</image:loc>
+      <image:title>JSON to Code Models (Go, Rust, Python) Preview</image:title>
+      <image:caption>Generate Go structs, Rust Serde models, and Python Pydantic classes from JSON</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-zod</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-zod.jpg</image:loc>
+      <image:title>JSON to Zod Schema Generator Preview</image:title>
+      <image:caption>Generate runtime Zod validation schemas from JSON payloads</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-prisma</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-prisma.jpg</image:loc>
+      <image:title>JSON to Prisma Schema Generator Preview</image:title>
+      <image:caption>Generate Prisma ORM schema models from JSON data</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-drizzle</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-drizzle.jpg</image:loc>
+      <image:title>JSON to Drizzle ORM Schema Generator Preview</image:title>
+      <image:caption>Generate Drizzle ORM TypeScript table definitions from JSON</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-to-graphql</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-graphql.jpg</image:loc>
+      <image:title>JSON to GraphQL SDL Schema Generator Preview</image:title>
+      <image:caption>Generate GraphQL type definitions and SDL queries from JSON payloads</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-schema-generator</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-schema-generator.jpg</image:loc>
+      <image:title>JSON Schema Generator (Draft-07) Preview</image:title>
+      <image:caption>Automatically infer JSON Schema specifications from JSON payloads</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-mock-generator</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-mock-generator.jpg</image:loc>
+      <image:title>JSON Mock Data Generator Online Preview</image:title>
+      <image:caption>Generate synthetic mock datasets for users, products, and logs</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/jsonpath</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/jsonpath.jpg</image:loc>
+      <image:title>JSONPath Evaluator &amp; Expression Tester Preview</image:title>
+      <image:caption>Test and debug JSONPath queries live against complex data structures</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://json2x.com/tools/json-tree-viewer</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/images/tools/json-tree-viewer.jpg</image:loc>
+      <image:title>JSON Tree Viewer &amp; Hierarchy Inspector Preview</image:title>
+      <image:caption>Explore and navigate complex JSON data as an interactive collapsible tree</image:caption>
+    </image:image>
+  </url>
+</urlset>
