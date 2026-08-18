@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSONPath Tester Online — Live Expression Evaluator | JSON2X</title>
-  <meta name="description" content="Evaluate queries and extract matching nodes instantly using our jsonpath tester online. Supports wildcards, filters, and array slicing." />
-  <meta name="keywords" content="jsonpath tester online, json path query tester, expression evaluator, jsonpath vs xpath" />
+  <title>JSONPath Tester & Query Evaluator Online — Test Expressions | JSON2X</title>
+  <meta name="description" content="Test and evaluate JSONPath expressions online in real time. Filter arrays, query nested keys, and extract matching elements with instant syntax highlighting." />
+  <meta name="keywords" content="jsonpath tester, jsonpath online, json path evaluator, jsonpath expression, test jsonpath, jsonpath query, json query tool, jsonpath syntax checker" />
   <meta name="robots" content="index, follow" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0d1117" />
@@ -20,63 +20,90 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://json2x.com/tools/jsonpath.html" />
-  <meta property="og:title" content="JSONPath Tester Online — Live Expression Evaluator" />
-  <meta property="og:description" content="Evaluate queries and extract matching nodes instantly using our jsonpath tester online. Supports wildcards, filters, and array slicing." />
+  <meta property="og:title" content="JSONPath Tester & Query Evaluator Online — Test Expressions | JSON2X" />
+  <meta property="og:description" content="Test and evaluate JSONPath expressions online in real time. Filter arrays, query nested keys, and extract matching elements with instant syntax highlighting." />
   <meta property="og:site_name" content="JSON2X" />
-  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image" content="https://json2x.com/assets/images/tools/jsonpath.jpg" />
+  <link rel="preload" as="image" href="https://json2x.com/assets/images/tools/jsonpath.jpg" fetchpriority="high" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="JSONPath Tester Online — Live Expression Evaluator" />
-  <meta name="twitter:description" content="Evaluate JSONPath queries against live JSON data. Free and client-side." />
-  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:title" content="JSONPath Tester & Query Evaluator Online — Test Expressions | JSON2X" />
+  <meta name="twitter:description" content="Test and evaluate JSONPath expressions online in real time. Filter arrays, query nested keys, and extract matching elements with instant syntax highlighting." />
+  <meta name="twitter:image" content="https://json2x.com/assets/images/tools/jsonpath.jpg" />
 
+  <!-- ── FAQ Schema ────────────────────────────────────────── -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "JSONPath Tester Online",
-    "url": "https://json2x.com/tools/jsonpath.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any (browser-based)",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Free online JSONPath expression tester. Evaluate JSONPath queries against JSON data in real time.",
-    "featureList": [
-      "Live JSONPath evaluation as you type",
-      "Clickable example presets",
-      "Supports $, .property, ['property'], [0], [*], .., [start:end], [?()]",
-      "100% browser-side client processing"
-    ],
-    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.com" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
-      { "@type": "ListItem", "position": 2, "name": "JSONPath Tester", "item": "https://json2x.com/tools/jsonpath.html" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is JSONPath?",
-        "acceptedAnswer": { "@type": "Answer", "text": "JSONPath is a query expression language for JSON documents, analogous to XPath for XML. It uses dot and bracket notation to select and filter nodes from objects and arrays." }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I write a JSONPath expression?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Start with the root node ($), followed by child selectors (.key), wildcards (*), or array index filters. For example, $.store.book[*].author extracts all book authors." }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is JSONPath and how do I query JSON documents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "JSONPath is a query expression language for JSON, similar to XPath for XML. It allows you to select and extract specific nodes or values using expressions like $.store.book[*].author."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between $ and @ operators in JSONPath?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$ denotes the root object or array of the JSON document. @ represents the current node being evaluated within a filter expression predicate (e.g. [?(@.price < 20)])."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I filter array items by property conditions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use filter expressions: $.users[?(@.age >= 18 && @.active == true)] returns all user objects meeting both conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use recursive descent (..) to find all occurrences of a key?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The double dot operator ($..propertyName) recursively searches all levels of the document and returns an array of all matching values."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does array slicing work in JSONPath?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Array slicing uses [start:end:step] syntax: $.items[0:5] returns the first 5 elements, and $.items[-1:] returns the last element."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the wildcard operator (*) to select all properties or array items?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. $.store.* selects all child elements of store, and $.books[*].title extracts the title from every book in the array."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What JSONPath implementation is used in this browser tester?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our evaluator follows standard JSONPath specifications supported by Jayway, jsonpath-plus, and Kubernetes jsonpath output templates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I test JSONPath queries on large API response payloads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Queries are evaluated in real time in browser memory, allowing rapid iteration on complex API payloads."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -479,44 +506,66 @@
       <div id="related-tools-placeholder" data-current="jsonpath"></div>
 
       <!-- ── FAQ ────────────────────────────────────────────── -->
-      <section class="faq-section">
-        <p class="faq-eyebrow">Guide</p>
-        <h2 class="faq-title">About JSONPath</h2>
+      
+      
+      
+      
+      
+      
+      <!-- ══════════════════════════════════════════════════════
+           SEO / FAQ Section (Expanded Most-Searched Questions)
+           ══════════════════════════════════════════════════════ -->
+      <section class="faq-section" aria-label="Frequently Asked Questions">
+        <div class="faq-section__header">
+          <p class="faq-section__eyebrow">Frequently Asked Questions</p>
+          <h2 class="faq-section__title">Frequently Asked Questions about JSONPath Tester &amp; Query Evaluator</h2>
+        </div>
         <div class="faq-grid">
+
           <div class="faq-card">
-            <h3>What is JSONPath?</h3>
-            <p>JSONPath is a query language for JSON, analogous to XPath for XML. It was defined by Stefan Goessner in 2007. A JSONPath expression navigates a JSON structure and returns matching values. It's used in REST API testing (Postman, REST Assured), JSON Schema validators, and data transformation pipelines.</p>
+            <h3 class="faq-card__q">What is JSONPath and how do I query JSON documents?</h3>
+            <p class="faq-card__a">JSONPath is a query expression language for JSON, similar to XPath for XML. It allows you to select and extract specific nodes or values using expressions like $.store.book[*].author.</p>
           </div>
+
           <div class="faq-card">
-            <h3>What is recursive descent (<code>..</code>)?</h3>
-            <p>The <code>..</code> operator performs a deep search across the entire JSON tree. <code>$..price</code> returns every value named <code>price</code> at any nesting level — not just direct children of the root. It's the most powerful and frequently used advanced operator.</p>
+            <h3 class="faq-card__q">What is the difference between $ and @ operators in JSONPath?</h3>
+            <p class="faq-card__a">$ denotes the root object or array of the JSON document. @ represents the current node being evaluated within a filter expression predicate (e.g. [?(@.price &lt; 20)]).</p>
           </div>
+
           <div class="faq-card">
-            <h3>How do filter expressions work?</h3>
-            <p>A filter like <code>[?(@.price &lt; 10)]</code> selects array items where the condition is true. <code>@</code> refers to the current item. Supported operators are <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>. String comparisons use <code>==</code> with a quoted value: <code>[?(@.category == 'fiction')]</code>.</p>
+            <h3 class="faq-card__q">How do I filter array items by property conditions?</h3>
+            <p class="faq-card__a">Use filter expressions: $.users[?(@.age &gt;= 18 &amp;&amp; @.active == true)] returns all user objects meeting both conditions.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Where is JSONPath used in practice?</h3>
-            <p>JSONPath is used in Postman assertions, AWS EventBridge rules, AWS Step Functions, Kubernetes admission webhooks, JSON Schema's <code>$ref</code> pointers, Grafana alerting, and dozens of API testing tools. Understanding JSONPath is a practical skill for backend and DevOps engineers.</p>
+            <h3 class="faq-card__q">How do I use recursive descent (..) to find all occurrences of a key?</h3>
+            <p class="faq-card__a">The double dot operator ($..propertyName) recursively searches all levels of the document and returns an array of all matching values.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How does array slicing work in JSONPath?</h3>
+            <p class="faq-card__a">Array slicing uses [start:end:step] syntax: $.items[0:5] returns the first 5 elements, and $.items[-1:] returns the last element.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I use the wildcard operator (*) to select all properties or array items?</h3>
+            <p class="faq-card__a">Yes. $.store.* selects all child elements of store, and $.books[*].title extracts the title from every book in the array.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">What JSONPath implementation is used in this browser tester?</h3>
+            <p class="faq-card__a">Our evaluator follows standard JSONPath specifications supported by Jayway, jsonpath-plus, and Kubernetes jsonpath output templates.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I test JSONPath queries on large API response payloads?</h3>
+            <p class="faq-card__a">Yes. Queries are evaluated in real time in browser memory, allowing rapid iteration on complex API payloads.</p>
           </div>
         </div>
-        <div class="faq-prose">
-          <p>
-            <strong>JSONPath</strong> was created to solve a simple problem: given a large JSON document, how do you extract specific values without writing custom traversal code? The answer is a compact expression language that describes a path through the document. <code>$.store.book[0].title</code> reads: start at the root (<code>$</code>), navigate to <code>store</code>, then to <code>book</code>, take the first element (<code>[0]</code>), and return <code>title</code>.
-          </p>
-          <p>
-            This tool implements the core JSONPath operators entirely in JavaScript with no external dependencies. It handles the operators developers use most: dot notation, bracket notation, array subscripts, negative indices (last element), slices, the wildcard <code>[*]</code>, recursive descent <code>..</code>, and filter expressions with <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, and <code>&gt;=</code> comparisons against string and number literals.
-          </p>
-          <p>
-            <strong>Worked example:</strong> Given <code>{"users": [{"name": "Alice", "age": 30}, {"name": "Bob", "age": 22}]}</code>, the expression <code>$.users[?(@.age >= 25)].name</code> returns <code>["Alice"]</code>. The filter selects only users where <code>age</code> is 25 or more, then extracts the <code>name</code> property from those matches. This is the kind of query you might use in a Postman test script, an AWS EventBridge rule, or a Kubernetes admission webhook.
-          </p>
-          <p>
-            Each match shows its full path from root so you can understand exactly where in the document the value was found. This is particularly useful when using recursive descent (<code>..</code>) which may find matches at multiple different depths. Click a preset expression above to see the canonical <em>Goessner bookstore</em> example data in action, then swap in your own JSON and query. Use the <a href="viewer.html">JSON Tree Viewer</a> to explore the structure of your JSON before writing the path expression. Once you've confirmed your expression, use the <a href="formatter.html">JSON Formatter</a> to validate and inspect the full document.
-          </p>
-
-          <h2 style="font-size:var(--text-xl);font-weight:var(--font-semibold);color:var(--text-primary);margin-top:var(--space-6);margin-bottom:var(--space-4)">JSONPath vs jq — when to use which?</h2>
-          <p>
-            Both JSONPath and <code>jq</code> extract values from JSON, but they operate in different environments. JSONPath runs in the browser, in Postman, in AWS Step Functions, and in dozens of API tools — it's the standard for <em>declarative</em> JSON selection in configuration and rule engines. <code>jq</code> is a command-line tool that's far more powerful (it supports transformation, reduction, and arbitrary scripting), but it requires installation and a terminal. Use this JSONPath Tester when you're building a Postman assertion, configuring an EventBridge rule, or learning the syntax interactively. Use <code>jq</code> when you need to transform or restructure JSON in a shell script or CI pipeline. If you need to navigate the same JSON visually first, the <a href="viewer.html">JSON Tree Viewer</a> and <a href="diff.html">JSON Diff Checker</a> are natural starting points before you write a path expression.
+        <div class="faq-prose" style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--bg-border);">
+          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);color:var(--text-primary);margin-bottom:var(--space-3);">Related Developer Tools &amp; Specifications</h3>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);">
+            Explore complementary utilities in our developer suite: beautify and inspect payloads with our <a href="/tools/json-formatter.html">JSON Formatter</a>, enforce syntax compliance with the <a href="/tools/json-validator.html">JSON Validator</a>, check differences with <a href="/tools/json-diff.html">JSON Diff Checker</a>, export to spreadsheets with <a href="/tools/json-to-csv.html">JSON to CSV Converter</a>, generate types using <a href="/tools/typescript-generator.html">TypeScript Generator</a> or <a href="/tools/json-to-zod.html">Zod Schema Generator</a>, and read our in-depth <a href="/docs/rfc8259-json-specification.html">RFC 8259 JSON Specification Guide</a>.
           </p>
         </div>
       </section>

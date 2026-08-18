@@ -864,6 +864,13 @@
     </image:image>
   </url>
   <url>
+    <loc>https://json2x.com/tools/converter.html</loc>
+    <image:image>
+      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:title>JSON to CSV Converter Online — Export JSON Array to Excel Free</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://json2x.com/tools/csv-to-json.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/images/tools/csv-to-json.jpg</image:loc>
@@ -874,14 +881,14 @@
     <loc>https://json2x.com/tools/index.html</loc>
     <image:image>
       <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON &amp; CSV Tools Catalog — Free Developer Utilities</image:title>
+      <image:title>JSON &amp; CSV Developer Tools — Free Online Utilities</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/tools/json-converter.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Converter — TypeScript, Zod, Mongoose, SQL, OpenAPI &amp; More</image:title>
+      <image:loc>https://json2x.com/assets/images/tools/json-converter.jpg</image:loc>
+      <image:title>JSON Multi-Converter — Convert to CSV, YAML, XML, SQL, TS — JSON2X</image:title>
     </image:image>
   </url>
   <url>
@@ -908,8 +915,8 @@
   <url>
     <loc>https://json2x.com/tools/json-mock-generator.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON Mock Data Generator Online — Free Synthetic Data</image:title>
+      <image:loc>https://json2x.com/assets/images/tools/json-mock-generator.jpg</image:loc>
+      <image:title>JSON Mock Data Generator — Fake Synthetic Data — JSON2X</image:title>
     </image:image>
   </url>
   <url>
@@ -922,8 +929,8 @@
   <url>
     <loc>https://json2x.com/tools/json-to-code.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSON to Go / Rust / Python Struct Generator Online</image:title>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-code.jpg</image:loc>
+      <image:title>JSON to Code Models (Go, Rust, Python, Kotlin, Java) — JSON2X</image:title>
     </image:image>
   </url>
   <url>
@@ -936,21 +943,21 @@
   <url>
     <loc>https://json2x.com/tools/json-to-drizzle.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-drizzle.jpg</image:loc>
       <image:title>JSON to Drizzle ORM Schema Generator — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/tools/json-to-graphql.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-graphql.jpg</image:loc>
       <image:title>JSON to GraphQL Type Definitions Generator — JSON2X</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://json2x.com/tools/json-to-prisma.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-prisma.jpg</image:loc>
       <image:title>JSON to Prisma Schema Generator — JSON2X</image:title>
     </image:image>
   </url>
@@ -985,7 +992,7 @@
   <url>
     <loc>https://json2x.com/tools/json-to-zod.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
+      <image:loc>https://json2x.com/assets/images/tools/json-to-zod.jpg</image:loc>
       <image:title>JSON to Zod Schema Generator — JSON2X</image:title>
     </image:image>
   </url>
@@ -1006,8 +1013,8 @@
   <url>
     <loc>https://json2x.com/tools/jsonpath.html</loc>
     <image:image>
-      <image:loc>https://json2x.com/assets/og-image.png</image:loc>
-      <image:title>JSONPath Tester Online — Live Expression Evaluator</image:title>
+      <image:loc>https://json2x.com/assets/images/tools/jsonpath.jpg</image:loc>
+      <image:title>JSONPath Tester &amp; Query Evaluator — JSON2X</image:title>
     </image:image>
   </url>
   <url>

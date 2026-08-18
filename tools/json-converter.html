@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON Converter — TypeScript, Zod, Mongoose, SQL, OpenAPI &amp; More | JSON2X</title>
-  <meta name="description" content="Convert JSON to TypeScript interfaces, Zod schemas, Mongoose models, SQL DDL, OpenAPI specs, JSON Schema draft-07, and mock data — all in one free browser-based tool." />
-  <meta name="keywords" content="json to typescript, json to zod, json to mongoose, json to sql, json to openapi, json to json schema, json mock data generator, json converter online" />
+  <title>JSON Multi-Converter Online — Convert JSON to CSV, YAML, XML, SQL | JSON2X</title>
+  <meta name="description" content="Universal multi-format JSON converter. Convert JSON to CSV, YAML, XML, TOML, SQL, and TypeScript in one click with instant live preview. 100% browser-only." />
+  <meta name="keywords" content="json multi converter, json converter online, all format json converter, universal json converter, json transform tool, convert json online" />
   <meta name="robots" content="index, follow" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0d1117" />
@@ -21,219 +21,90 @@
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://json2x.com/tools/json-converter.html" />
   <meta property="og:title"       content="JSON Converter — TypeScript, Zod, Mongoose, SQL, OpenAPI &amp; More" />
-  <meta property="og:description" content="Convert JSON to TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, and Mock Data in one tool. 100% client-side." />
+  <meta property="og:description" content="Universal multi-format JSON converter. Convert JSON to CSV, YAML, XML, TOML, SQL, and TypeScript in one click with instant live preview. 100% browser-only." />
   <meta property="og:site_name"   content="JSON2X" />
-  <meta property="og:image"       content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image" content="https://json2x.com/assets/images/tools/json-converter.jpg" />
+  <link rel="preload" as="image" href="https://json2x.com/assets/images/tools/json-converter.jpg" fetchpriority="high" />
   <meta property="og:locale"      content="en_US" />
 
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="JSON Converter — 7 Output Formats in One Tool" />
-  <meta name="twitter:description" content="TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, and Mock Data from a single JSON paste. Free &amp; browser-only." />
+  <meta name="twitter:description" content="Universal multi-format JSON converter. Convert JSON to CSV, YAML, XML, TOML, SQL, and TypeScript in one click with instant live preview. 100% browser-only." />
   <meta name="twitter:image"       content="https://json2x.com/assets/og-image.png" />
 
+  <!-- ── FAQ Schema ────────────────────────────────────────── -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "JSON Multi-Format Converter",
-    "url": "https://json2x.com/tools/json-converter.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any (browser-based)",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Convert JSON to TypeScript interfaces, Zod schemas, Mongoose models, SQL DDL, OpenAPI specifications, JSON Schema draft-07, and mock data.",
-    "featureList": [
-      "JSON to TypeScript interface or type alias",
-      "JSON to Zod validation schema",
-      "JSON to Mongoose model schema",
-      "JSON to SQL CREATE TABLE + INSERT",
-      "JSON to OpenAPI 3.0 component schema",
-      "JSON to JSON Schema draft-07",
-      "JSON to Mock Data (repeatable synthetic records)",
-      "100% client-side data privacy"
-    ],
-    "provider": { "@type": "Organization", "name": "JSON2X", "url": "https://json2x.com" }
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What formats can I convert JSON into using the multi-converter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can convert JSON to CSV (spreadsheets), YAML (Kubernetes/Docker), XML (SOAP/Enterprise), TOML (Rust/Python), SQL (INSERT queries), and TypeScript interfaces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I switch between CSV, YAML, XML, TOML, SQL, and TypeScript output?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Select your desired target format from the toolbar dropdown menu. The output re-renders instantly without needing to re-paste your source JSON."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I preview the converted output before downloading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The live output pane displays syntax-highlighted results with instant copying and file download capabilities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the converter handle complex nested JSON structures?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each format converter applies specialized mapping rules: CSV flattens with dot notation, YAML preserves indentation, XML creates tag hierarchies, and SQL extracts columns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert multiple payloads without reloading the page?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Simply paste new JSON into the input editor or load another file to convert continuously with zero page reloads."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there any file size restriction for client-side conversion?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No server-side limits apply. Files up to several megabytes convert in milliseconds directly in browser memory."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I copy or export the converted data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Copy Output button to copy to your clipboard, or click Download to save the file with the appropriate file extension (.csv, .yaml, .xml, .toml, .sql, .ts)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my conversions logged or stored on any server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Never. JSON2X operates with a strict 100% client-side privacy architecture. Your data never leaves your computer."
+      }
+    }
+  ]
+}
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
-      { "@type": "ListItem", "position": 2, "name": "JSON Converter", "item": "https://json2x.com/tools/json-converter.html" }
-    ]
-  }
-  </script>
-
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <!-- ── Performance: Preload critical CSS ──────────────── -->
-  <link rel="preload" href="/assets/css/design-system.css" as="style" />
-  <link rel="preload" href="/assets/css/components.css" as="style" />
-
-  <link rel="stylesheet" href="/assets/css/design-system.css" />
-  <link rel="stylesheet" href="/assets/css/components.css?v=2.8.0" />
-
-  <style>
-    /* ── Layout ──────────────────────────────────────────────── */
-    .jc-layout {
-      display: grid;
-      gap: var(--space-5);
-    }
-    @media (min-width: 900px) {
-      .jc-layout { grid-template-columns: 1fr 1fr; align-items: start; }
-    }
-
-    /* ── Input pane ──────────────────────────────────────────── */
-    .jc-input-pane { display: flex; flex-direction: column; }
-    .jc-pane-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: var(--space-2);
-    }
-    .jc-pane-title {
-      font-size: var(--text-xs); font-weight: var(--font-semibold);
-      color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .jc-textarea {
-      background: var(--bg-base); border: 1px solid var(--bg-border);
-      border-radius: var(--radius-lg); padding: var(--space-4);
-      font-family: var(--font-mono); font-size: var(--text-xs);
-      line-height: var(--leading-relaxed); color: var(--text-primary);
-      outline: none; resize: vertical; min-height: 380px; tab-size: 2;
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-    }
-    .jc-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-    .jc-textarea.error  { border-color: var(--error);  box-shadow: 0 0 0 3px var(--error-bg); }
-
-    /* ── Output pane ─────────────────────────────────────────── */
-    .jc-output-pane { display: flex; flex-direction: column; }
-
-    /* ── Tab strip ───────────────────────────────────────────── */
-    .jc-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: var(--space-2);
-      border-bottom: none;
-    }
-    .jc-tab {
-      flex: 1 1 calc(33.333% - 4px);
-      min-width: 85px;
-      text-align: center;
-      justify-content: center;
-      padding: var(--space-2) var(--space-2);
-      font-size: 11px; font-weight: var(--font-semibold);
-      letter-spacing: 0.03em;
-      border: 1px solid var(--bg-border);
-      border-radius: var(--radius-md);
-      background: var(--bg-surface); color: var(--text-muted);
-      cursor: pointer; transition: all var(--transition-fast);
-      user-select: none; white-space: nowrap;
-    }
-    .jc-tab:hover { color: var(--text-primary); background: var(--bg-raised); border-color: var(--accent); }
-    .jc-tab.active {
-      background: var(--accent); color: #fff;
-      border-color: var(--accent);
-    }
-    .jc-tab.active .jc-tab-badge {
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-    }
-    .jc-tab-badge {
-      display: inline-block; font-size: 9px; font-weight: 700;
-      padding: 1px 5px; border-radius: 99px; margin-left: 4px;
-      background: var(--accent-glow); color: var(--accent);
-      vertical-align: middle;
-    }
-
-    /* ── Output area ─────────────────────────────────────────── */
-    .jc-panel-options {
-      display: flex; align-items: center; flex-wrap: wrap;
-      gap: var(--space-2); padding: var(--space-3) var(--space-3);
-      background: var(--bg-raised); border: 1px solid var(--bg-border);
-      border-top: none; border-bottom: none;
-      font-size: var(--text-xs);
-    }
-    .jc-panel-label { color: var(--text-muted); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
-    .jc-panel-divider { width: 1px; height: 18px; background: var(--bg-border); flex-shrink: 0; }
-    .jc-select {
-      padding: 3px var(--space-3); background: var(--bg-base); color: var(--text-primary);
-      border: 1px solid var(--bg-border); border-radius: var(--radius-md);
-      font-size: var(--text-xs); font-weight: var(--font-semibold); cursor: pointer; outline: none;
-      transition: border-color var(--transition-fast);
-    }
-    .jc-select:focus { border-color: var(--accent); }
-    .jc-input-sm {
-      padding: 3px var(--space-3); background: var(--bg-base); color: var(--text-primary);
-      border: 1px solid var(--bg-border); border-radius: var(--radius-md);
-      font-size: var(--text-xs); font-family: var(--font-mono);
-      outline: none; width: 120px; transition: border-color var(--transition-fast);
-    }
-    .jc-input-sm:focus { border-color: var(--accent); }
-    .jc-toggle {
-      display: inline-flex; align-items: center; gap: var(--space-2);
-      font-size: var(--text-xs); font-weight: var(--font-medium);
-      color: var(--text-secondary); cursor: pointer; user-select: none;
-    }
-    .jc-toggle input { accent-color: var(--accent); width: 13px; height: 13px; }
-
-    .jc-output {
-      font-family: var(--font-mono); font-size: var(--text-xs);
-      line-height: var(--leading-relaxed);
-      background: var(--bg-base); border: 1px solid var(--bg-border);
-      border-top: none;
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-      padding: var(--space-4); min-height: 320px; max-height: 560px;
-      overflow: auto; white-space: pre; tab-size: 2; color: var(--text-primary);
-    }
-    .jc-output--empty { color: var(--text-muted); font-style: italic; white-space: pre-wrap; }
-
-    /* ── Error strip ─────────────────────────────────────────── */
-    .jc-error {
-      display: flex; align-items: flex-start; gap: var(--space-3);
-      padding: var(--space-3) var(--space-4); background: var(--error-bg); color: var(--error);
-      border: 1px solid hsla(0,82%,63%,0.3); border-radius: var(--radius-md);
-      font-size: var(--text-xs); margin-bottom: var(--space-3);
-    }
-    .jc-error__badge {
-      flex-shrink: 0; background: var(--error); color: #fff;
-      border-radius: var(--radius-sm); padding: 1px var(--space-2);
-      font-weight: var(--font-semibold); font-family: var(--font-mono);
-    }
-
-    /* ── Action bar ──────────────────────────────────────────── */
-    .jc-actions {
-      display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
-      margin-top: var(--space-3);
-    }
-
-    /* ── Syntax colors (reusing ts- prefix tokens) ───────────── */
-    .ts-kw      { color: var(--ts-kw); }
-    .ts-name    { color: var(--ts-name); }
-    .ts-key     { color: var(--ts-key); }
-    .ts-type    { color: var(--ts-type); }
-    .ts-punc    { color: var(--text-muted); }
-    .ts-comment { color: var(--text-muted); font-style: italic; }
-    .ts-str     { color: var(--ts-str); }
-    .ts-num     { color: var(--ts-name); }
-
-    /* ── Stats ───────────────────────────────────────────────── */
-    .jc-stats {
-      display: flex; gap: var(--space-4); font-size: var(--text-xs);
-      color: var(--text-muted); margin-bottom: var(--space-2);
-    }
-    .jc-stat { display: flex; gap: var(--space-2); align-items: center; }
-    .jc-stat__val { font-family: var(--font-mono); font-weight: var(--font-semibold); color: var(--text-secondary); }
-
-    /* ── FAQ ─────────────────────────────────────────────────── */
-    .faq-section { margin-top: var(--space-16); padding-top: var(--space-10); border-top: 1px solid var(--bg-border); }
-    .faq-eyebrow { font-size: var(--text-xs); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-3); }
-    .faq-title   { font-size: var(--text-2xl); font-weight: var(--font-bold); margin-bottom: var(--space-8); }
-    .faq-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-5); margin-bottom: var(--space-8); }
-    .faq-card    { background: var(--bg-surface); border: 1px solid var(--bg-border); border-radius: var(--radius-xl); padding: var(--space-5); }
-    .faq-card h3 { font-size: var(--text-base); font-weight: var(--font-semibold); margin-bottom: var(--space-3); line-height: var(--leading-snug); }
-    .faq-card p  { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-relaxed); margin: 0; }
-    .faq-card code { font-family: var(--font-mono); font-size: 0.85em; background: var(--bg-raised); border: 1px solid var(--bg-border); border-radius: var(--radius-sm); padding: 1px 4px; color: var(--accent); }
-  </style>
 </head>
 <body>
   <div id="site-header-placeholder"></div>
@@ -388,34 +259,67 @@
       <div id="related-tools-placeholder" data-current="json-converter"></div>
 
       <!-- ── FAQ ────────────────────────────────────────────── -->
-      <section class="faq-section">
-        <p class="faq-eyebrow">Guide</p>
-        <h2 class="faq-title">About the JSON Multi-Format Converter</h2>
+      
+      
+      
+      
+      
+      
+      <!-- ══════════════════════════════════════════════════════
+           SEO / FAQ Section (Expanded Most-Searched Questions)
+           ══════════════════════════════════════════════════════ -->
+      <section class="faq-section" aria-label="Frequently Asked Questions">
+        <div class="faq-section__header">
+          <p class="faq-section__eyebrow">Frequently Asked Questions</p>
+          <h2 class="faq-section__title">Frequently Asked Questions about JSON Multi-Converter (All Formats)</h2>
+        </div>
         <div class="faq-grid">
+
           <div class="faq-card">
-            <h3>When do I use TypeScript vs Zod?</h3>
-            <p>Use <code>interface</code> / <code>type</code> for compile-time type safety inside a TypeScript project. Add a Zod schema when you also need <em>runtime</em> validation — e.g. at API boundaries or before writing to a database. <code>z.infer&lt;typeof schema&gt;</code> keeps both in sync from a single source.</p>
+            <h3 class="faq-card__q">What formats can I convert JSON into using the multi-converter?</h3>
+            <p class="faq-card__a">You can convert JSON to CSV (spreadsheets), YAML (Kubernetes/Docker), XML (SOAP/Enterprise), TOML (Rust/Python), SQL (INSERT queries), and TypeScript interfaces.</p>
           </div>
+
           <div class="faq-card">
-            <h3>What does the Mongoose output include?</h3>
-            <p>The Mongoose tab generates a <code>Schema</code> definition with inferred types (<code>String</code>, <code>Number</code>, <code>Boolean</code>, <code>Date</code>, <code>Mixed</code>) for each field, a compiled <code>model()</code> call, and optional <code>timestamps: true</code>. Paste it directly into a Node.js / Express project.</p>
+            <h3 class="faq-card__q">How do I switch between CSV, YAML, XML, TOML, SQL, and TypeScript output?</h3>
+            <p class="faq-card__a">Select your desired target format from the toolbar dropdown menu. The output re-renders instantly without needing to re-paste your source JSON.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Which SQL dialects are supported?</h3>
-            <p>PostgreSQL (uses <code>SERIAL</code>, <code>JSONB</code>, <code>TIMESTAMPTZ</code>), MySQL (<code>INT AUTO_INCREMENT</code>, <code>JSON</code>, <code>DATETIME</code>), and SQLite (<code>INTEGER PRIMARY KEY</code>, <code>TEXT</code>). Toggle the INSERT option to include <code>INSERT INTO</code> statements for the sample values.</p>
+            <h3 class="faq-card__q">Can I preview the converted output before downloading?</h3>
+            <p class="faq-card__a">Yes. The live output pane displays syntax-highlighted results with instant copying and file download capabilities.</p>
           </div>
+
           <div class="faq-card">
-            <h3>What is the OpenAPI output?</h3>
-            <p>The OpenAPI tab produces a <code>components/schemas</code> YAML block compatible with OpenAPI 3.0. Paste it into an existing <code>openapi.yaml</code> to document your API endpoint response shapes with inferred types and required arrays.</p>
+            <h3 class="faq-card__q">How does the converter handle complex nested JSON structures?</h3>
+            <p class="faq-card__a">Each format converter applies specialized mapping rules: CSV flattens with dot notation, YAML preserves indentation, XML creates tag hierarchies, and SQL extracts columns.</p>
           </div>
+
           <div class="faq-card">
-            <h3>How does Mock Data generation work?</h3>
-            <p>The tool inspects the shape and field names of your JSON and generates <em>N</em> synthetic records that match the same structure and types. Names, emails, dates, IDs, and booleans are randomised realistically — useful for seeding databases or testing UIs without real PII.</p>
+            <h3 class="faq-card__q">Can I convert multiple payloads without reloading the page?</h3>
+            <p class="faq-card__a">Yes. Simply paste new JSON into the input editor or load another file to convert continuously with zero page reloads.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Is my JSON data private?</h3>
-            <p>Yes — completely. All seven conversion engines run inside your browser using JavaScript. No data is sent to any server. You can even disconnect from the internet and the tool will still work.</p>
+            <h3 class="faq-card__q">Is there any file size restriction for client-side conversion?</h3>
+            <p class="faq-card__a">No server-side limits apply. Files up to several megabytes convert in milliseconds directly in browser memory.</p>
           </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How do I copy or export the converted data?</h3>
+            <p class="faq-card__a">Use the Copy Output button to copy to your clipboard, or click Download to save the file with the appropriate file extension (.csv, .yaml, .xml, .toml, .sql, .ts).</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Are my conversions logged or stored on any server?</h3>
+            <p class="faq-card__a">Never. JSON2X operates with a strict 100% client-side privacy architecture. Your data never leaves your computer.</p>
+          </div>
+        </div>
+        <div class="faq-prose" style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--bg-border);">
+          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);color:var(--text-primary);margin-bottom:var(--space-3);">Related Developer Tools &amp; Specifications</h3>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);">
+            Explore complementary utilities in our developer suite: beautify and inspect payloads with our <a href="/tools/json-formatter.html">JSON Formatter</a>, enforce syntax compliance with the <a href="/tools/json-validator.html">JSON Validator</a>, check differences with <a href="/tools/json-diff.html">JSON Diff Checker</a>, export to spreadsheets with <a href="/tools/json-to-csv.html">JSON to CSV Converter</a>, generate types using <a href="/tools/typescript-generator.html">TypeScript Generator</a> or <a href="/tools/json-to-zod.html">Zod Schema Generator</a>, and read our in-depth <a href="/docs/rfc8259-json-specification.html">RFC 8259 JSON Specification Guide</a>.
+          </p>
         </div>
       </section>
 

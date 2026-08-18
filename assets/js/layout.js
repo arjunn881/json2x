@@ -69,6 +69,10 @@
     'json-to-sql': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3" width="14" height="4" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 7v4c0 1.5 3 3 7 3s7-1.5 7-3V7M2 11v4c0 1.5 3 3 7 3s7-1.5 7-3v-4" stroke="currentColor" stroke-width="1.5"/></svg>`,
     'json-to-code': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 4L1 9l4 5M13 4l4 5-4 5M10 2L8 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     'json-mock-generator': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="6.5" r="1" fill="currentColor"/><circle cx="11.5" cy="11.5" r="1" fill="currentColor"/><circle cx="9" cy="9" r="1" fill="currentColor"/></svg>`,
+    'json-to-zod':    `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 4h12M3 8h8l-5 6h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'json-to-prisma': `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2L3 14l2 2 4-4 4 4 2-2L9 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+    'json-to-drizzle':`<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3" width="14" height="4" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="11" width="14" height="4" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 7v4M10 7v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+    'json-to-graphql':`<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="3" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="7" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="13" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="16" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="13" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="7" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M9 4.5L14 7.5M14.5 8.5v5M14 13.5L9 15.5M9 15.5L4 13.5M3.5 13.5v-5M4 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
   };
 
   const TOOLS = [
@@ -82,6 +86,7 @@
       badge: 'Popular',
       icon:  ICON.formatter,
       href:  '/tools/json-formatter.html',
+      related: ['validator', 'minifier', 'diff', 'viewer'],
     },
     {
       id:    'validator',
@@ -91,6 +96,7 @@
       category: 'format-validate',
       icon:  ICON.validator,
       href:  '/tools/json-validator.html',
+      related: ['formatter', 'schema', 'json-to-zod', 'diff'],
     },
     {
       id:    'minifier',
@@ -100,6 +106,7 @@
       category: 'format-validate',
       icon:  ICON.minifier,
       href:  '/tools/json-minifier.html',
+      related: ['formatter', 'validator', 'json-to-csv', 'json-converter'],
     },
     {
       id:    'diff',
@@ -109,6 +116,7 @@
       category: 'format-validate',
       icon:  ICON.diff,
       href:  '/tools/json-diff.html',
+      related: ['formatter', 'validator', 'viewer', 'jsonpath'],
     },
 
     // ── Data Converters ─────────────────────
@@ -120,6 +128,7 @@
       category: 'converters',
       icon:  ICON['json-to-csv'],
       href:  '/tools/json-to-csv.html',
+      related: ['csv-to-json', 'json-to-sql', 'json-to-yaml', 'json-converter'],
     },
     {
       id:    'csv-to-json',
@@ -129,6 +138,7 @@
       category: 'converters',
       icon:  ICON['csv-to-json'],
       href:  '/tools/csv-to-json.html',
+      related: ['json-to-csv', 'formatter', 'json-to-sql', 'json-to-yaml'],
     },
     {
       id:    'json-to-yaml',
@@ -138,6 +148,7 @@
       category: 'converters',
       icon:  ICON['json-to-yaml'],
       href:  '/tools/json-to-yaml.html',
+      related: ['json-to-xml', 'json-to-toml', 'formatter', 'json-converter'],
     },
     {
       id:    'json-to-xml',
@@ -147,6 +158,7 @@
       category: 'converters',
       icon:  ICON['json-to-xml'],
       href:  '/tools/json-to-xml.html',
+      related: ['json-to-yaml', 'json-to-toml', 'json-to-csv', 'formatter'],
     },
     {
       id:    'json-to-toml',
@@ -156,6 +168,7 @@
       category: 'converters',
       icon:  ICON['json-to-toml'],
       href:  '/tools/json-to-toml.html',
+      related: ['json-to-yaml', 'json-to-xml', 'formatter', 'json-to-code'],
     },
     {
       id:    'json-to-sql',
@@ -165,6 +178,7 @@
       category: 'converters',
       icon:  ICON['json-to-sql'],
       href:  '/tools/json-to-sql.html',
+      related: ['json-to-csv', 'json-to-prisma', 'json-to-drizzle', 'json-converter'],
     },
 
     // ── Code & Schema Generators ────────────
@@ -177,15 +191,17 @@
       badge: '7-in-1',
       icon:  ICON['json-converter'],
       href:  '/tools/json-converter.html',
+      related: ['json-to-ts', 'json-to-zod', 'json-to-sql', 'json-to-yaml'],
     },
     {
       id:    'json-to-ts',
-      aliases: ['typescript-generator', 'json-to-typescript', 'json-to-zod'],
+      aliases: ['typescript-generator', 'json-to-typescript'],
       name:  'JSON to TypeScript',
       desc:  'Generate TS interfaces, types & Zod schemas',
       category: 'generators',
       icon:  ICON['json-to-ts'],
       href:  '/tools/typescript-generator.html',
+      related: ['json-to-zod', 'json-to-prisma', 'json-to-drizzle', 'json-to-code'],
     },
     {
       id:    'json-to-code',
@@ -195,6 +211,7 @@
       category: 'generators',
       icon:  ICON['json-to-code'],
       href:  '/tools/json-to-code.html',
+      related: ['json-to-ts', 'json-to-prisma', 'json-to-graphql', 'schema'],
     },
     {
       id:    'schema',
@@ -204,6 +221,7 @@
       category: 'generators',
       icon:  ICON.schema,
       href:  '/tools/json-schema-generator.html',
+      related: ['json-to-zod', 'json-to-ts', 'json-mock-generator', 'validator'],
     },
     {
       id:    'json-mock-generator',
@@ -213,6 +231,47 @@
       category: 'generators',
       icon:  ICON['json-mock-generator'],
       href:  '/tools/json-mock-generator.html',
+      related: ['schema', 'json-to-zod', 'json-to-ts', 'formatter'],
+    },
+    {
+      id:    'json-to-zod',
+      aliases: ['json-to-zod', 'zod-schema-generator', 'json-zod'],
+      name:  'JSON to Zod',
+      desc:  'Generate Zod runtime validation schemas from JSON',
+      category: 'generators',
+      icon:  ICON['json-to-zod'],
+      href:  '/tools/json-to-zod.html',
+      related: ['json-to-ts', 'schema', 'json-to-prisma', 'json-mock-generator'],
+    },
+    {
+      id:    'json-to-prisma',
+      aliases: ['json-to-prisma', 'prisma-schema-generator'],
+      name:  'JSON to Prisma',
+      desc:  'Generate Prisma ORM schema models from JSON',
+      category: 'generators',
+      icon:  ICON['json-to-prisma'],
+      href:  '/tools/json-to-prisma.html',
+      related: ['json-to-drizzle', 'json-to-sql', 'json-to-ts', 'json-to-zod'],
+    },
+    {
+      id:    'json-to-drizzle',
+      aliases: ['json-to-drizzle', 'drizzle-schema-generator'],
+      name:  'JSON to Drizzle',
+      desc:  'Generate Drizzle ORM TypeScript table definitions',
+      category: 'generators',
+      icon:  ICON['json-to-drizzle'],
+      href:  '/tools/json-to-drizzle.html',
+      related: ['json-to-prisma', 'json-to-sql', 'json-to-ts', 'json-to-zod'],
+    },
+    {
+      id:    'json-to-graphql',
+      aliases: ['json-to-graphql', 'graphql-type-generator'],
+      name:  'JSON to GraphQL',
+      desc:  'Generate GraphQL SDL type definitions from JSON',
+      category: 'generators',
+      icon:  ICON['json-to-graphql'],
+      href:  '/tools/json-to-graphql.html',
+      related: ['json-to-ts', 'json-to-code', 'schema', 'json-to-zod'],
     },
 
     // ── Query & Inspection ──────────────────
@@ -224,6 +283,7 @@
       category: 'query-view',
       icon:  ICON.jsonpath,
       href:  '/tools/jsonpath.html',
+      related: ['viewer', 'formatter', 'validator', 'diff'],
     },
     {
       id:    'viewer',
@@ -233,6 +293,7 @@
       category: 'query-view',
       icon:  ICON.viewer,
       href:  '/tools/json-tree-viewer.html',
+      related: ['jsonpath', 'formatter', 'diff', 'validator'],
     },
   ];
 
@@ -479,7 +540,7 @@
 </header>
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
   <div style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);background:var(--bg-raised);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:space-between;">
-    <a href="${resolveHref('/tools/index.html')}" style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">Browse All 17 Tools Catalog →</a>
+    <a href="${resolveHref('/tools/index.html')}" style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">Browse All 21 Tools Catalog →</a>
   </div>
   <div class="mobile-nav__cat">
     <div class="mobile-nav__cat-head"><span>Language / 语言 / Idioma</span></div>
@@ -598,7 +659,12 @@
       { phrase: 'JSON Schema', url: '/tools/json-schema-generator.html' },
       { phrase: 'Tree Viewer', url: '/tools/json-tree-viewer.html' },
       { phrase: 'Unexpected token', url: '/errors/unexpected-token.html' },
-      { phrase: 'trailing comma', url: '/errors/trailing-comma.html' }
+      { phrase: 'trailing comma', url: '/errors/trailing-comma.html' },
+      { phrase: 'JSON to Zod', url: '/tools/json-to-zod.html' },
+      { phrase: 'Zod schema', url: '/tools/json-to-zod.html' },
+      { phrase: 'JSON to Prisma', url: '/tools/json-to-prisma.html' },
+      { phrase: 'JSON to Drizzle', url: '/tools/json-to-drizzle.html' },
+      { phrase: 'JSON to GraphQL', url: '/tools/json-to-graphql.html' }
     ];
 
     proseEls.forEach(el => {
@@ -628,11 +694,98 @@
     return '';
   }
 
-  /* ── Render: Related Tools Grid ───────────────────────────*/
+  /* ── Render: Breadcrumbs Component ───────────────────────*/
+  function renderBreadcrumbs(tool) {
+    if (!tool) return '';
+    return `
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a class="breadcrumb__link" href="${resolveHref('/')}">Home</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <a class="breadcrumb__link" href="${resolveHref('/tools/index.html')}">Tools</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <span class="breadcrumb__current" aria-current="page">${tool.name}</span>
+    </nav>`;
+  }
+
+  /* ── Inject Structured Data (BreadcrumbList & SoftwareApplication) ─*/
+  function injectToolSchemas(tool) {
+    if (!tool || !tool.href) return;
+    const canonicalUrl = 'https://json2x.com' + (tool.href.startsWith('/') ? tool.href : '/' + tool.href);
+    
+    // BreadcrumbList Schema
+    const bcSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://json2x.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://json2x.com/tools/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": tool.name,
+          "item": canonicalUrl
+        }
+      ]
+    };
+
+    const bcScript = document.createElement('script');
+    bcScript.type = 'application/ld+json';
+    bcScript.textContent = JSON.stringify(bcSchema);
+    document.head.appendChild(bcScript);
+
+    // SoftwareApplication Schema
+    const appSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": tool.name,
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": tool.desc,
+      "url": canonicalUrl
+    };
+
+    const appScript = document.createElement('script');
+    appScript.type = 'application/ld+json';
+    appScript.textContent = JSON.stringify(appSchema);
+    document.head.appendChild(appScript);
+  }
+
+  /* ── Render: Related Tools Grid (Semantic Linking) ────────*/
   function renderRelatedTools(currentId) {
     const isCatalogPage = !currentId || currentId === 'tools-index';
-    const list = isCatalogPage ? TOOLS : TOOLS.filter(t => t.id !== currentId);
-    const titleText = isCatalogPage ? 'All JSON & CSV Developer Tools' : 'More JSON & CSV Tools';
+    let list;
+    let titleText;
+
+    if (isCatalogPage) {
+      list = TOOLS;
+      titleText = 'All JSON & CSV Developer Tools';
+    } else {
+      const currentTool = TOOLS.find(t => t.id === currentId || (t.aliases && t.aliases.includes(currentId)));
+      if (currentTool && currentTool.related && currentTool.related.length > 0) {
+        list = currentTool.related
+          .map(relId => TOOLS.find(t => t.id === relId))
+          .filter(Boolean);
+      } else {
+        list = TOOLS.filter(t => t.id !== currentId).slice(0, 4);
+      }
+      titleText = 'Recommended Related Tools';
+    }
+
     const cards = list.map(t => `
     <a class="tool-card" href="${resolveHref(t.href)}" aria-label="${t.name}: ${t.desc}">
       <div class="tool-card__icon" aria-hidden="true">${t.icon}</div>
@@ -1400,6 +1553,20 @@
       startLiveUserClock();
     }
 
+    // Auto-inject Breadcrumbs navigation & Structured Data (BreadcrumbList + SoftwareApplication)
+    const currentTool = TOOLS.find(t => t.id === currentId || (t.aliases && t.aliases.includes(currentId)));
+    if (currentTool) {
+      const toolHero = document.querySelector('.tool-hero');
+      if (toolHero && !document.querySelector('.breadcrumb')) {
+        const bcDiv = document.createElement('div');
+        bcDiv.innerHTML = renderBreadcrumbs(currentTool);
+        if (bcDiv.firstElementChild) {
+          toolHero.parentNode.insertBefore(bcDiv.firstElementChild, toolHero);
+        }
+      }
+      injectToolSchemas(currentTool);
+    }
+
     // Mid-content leaderboard ad (injected inside main by tools that want it)
     document.querySelectorAll('[data-ad-slot-leaderboard]').forEach(el => {
       el.innerHTML = renderAdSlot('leaderboard', el.dataset.adSlotLeaderboard || 'LEADERBOARD_SLOT_ID');
@@ -1533,13 +1700,17 @@
     { id: 'json-to-code', name: 'JSON to Code (Go/Rust/Python)', cat: 'Code & Schema', desc: 'Generate typed Go structs with json tags, Rust Serde models, and Python Pydantic classes.', path: '/tools/json-to-code.html', badge: 'New', keywords: 'go golang rust serde python pydantic structs models classes data types' },
     { id: 'schema', name: 'JSON Schema Generator', cat: 'Code & Schema', desc: 'Infer Draft-07 JSON Schema specifications with types, formats and required properties.', path: '/tools/json-schema-generator.html', badge: '', keywords: 'json schema draft 07 specification contract validation model' },
     { id: 'json-mock-generator', name: 'JSON Mock Generator', cat: 'Code & Schema', desc: 'Create realistic synthetic JSON datasets for API testing and frontend prototyping.', path: '/tools/json-mock-generator.html', badge: 'New', keywords: 'mock synthetic fake data users products orders logs test dataset generator' },
+    { id: 'json-to-zod', name: 'JSON to Zod Schema', cat: 'Code & Schema', desc: 'Generate Zod runtime validation schemas with TypeScript types from JSON.', path: '/tools/json-to-zod.html', badge: 'New', keywords: 'zod schema validation typescript validator runtime json to zod' },
+    { id: 'json-to-prisma', name: 'JSON to Prisma Schema', cat: 'Code & Schema', desc: 'Generate Prisma ORM schema models and relations from JSON payloads.', path: '/tools/json-to-prisma.html', badge: 'New', keywords: 'prisma orm schema models database relations postgres mysql json to prisma' },
+    { id: 'json-to-drizzle', name: 'JSON to Drizzle ORM', cat: 'Code & Schema', desc: 'Generate Drizzle ORM TypeScript table definitions from JSON data structures.', path: '/tools/json-to-drizzle.html', badge: 'New', keywords: 'drizzle orm typescript schema pgTable mysqlTable sqliteTable json to drizzle' },
+    { id: 'json-to-graphql', name: 'JSON to GraphQL Types', cat: 'Code & Schema', desc: 'Generate GraphQL SDL type definitions, queries, and inputs from JSON.', path: '/tools/json-to-graphql.html', badge: 'New', keywords: 'graphql sdl types queries mutations schema json to graphql' },
     
     // Query & Inspection
     { id: 'jsonpath', name: 'JSONPath Tester & Evaluator', cat: 'Query & Inspection', desc: 'Evaluate JSONPath query expressions against live data structures in real-time.', path: '/tools/jsonpath.html', badge: '', keywords: 'jsonpath query filter search extract eval expression path tester' },
     { id: 'viewer', name: 'JSON Tree Viewer', cat: 'Query & Inspection', desc: 'Interactive collapsible tree diagram with node counts, depth control and key filtering.', path: '/tools/json-tree-viewer.html', badge: '', keywords: 'tree viewer hierarchy collapsible inspect visual explore nodes' },
     
     // Resources & Docs
-    { id: 'catalog', name: 'All Tools Catalog (17 Tools)', cat: 'Navigation', desc: 'Browse and filter all 17 developer utilities by category with live search.', path: '/tools/index.html', badge: '17 Tools', keywords: 'catalog tools list directory explore filter all' },
+    { id: 'catalog', name: 'All Tools Catalog (21 Tools)', cat: 'Navigation', desc: 'Browse and filter all 21 developer utilities by category with live search.', path: '/tools/index.html', badge: '21 Tools', keywords: 'catalog tools list directory explore filter all' },
     { id: 'docs-hub', name: 'Documentation Hub', cat: 'Resources', desc: 'Deep-dive developer guides on JSON parsing, RFC 8259, and TypeScript models.', path: '/docs/index.html', badge: 'Docs', keywords: 'docs guides tutorials reference specification' },
     { id: 'kb-hub', name: 'Knowledge Base Hub', cat: 'Resources', desc: 'Engineering articles, syntax references, data manipulation and API workflows.', path: '/kb/index.html', badge: 'KB', keywords: 'kb knowledge base articles learning examples tutorials' },
     { id: 'blog-hub', name: 'Blog & Articles', cat: 'Resources', desc: 'Technical articles, optimization insights, tutorials, and performance benchmarks.', path: '/blog/index.html', badge: 'Blog', keywords: 'blog articles news tutorials updates' },

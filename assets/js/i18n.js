@@ -1337,6 +1337,11 @@
   function translateDOM(root) {
     const context = root || document;
 
+    // Fast-path: If in default English and no elements have been modified, skip heavy DOM traversal
+    if (currentLanguage === 'en' && !context.querySelector('[data-i18n-key]')) {
+      return;
+    }
+
     // 1. Explicit data-i18n attributes
     context.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');

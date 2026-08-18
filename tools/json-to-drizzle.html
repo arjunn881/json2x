@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON to Drizzle ORM Schema Generator — Free Online | JSON2X</title>
-  <meta name="description" content="Generate Drizzle ORM table schemas from JSON instantly. Produces pgTable, mysqlTable, or sqliteTable definitions with correct column types. Free, 100% client-side." />
-  <meta name="keywords" content="json to drizzle orm, drizzle schema generator, json to drizzle table, drizzle orm from json, generate drizzle schema" />
+  <title>JSON to Drizzle ORM Schema Generator — TypeScript DDL | JSON2X</title>
+  <meta name="description" content="Generate Drizzle ORM schemas from JSON online. Creates pgTable, mysqlTable, or sqliteTable column definitions with TypeScript types and Drizzle Kit support." />
+  <meta name="keywords" content="json to drizzle orm, drizzle schema generator, drizzle orm from json, drizzle typescript schema, pgTable from json, drizzle ddl generator" />
   <meta name="robots" content="index, follow" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="content="#0d1117" />
@@ -20,69 +20,90 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://json2x.com/tools/json-to-drizzle.html" />
-  <meta property="og:title" content="JSON to Drizzle ORM Schema Generator" />
-  <meta property="og:description" content="Convert JSON to Drizzle ORM table definitions (pgTable, mysqlTable, sqliteTable) with correct column types." />
+  <meta property="og:title" content="JSON to Drizzle ORM Schema Generator — TypeScript DDL | JSON2X" />
+  <meta property="og:description" content="Generate Drizzle ORM schemas from JSON online. Creates pgTable, mysqlTable, or sqliteTable column definitions with TypeScript types and Drizzle Kit support." />
   <meta property="og:site_name" content="JSON2X" />
-  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image" content="https://json2x.com/assets/images/tools/json-to-drizzle.jpg" />
+  <link rel="preload" as="image" href="https://json2x.com/assets/images/tools/json-to-drizzle.jpg" fetchpriority="high" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="JSON to Drizzle ORM — JSON2X" />
-  <meta name="twitter:description" content="Generate Drizzle ORM table schemas from JSON free in your browser." />
-  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:title" content="JSON to Drizzle ORM Schema Generator — TypeScript DDL | JSON2X" />
+  <meta name="twitter:description" content="Generate Drizzle ORM schemas from JSON online. Creates pgTable, mysqlTable, or sqliteTable column definitions with TypeScript types and Drizzle Kit support." />
+  <meta name="twitter:image" content="https://json2x.com/assets/images/tools/json-to-drizzle.jpg" />
 
+  <!-- ── FAQ Schema ────────────────────────────────────────── -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "JSON to Drizzle ORM Schema Generator",
-    "url": "https://json2x.com/tools/json-to-drizzle.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any (browser-based)",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Convert any JSON object into a Drizzle ORM schema definition. Supports pgTable, mysqlTable, and sqliteTable with correct column types and primaryKey annotations. 100% client-side.",
-    "featureList": [
-      "Generate Drizzle ORM table schema from JSON",
-      "Supports pgTable, mysqlTable, sqliteTable",
-      "Correct column types (text, integer, real, boolean, timestamp)",
-      "primaryKey and notNull annotations",
-      "Copy and Download .ts output"
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://json2x.com/tools/index.html" },
-      { "@type": "ListItem", "position": 3, "name": "JSON to Drizzle ORM", "item": "https://json2x.com/tools/json-to-drizzle.html" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is Drizzle ORM?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Drizzle ORM is a lightweight, type-safe TypeScript ORM for Node.js that supports PostgreSQL, MySQL, and SQLite. Unlike Prisma, Drizzle schemas are defined in TypeScript using builder functions like pgTable(), giving you full type inference without a separate schema file." }
-      },
-      {
-        "@type": "Question",
-        "name": "What databases does the generator support?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The generator supports all three Drizzle-supported databases: PostgreSQL (pgTable), MySQL (mysqlTable), and SQLite (sqliteTable). Switch the dialect using the toolbar dropdown." }
-      },
-      {
-        "@type": "Question",
-        "name": "How are JSON types mapped to Drizzle column types?",
-        "acceptedAnswer": { "@type": "Answer", "text": "string → text(), integer → integer(), float → real() / doublePrecision(), boolean → boolean() (pg) or integer() (sqlite), ISO date strings → timestamp() / datetime(), null → optional field, nested objects → json() or separate table reference." }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I generate Drizzle ORM table schemas from JSON?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your JSON object and choose your dialect (PostgreSQL, MySQL, or SQLite). The generator creates typed table definitions with all necessary drizzle-orm imports."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "Which Drizzle database dialects are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PostgreSQL (pgTable with serial, text, integer, boolean, timestamp, jsonb), MySQL (mysqlTable), and SQLite (sqliteTable)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are column types inferred from JSON values?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Numbers → integer() or doublePrecision(), strings → text() or varchar(), booleans → boolean(), dates → timestamp(), and objects/arrays → jsonb()."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the output include necessary type imports from drizzle-orm?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The output includes clean import statements at the top of the file ready to paste into schema.ts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use the generated schema with Drizzle Kit migrations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Save the generated code in your schema file (e.g. src/db/schema.ts) and run npx drizzle-kit generate to create migration files."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are nested JSON payloads represented in Drizzle ORM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nested objects and arrays are mapped to native jsonb() (Postgres) or json() columns for efficient unstructured data storage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I customize the table name and export variable names?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Specify your table name in the toolbar and the generator will name both the SQL table and TypeScript export accordingly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my JSON data processed privately inside the browser?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All schema inference is executed 100% client-side with zero data transmission to external servers."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -214,26 +235,67 @@
       </div>
       <div id="related-tools-placeholder" data-current="json-to-drizzle"></div>
 
-      <section class="faq-section">
-        <p class="faq-eyebrow">Guide</p>
-        <h2 class="faq-title">About JSON to Drizzle ORM Generation</h2>
+      
+      
+      
+      
+      
+      
+      <!-- ══════════════════════════════════════════════════════
+           SEO / FAQ Section (Expanded Most-Searched Questions)
+           ══════════════════════════════════════════════════════ -->
+      <section class="faq-section" aria-label="Frequently Asked Questions">
+        <div class="faq-section__header">
+          <p class="faq-section__eyebrow">Frequently Asked Questions</p>
+          <h2 class="faq-section__title">Frequently Asked Questions about JSON to Drizzle ORM Schema Generator</h2>
+        </div>
         <div class="faq-grid">
+
           <div class="faq-card">
-            <h3>Column type mapping</h3>
-            <p><code>string</code> → <code>text()</code>, integer → <code>integer()</code>, float → <code>real()</code> (SQLite) / <code>doublePrecision()</code> (PG), boolean → <code>boolean()</code>, ISO date → <code>timestamp()</code>, null → column marked <code>.default(null)</code>.</p>
+            <h3 class="faq-card__q">How do I generate Drizzle ORM table schemas from JSON?</h3>
+            <p class="faq-card__a">Paste your JSON object and choose your dialect (PostgreSQL, MySQL, or SQLite). The generator creates typed table definitions with all necessary drizzle-orm imports.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Dialect differences</h3>
-            <p>PostgreSQL uses <code>pgTable</code> and supports native <code>boolean()</code> and <code>timestamp()</code>. MySQL uses <code>mysqlTable</code> with <code>tinyint()</code> for booleans. SQLite uses <code>sqliteTable</code> with <code>integer()</code> for booleans and <code>text()</code> for dates.</p>
+            <h3 class="faq-card__q">Which Drizzle database dialects are supported?</h3>
+            <p class="faq-card__a">PostgreSQL (pgTable with serial, text, integer, boolean, timestamp, jsonb), MySQL (mysqlTable), and SQLite (sqliteTable).</p>
           </div>
+
           <div class="faq-card">
-            <h3>Primary keys</h3>
-            <p>If "Auto primary key" is enabled, the generator detects <code>id</code> fields and marks them with <code>.primaryKey()</code>. If none exist, a synthetic <code>id: integer('id').primaryKey().notNull()</code> is prepended.</p>
+            <h3 class="faq-card__q">How are column types inferred from JSON values?</h3>
+            <p class="faq-card__a">Numbers → integer() or doublePrecision(), strings → text() or varchar(), booleans → boolean(), dates → timestamp(), and objects/arrays → jsonb().</p>
           </div>
+
           <div class="faq-card">
-            <h3>Import statement</h3>
-            <p>The output includes the correct import line for the selected dialect, e.g. <code>import &#123; pgTable, text, integer &#125; from 'drizzle-orm/pg-core'</code> so you can paste directly into your project.</p>
+            <h3 class="faq-card__q">Does the output include necessary type imports from drizzle-orm?</h3>
+            <p class="faq-card__a">Yes. The output includes clean import statements at the top of the file ready to paste into schema.ts.</p>
           </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How do I use the generated schema with Drizzle Kit migrations?</h3>
+            <p class="faq-card__a">Save the generated code in your schema file (e.g. src/db/schema.ts) and run npx drizzle-kit generate to create migration files.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How are nested JSON payloads represented in Drizzle ORM?</h3>
+            <p class="faq-card__a">Nested objects and arrays are mapped to native jsonb() (Postgres) or json() columns for efficient unstructured data storage.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I customize the table name and export variable names?</h3>
+            <p class="faq-card__a">Yes. Specify your table name in the toolbar and the generator will name both the SQL table and TypeScript export accordingly.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Is my JSON data processed privately inside the browser?</h3>
+            <p class="faq-card__a">Yes. All schema inference is executed 100% client-side with zero data transmission to external servers.</p>
+          </div>
+        </div>
+        <div class="faq-prose" style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--bg-border);">
+          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);color:var(--text-primary);margin-bottom:var(--space-3);">Related Developer Tools &amp; Specifications</h3>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);">
+            Explore complementary utilities in our developer suite: beautify and inspect payloads with our <a href="/tools/json-formatter.html">JSON Formatter</a>, enforce syntax compliance with the <a href="/tools/json-validator.html">JSON Validator</a>, check differences with <a href="/tools/json-diff.html">JSON Diff Checker</a>, export to spreadsheets with <a href="/tools/json-to-csv.html">JSON to CSV Converter</a>, generate types using <a href="/tools/typescript-generator.html">TypeScript Generator</a> or <a href="/tools/json-to-zod.html">Zod Schema Generator</a>, and read our in-depth <a href="/docs/rfc8259-json-specification.html">RFC 8259 JSON Specification Guide</a>.
+          </p>
         </div>
       </section>
 

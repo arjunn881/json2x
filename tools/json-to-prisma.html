@@ -9,9 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON to Prisma Schema Generator — Free Online Tool | JSON2X</title>
-  <meta name="description" content="Convert JSON to a Prisma schema instantly. Generate model definitions with correct field types, @id, @default, and relation hints. Free, 100% browser-only." />
-  <meta name="keywords" content="json to prisma schema, prisma schema generator, json to prisma model, prisma schema from json, generate prisma model" />
+  <title>JSON to Prisma Schema Generator — Generate Prisma Models | JSON2X</title>
+  <meta name="description" content="Generate Prisma ORM schema models from JSON online. Infers Prisma scalar types, relations for nested objects, and auto @id fields for PostgreSQL, MySQL & SQLite." />
+  <meta name="keywords" content="json to prisma schema, prisma model generator, generate prisma from json, prisma schema from json, prisma orm models, prisma schema generator" />
   <meta name="robots" content="index, follow" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0d1117" />
@@ -20,69 +20,90 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://json2x.com/tools/json-to-prisma.html" />
-  <meta property="og:title" content="JSON to Prisma Schema Generator" />
-  <meta property="og:description" content="Generate Prisma schema model definitions from any JSON object instantly. Handles nested types and arrays." />
+  <meta property="og:title" content="JSON to Prisma Schema Generator — Generate Prisma Models | JSON2X" />
+  <meta property="og:description" content="Generate Prisma ORM schema models from JSON online. Infers Prisma scalar types, relations for nested objects, and auto @id fields for PostgreSQL, MySQL & SQLite." />
   <meta property="og:site_name" content="JSON2X" />
-  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image" content="https://json2x.com/assets/images/tools/json-to-prisma.jpg" />
+  <link rel="preload" as="image" href="https://json2x.com/assets/images/tools/json-to-prisma.jpg" fetchpriority="high" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="JSON to Prisma Schema — JSON2X" />
-  <meta name="twitter:description" content="Convert JSON to Prisma schema models free in your browser." />
-  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:title" content="JSON to Prisma Schema Generator — Generate Prisma Models | JSON2X" />
+  <meta name="twitter:description" content="Generate Prisma ORM schema models from JSON online. Infers Prisma scalar types, relations for nested objects, and auto @id fields for PostgreSQL, MySQL & SQLite." />
+  <meta name="twitter:image" content="https://json2x.com/assets/images/tools/json-to-prisma.jpg" />
 
+  <!-- ── FAQ Schema ────────────────────────────────────────── -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "JSON to Prisma Schema Generator",
-    "url": "https://json2x.com/tools/json-to-prisma.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any (browser-based)",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Convert any JSON object into a Prisma schema definition. Generates model blocks with correct Prisma scalar types (String, Int, Float, Boolean, DateTime), @id annotations, and nested model references. Runs 100% client-side.",
-    "featureList": [
-      "Generate Prisma model from JSON",
-      "Correct scalar type mapping (String, Int, Float, Boolean, DateTime)",
-      "@id and @default annotations",
-      "Nested models with relation references",
-      "Copy and Download .prisma output"
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://json2x.com/tools/index.html" },
-      { "@type": "ListItem", "position": 3, "name": "JSON to Prisma Schema", "item": "https://json2x.com/tools/json-to-prisma.html" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is a Prisma schema?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A Prisma schema is a declarative configuration file (schema.prisma) that defines your database models, field types, relations, and datasource. Prisma uses this schema to generate a type-safe database client for Node.js and TypeScript." }
-      },
-      {
-        "@type": "Question",
-        "name": "How does the JSON to Prisma generator work?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The tool recursively walks your JSON object. Each key becomes a Prisma model field. JavaScript primitives are mapped to Prisma scalar types: string → String, number → Int or Float, boolean → Boolean, null → optional fields. Nested objects become separate model blocks with a relation field." }
-      },
-      {
-        "@type": "Question",
-        "name": "What Prisma field types are generated?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The generator maps: string → String, integer → Int, float → Float, boolean → Boolean, null → String? (nullable), ISO date strings → DateTime, arrays of objects → separate model with relation, arrays of primitives → Json." }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I generate a Prisma schema model from JSON data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your sample JSON object. The tool infers Prisma scalar types and generates ready-to-use model blocks for your schema.prisma file."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "How are JSON primitive types mapped to Prisma scalar types?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "string → String, integer → Int, float → Float, boolean → Boolean, null → String?, and ISO date strings → DateTime."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are nested objects converted into relational Prisma models?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nested objects generate separate child model blocks, and the parent model receives relation fields with foreign key references."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the auto @id primary key detection work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When enabled, the generator detects fields named id, _id, or uuid and tags them with @id. If none exists, an auto-incrementing id Int @id @default(autoincrement()) is added."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which databases can I use with the generated schema?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prisma models are database-agnostic and work with PostgreSQL, MySQL, SQLite, SQL Server, CockroachDB, and MongoDB."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I include a datasource and client generator block?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Toggle the Datasource Header switch to include generator client and datasource db blocks at the top of the output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are arrays of objects mapped to one-to-many Prisma relations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Arrays of objects (e.g. \"posts\": [ {...} ]) generate a child model with a one-to-many relation (posts Post[])."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I apply the generated schema to my Prisma project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste the model blocks into your schema.prisma file and run npx prisma db push or npx prisma migrate dev."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -265,26 +286,67 @@
       <div id="related-tools-placeholder" data-current="json-to-prisma"></div>
 
       <!-- ── FAQ ──────────────────────────────────────── -->
-      <section class="faq-section">
-        <p class="faq-eyebrow">Guide</p>
-        <h2 class="faq-title">About JSON to Prisma Schema Generation</h2>
+      
+      
+      
+      
+      
+      
+      <!-- ══════════════════════════════════════════════════════
+           SEO / FAQ Section (Expanded Most-Searched Questions)
+           ══════════════════════════════════════════════════════ -->
+      <section class="faq-section" aria-label="Frequently Asked Questions">
+        <div class="faq-section__header">
+          <p class="faq-section__eyebrow">Frequently Asked Questions</p>
+          <h2 class="faq-section__title">Frequently Asked Questions about JSON to Prisma Schema Generator</h2>
+        </div>
         <div class="faq-grid">
+
           <div class="faq-card">
-            <h3>How are types mapped?</h3>
-            <p>JSON primitives map to Prisma scalars: <code>string</code> → <code>String</code>, integer → <code>Int</code>, float → <code>Float</code>, boolean → <code>Boolean</code>, null → <code>String?</code>, ISO date string → <code>DateTime</code>.</p>
+            <h3 class="faq-card__q">How do I generate a Prisma schema model from JSON data?</h3>
+            <p class="faq-card__a">Paste your sample JSON object. The tool infers Prisma scalar types and generates ready-to-use model blocks for your schema.prisma file.</p>
           </div>
+
           <div class="faq-card">
-            <h3>What about nested objects?</h3>
-            <p>Nested JSON objects generate separate <code>model</code> blocks. The parent model gets a relation field (e.g., <code>address Address?</code>) and the child model gets a back-relation with <code>@relation</code>.</p>
+            <h3 class="faq-card__q">How are JSON primitive types mapped to Prisma scalar types?</h3>
+            <p class="faq-card__a">string → String, integer → Int, float → Float, boolean → Boolean, null → String?, and ISO date strings → DateTime.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Are arrays supported?</h3>
-            <p>Arrays of objects generate a related model with a one-to-many relation (<code>posts Post[]</code>). Arrays of primitives are mapped to <code>Json</code> type since Prisma doesn't natively support scalar arrays in all databases.</p>
+            <h3 class="faq-card__q">How are nested objects converted into relational Prisma models?</h3>
+            <p class="faq-card__a">Nested objects generate separate child model blocks, and the parent model receives relation fields with foreign key references.</p>
           </div>
+
           <div class="faq-card">
-            <h3>What is the @id annotation?</h3>
-            <p>When "Auto @id field" is enabled, the generator detects fields named <code>id</code>, <code>_id</code>, or <code>uuid</code> and marks them with <code>@id</code>. If none is found, a synthetic <code>id Int @id @default(autoincrement())</code> is added.</p>
+            <h3 class="faq-card__q">How does the auto @id primary key detection work?</h3>
+            <p class="faq-card__a">When enabled, the generator detects fields named id, _id, or uuid and tags them with @id. If none exists, an auto-incrementing id Int @id @default(autoincrement()) is added.</p>
           </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Which databases can I use with the generated schema?</h3>
+            <p class="faq-card__a">Prisma models are database-agnostic and work with PostgreSQL, MySQL, SQLite, SQL Server, CockroachDB, and MongoDB.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I include a datasource and client generator block?</h3>
+            <p class="faq-card__a">Yes. Toggle the Datasource Header switch to include generator client and datasource db blocks at the top of the output.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How are arrays of objects mapped to one-to-many Prisma relations?</h3>
+            <p class="faq-card__a">Arrays of objects (e.g. &quot;posts&quot;: [ {...} ]) generate a child model with a one-to-many relation (posts Post[]).</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How do I apply the generated schema to my Prisma project?</h3>
+            <p class="faq-card__a">Paste the model blocks into your schema.prisma file and run npx prisma db push or npx prisma migrate dev.</p>
+          </div>
+        </div>
+        <div class="faq-prose" style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--bg-border);">
+          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);color:var(--text-primary);margin-bottom:var(--space-3);">Related Developer Tools &amp; Specifications</h3>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);">
+            Explore complementary utilities in our developer suite: beautify and inspect payloads with our <a href="/tools/json-formatter.html">JSON Formatter</a>, enforce syntax compliance with the <a href="/tools/json-validator.html">JSON Validator</a>, check differences with <a href="/tools/json-diff.html">JSON Diff Checker</a>, export to spreadsheets with <a href="/tools/json-to-csv.html">JSON to CSV Converter</a>, generate types using <a href="/tools/typescript-generator.html">TypeScript Generator</a> or <a href="/tools/json-to-zod.html">Zod Schema Generator</a>, and read our in-depth <a href="/docs/rfc8259-json-specification.html">RFC 8259 JSON Specification Guide</a>.
+          </p>
         </div>
       </section>
 

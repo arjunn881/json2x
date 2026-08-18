@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
 
-  <title>JSON to GraphQL Types Generator — Free Online Tool | JSON2X</title>
-  <meta name="description" content="Generate GraphQL type definitions from JSON instantly. Produces type, input, and Query definitions with correct scalar types. Free, 100% browser-only." />
-  <meta name="keywords" content="json to graphql, graphql type generator, json to graphql schema, generate graphql types from json, graphql typedef generator" />
+  <title>JSON to GraphQL Types Generator — Generate GraphQL SDL | JSON2X</title>
+  <meta name="description" content="Convert JSON data into GraphQL SDL type definitions online. Infers GraphQL scalars, nested types, and root query schemas. Free browser-only developer tool." />
+  <meta name="keywords" content="json to graphql, graphql type generator, json to graphql types, generate graphql schema from json, graphql sdl generator, json2graphql online" />
   <meta name="robots" content="index, follow" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0d1117" />
@@ -19,68 +19,89 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://json2x.com/tools/json-to-graphql.html" />
-  <meta property="og:title" content="JSON to GraphQL Type Definitions Generator" />
-  <meta property="og:description" content="Convert any JSON object to GraphQL type definitions with correct scalars. Generates type, input, and Query boilerplate." />
+  <meta property="og:title" content="JSON to GraphQL Types Generator — Generate GraphQL SDL | JSON2X" />
+  <meta property="og:description" content="Convert JSON data into GraphQL SDL type definitions online. Infers GraphQL scalars, nested types, and root query schemas. Free browser-only developer tool." />
   <meta property="og:site_name" content="JSON2X" />
-  <meta property="og:image" content="https://json2x.com/assets/og-image.png" />
+  <meta property="og:image" content="https://json2x.com/assets/images/tools/json-to-graphql.jpg" />
+  <link rel="preload" as="image" href="https://json2x.com/assets/images/tools/json-to-graphql.jpg" fetchpriority="high" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="JSON to GraphQL Types — JSON2X" />
-  <meta name="twitter:description" content="Generate GraphQL type definitions from JSON free in your browser." />
-  <meta name="twitter:image" content="https://json2x.com/assets/og-image.png" />
+  <meta name="twitter:title" content="JSON to GraphQL Types Generator — Generate GraphQL SDL | JSON2X" />
+  <meta name="twitter:description" content="Convert JSON data into GraphQL SDL type definitions online. Infers GraphQL scalars, nested types, and root query schemas. Free browser-only developer tool." />
+  <meta name="twitter:image" content="https://json2x.com/assets/images/tools/json-to-graphql.jpg" />
 
+  <!-- ── FAQ Schema ────────────────────────────────────────── -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "JSON to GraphQL Type Generator",
-    "url": "https://json2x.com/tools/json-to-graphql.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any (browser-based)",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Generate GraphQL SDL type definitions from any JSON object. Produces type, input type, and sample Query/Mutation boilerplate with correct scalar types (String, Int, Float, Boolean, ID). 100% client-side.",
-    "featureList": [
-      "Generate GraphQL type from JSON",
-      "Generates type and input definitions",
-      "Sample Query and Mutation boilerplate",
-      "Nested objects become separate types",
-      "Copy and Download .graphql output"
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "JSON2X", "item": "https://json2x.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://json2x.com/tools/index.html" },
-      { "@type": "ListItem", "position": 3, "name": "JSON to GraphQL Types", "item": "https://json2x.com/tools/json-to-graphql.html" }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is GraphQL SDL?",
-        "acceptedAnswer": { "@type": "Answer", "text": "GraphQL SDL (Schema Definition Language) is the standard way to define a GraphQL API schema using type definitions. It specifies types, fields, queries, mutations, and subscriptions. Tools like Apollo Server and GraphQL Yoga read SDL to build executable schemas." }
-      },
-      {
-        "@type": "Question",
-        "name": "How does the JSON to GraphQL generator map types?",
-        "acceptedAnswer": { "@type": "Answer", "text": "JSON primitives map to GraphQL scalars: string → String, integer → Int, float → Float, boolean → Boolean, null → nullable field (no !). Fields named 'id' or '_id' are mapped to ID scalar. Nested objects become separate type definitions. Arrays of objects become [TypeName!]! fields." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is an input type in GraphQL?",
-        "acceptedAnswer": { "@type": "Answer", "text": "An input type is a special GraphQL type used for mutation arguments. Unlike regular types, input types can be used as arguments in mutations. This generator optionally outputs both the regular 'type' and the corresponding 'input' definition for use in Create/Update mutations." }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I convert JSON data into GraphQL SDL type definitions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your JSON payload. The generator analyzes fields and outputs standard GraphQL Schema Definition Language (SDL) type blocks with accurate scalars."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "How are JSON primitives mapped to GraphQL scalars?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "string → String, integer → Int, float → Float, boolean → Boolean, and ID-like fields (id, _id, uuid) → ID."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are nested objects converted into custom GraphQL type blocks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each nested object becomes a separate named type block (e.g. type UserProfile { ... }) and is referenced by name in the parent type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are fields marked as non-nullable (!) or optional?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "By default, present non-null fields can be generated with non-nullable (!) markers, or kept optional for flexible API schemas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are arrays converted to GraphQL list types?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Arrays of primitives are mapped to [String], [Int], etc., and arrays of objects are mapped to lists of named types ([Item!]!)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the generated SDL with Apollo Server, GraphQL Yoga, or Fastify?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The output is standard SDL compatible with Apollo Server, GraphQL Yoga, Mercurius, NestJS, and AWS AppSync."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I generate a Root Query definition alongside object types?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Toggle the Root Query option to include a type Query block with sample query fields for your root types."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the generator run client-side without sending data to an API?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. All schema generation runs entirely in your browser with complete privacy and zero telemetry on your data."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -206,26 +227,67 @@
       </div>
       <div id="related-tools-placeholder" data-current="json-to-graphql"></div>
 
-      <section class="faq-section">
-        <p class="faq-eyebrow">Guide</p>
-        <h2 class="faq-title">About JSON to GraphQL Type Generation</h2>
+      
+      
+      
+      
+      
+      
+      <!-- ══════════════════════════════════════════════════════
+           SEO / FAQ Section (Expanded Most-Searched Questions)
+           ══════════════════════════════════════════════════════ -->
+      <section class="faq-section" aria-label="Frequently Asked Questions">
+        <div class="faq-section__header">
+          <p class="faq-section__eyebrow">Frequently Asked Questions</p>
+          <h2 class="faq-section__title">Frequently Asked Questions about JSON to GraphQL Schema Generator</h2>
+        </div>
         <div class="faq-grid">
+
           <div class="faq-card">
-            <h3>Scalar type mapping</h3>
-            <p><code>string</code> → <code>String</code>, integer → <code>Int</code>, float → <code>Float</code>, boolean → <code>Boolean</code>, null → nullable (no <code>!</code>). Fields named <code>id</code> or <code>_id</code> → <code>ID</code> scalar.</p>
+            <h3 class="faq-card__q">How do I convert JSON data into GraphQL SDL type definitions?</h3>
+            <p class="faq-card__a">Paste your JSON payload. The generator analyzes fields and outputs standard GraphQL Schema Definition Language (SDL) type blocks with accurate scalars.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Non-null modifier</h3>
-            <p>When "Non-null (!)" is enabled, all non-null JSON values get the <code>!</code> modifier, indicating required fields in your schema. Turn it off to make all fields nullable — useful for partial update inputs.</p>
+            <h3 class="faq-card__q">How are JSON primitives mapped to GraphQL scalars?</h3>
+            <p class="faq-card__a">string → String, integer → Int, float → Float, boolean → Boolean, and ID-like fields (id, _id, uuid) → ID.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Nested objects</h3>
-            <p>Nested JSON objects generate separate <code>type</code> and <code>input</code> blocks, referenced as field types in the parent. e.g., <code>address: Address!</code> with a separate <code>type Address { ... }</code> block.</p>
+            <h3 class="faq-card__q">How are nested objects converted into custom GraphQL type blocks?</h3>
+            <p class="faq-card__a">Each nested object becomes a separate named type block (e.g. type UserProfile { ... }) and is referenced by name in the parent type.</p>
           </div>
+
           <div class="faq-card">
-            <h3>Query boilerplate</h3>
-            <p>When enabled, the generator outputs a sample <code>type Query</code> with <code>get</code> and <code>list</code> fields, plus a <code>type Mutation</code> with <code>create</code> and <code>update</code> operations using the generated input type.</p>
+            <h3 class="faq-card__q">Are fields marked as non-nullable (!) or optional?</h3>
+            <p class="faq-card__a">By default, present non-null fields can be generated with non-nullable (!) markers, or kept optional for flexible API schemas.</p>
           </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">How are arrays converted to GraphQL list types?</h3>
+            <p class="faq-card__a">Arrays of primitives are mapped to [String], [Int], etc., and arrays of objects are mapped to lists of named types ([Item!]!).</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I use the generated SDL with Apollo Server, GraphQL Yoga, or Fastify?</h3>
+            <p class="faq-card__a">Yes. The output is standard SDL compatible with Apollo Server, GraphQL Yoga, Mercurius, NestJS, and AWS AppSync.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Can I generate a Root Query definition alongside object types?</h3>
+            <p class="faq-card__a">Yes. Toggle the Root Query option to include a type Query block with sample query fields for your root types.</p>
+          </div>
+
+          <div class="faq-card">
+            <h3 class="faq-card__q">Does the generator run client-side without sending data to an API?</h3>
+            <p class="faq-card__a">Yes. All schema generation runs entirely in your browser with complete privacy and zero telemetry on your data.</p>
+          </div>
+        </div>
+        <div class="faq-prose" style="margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--bg-border);">
+          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);color:var(--text-primary);margin-bottom:var(--space-3);">Related Developer Tools &amp; Specifications</h3>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:var(--leading-relaxed);">
+            Explore complementary utilities in our developer suite: beautify and inspect payloads with our <a href="/tools/json-formatter.html">JSON Formatter</a>, enforce syntax compliance with the <a href="/tools/json-validator.html">JSON Validator</a>, check differences with <a href="/tools/json-diff.html">JSON Diff Checker</a>, export to spreadsheets with <a href="/tools/json-to-csv.html">JSON to CSV Converter</a>, generate types using <a href="/tools/typescript-generator.html">TypeScript Generator</a> or <a href="/tools/json-to-zod.html">Zod Schema Generator</a>, and read our in-depth <a href="/docs/rfc8259-json-specification.html">RFC 8259 JSON Specification Guide</a>.
+          </p>
         </div>
       </section>
 

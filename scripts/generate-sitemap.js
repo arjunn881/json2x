@@ -6,7 +6,7 @@ const WORKSPACE_ROOT = path.resolve(__dirname, '..');
 
 const EXCLUDE_DIRS = ['node_modules', 'scratch', 'scripts', 'admin', 'api', 'private', '.git'];
 const EXCLUDE_FILES = [
-  '404.html', '500.html', '_template.html', 'converter.html',
+  '404.html', '500.html', '_template.html',
   'formatter.html', 'validator.html', 'minifier.html', 'diff.html',
   'schema.html', 'viewer.html', 'json-to-ts.html'
 ];
@@ -26,10 +26,14 @@ const TOOL_IMAGES = {
   'tools/json-to-xml.html':          { file: '/assets/images/tools/json-to-xml.jpg',          caption: 'JSON to XML Converter — JSON2X' },
   'tools/json-to-toml.html':         { file: '/assets/images/tools/json-to-toml.jpg',         caption: 'JSON to TOML Converter — JSON2X' },
   'tools/json-schema-generator.html':{ file: '/assets/images/tools/json-schema-generator.jpg',caption: 'JSON Schema Generator — Draft-07 Schema Inference — JSON2X' },
-  'tools/json-to-prisma.html':       { file: '/assets/og-image.png',                          caption: 'JSON to Prisma Schema Generator — JSON2X' },
-  'tools/json-to-drizzle.html':      { file: '/assets/og-image.png',                          caption: 'JSON to Drizzle ORM Schema Generator — JSON2X' },
-  'tools/json-to-graphql.html':      { file: '/assets/og-image.png',                          caption: 'JSON to GraphQL Type Definitions Generator — JSON2X' },
-  'tools/json-to-zod.html':          { file: '/assets/og-image.png',                          caption: 'JSON to Zod Schema Generator — JSON2X' },
+  'tools/jsonpath.html':             { file: '/assets/images/tools/jsonpath.jpg',              caption: 'JSONPath Tester & Query Evaluator — JSON2X' },
+  'tools/json-mock-generator.html':  { file: '/assets/images/tools/json-mock-generator.jpg',   caption: 'JSON Mock Data Generator — Fake Synthetic Data — JSON2X' },
+  'tools/json-to-code.html':         { file: '/assets/images/tools/json-to-code.jpg',          caption: 'JSON to Code Models (Go, Rust, Python, Kotlin, Java) — JSON2X' },
+  'tools/json-converter.html':       { file: '/assets/images/tools/json-converter.jpg',        caption: 'JSON Multi-Converter — Convert to CSV, YAML, XML, SQL, TS — JSON2X' },
+  'tools/json-to-prisma.html':       { file: '/assets/images/tools/json-to-prisma.jpg',       caption: 'JSON to Prisma Schema Generator — JSON2X' },
+  'tools/json-to-drizzle.html':      { file: '/assets/images/tools/json-to-drizzle.jpg',      caption: 'JSON to Drizzle ORM Schema Generator — JSON2X' },
+  'tools/json-to-graphql.html':      { file: '/assets/images/tools/json-to-graphql.jpg',      caption: 'JSON to GraphQL Type Definitions Generator — JSON2X' },
+  'tools/json-to-zod.html':          { file: '/assets/images/tools/json-to-zod.jpg',          caption: 'JSON to Zod Schema Generator — JSON2X' },
 };
 
 function walkDir(dir) {
@@ -186,11 +190,9 @@ function buildSitemapXml(pages) {
     xml += `    <changefreq>${p.freq}</changefreq>\n`;
     xml += `    <priority>${p.priority}</priority>\n`;
     
-    // Multi-Language hreflang annotations
+    // Canonical hreflang (English-only site)
     xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${p.url}"/>\n`;
-    SUPPORTED_LANGUAGES.forEach(lang => {
-      xml += `    <xhtml:link rel="alternate" hreflang="${lang}" href="${p.url}"/>\n`;
-    });
+    xml += `    <xhtml:link rel="alternate" hreflang="en" href="${p.url}"/>\n`;
 
     if (p.images.length > 0) {
       p.images.forEach(img => {
