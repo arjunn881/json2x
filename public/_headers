@@ -1,5 +1,8 @@
 https://jsontoolkit-3bb.pages.dev/*
-  X-Robots-Tag: noindex
+  X-Robots-Tag: noindex, nofollow
+
+https://astro-migration.jsontoolkit-3bb.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
 
 /*
   X-Content-Type-Options: nosniff
