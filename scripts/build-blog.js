@@ -464,12 +464,22 @@ BLOG_ARTICLES.forEach(art => {
   const toolSlug = art.primaryTool || 'json-formatter';
   const toolHref = `/tools/${toolSlug.endsWith('.html') ? toolSlug : toolSlug + '.html'}`;
 
-  const sectionsHtml = art.sections.map(s => `
+  const sectionsHtml = art.sections.map(s => {
+    let processedBody = s.body;
+    // Format tables into responsive docs tables
+    processedBody = processedBody.replace(/<table(?! class="docs-table")/g, '<div class="table-responsive"><table class="docs-table"');
+    processedBody = processedBody.replace(/<\/table>(?!<\/div>)/g, '</table></div>');
+    // Ensure code block headers have terminal dots
+    if (processedBody.includes('<div class="code-block-header">') && !processedBody.includes('code-block-dots')) {
+      processedBody = processedBody.replace(/<div class="code-block-header">/g, '<div class="code-block-header"><div class="code-block-dots" aria-hidden="true"><span class="code-dot code-dot--red"></span><span class="code-dot code-dot--yellow"></span><span class="code-dot code-dot--green"></span></div>');
+    }
+    return `
     <section style="margin:var(--space-8) 0;">
       <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-3);">${s.heading}</h2>
-      ${s.body}
+      ${processedBody}
     </section>
-  `).join('\n');
+  `;
+  }).join('\n');
 
   const faqsHtml = art.faqs ? `
     <section style="margin:var(--space-10) 0;padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);">
@@ -510,8 +520,8 @@ BLOG_ARTICLES.forEach(art => {
   <meta name="twitter:description" content="${art.metaDesc.slice(0, 165)}" />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css" />
-  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -547,11 +557,11 @@ BLOG_ARTICLES.forEach(art => {
       <div class="tool-hero__badge">${art.category}</div>
       <h1 class="tool-hero__title">${art.h1}</h1>
       <div class="docs-meta">
-        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5"/></svg>${art.date}</span>
-        <span>•</span>
-        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 3" stroke="currentColor" stroke-width="1.5"/></svg>${art.readTime}</span>
-        <span>•</span>
-        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zM2 14a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5"/></svg>By ${art.author}</span>
+        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3"/></svg>${art.date}</span>
+        <span class="docs-meta__sep">•</span>
+        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 3" stroke="currentColor" stroke-width="1.3"/></svg>${art.readTime}</span>
+        <span class="docs-meta__sep">•</span>
+        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zM2 14a6 6 0 0112 0" stroke="currentColor" stroke-width="1.3"/></svg>By ${art.author}</span>
       </div>
     </div>
 
@@ -578,7 +588,7 @@ BLOG_ARTICLES.forEach(art => {
   <div id="site-footer-placeholder"></div>
   <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/layout.js?v=2.9.0"></script>
 </body>
 </html>`;
 
@@ -628,8 +638,8 @@ const blogIndexHtml = `<!DOCTYPE html>
   <meta name="twitter:description" content="In-depth developer articles, architectural benchmarks, data migration tutorials, and performance guides for JSON, CSV, TypeScript, SQL, and APIs." />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css" />
-  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -657,7 +667,7 @@ const blogIndexHtml = `<!DOCTYPE html>
         <p class="tool-hero__desc">Authoritative guides on client-side data engineering, RFC standards, type inference, performance benchmarks, and zero-server privacy.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:var(--space-6);margin-bottom:var(--space-12);">
+      <div class="dev-tools-grid" style="margin-bottom:var(--space-12);">
         ${blogCardsHtml}
       </div>
     </div>
@@ -666,7 +676,7 @@ const blogIndexHtml = `<!DOCTYPE html>
   <div id="site-footer-placeholder"></div>
   <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/layout.js?v=2.9.0"></script>
 </body>
 </html>`;
 

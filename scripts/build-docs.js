@@ -864,8 +864,8 @@ SAMPLE_DOCS.forEach(doc => {
   <meta name="twitter:description" content="${doc.frontmatter.description.slice(0, 165)}" />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css" />
-  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -897,11 +897,11 @@ SAMPLE_DOCS.forEach(doc => {
       <div class="tool-hero__badge">${doc.frontmatter.category}</div>
       <h1 class="tool-hero__title">${doc.frontmatter.title}</h1>
       <div class="docs-meta">
-        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3"/></svg>Updated: ${doc.frontmatter.date}</span>
-        <span>•</span>
-        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" stroke-width="1.3"/></svg>Technical Reference</span>
-        <span>•</span>
-        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3"/></svg>100% Client-Side</span>
+        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3"/></svg>Updated: ${doc.frontmatter.date}</span>
+        <span class="docs-meta__sep">•</span>
+        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" stroke-width="1.3"/></svg>Technical Reference</span>
+        <span class="docs-meta__sep">•</span>
+        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3"/></svg>100% Client-Side</span>
       </div>
     </div>
 
@@ -923,7 +923,7 @@ SAMPLE_DOCS.forEach(doc => {
   <div id="site-footer-placeholder"></div>
   <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/layout.js?v=2.9.0"></script>
 </body>
 </html>`;
 
@@ -971,8 +971,8 @@ const docsIndexHtml = `<!DOCTYPE html>
   <meta name="twitter:description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css" />
-  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1000,7 +1000,7 @@ const docsIndexHtml = `<!DOCTYPE html>
         <p class="tool-hero__desc">Authoritative architectural references, IETF RFC standards, parser mechanics, and type-safety guides for our suite of 17 browser-native tools.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:var(--space-4);margin-bottom:var(--space-12);">
+      <div class="dev-tools-grid" style="margin-bottom:var(--space-12);">
         ${docsHubCardsHtml}
       </div>
     </div>
@@ -1009,7 +1009,7 @@ const docsIndexHtml = `<!DOCTYPE html>
   <div id="site-footer-placeholder"></div>
   <script src="/assets/js/i18n.js"></script>
   <script src="/assets/js/common.js"></script>
-  <script src="/assets/js/layout.js?v=2.8.0"></script>
+  <script src="/assets/js/layout.js?v=2.9.0"></script>
 </body>
 </html>`;
 

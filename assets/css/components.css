@@ -1877,6 +1877,78 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-right: var(--space-2);
 }
 
+/* ── Developer Grid & Tool Card System ─────────────────────── */
+.dev-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+.dev-tool-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.dev-tool-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.dev-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.dev-card__title {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dev-card__badge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 1px 6px;
+  background: var(--accent-light);
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+}
+
+.dev-card__snippet {
+  background: var(--bg-raised);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dev-card__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
 /* ── Developer Documentation & Article System ─────────────── */
 .docs-page {
   max-width: 920px;
@@ -1902,21 +1974,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .docs-meta {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
   flex-wrap: wrap;
+  gap: var(--space-3);
   font-size: var(--text-xs);
   color: var(--text-muted);
   font-family: var(--font-mono);
-  margin-top: var(--space-3);
-  margin-bottom: var(--space-8);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--bg-border);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
 }
 
 .docs-meta__item {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.docs-meta__item svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
 }
 
 .docs-content {
@@ -1926,7 +2003,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .docs-content > h1:first-child {
-  display: none; /* Hero title is rendered as primary H1 */
+  display: none;
 }
 
 .docs-content h2 {
@@ -1982,7 +2059,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ── Developer Terminal Code Block Card ───────────────────── */
 .code-block-wrap {
-  background: var(--bg-base);
+  background: var(--bg-surface);
   border: 1px solid var(--bg-border);
   border-radius: var(--radius-xl);
   margin: var(--space-6) 0;
@@ -2024,20 +2101,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: 0.05em;
   font-weight: var(--font-semibold);
   font-size: 10px;
+  margin-left: var(--space-2);
 }
 
 .code-copy-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 10px;
+  padding: 3px 8px;
   background: var(--bg-surface);
   border: 1px solid var(--bg-border);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: var(--font-medium);
+  font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -2052,7 +2130,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin: 0;
   padding: var(--space-4) var(--space-5);
   overflow-x: auto;
-  background: transparent;
+  background: var(--bg-surface);
 }
 
 .code-block-wrap pre code {
@@ -2062,6 +2140,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--text-primary);
   tab-size: 2;
   white-space: pre;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: block;
 }
 
 /* ── Developer Documentation Tables ───────────────────────── */
@@ -2084,11 +2166,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .docs-table th {
   background: var(--bg-raised);
   color: var(--text-primary);
-  font-weight: var(--font-semibold);
+  font-weight: var(--font-bold);
   padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--bg-border);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+  white-space: nowrap;
 }
 
 .docs-table td {
