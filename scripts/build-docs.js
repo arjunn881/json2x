@@ -797,17 +797,19 @@ function parseMarkdown(md) {
     }).join('\n');
     return `<div class="table-responsive"><table class="docs-table"><thead><tr>${headers}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   });
-  // Fenced Code blocks
+  // Fenced Code blocks with terminal card header
   html = html.replace(/```([a-z0-9_-]+)?\n([\s\S]*?)```/g, (m, lang, code) => {
     const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return `<div class="code-block-wrap"><div class="code-block-header"><span class="code-lang">${lang || 'code'}</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)">Copy</button></div><pre><code class="language-${lang || 'text'}">${escaped.trim()}</code></pre></div>`;
+    return `<div class="code-block-wrap"><div class="code-block-header"><div class="code-block-dots" aria-hidden="true"><span class="code-dot code-dot--red"></span><span class="code-dot code-dot--yellow"></span><span class="code-dot code-dot--green"></span></div><span class="code-lang">${lang || 'code'}</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block-wrap').querySelector('code').innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3.5A1.5 1.5 0 014.5 2H11" stroke="currentColor" stroke-width="1.3"/></svg>Copy</button></div><pre><code class="language-${lang || 'text'}">${escaped.trim()}</code></pre></div>`;
   });
+  // Strip top H1 heading (rendered cleanly in page hero)
+  html = html.replace(/^# .*$/m, '');
   // Headings
   html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
   html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-  // Lists
+  // Lists (unordered & numbered)
   html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+  html = html.replace(/^\s*\d+\.\s+(.*$)/gim, '<li>$1</li>');
   html = html.replace(/(<li>[\s\S]*?<\/li>)/gm, '<ul>$1</ul>');
   html = html.replace(/<\/ul>\s*<ul>/g, '');
   // Bold & Italic
@@ -845,7 +847,7 @@ SAMPLE_DOCS.forEach(doc => {
   <title>${doc.frontmatter.title} — JSON2X</title>
   <meta name="description" content="${doc.frontmatter.description.slice(0, 165)}" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#1a73e8" />
+  <meta name="theme-color" content="#0d1117" />
   <link rel="canonical" href="${BASE_URL}/docs/${slug}.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -882,25 +884,36 @@ SAMPLE_DOCS.forEach(doc => {
 <body>
   <div id="site-header-placeholder"></div>
 
-  <main id="main-content" class="docs-page container" style="max-width:960px;margin:var(--space-8) auto;padding:0 var(--space-4);">
-    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
-      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
-      <a href="/docs/index.html" style="color:var(--text-muted);text-decoration:none;">Docs</a> /
-      <span style="color:var(--accent);">${doc.frontmatter.category}</span>
+  <main id="main-content" class="docs-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a class="breadcrumb__link" href="/">Home</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <a class="breadcrumb__link" href="/docs/index.html">Docs</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <span class="breadcrumb__current" aria-current="page">${doc.frontmatter.title}</span>
     </nav>
 
-    <article class="docs-content prose">
-      <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);">
-        <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">${doc.frontmatter.category}</span>
-        <span style="font-size:var(--text-xs);color:var(--text-muted);">Updated: ${doc.frontmatter.date}</span>
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
+      <div class="tool-hero__badge">${doc.frontmatter.category}</div>
+      <h1 class="tool-hero__title">${doc.frontmatter.title}</h1>
+      <div class="docs-meta">
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3"/></svg>Updated: ${doc.frontmatter.date}</span>
+        <span>•</span>
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" stroke-width="1.3"/></svg>Technical Reference</span>
+        <span>•</span>
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3"/></svg>100% Client-Side</span>
+      </div>
+    </div>
+
+    <article class="docs-article">
+      <div class="docs-content">
+        ${htmlContent}
       </div>
 
-      ${htmlContent}
-
-      <div class="docs-tool-cta" style="margin-top:var(--space-8);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+      <div class="docs-tool-cta">
         <div>
-          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Test with our free interactive tool</h3>
-          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+          <div class="docs-tool-cta__title">Test with our free interactive tool</div>
+          <p class="docs-tool-cta__desc">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
         </div>
         <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
       </div>
@@ -923,14 +936,13 @@ SAMPLE_DOCS.forEach(doc => {
 // Build Docs Hub Index
 const docsHubCardsHtml = compiledDocs.map(d => {
   return `
-  <a class="doc-card" href="/docs/${d.slug}.html" style="display:flex;flex-direction:column;padding:var(--space-5);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);text-decoration:none;transition:all var(--transition-base);">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
-      <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">${d.category}</span>
-      <span style="font-size:11px;color:var(--text-muted);">${d.date}</span>
+  <a class="dev-tool-card" href="/docs/${d.slug}.html" style="text-decoration:none;">
+    <div class="dev-card__head">
+      <span class="dev-card__title">${d.title}</span>
+      <span class="dev-card__badge">${d.category}</span>
     </div>
-    <h3 style="font-size:var(--text-base);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">${d.title}</h3>
-    <p style="font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;margin:0;flex:1;">${d.description}</p>
-    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);">Read Documentation →</div>
+    <div class="dev-card__desc">${d.description}</div>
+    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);font-family:var(--font-mono);">Read Documentation →</div>
   </a>`;
 }).join('\n');
 

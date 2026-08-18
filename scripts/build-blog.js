@@ -534,38 +534,41 @@ BLOG_ARTICLES.forEach(art => {
 <body>
   <div id="site-header-placeholder"></div>
 
-  <main id="main-content" class="container" style="max-width:860px;margin:var(--space-8) auto;padding:0 var(--space-4);">
-    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
-      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
-      <a href="/blog/index.html" style="color:var(--text-muted);text-decoration:none;">Blog</a> /
-      <span style="color:var(--accent);">${art.category}</span>
+  <main id="main-content" class="docs-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a class="breadcrumb__link" href="/">Home</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <a class="breadcrumb__link" href="/blog/index.html">Blog</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <span class="breadcrumb__current" aria-current="page">${art.h1}</span>
     </nav>
 
-    <article class="prose">
-      <header style="margin-bottom:var(--space-8);">
-        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3);flex-wrap:wrap;">
-          <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">${art.category}</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">${art.date}</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">• ${art.readTime}</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">• By ${art.author}</span>
-        </div>
-        <h1 style="font-size:var(--text-3xl);font-weight:var(--font-bold);line-height:1.25;margin-bottom:var(--space-4);">${art.h1}</h1>
-        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-6);">
-          ${tagsHtml}
-        </div>
-        <div style="padding:var(--space-4) var(--space-5);background:var(--bg-surface);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.6;">
-          ${art.intro}
-        </div>
-      </header>
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
+      <div class="tool-hero__badge">${art.category}</div>
+      <h1 class="tool-hero__title">${art.h1}</h1>
+      <div class="docs-meta">
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5"/></svg>${art.date}</span>
+        <span>•</span>
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 3" stroke="currentColor" stroke-width="1.5"/></svg>${art.readTime}</span>
+        <span>•</span>
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zM2 14a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5"/></svg>By ${art.author}</span>
+      </div>
+    </div>
 
-      ${sectionsHtml}
+    <article class="docs-article">
+      <div style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
+        ${art.intro}
+      </div>
 
-      ${faqsHtml}
+      <div class="docs-content">
+        ${sectionsHtml}
+        ${faqsHtml}
+      </div>
 
-      <div style="margin-top:var(--space-10);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+      <div class="docs-tool-cta">
         <div>
-          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Try our free interactive developer tool</h3>
-          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+          <div class="docs-tool-cta__title">Try our free interactive developer tool</div>
+          <p class="docs-tool-cta__desc">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
         </div>
         <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
       </div>
@@ -587,20 +590,17 @@ BLOG_ARTICLES.forEach(art => {
 
 // Build Blog Hub Index (blog/index.html)
 const blogCardsHtml = compiledArticles.map(a => `
-  <article class="blog-card" style="display:flex;flex-direction:column;padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);transition:all var(--transition-base);">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-3);">
-      <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:var(--accent-light);color:var(--accent);text-transform:uppercase;">${a.category}</span>
-      <span style="font-size:11px;color:var(--text-muted);">${a.readTime}</span>
+  <a class="dev-tool-card" href="/blog/${a.slug}.html" style="text-decoration:none;">
+    <div class="dev-card__head">
+      <span class="dev-card__title">${a.h1}</span>
+      <span class="dev-card__badge">${a.category}</span>
     </div>
-    <h2 style="font-size:var(--text-lg);font-weight:var(--font-bold);color:var(--text-primary);margin-bottom:var(--space-2);line-height:1.4;">
-      <a href="/blog/${a.slug}.html" style="color:inherit;text-decoration:none;">${a.h1}</a>
-    </h2>
-    <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.5;margin-bottom:var(--space-4);flex:1;">${a.metaDesc}</p>
-    <div style="display:flex;align-items:center;justify-content:space-between;font-size:var(--text-xs);color:var(--text-muted);border-top:1px solid var(--bg-border);padding-top:var(--space-3);">
-      <span>By ${a.author}</span>
-      <a href="/blog/${a.slug}.html" style="color:var(--accent);font-weight:600;text-decoration:none;">Read Article →</a>
+    <div class="dev-card__desc">${a.metaDesc}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);font-family:var(--font-mono);">
+      <span>${a.readTime}</span>
+      <span style="color:var(--accent);font-weight:600;">Read Article →</span>
     </div>
-  </article>
+  </a>
 `).join('\n');
 
 const blogIndexHtml = `<!DOCTYPE html>

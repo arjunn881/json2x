@@ -47,38 +47,40 @@
 <body>
   <div id="site-header-placeholder"></div>
 
-  <main id="main-content" class="container" style="max-width:860px;margin:var(--space-8) auto;padding:0 var(--space-4);">
-    <nav class="breadcrumb" aria-label="Breadcrumb" style="margin-bottom:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);">
-      <a href="/" style="color:var(--text-muted);text-decoration:none;">Home</a> /
-      <a href="/blog/index.html" style="color:var(--text-muted);text-decoration:none;">Blog</a> /
-      <span style="color:var(--accent);">Backend</span>
+  <main id="main-content" class="docs-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a class="breadcrumb__link" href="/">Home</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <a class="breadcrumb__link" href="/blog/index.html">Blog</a>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      <span class="breadcrumb__current" aria-current="page">Synthesizing Strongly-Typed Models in Go, Rust & Python</span>
     </nav>
 
-    <article class="prose">
-      <header style="margin-bottom:var(--space-8);">
-        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3);flex-wrap:wrap;">
-          <span style="font-size:var(--text-xs);font-weight:var(--font-bold);padding:2px 8px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);text-transform:uppercase;">Backend</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">2026-08-03</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">• 8 min read</span>
-          <span style="font-size:var(--text-xs);color:var(--text-muted);">• By Principal Systems Architect</span>
-        </div>
-        <h1 style="font-size:var(--text-3xl);font-weight:var(--font-bold);line-height:1.25;margin-bottom:var(--space-4);">Synthesizing Strongly-Typed Models in Go, Rust & Python</h1>
-        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-6);">
-          <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Go</span> <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Rust</span> <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Python</span> <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Pydantic</span> <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--bg-raised);color:var(--text-secondary);border:1px solid var(--bg-border);">Serde</span>
-        </div>
-        <div style="padding:var(--space-4) var(--space-5);background:var(--bg-surface);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.6;">
-          Consuming third-party webhooks in Go, Rust, or Python requires boilerplate struct definitions. Automated code generation analyzes payload keys and generates idiomatic, production-ready structs in seconds.
-        </div>
-      </header>
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
+      <div class="tool-hero__badge">Backend</div>
+      <h1 class="tool-hero__title">Synthesizing Strongly-Typed Models in Go, Rust & Python</h1>
+      <div class="docs-meta">
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.5"/></svg>2026-08-03</span>
+        <span>•</span>
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v4l3 3" stroke="currentColor" stroke-width="1.5"/></svg>8 min read</span>
+        <span>•</span>
+        <span class="docs-meta__item"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zM2 14a6 6 0 0112 0" stroke="currentColor" stroke-width="1.5"/></svg>By Principal Systems Architect</span>
+      </div>
+    </div>
 
-      
+    <article class="docs-article">
+      <div style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
+        Consuming third-party webhooks in Go, Rust, or Python requires boilerplate struct definitions. Automated code generation analyzes payload keys and generates idiomatic, production-ready structs in seconds.
+      </div>
+
+      <div class="docs-content">
+        
     <section style="margin:var(--space-8) 0;">
       <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-3);">Idiomatic Language Conventions</h2>
       <p>The generator converts camelCase JSON keys into PascalCase Go fields with json tags, snake_case Rust fields with Serde derive macros, and typed Pydantic models.</p>
     </section>
   
-
-      
+        
     <section style="margin:var(--space-10) 0;padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);">
       <h2 style="font-size:var(--text-xl);font-weight:var(--font-bold);margin-bottom:var(--space-4);">Frequently Asked Questions</h2>
       
@@ -89,11 +91,12 @@
       
     </section>
   
+      </div>
 
-      <div style="margin-top:var(--space-10);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+      <div class="docs-tool-cta">
         <div>
-          <h3 style="margin:0 0 var(--space-1);font-size:var(--text-lg);font-weight:var(--font-bold);">Try our free interactive developer tool</h3>
-          <p style="margin:0;font-size:var(--text-sm);color:var(--text-secondary);">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+          <div class="docs-tool-cta__title">Try our free interactive developer tool</div>
+          <p class="docs-tool-cta__desc">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
         </div>
         <a href="/tools/json-to-code.html" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
       </div>
