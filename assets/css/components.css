@@ -1877,3 +1877,254 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-right: var(--space-2);
 }
 
+/* ── Developer Documentation & Article System ─────────────── */
+.docs-page {
+  max-width: 920px;
+  margin: var(--space-8) auto var(--space-16);
+  padding: 0 var(--space-4);
+}
+
+.docs-article {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-10);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .docs-article {
+    padding: var(--space-6) var(--space-5);
+    border-radius: var(--radius-xl);
+  }
+}
+
+.docs-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--bg-border);
+}
+
+.docs-meta__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.docs-content {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.docs-content > h1:first-child {
+  display: none; /* Hero title is rendered as primary H1 */
+}
+
+.docs-content h2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--bg-border);
+}
+
+.docs-content h3 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+}
+
+.docs-content p {
+  margin-bottom: var(--space-5);
+}
+
+.docs-content ul,
+.docs-content ol {
+  margin-bottom: var(--space-6);
+  padding-left: var(--space-6);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.docs-content li {
+  line-height: 1.7;
+}
+
+.docs-content strong {
+  color: var(--text-primary);
+  font-weight: var(--font-semibold);
+}
+
+.docs-content code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-raised);
+  color: var(--accent);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--bg-border);
+}
+
+/* ── Developer Terminal Code Block Card ───────────────────── */
+.code-block-wrap {
+  background: var(--bg-base);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-xl);
+  margin: var(--space-6) 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--bg-border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.code-block-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.code-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.code-dot--red    { background: #ff5f56; }
+.code-dot--yellow { background: #ffbd2e; }
+.code-dot--green  { background: #27c93f; }
+
+.code-lang {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-semibold);
+  font-size: 10px;
+}
+
+.code-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.code-copy-btn:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.code-block-wrap pre {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  overflow-x: auto;
+  background: transparent;
+}
+
+.code-block-wrap pre code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  tab-size: 2;
+  white-space: pre;
+}
+
+/* ── Developer Documentation Tables ───────────────────────── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--bg-border);
+}
+
+.docs-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-sm);
+  background: var(--bg-surface);
+}
+
+.docs-table th {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  font-weight: var(--font-semibold);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--bg-border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.docs-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--bg-border);
+  color: var(--text-secondary);
+}
+
+.docs-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Documentation Tool CTA Card ──────────────────────────── */
+.docs-tool-cta {
+  margin-top: var(--space-10);
+  padding: var(--space-6) var(--space-8);
+  background: linear-gradient(135deg, var(--bg-raised) 0%, var(--bg-surface) 100%);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.docs-tool-cta__title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.docs-tool-cta__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
