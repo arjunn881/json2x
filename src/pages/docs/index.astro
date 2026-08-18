@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import { DOCS } from '../../data/docs';
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': 'JSON2X Developer Documentation Hub & Specifications',
+  'url': 'https://json2x.com/docs/',
+  'itemListElement': DOCS.map((d, idx) => {
+    const slug = d.filename.replace(/\.mdx?$/, '');
+    return {
+      '@type': 'ListItem',
+      'position': idx + 1,
+      'name': d.frontmatter.title,
+      'url': `https://json2x.com/docs/${slug}`
+    };
+  })
+};
+---
+
+<BaseLayout
+  title="Developer Documentation Hub & Specifications — JSON2X"
+  description="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities."
+  canonical="/docs/"
+  currentId="docs"
+  schema={itemListSchema}
+>
+  <Breadcrumbs items={[{ label: 'Documentation Hub' }]} />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+    <div class="tool-hero__badge">Documentation Hub</div>
+    <h1 class="tool-hero__title">Developer Documentation &amp; Specifications</h1>
+    <p class="tool-hero__desc">Authoritative architectural references, IETF RFC standards, parser mechanics, and type-safety guides for our suite of 17 browser-native tools.</p>
+  </div>
+
+  <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+    {DOCS.map((doc) => {
+      const slug = doc.filename.replace(/\.mdx?$/, '');
+      return (
+        <a href={`/docs/${slug}`} class="faq-card" style="text-decoration:none; display:flex; flex-direction:column;">
+          <p class="faq-section__eyebrow">{doc.frontmatter.category}</p>
+          <h2 class="faq-card__q" style="margin-top:0;">{doc.frontmatter.title}</h2>
+          <p class="faq-card__a">{doc.frontmatter.description}</p>
+        </a>
+      );
+    })}
+  </div>
+</BaseLayout>

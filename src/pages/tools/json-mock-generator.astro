@@ -1,0 +1,116 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('json-mock-generator') || {
+  id: 'json-mock-generator',
+  slug: 'json-mock-generator',
+  aliases: [],
+  name: 'Json Mock Generator',
+  title: 'Json Mock Generator — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'json mock generator',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/json-mock-generator',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  
+
+  <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Dataset Template:
+          <select id="template-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Mock Dataset Template">
+            <option value="users" selected>Users Profile</option>
+            <option value="products">E-Commerce Products</option>
+            <option value="transactions">Financial Transactions</option>
+            <option value="logs">Server Logs</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Record Count:
+          <input type="number" id="count-input" value="10" min="1" max="500" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;width:80px;" aria-label="Mock Record Count" />
+        </label>
+        <button class="btn btn--primary" id="generate-btn">Generate JSON</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Output</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download .json</button>
+      </div>
+
+      <div class="split-pane" style="grid-template-columns: 1fr;">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">Generated JSON Dataset</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:360px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Related Tools</span>
+        <a href="json-formatter" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+      </div>
+
+  <script is:inline>
+
+    (function() {
+      'use strict';
+      const templateSel = document.getElementById('template-select');
+      const countInput = document.getElementById('count-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function generate() {
+        const tpl = templateSel.value;
+        const count = countInput.value;
+
+        const { json, error } = JT.generateMockJson(tpl, count);
+        if (error) {
+          showStatus(`Mock Generation Error: ${error}`, 'error');
+          return;
+        }
+
+        outputEl.textContent = json;
+        showStatus(`Generated ${countInput.value} synthetic ${templateSel.value} records!`, 'success');
+      }
+
+      document.getElementById('generate-btn').addEventListener('click', generate);
+      templateSel.addEventListener('change', generate);
+      countInput.addEventListener('input', JT.debounce(generate, 300));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied mock JSON to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const blob = new Blob([res], { type: 'application/json;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `mock_${templateSel.value}.json`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      // Initial generation
+      generate();
+    })();
+  
+</script>
+</ToolLayout>

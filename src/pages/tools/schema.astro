@@ -1,0 +1,122 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('schema') || {
+  id: 'schema',
+  slug: 'schema',
+  aliases: [],
+  name: 'Schema',
+  title: 'Schema — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'schema',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/schema',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  
+
+  <div class="options-bar">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          <input type="checkbox" id="mark-required" checked /> Mark all keys as required
+        </label>
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          <input type="checkbox" id="add-examples" checked /> Include examples
+        </label>
+        <button class="btn btn--primary" id="generate-btn">Generate Schema</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Schema</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">JSON Input (Sample)</span></div>
+          <textarea class="textarea" id="json-input"
+            placeholder='{"user":{"name":"Alice","age":30,"active":true},"tags":["admin","user"]}' aria-label="JSON sample input" spellcheck="false"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header">
+            <span class="pane__title">JSON Schema Output</span>
+          </div>
+          <pre class="code-output" id="schema-output" tabindex="0"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+  <script is:inline>
+
+    /**
+     * Minimal JSON Schema draft-07 inferencer.
+     * Full implementation with $defs, anyOf, array-item merging goes in phase 2.
+     */
+    function inferSchema(value, addExamples) {
+      const type = JT.getType(value);
+
+      if (type === 'null')    return { type: 'null' };
+      if (type === 'boolean') return addExamples ? { type: 'boolean', examples: [value] } : { type: 'boolean' };
+      if (type === 'number')  return addExamples ? { type: 'number',  examples: [value] } : { type: 'number' };
+      if (type === 'string')  return addExamples ? { type: 'string',  examples: [value] } : { type: 'string' };
+
+      if (type === 'array') {
+        const schema = { type: 'array' };
+        if (value.length > 0) schema.items = inferSchema(value[0], addExamples);
+        return schema;
+      }
+
+      if (type === 'object') {
+        const schema = { type: 'object', properties: {} };
+        const keys = Object.keys(value);
+        keys.forEach(k => { schema.properties[k] = inferSchema(value[k], addExamples); });
+        if (document.getElementById('mark-required').checked && keys.length > 0) {
+          schema.required = keys;
+        }
+        return schema;
+      }
+
+      return {};
+    }
+
+    const statusEl = document.getElementById('tool-status');
+    function showStatus(msg, type = 'info') {
+      statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+    }
+
+    function generate() {
+      const { data, error, line } = JT.parseJSON(document.getElementById('json-input').value);
+      if (error) { showStatus(`<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>${error}${line ? ` (line ${line})` : ''}`, 'error'); return; }
+
+      const addExamples = document.getElementById('add-examples').checked;
+      const schema = {
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        ...inferSchema(data, addExamples)
+      };
+
+      const { text } = JT.stringifyJSON(schema, 2);
+      document.getElementById('schema-output').textContent = text;
+      showStatus('<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Schema generated', 'success');
+    }
+
+    document.getElementById('generate-btn').addEventListener('click', generate);
+    document.getElementById('json-input').addEventListener('input', JT.debounce(generate, 500));
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      JT.copyToClipboard(document.getElementById('schema-output').textContent)
+        .then(() => showStatus('Copied!', 'success'))
+        .catch(() => showStatus('Copy failed.', 'warning'));
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      document.getElementById('json-input').value = '';
+      document.getElementById('schema-output').textContent = '';
+      showStatus('');
+    });
+  
+</script>
+</ToolLayout>

@@ -1,0 +1,642 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('jsonpath')!;
+---
+
+<ToolLayout tool={tool}>
+  <style>
+    /* ── JSONPath expression bar ───────────────────────────── */
+    .jp-expr-wrap {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--space-3);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+    }
+    .jp-expr-label {
+      font-family: var(--font-mono);
+      font-size:   var(--text-xs);
+      font-weight: var(--font-semibold);
+      color:       var(--accent);
+      flex-shrink: 0;
+    }
+    .jp-expr-input {
+      flex:        1;
+      font-family: var(--font-mono);
+      font-size:   var(--text-sm);
+      color:       var(--text-primary);
+      background:  transparent;
+      border:      none;
+      outline:     none;
+    }
+    .jp-expr-input::placeholder { color: var(--text-muted); }
+
+    /* ── Preset buttons ────────────────────────────────────── */
+    .jp-presets {
+      display:       flex;
+      align-items:   center;
+      gap:           var(--space-2);
+      flex-wrap:     wrap;
+      margin-bottom: var(--space-4);
+    }
+    .jp-presets__label {
+      font-size:   var(--text-xs);
+      color:       var(--text-muted);
+      font-weight: var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: var(--space-1);
+    }
+    .jp-preset {
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      padding:       2px var(--space-2);
+      border-radius: var(--radius-md);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      color:         var(--text-secondary);
+      cursor:        pointer;
+      transition:    all var(--transition-fast);
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-1);
+    }
+    .jp-preset:hover {
+      background:   var(--bg-surface);
+      color:        var(--text-primary);
+      border-color: var(--accent);
+    }
+    .jp-preset__desc {
+      font-size: 10px;
+      color:     var(--text-muted);
+      font-family: var(--font-sans);
+    }
+
+    /* ── Main two-pane layout ──────────────────────────────── */
+    .jp-workspace {
+      display: grid;
+      gap:     var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    @media (min-width: 800px) {
+      .jp-workspace { grid-template-columns: 1fr 1fr; align-items: start; }
+    }
+
+    .jp-pane {
+      display:        flex;
+      flex-direction: column;
+    }
+    .jp-pane__header {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      margin-bottom:   var(--space-2);
+      padding:         0 var(--space-1);
+    }
+    .jp-pane__title {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color:          var(--text-secondary);
+    }
+
+    .jp-textarea {
+      width:         100%;
+      min-height:    360px;
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-base);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      color:         var(--text-primary);
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      line-height:   var(--leading-relaxed);
+      resize:        vertical;
+      outline:       none;
+      box-sizing:    border-box;
+      tab-size:      2;
+      transition:    border-color var(--transition-fast);
+    }
+    .jp-textarea:focus {
+      border-color: var(--accent);
+      box-shadow:   0 0 0 3px var(--accent-glow);
+    }
+
+    /* Results */
+    .jp-results {
+      min-height:    360px;
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-base);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      line-height:   var(--leading-relaxed);
+      overflow:      auto;
+      box-sizing:    border-box;
+      max-height:    600px;
+    }
+    .jp-results-header {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      margin-bottom:   var(--space-2);
+      padding:         0 var(--space-1);
+    }
+    .jp-match-count {
+      font-size:   var(--text-xs);
+      font-family: var(--font-mono);
+      color:       var(--accent);
+    }
+    .jp-match-item {
+      padding:       var(--space-2) var(--space-3);
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-2);
+      word-break:    break-all;
+      position:      relative;
+    }
+    .jp-match-item:last-child { margin-bottom: 0; }
+    .jp-match-idx {
+      font-size:     10px;
+      color:         var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .jp-results-placeholder {
+      color:      var(--text-muted);
+      font-style: italic;
+      padding:    var(--space-6) 0;
+      text-align: center;
+    }
+    .jp-error {
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--error-bg);
+      border:        1px solid var(--error-border, hsla(0, 82%, 63%, 0.3));
+      border-radius: var(--radius-lg);
+      font-size:     var(--text-xs);
+      color:         var(--error);
+      margin-bottom: var(--space-3);
+      display:       flex;
+      gap:           var(--space-2);
+      align-items:   flex-start;
+    }
+    .jp-error__badge {
+      background:    var(--error);
+      color:         #fff;
+      border-radius: var(--radius-sm);
+      padding:       1px var(--space-2);
+      font-weight:   var(--font-bold);
+      flex-shrink:   0;
+    }
+
+    /* ── Reference table ─────────────────────────────────── */
+    .ref-table {
+      width:           100%;
+      border-collapse: collapse;
+      font-size:       var(--text-xs);
+      margin-bottom:   var(--space-8);
+    }
+    .ref-table th {
+      text-align: left;
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-raised);
+      color: var(--text-secondary);
+      font-weight: var(--font-semibold);
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .ref-table td {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid hsla(220,12%,22%,0.4);
+      color: var(--text-secondary);
+    }
+    .ref-table td:first-child { font-family:var(--font-mono); color:var(--accent); font-weight:var(--font-semibold); }
+    .ref-table tr:last-child td { border-bottom:none; }
+    .ref-table tr:hover td { background:var(--bg-raised); }
+  </style>
+
+  <!-- ── JSONPath expression input ─────────────────────── -->
+  <div class="jp-expr-wrap">
+    <span class="jp-expr-label">Expression</span>
+    <input
+      class="jp-expr-input"
+      id="jp-expr"
+      type="text"
+      value="$.store.book[*].title"
+      aria-label="JSONPath expression"
+      spellcheck="false"
+      autocorrect="off"
+      autocomplete="off"
+    />
+    <button class="btn btn--ghost btn--sm" id="copy-results-btn" title="Copy all matched values">Copy Results</button>
+    <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+  </div>
+
+  <!-- ── Preset expressions ───────────────────────────── -->
+  <div class="jp-presets">
+    <span class="jp-presets__label">Presets</span>
+    <button class="jp-preset" data-expr="$" title="Select entire root">
+      <span class="jp-preset__expr">$</span>
+      <span class="jp-preset__desc">root</span>
+    </button>
+    <button class="jp-preset" data-expr="$.store.book[*].title" title="All book titles">
+      <span class="jp-preset__expr">$.store.book[*].title</span>
+      <span class="jp-preset__desc">all titles</span>
+    </button>
+    <button class="jp-preset" data-expr="$..author" title="All authors (recursive)">
+      <span class="jp-preset__expr">$..author</span>
+      <span class="jp-preset__desc">recursive</span>
+    </button>
+    <button class="jp-preset" data-expr="$.store.book[-1]" title="Last book">
+      <span class="jp-preset__expr">$.store.book[-1]</span>
+      <span class="jp-preset__desc">last item</span>
+    </button>
+    <button class="jp-preset" data-expr="$.store.book[0:2]" title="First two books">
+      <span class="jp-preset__expr">$.store.book[0:2]</span>
+      <span class="jp-preset__desc">slice</span>
+    </button>
+    <button class="jp-preset" data-expr="$.store.book[?(@.price < 10)]" title="Books under $10">
+      <span class="jp-preset__expr">$.store.book[?(@.price &lt; 10)]</span>
+      <span class="jp-preset__desc">filter</span>
+    </button>
+    <button class="jp-preset" data-expr="$..price" title="All prices deep">
+      <span class="jp-preset__expr">$..price</span>
+      <span class="jp-preset__desc">all prices</span>
+    </button>
+  </div>
+
+  <!-- ── Main workspace ────────────────────────────────── -->
+  <div class="jp-workspace">
+
+    <!-- JSON input -->
+    <div class="jp-pane">
+      <div class="jp-pane__header">
+        <span class="jp-pane__title">JSON Data</span>
+        <span id="input-meta" class="text-xs text-muted"></span>
+      </div>
+      <textarea
+        class="jp-textarea"
+        id="json-input"
+        aria-label="JSON data"
+        spellcheck="false"
+        autocorrect="off"
+      >{`{
+  "store": {
+    "book": [
+      { "category": "reference", "author": "Nigel Rees",   "title": "Sayings of the Century", "price": 8.95 },
+      { "category": "fiction",   "author": "Evelyn Waugh", "title": "Sword of Honour",         "price": 12.99 },
+      { "category": "fiction",   "author": "Herman Melville","title": "Moby Dick",             "price": 8.99, "isbn": "0-553-21311-3" },
+      { "category": "fiction",   "author": "J. R. R. Tolkien","title": "The Lord of the Rings","price": 22.99, "isbn": "0-395-19395-8" }
+    ],
+    "bicycle": { "color": "red", "price": 19.95 }
+  }
+}`}</textarea>
+    </div>
+
+    <!-- Results pane -->
+    <div class="jp-pane">
+      <div class="jp-results-header">
+        <span class="jp-pane__title">Results</span>
+        <span class="jp-match-count" id="match-count">0 matches</span>
+      </div>
+
+      <div class="jp-error" id="jp-error" style="display:none">
+        <span class="jp-error__badge">ERR</span>
+        <span id="jp-error-msg"></span>
+      </div>
+
+      <div class="jp-results" id="jp-results">
+        <div class="jp-results-placeholder">Results will appear here as you type…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quick reference table ──────────────────────────── -->
+  <section style="margin-bottom:var(--space-8)" aria-label="JSONPath operator reference">
+    <div class="pane__header" style="margin-bottom:var(--space-3)">
+      <span class="pane__title">Operator Reference</span>
+    </div>
+    <table class="ref-table">
+      <thead>
+        <tr><th>Expression</th><th>Description</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>$</td><td>Root of the JSON document</td><td>$</td></tr>
+        <tr><td>.key</td><td>Child member operator</td><td>$.store.name</td></tr>
+        <tr><td>['key']</td><td>Bracket notation (for keys with spaces)</td><td>$['store name']</td></tr>
+        <tr><td>[n]</td><td>Array subscript (0-indexed)</td><td>$.items[0]</td></tr>
+        <tr><td>[-n]</td><td>Array subscript from end</td><td>$.items[-1]</td></tr>
+        <tr><td>[*]</td><td>Wildcard — all items/properties</td><td>$.items[*]</td></tr>
+        <tr><td>[a:b]</td><td>Array slice from a (inclusive) to b (exclusive)</td><td>$.items[0:3]</td></tr>
+        <tr><td>..</td><td>Recursive descent — search all descendants</td><td>$..name</td></tr>
+        <tr><td>[?(@.field op val)]</td><td>Filter expression (==, !=, &lt;, &gt;, &lt;=, &gt;=)</td><td>$..book[?(@.price &lt; 10)]</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script is:inline>
+  (function () {
+    'use strict';
+
+    const inputEl    = document.getElementById('json-input');
+    const exprEl     = document.getElementById('jp-expr');
+    const resultsEl  = document.getElementById('jp-results');
+    const countEl    = document.getElementById('match-count');
+    const errEl      = document.getElementById('jp-error');
+    const errMsgEl   = document.getElementById('jp-error-msg');
+
+    let parsedData  = null;
+    let evalTimeout = null;
+
+    /* ══════════════════════════════════════════════════════════
+       JSONPath Engine — zero dependencies
+       Supports: $ . .. [n] [-n] [*] [a:b] ['key'] [?(@.f op v)]
+       ══════════════════════════════════════════════════════════ */
+
+    function tokenise(expr) {
+      expr = expr.trim();
+      if (!expr.startsWith('$')) throw new Error('Expression must start with $');
+
+      const tokens = [{ type: 'root' }];
+      let i = 1;
+
+      while (i < expr.length) {
+        if (expr[i] === '.' && expr[i+1] === '.') {
+          i += 2;
+          if (expr[i] === '[') {
+            tokens.push({ type: 'recurse', value: '*' });
+            continue;
+          }
+          let key = '';
+          while (i < expr.length && expr[i] !== '.' && expr[i] !== '[') {
+            key += expr[i++];
+          }
+          tokens.push({ type: 'recurse', value: key || '*' });
+          continue;
+        }
+
+        if (expr[i] === '.') {
+          i++;
+          if (expr[i] === '*') {
+            tokens.push({ type: 'wildcard' });
+            i++;
+            continue;
+          }
+          let key = '';
+          while (i < expr.length && expr[i] !== '.' && expr[i] !== '[') {
+            key += expr[i++];
+          }
+          if (key) tokens.push({ type: 'property', value: key });
+          continue;
+        }
+
+        if (expr[i] === '[') {
+          i++;
+          let inner = '';
+          while (i < expr.length && expr[i] !== ']') {
+            inner += expr[i++];
+          }
+          i++;
+          inner = inner.trim();
+
+          if (inner === '*') {
+            tokens.push({ type: 'wildcard' });
+          } else if (inner.startsWith('?(') && inner.endsWith(')')) {
+            tokens.push({ type: 'filter', value: inner.slice(2, -1).trim() });
+          } else if (inner.includes(':')) {
+            const [start, end] = inner.split(':').map(s => s.trim() ? parseInt(s, 10) : undefined);
+            tokens.push({ type: 'slice', start, end });
+          } else if ((inner.startsWith("'") && inner.endsWith("'")) ||
+                     (inner.startsWith('"') && inner.endsWith('"'))) {
+            tokens.push({ type: 'property', value: inner.slice(1, -1) });
+          } else if (!isNaN(parseInt(inner, 10))) {
+            tokens.push({ type: 'index', value: parseInt(inner, 10) });
+          } else {
+            tokens.push({ type: 'property', value: inner });
+          }
+          continue;
+        }
+
+        i++;
+      }
+
+      return tokens;
+    }
+
+    function evaluate(data, tokens) {
+      let current = [data];
+
+      for (const token of tokens) {
+        if (token.type === 'root') continue;
+
+        const next = [];
+
+        for (const item of current) {
+          if (item === null || item === undefined) continue;
+
+          if (token.type === 'property') {
+            if (typeof item === 'object' && !Array.isArray(item) && token.value in item) {
+              next.push(item[token.value]);
+            } else if (Array.isArray(item)) {
+              for (const elem of item) {
+                if (elem && typeof elem === 'object' && token.value in elem) {
+                  next.push(elem[token.value]);
+                }
+              }
+            }
+          } else if (token.type === 'wildcard') {
+            if (Array.isArray(item)) {
+              next.push(...item);
+            } else if (typeof item === 'object') {
+              next.push(...Object.values(item));
+            }
+          } else if (token.type === 'index') {
+            if (Array.isArray(item)) {
+              const idx = token.value < 0 ? item.length + token.value : token.value;
+              if (idx >= 0 && idx < item.length) next.push(item[idx]);
+            }
+          } else if (token.type === 'slice') {
+            if (Array.isArray(item)) {
+              const start = token.start !== undefined ? (token.start < 0 ? item.length + token.start : token.start) : 0;
+              const end   = token.end   !== undefined ? (token.end   < 0 ? item.length + token.end   : token.end)   : item.length;
+              next.push(...item.slice(start, end));
+            }
+          } else if (token.type === 'recurse') {
+            function collectAll(obj, key) {
+              if (obj === null || typeof obj !== 'object') return;
+              if (Array.isArray(obj)) {
+                for (const el of obj) collectAll(el, key);
+              } else {
+                for (const [k, v] of Object.entries(obj)) {
+                  if (key === '*' || k === key) next.push(v);
+                  collectAll(v, key);
+                }
+              }
+            }
+            collectAll(item, token.value);
+          } else if (token.type === 'filter') {
+            if (Array.isArray(item)) {
+              for (const elem of item) {
+                if (evalFilter(elem, token.value)) next.push(elem);
+              }
+            }
+          }
+        }
+
+        current = next;
+      }
+
+      return current;
+    }
+
+    function evalFilter(item, predicate) {
+      if (!item || typeof item !== 'object') return false;
+      const match = predicate.match(/@\.([a-zA-Z0-9_$]+)\s*(==|!=|<=|>=|<|>)\s*(.+)/);
+      if (!match) return false;
+      const [, field, op, rawVal] = match;
+      if (!(field in item)) return false;
+
+      const actual = item[field];
+      let expected;
+      const v = rawVal.trim();
+      if (v === 'true')  expected = true;
+      else if (v === 'false') expected = false;
+      else if (v === 'null')  expected = null;
+      else if ((v.startsWith("'") && v.endsWith("'")) || (v.startsWith('"') && v.endsWith('"'))) {
+        expected = v.slice(1, -1);
+      } else {
+        expected = parseFloat(v);
+      }
+
+      switch (op) {
+        case '==': return actual === expected;
+        case '!=': return actual !== expected;
+        case '<':  return actual < expected;
+        case '>':  return actual > expected;
+        case '<=': return actual <= expected;
+        case '>=': return actual >= expected;
+        default:   return false;
+      }
+    }
+
+    function runEvaluation() {
+      clearError();
+      const rawJson = inputEl.value.trim();
+      const expr    = exprEl.value.trim();
+
+      if (!rawJson) {
+        resultsEl.innerHTML = '<div class="jp-results-placeholder">Paste JSON on the left to test expressions…</div>';
+        countEl.textContent = '0 matches';
+        return;
+      }
+
+      try {
+        parsedData = JSON.parse(rawJson);
+      } catch (err) {
+        showError('Invalid JSON input: ' + err.message);
+        resultsEl.innerHTML = '<div class="jp-results-placeholder">Fix JSON syntax errors to evaluate expression.</div>';
+        countEl.textContent = '0 matches';
+        return;
+      }
+
+      if (!expr) {
+        resultsEl.innerHTML = '<div class="jp-results-placeholder">Enter a JSONPath expression above…</div>';
+        countEl.textContent = '0 matches';
+        return;
+      }
+
+      let tokens;
+      try {
+        tokens = tokenise(expr);
+      } catch (err) {
+        showError('Expression error: ' + err.message);
+        resultsEl.innerHTML = '';
+        countEl.textContent = '0 matches';
+        return;
+      }
+
+      try {
+        const results = evaluate(parsedData, tokens);
+        renderResults(results);
+      } catch (err) {
+        showError('Evaluation error: ' + err.message);
+        resultsEl.innerHTML = '';
+        countEl.textContent = '0 matches';
+      }
+    }
+
+    function renderResults(results) {
+      countEl.textContent = `${results.length} match${results.length === 1 ? '' : 'es'}`;
+      if (results.length === 0) {
+        resultsEl.innerHTML = '<div class="jp-results-placeholder">No matching nodes found.</div>';
+        return;
+      }
+
+      resultsEl.innerHTML = results.map((res, i) => {
+        const valStr = typeof res === 'object' ? JSON.stringify(res, null, 2) : String(res);
+        return `<div class="jp-match-item"><div class="jp-match-idx">Match [${i}]</div><pre style="margin:0;font-family:inherit">${escapeHtml(valStr)}</pre></div>`;
+      }).join('');
+    }
+
+    function showError(msg) {
+      errEl.style.display = 'flex';
+      errMsgEl.textContent = msg;
+    }
+
+    function clearError() {
+      errEl.style.display = 'none';
+      errMsgEl.textContent = '';
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Event listeners
+    exprEl.addEventListener('input', () => {
+      clearTimeout(evalTimeout);
+      evalTimeout = setTimeout(runEvaluation, 150);
+    });
+
+    inputEl.addEventListener('input', () => {
+      clearTimeout(evalTimeout);
+      evalTimeout = setTimeout(runEvaluation, 300);
+    });
+
+    document.querySelectorAll('.jp-preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        exprEl.value = btn.dataset.expr;
+        runEvaluation();
+      });
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      inputEl.value = '';
+      exprEl.value = '$';
+      resultsEl.innerHTML = '<div class="jp-results-placeholder">Results will appear here as you type…</div>';
+      countEl.textContent = '0 matches';
+      clearError();
+    });
+
+    document.getElementById('copy-results-btn').addEventListener('click', () => {
+      const items = Array.from(resultsEl.querySelectorAll('.jp-match-item pre')).map(p => p.textContent);
+      if (items.length) {
+        navigator.clipboard.writeText(items.join('\n\n')).then(() => {
+          const btn = document.getElementById('copy-results-btn');
+          const orig = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = orig, 1800);
+        });
+      }
+    });
+
+    runEvaluation();
+  })();
+  </script>
+</ToolLayout>

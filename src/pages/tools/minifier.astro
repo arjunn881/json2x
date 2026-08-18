@@ -1,0 +1,699 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('minifier') || {
+  id: 'minifier',
+  slug: 'minifier',
+  aliases: [],
+  name: 'Minifier',
+  title: 'Minifier — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'minifier',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/minifier',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  <style>
+
+    /* ══════════════════════════════════════════════════════════
+       JSON Minifier — page styles
+       ══════════════════════════════════════════════════════════ */
+
+    /* ── Toolbar ─────────────────────────────────────────────── */
+    .mn-toolbar {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-2);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+    }
+    .mn-toolbar__divider {
+      width: 1px; height: 24px;
+      background: var(--bg-border);
+      flex-shrink: 0; margin-inline: var(--space-1);
+    }
+
+    @media (max-width: 640px) {
+      .mn-toolbar {
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        padding: var(--space-3);
+      }
+      .mn-toolbar__divider {
+        display: none;
+      }
+      .mn-toolbar .btn {
+        flex: 1 1 calc(50% - var(--space-2));
+        justify-content: center;
+        min-height: 36px;
+      }
+      .mn-toolbar .btn--primary {
+        flex: 1 1 100%;
+        min-height: 40px;
+      }
+    }
+
+    /* ── Input pane ───────────────────────────────────────────── */
+    .mn-input-wrap {
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      overflow:      hidden;
+      background:    var(--bg-base);
+      transition:    border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .mn-input-wrap:focus-within {
+      border-color: var(--accent);
+      box-shadow:   0 0 0 3px var(--accent-glow);
+    }
+    .mn-input-wrap.error {
+      border-color: var(--error);
+      box-shadow:   0 0 0 3px var(--error-bg);
+    }
+
+    .mn-textarea {
+      display:     block;
+      width:       100%;
+      padding:     var(--space-4);
+      min-height:  280px;
+      background:  transparent;
+      color:       var(--text-primary);
+      border:      none;
+      outline:     none;
+      font-family: var(--font-mono);
+      font-size:   var(--text-xs);
+      line-height: var(--leading-relaxed);
+      resize:      vertical;
+      tab-size:    2;
+    }
+
+    /* ── Compression Hero Card ───────────────────────────────── */
+    .compression-card {
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-2xl);
+      padding:       var(--space-8) var(--space-6);
+      margin-block:  var(--space-6);
+      position:      relative;
+      overflow:      hidden;
+    }
+
+    /* Glow accent behind the card */
+    .compression-card::before {
+      content:    '';
+      position:   absolute;
+      inset:      0;
+      background: radial-gradient(ellipse 60% 70% at 50% 120%, var(--success-bg), transparent 70%);
+      pointer-events: none;
+    }
+
+    .compression-card__metrics {
+      display:               grid;
+      grid-template-columns: 1fr auto 1fr 1fr;
+      align-items:           center;
+      gap:                   var(--space-4);
+      margin-bottom:         var(--space-6);
+    }
+
+    @media (max-width: 640px) {
+      .compression-card__metrics { grid-template-columns: 1fr 1fr; }
+      .metric--arrow { display: none; }
+    }
+
+    .metric {
+      display:       flex;
+      flex-direction: column;
+      align-items:   center;
+      gap:           var(--space-1);
+    }
+
+    .metric__value {
+      font-family: var(--font-mono);
+      font-size:   var(--text-3xl);
+      font-weight: var(--font-bold);
+      color:       var(--text-primary);
+      line-height: 1;
+    }
+
+    .metric__label {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      color:          var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .metric--saved .metric__value { color: var(--success); }
+    .metric--pct   .metric__value {
+      font-size:       2.5rem;
+      background:      linear-gradient(135deg, var(--success) 0%, hsl(152,68%,70%) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .metric--arrow {
+      font-size:  var(--text-2xl);
+      color:      var(--text-muted);
+      user-select: none;
+    }
+
+    /* Bar ── shows minified portion as a fill, original as track */
+    .compression-bar-wrap {
+      position: relative;
+    }
+
+    .compression-bar-labels {
+      display:         flex;
+      justify-content: space-between;
+      font-size:       var(--text-xs);
+      color:           var(--text-muted);
+      margin-bottom:   var(--space-2);
+    }
+
+    .compression-bar-track {
+      height:        14px;
+      background:    var(--bg-overlay);
+      border-radius: var(--radius-full);
+      overflow:      hidden;
+      position:      relative;
+    }
+
+    .compression-bar-fill {
+      position:   absolute;
+      inset:      0 auto 0 0;
+      background: linear-gradient(90deg, var(--success), hsl(199,90%,55%));
+      border-radius: var(--radius-full);
+      width:      0%;
+      transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .compression-bar-ghost {
+      position:   absolute;
+      inset:      0 auto 0 0;
+      background: hsla(0,82%,63%,0.25);
+      width:      100%;
+      border-radius: var(--radius-full);
+    }
+
+    .compression-bar-legend {
+      display:    flex;
+      gap:        var(--space-5);
+      margin-top: var(--space-3);
+      font-size:  var(--text-xs);
+      color:      var(--text-muted);
+    }
+
+    .legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: var(--space-1);
+    }
+
+    /* ── Output area ──────────────────────────────────────────── */
+    .mn-output-label {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      margin-bottom:   var(--space-2);
+    }
+
+    .mn-output {
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      line-height:   var(--leading-relaxed);
+      background:    var(--bg-base);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding:       var(--space-4);
+      min-height:    80px;
+      overflow:      auto;
+      white-space:   pre-wrap;
+      word-break:    break-all;
+      color:         var(--text-primary);
+    }
+
+    .mn-output--empty { color: var(--text-muted); font-style: italic; }
+
+    /* ── Error strip ──────────────────────────────────────────── */
+    .mn-error {
+      display:       flex;
+      align-items:   flex-start;
+      gap:           var(--space-3);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--error-bg);
+      border:        1px solid hsla(0,82%,63%,0.3);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      font-size:     var(--text-xs);
+      color:         var(--error);
+    }
+
+    .mn-error__badge {
+      flex-shrink:   0;
+      background:    var(--error);
+      color:         #fff;
+      border-radius: var(--radius-sm);
+      padding:       1px var(--space-2);
+      font-weight:   var(--font-semibold);
+      font-family:   var(--font-mono);
+    }
+
+    /* ── Internal crosslinks bar ──────────────────────────────── */
+    .crosslinks {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-3);
+      padding:       var(--space-4) var(--space-5);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-top:    var(--space-6);
+      font-size:     var(--text-sm);
+    }
+
+    .crosslinks__label {
+      font-weight:   var(--font-semibold);
+      color:         var(--text-muted);
+      font-size:     var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .crosslinks__link {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-1);
+      padding:       var(--space-2) var(--space-3);
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      font-size:     var(--text-sm);
+      font-weight:   var(--font-medium);
+      color:         var(--text-secondary);
+      text-decoration: none;
+      transition:    all var(--transition-fast);
+    }
+
+    .crosslinks__link:hover {
+      border-color: var(--accent);
+      color:        var(--accent);
+      background:   var(--accent-light);
+    }
+
+    /* ── FAQ ──────────────────────────────────────────────────── */
+    .faq-section {
+      margin-top:  var(--space-16);
+      padding-top: var(--space-10);
+      border-top:  1px solid var(--bg-border);
+    }
+
+    .faq-eyebrow {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color:          var(--accent);
+      margin-bottom:  var(--space-3);
+    }
+
+    .faq-title {
+      font-size:     var(--text-2xl);
+      font-weight:   var(--font-bold);
+      margin-bottom: var(--space-8);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap:           var(--space-5);
+      margin-bottom: var(--space-8);
+    }
+
+    .faq-card {
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-xl);
+      padding:       var(--space-5);
+    }
+
+    .faq-card h3 {
+      font-size:     var(--text-base);
+      font-weight:   var(--font-semibold);
+      margin-bottom: var(--space-3);
+      line-height:   var(--leading-snug);
+    }
+
+    .faq-card p {
+      font-size:   var(--text-sm);
+      color:       var(--text-secondary);
+      line-height: var(--leading-relaxed);
+    }
+
+    .faq-prose {
+      font-size:   var(--text-sm);
+      color:       var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      max-width:   760px;
+      display:     flex;
+      flex-direction: column;
+      gap:         var(--space-4);
+    }
+    .faq-prose p    { margin: 0; }
+    .faq-prose strong { color: var(--text-primary); font-weight: var(--font-semibold); }
+    .faq-prose code {
+      font-family:   var(--font-mono);
+      font-size:     0.9em;
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-sm);
+      padding:       1px var(--space-2);
+      color:         var(--accent);
+    }
+    .faq-prose a { color: var(--accent); }
+    .faq-prose a:hover { color: var(--accent-dark); }
+  
+</style>
+
+  <div class="container container--tool">
+
+      <!-- ── Hero ────────────────────────────────────────────── -->
+      <div class="tool-hero">
+        <h1 class="tool-hero__title">JSON Minifier Online</h1>
+        
+      </div>
+
+      <!-- ── Toolbar ──────────────────────────────────────────── -->
+      <div class="mn-toolbar" role="toolbar" aria-label="Minifier options">
+        <button class="btn btn--primary" id="minify-btn" aria-label="Minify JSON">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="1" y="3"   width="12" height="1.5" rx="0.75" fill="currentColor"/>
+            <rect x="3" y="6.5" width="8"  height="1.5" rx="0.75" fill="currentColor"/>
+            <rect x="5" y="10"  width="4"  height="1.5" rx="0.75" fill="currentColor"/>
+          </svg>
+          Minify JSON
+        </button>
+
+        <div class="mn-toolbar__divider" aria-hidden="true"></div>
+
+        <button class="btn btn--ghost" id="copy-btn" aria-label="Copy minified JSON">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 10V2h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Copy
+        </button>
+
+        <button class="btn btn--ghost" id="download-btn" aria-label="Download minified JSON file">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 1v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 10v1.5A1.5 1.5 0 0 0 3.5 13h7a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Download
+        </button>
+
+        <div class="mn-toolbar__divider" aria-hidden="true"></div>
+
+        <label class="btn btn--ghost" style="cursor:pointer" title="Load .json file from disk">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M8 1H3.5A1.5 1.5 0 0 0 2 2.5v9A1.5 1.5 0 0 0 3.5 13h7a1.5 1.5 0 0 0 1.5-1.5V5.5L8 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M8 1v4.5H12.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          Open File
+          <input type="file" id="file-input" accept=".json,application/json,text/*" style="display:none" aria-label="Load JSON file" />
+        </label>
+
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto" aria-label="Clear all">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Clear
+        </button>
+      </div>
+
+      <!-- ── Input ────────────────────────────────────────────── -->
+      <div class="pane__header" style="margin-bottom:var(--space-2)">
+        <span class="pane__title">JSON Input</span>
+        <div style="display:flex;gap:var(--space-3);font-size:var(--text-xs);color:var(--text-muted)">
+          <span id="input-lines"></span>
+          <span id="input-size-el"></span>
+        </div>
+      </div>
+
+      <div class="mn-input-wrap" id="input-wrap">
+        <textarea
+          class="mn-textarea"
+          id="json-input"
+          placeholder='Paste JSON here, or drag &amp; drop a .json file…&#10;&#10;Example:&#10;{&#10;  "name": "Alice",&#10;  "age": 30,&#10;  "active": true&#10;}'
+          aria-label="JSON input"
+          spellcheck="false"
+          autocorrect="off"
+        ></textarea>
+      </div>
+
+      <!-- Error strip (hidden by default) -->
+      <div class="mn-error" id="error-strip" style="display:none" role="alert" aria-live="assertive">
+        <span class="mn-error__badge" id="error-badge">ERR</span>
+        <span id="error-msg"></span>
+      </div>
+
+      <!-- ── Compression Card (hidden until valid) ─────────────── -->
+      <div class="compression-card" id="compression-card" style="display:none" aria-label="Compression statistics" aria-live="polite">
+
+        <div class="compression-card__metrics">
+          <!-- Before -->
+          <div class="metric">
+            <span class="metric__value" id="sz-before">—</span>
+            <span class="metric__label">Original</span>
+          </div>
+          <!-- Arrow -->
+          <div class="metric metric--arrow" aria-hidden="true">→</div>
+          <!-- After -->
+          <div class="metric">
+            <span class="metric__value" id="sz-after">—</span>
+            <span class="metric__label">Minified</span>
+          </div>
+          <!-- Percentage -->
+          <div class="metric metric--pct">
+            <span class="metric__value" id="sz-pct">—</span>
+            <span class="metric__label">Smaller</span>
+          </div>
+        </div>
+
+        <!-- Animated bar -->
+        <div class="compression-bar-wrap">
+          <div class="compression-bar-labels">
+            <span>Minified size</span>
+            <span id="sz-saved-label">Saved: —</span>
+          </div>
+          <div class="compression-bar-track" role="progressbar" aria-label="Compression ratio" id="bar-track" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="compression-bar-ghost"></div>
+            <div class="compression-bar-fill" id="bar-fill"></div>
+          </div>
+          <div class="compression-bar-legend">
+            <span><span class="legend-dot" style="background:linear-gradient(90deg,var(--success),hsl(199,90%,55%))"></span>Minified</span>
+            <span><span class="legend-dot" style="background:hsla(0,82%,63%,0.4)"></span>Whitespace removed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Minified Output ───────────────────────────────────── -->
+      <div class="mn-output-label">
+        <span class="pane__title">Minified Output</span>
+        <span id="output-size-el" class="text-xs text-muted"></span>
+      </div>
+      <pre class="mn-output mn-output--empty" id="mn-output" tabindex="0" role="region" aria-label="Minified JSON output" aria-live="polite">Minified output will appear here…</pre>
+
+      <!-- ── Internal crosslinks ──────────────────────────────── -->
+      <div class="crosslinks" aria-label="Related tools">
+        <span class="crosslinks__label">Also try</span>
+        <a class="crosslinks__link" href="formatter">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3" width="14" height="2" rx="1" fill="currentColor"/><rect x="2" y="8" width="10" height="2" rx="1" fill="currentColor"/><rect x="2" y="13" width="12" height="2" rx="1" fill="currentColor"/></svg>
+          JSON Formatter &amp; Validator
+        </a>
+        <a class="crosslinks__link" href="json-to-csv">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M2 7h14M2 11h14M7 7v7" stroke="currentColor" stroke-width="1.5"/></svg>
+          Export JSON to CSV
+        </a>
+        <a class="crosslinks__link" href="diff">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="1" y="2" width="6" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="2" width="6" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 9h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          JSON Diff
+        </a>
+      </div>
+
+      <!-- ── Rectangle ad ─────────────────────────────────────── -->
+      
+
+      <!-- ── Related tools grid ───────────────────────────────── -->
+</div>
+
+  <script is:inline>
+
+  (function () {
+    'use strict';
+
+    const inputEl   = document.getElementById('json-input');
+    const outputEl  = document.getElementById('mn-output');
+    const inputWrap = document.getElementById('input-wrap');
+    const errorEl   = document.getElementById('error-strip');
+    const errorBdg  = document.getElementById('error-badge');
+    const errorMsg  = document.getElementById('error-msg');
+    const card      = document.getElementById('compression-card');
+
+    let lastMinified = '';
+
+    /* ── Helpers ────────────────────────────────────────────── */
+    function showError(msg, line) {
+      inputWrap.classList.add('error');
+      errorEl.style.display = 'flex';
+      errorBdg.textContent  = line ? `Line ${line}` : 'ERR';
+      errorMsg.textContent  = msg;
+      card.style.display    = 'none';
+      outputEl.textContent  = '';
+      outputEl.classList.add('mn-output--empty');
+      lastMinified = '';
+    }
+
+    function clearError() {
+      inputWrap.classList.remove('error');
+      errorEl.style.display = 'none';
+    }
+
+    function updateInputMeta(raw) {
+      const lines = (raw.match(/\n/g) || []).length + 1;
+      document.getElementById('input-lines').textContent   = raw.trim() ? `${lines.toLocaleString()} lines` : '';
+      document.getElementById('input-size-el').textContent = raw.trim() ? JT.formatBytes(new Blob([raw]).size) : '';
+    }
+
+    /* ── Core minify ────────────────────────────────────────── */
+    function minify() {
+      const raw = inputEl.value;
+      updateInputMeta(raw);
+
+      if (!raw.trim()) {
+        clearError();
+        card.style.display = 'none';
+        outputEl.textContent = 'Minified output will appear here…';
+        outputEl.classList.add('mn-output--empty');
+        document.getElementById('output-size-el').textContent = '';
+        lastMinified = '';
+        return;
+      }
+
+      const { data, error, line } = JT.parseJSON(raw);
+      if (error) { showError(error, line); return; }
+      clearError();
+
+      const { text: minified } = JT.stringifyJSON(data, 0);
+      lastMinified = minified;
+
+      // Render output
+      outputEl.textContent = minified;
+      outputEl.classList.remove('mn-output--empty');
+
+      // Sizes
+      const beforeBytes = new Blob([raw]).size;
+      const afterBytes  = new Blob([minified]).size;
+      const savedBytes  = beforeBytes - afterBytes;
+      const pct         = beforeBytes > 0 ? Math.max(0, Math.round((savedBytes / beforeBytes) * 100)) : 0;
+      const minifiedPct = 100 - pct;  // how much of original remains
+
+      document.getElementById('output-size-el').textContent = JT.formatBytes(afterBytes);
+
+      // Update compression card
+      document.getElementById('sz-before').textContent    = JT.formatBytes(beforeBytes);
+      document.getElementById('sz-after').textContent     = JT.formatBytes(afterBytes);
+      document.getElementById('sz-pct').textContent       = `${pct}%`;
+      document.getElementById('sz-saved-label').textContent = `Saved: ${JT.formatBytes(savedBytes)}`;
+
+      const barEl = document.getElementById('bar-fill');
+      const barTrack = document.getElementById('bar-track');
+      // Animate to show what percentage is KEPT (the rest = whitespace stripped)
+      barEl.style.width = `${minifiedPct}%`;
+      barTrack.setAttribute('aria-valuenow', String(minifiedPct));
+      card.style.display = 'block';
+    }
+
+    /* ── Events ─────────────────────────────────────────────── */
+    document.getElementById('minify-btn').addEventListener('click', minify);
+    inputEl.addEventListener('input', JT.debounce(minify, 350));
+
+    document.getElementById('copy-btn').addEventListener('click', function () {
+      if (!lastMinified) return;
+      JT.copyToClipboard(lastMinified)
+        .then(() => {
+          const orig = this.innerHTML;
+          this.innerHTML = `<svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Copied!`;
+          this.style.color = 'var(--success)';
+          setTimeout(() => { this.innerHTML = orig; this.style.color = ''; }, 1800);
+        })
+        .catch(() => alert('Copy failed — please copy manually.'));
+    });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+      if (!lastMinified) return;
+      const blob = new Blob([lastMinified], { type: 'application/json' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = 'minified.json'; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      inputEl.value = '';
+      lastMinified  = '';
+      clearError();
+      card.style.display = 'none';
+      outputEl.textContent = 'Minified output will appear here…';
+      outputEl.classList.add('mn-output--empty');
+      document.getElementById('input-lines').textContent   = '';
+      document.getElementById('input-size-el').textContent = '';
+      document.getElementById('output-size-el').textContent = '';
+    });
+
+    document.getElementById('file-input').addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { alert('File too large (max 5 MB).'); this.value = ''; return; }
+      const reader = new FileReader();
+      reader.onload = e => { inputEl.value = e.target.result; minify(); };
+      reader.readAsText(file);
+      this.value = '';
+    });
+
+    // Drag and drop
+    document.body.addEventListener('dragover', e => {
+      if ([...e.dataTransfer.types].includes('Files')) e.preventDefault();
+    });
+    document.body.addEventListener('drop', e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { alert('File too large (max 5 MB).'); return; }
+      const reader = new FileReader();
+      reader.onload = ev => { inputEl.value = ev.target.result; minify(); };
+      reader.readAsText(file);
+    });
+
+    // Keyboard shortcut: Ctrl/Cmd+Shift+M
+    document.addEventListener('keydown', e => {
+      const mod = /mac/i.test(navigator.platform) ? e.metaKey : e.ctrlKey;
+      if (mod && e.shiftKey && e.key === 'M') { e.preventDefault(); minify(); }
+      if (mod && e.shiftKey && e.key === 'C') { e.preventDefault(); document.getElementById('copy-btn').click(); }
+    });
+
+  })();
+  
+</script>
+</ToolLayout>

@@ -1,0 +1,97 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import { DOCS } from '../data/docs';
+
+export interface Props {
+  title: string;
+  description: string;
+  category?: string;
+  tags?: string[];
+  author?: string;
+  date?: string;
+  primaryTool?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  category = 'Documentation',
+  tags = [],
+  author = 'JSON2X Engineering Team',
+  date = '2026-08-16',
+  primaryTool = 'json-validator',
+  canonical = Astro.url.pathname
+} = Astro.props;
+
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  'headline': title,
+  'description': description,
+  'author': {
+    '@type': 'Organization',
+    'name': author
+  },
+  'datePublished': date,
+  'dateModified': date,
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'JSON2X',
+    'url': 'https://json2x.com'
+  }
+};
+
+const currentSlug = canonical.replace('/docs/', '').replace(/\/$/, '');
+const relatedDocs = DOCS.filter((d) => d.filename.replace(/\.mdx?$/, '') !== currentSlug).slice(0, 5);
+---
+
+<BaseLayout
+  title={`${title} | JSON2X Docs`}
+  description={description}
+  canonical={canonical}
+  currentId="docs"
+  schema={techArticleSchema}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Documentation', href: '/docs/' },
+      { label: title }
+    ]}
+  />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+    <div class="tool-hero__badge">{category} Documentation</div>
+    <h1 class="tool-hero__title">{title}</h1>
+    <p class="tool-hero__desc">{description}</p>
+  </div>
+
+  <article class="faq-prose" style="margin-bottom:var(--space-12);">
+    <slot />
+
+    {primaryTool && (
+      <div class="tool-cta-banner">
+        <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+        <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+        <a href={`/tools/${primaryTool}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
+      </div>
+    )}
+  </article>
+
+  {relatedDocs.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Related Documentation &amp; Reference Articles</h2>
+      <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+        {relatedDocs.map((doc) => {
+          const slug = doc.filename.replace(/\.mdx?$/, '');
+          return (
+            <li>
+              <a href={`/docs/${slug}`} style="color:var(--accent); text-decoration:none;">{doc.frontmatter.title}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

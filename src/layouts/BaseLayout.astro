@@ -1,0 +1,200 @@
+---
+import SEO from '../components/seo/SEO.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  keywords?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  robots?: string;
+  currentId?: string;
+  publishedTime?: string;
+  author?: string;
+  schema?: Record<string, any> | Record<string, any>[];
+  containerClass?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  keywords,
+  ogImage,
+  ogType = 'website',
+  robots,
+  currentId = '',
+  publishedTime,
+  author,
+  schema,
+  containerClass = 'container'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Performance DNS & Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="shortcut icon" href="/favicon.ico?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="/site.webmanifest?v=2" />
+
+  <!-- Preload fonts for max speed & zero layout shifts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+
+  <!-- Instant Theme Initializer (prevents flash) -->
+  <script is:inline>
+    (function () {
+      var t;
+      try { t = localStorage.getItem('jsontoolkit_theme'); } catch (e) {}
+      if (!t) {
+        t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <!-- Full Rich SEO & Structured Data -->
+  <SEO
+    title={title}
+    description={description}
+    canonical={canonical}
+    keywords={keywords}
+    ogImage={ogImage}
+    ogType={ogType}
+    robots={robots}
+    publishedTime={publishedTime}
+    author={author}
+    schema={schema}
+  />
+</head>
+<body>
+  <Header currentId={currentId} />
+
+  <main id="main-content">
+    <div class={containerClass}>
+      <slot />
+    </div>
+  </main>
+
+  <Footer />
+
+  <!-- Global Quick Search Modal -->
+  <div id="search-modal-backdrop" class="search-modal-backdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:9999;align-items:flex-start;justify-content:center;padding-top:12vh;">
+    <div class="search-modal-box" style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);width:90%;max-width:560px;box-shadow:var(--shadow-lg);overflow:hidden;animation:modalIn 0.15s ease-out;">
+      <div style="display:flex;align-items:center;padding:var(--space-4);border-bottom:1px solid var(--bg-border);gap:var(--space-3);">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);flex-shrink:0;"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input id="quick-search-input" type="text" placeholder="Search 21+ tools, guides, and error fixes..." style="width:100%;background:transparent;border:none;outline:none;font-size:var(--text-base);color:var(--text-primary);" />
+        <kbd style="font-size:11px;background:var(--bg-raised);padding:2px 6px;border-radius:4px;color:var(--text-muted);border:1px solid var(--bg-border);">ESC</kbd>
+      </div>
+      <div id="quick-search-results" style="max-height:360px;overflow-y:auto;padding:var(--space-2);">
+        <!-- Populated via search script -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Utility Scripts -->
+  <script src="/assets/js/i18n.js" defer></script>
+  <script src="/assets/js/common.js" defer></script>
+
+  <!-- Quick Search Controller -->
+  <script is:inline>
+    (function () {
+      var modal = document.getElementById('search-modal-backdrop');
+      var input = document.getElementById('quick-search-input');
+      var results = document.getElementById('quick-search-results');
+      var searchBtn = document.getElementById('header-search-btn');
+
+      function openSearch() {
+        if (!modal) return;
+        modal.style.display = 'flex';
+        if (input) { input.value = ''; input.focus(); renderResults(''); }
+      }
+
+      function closeSearch() {
+        if (!modal) return;
+        modal.style.display = 'none';
+      }
+
+      if (searchBtn) searchBtn.addEventListener('click', openSearch);
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) closeSearch();
+        });
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          modal && modal.style.display === 'flex' ? closeSearch() : openSearch();
+        }
+        if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+          closeSearch();
+        }
+      });
+
+      var SEARCH_INDEX = [
+        { name: 'JSON Formatter & Beautifier', href: '/tools/json-formatter', desc: 'Prettify, validate & syntax highlight JSON' },
+        { name: 'JSON Validator & Linter', href: '/tools/json-validator', desc: 'Strict RFC 8259 syntax checking with line numbers' },
+        { name: 'JSON Minifier & Compressor', href: '/tools/json-minifier', desc: 'Strip whitespace and compress payload size' },
+        { name: 'JSON Diff Checker', href: '/tools/json-diff', desc: 'Semantic comparison between two JSON trees' },
+        { name: 'JSON to CSV Converter', href: '/tools/json-to-csv', desc: 'Export JSON arrays to spreadsheet CSV' },
+        { name: 'CSV to JSON Converter', href: '/tools/csv-to-json', desc: 'Convert CSV/TSV spreadsheets into JSON' },
+        { name: 'JSON to TypeScript Generator', href: '/tools/typescript-generator', desc: 'Generate TypeScript interfaces & types' },
+        { name: 'JSON to Zod Schema', href: '/tools/json-to-zod', desc: 'Infer Zod runtime validation schemas' },
+        { name: 'JSON to YAML Converter', href: '/tools/json-to-yaml', desc: 'Convert JSON to YAML configuration' },
+        { name: 'JSON to XML Converter', href: '/tools/json-to-xml', desc: 'Convert JSON to clean XML trees' },
+        { name: 'JSON to SQL Converter', href: '/tools/json-to-sql', desc: 'Generate CREATE TABLE & INSERT statements' },
+        { name: 'JSON to Prisma Generator', href: '/tools/json-to-prisma', desc: 'Generate Prisma ORM schema models' },
+        { name: 'JSON to Drizzle Generator', href: '/tools/json-to-drizzle', desc: 'Generate Drizzle ORM TypeScript tables' },
+        { name: 'JSON to GraphQL Generator', href: '/tools/json-to-graphql', desc: 'Generate GraphQL SDL types' },
+        { name: 'JSON Schema Generator', href: '/tools/json-schema-generator', desc: 'Infer Draft-07 JSON Schema specifications' },
+        { name: 'JSON Mock Generator', href: '/tools/json-mock-generator', desc: 'Generate synthetic mock fixtures & datasets' },
+        { name: 'JSONPath Tester', href: '/tools/jsonpath', desc: 'Evaluate & test JSONPath queries interactively' },
+        { name: 'JSON Tree Viewer', href: '/tools/json-tree-viewer', desc: 'Interactive collapsible JSON visualizer' },
+        { name: 'Documentation Hub', href: '/docs/', desc: 'RFC 8259 specifications and guides' },
+        { name: 'Knowledge Base', href: '/kb/', desc: 'Developer troubleshooting and tutorials' },
+        { name: 'Engineering Blog', href: '/blog/', desc: 'In-depth architecture & benchmarking articles' }
+      ];
+
+      function renderResults(query) {
+        if (!results) return;
+        var q = query.trim().toLowerCase();
+        var matches = SEARCH_INDEX.filter(function(item) {
+          return !q || item.name.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
+        });
+
+        if (matches.length === 0) {
+          results.innerHTML = '<div style="padding:var(--space-6);text-align:center;color:var(--text-muted);font-size:var(--text-sm);">No matching tools found</div>';
+          return;
+        }
+
+        results.innerHTML = matches.map(function(m) {
+          return '<a href="' + m.href + '" style="display:block;padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);text-decoration:none;color:inherit;transition:background var(--transition-fast);" onmouseover="this.style.background=\'var(--bg-raised)\'" onmouseout="this.style.background=\'transparent\'">' +
+            '<div style="font-size:var(--text-sm);font-weight:var(--font-semibold);color:var(--text-primary);margin-bottom:2px;">' + m.name + '</div>' +
+            '<div style="font-size:var(--text-xs);color:var(--text-secondary);">' + m.desc + '</div>' +
+          '</a>';
+        }).join('');
+      }
+
+      if (input) {
+        input.addEventListener('input', function() {
+          renderResults(this.value);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

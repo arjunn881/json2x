@@ -1,0 +1,44 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+
+const pageTitle = "Editorial & Technical Accuracy Policy | JSON2X";
+const pageDesc = "Our commitment to technical rigor, IETF RFC standards adherence, peer review, and continuous content updates.";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDesc}
+  canonical="/editorial-policy"
+  currentId="editorial-policy"
+>
+  <Breadcrumbs items={[{ label: "Editorial & Technical Accuracy Policy" }]} />
+
+  
+
+  <div class="container" style="padding: var(--space-12) var(--space-4);">
+      
+
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+        <div class="tool-hero__badge">Trust &amp; Governance</div>
+        <h1 class="tool-hero__title">Editorial & Technical Accuracy Policy</h1>
+        <p class="tool-hero__desc">Our commitment to technical rigor, IETF RFC standards adherence, peer review, and continuous content updates.</p>
+        <div style="font-size:var(--text-xs); color:var(--text-muted); margin-top:var(--space-2);">
+          <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><rect x="2" y="3" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 6h12M5 2v2M11 2v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Last Updated: July 28, 2026</span> &bull; <span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:-2px;margin-right:4px;"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg> Verified EEAT Trust Signal</span>
+        </div>
+      </div>
+
+      <article class="faq-prose" style="max-width: 860px;">
+        
+      <h2>Editorial & Technical Accuracy Policy</h2>
+      <p>At JSON2X, our technical documentation, error guides, and specifications are authored by Staff-level engineers and verified against official specifications (RFC 8259, RFC 4180, Draft-07 Schema).</p>
+      
+      <h3>1. Technical Verification Process</h3>
+      <p>Every tutorial and code example is run through automated test suites to ensure syntax validity, zero deprecation, and modern ECMAScript standards.</p>
+
+      <h3>2. Regular Content Maintenance</h3>
+      <p>Articles and guides are reviewed bi-annually. Each document displays a clear "Last Updated" timestamp reflecting the latest technical review.</p>
+    
+      </article>
+    </div>
+</BaseLayout>

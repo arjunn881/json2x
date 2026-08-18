@@ -1,0 +1,281 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('json-to-graphql') || {
+  id: 'json-to-graphql',
+  slug: 'json-to-graphql',
+  aliases: [],
+  name: 'Json To Graphql',
+  title: 'Json To Graphql — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'json to graphql',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/json-to-graphql',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  <style>
+
+    .gql-kw    { color: var(--ts-kw); }
+    .gql-name  { color: var(--ts-name); }
+    .gql-field { color: var(--ts-key); }
+    .gql-type  { color: var(--ts-type); }
+    .gql-dir   { color: var(--hl-str); }
+    .gql-punc  { color: var(--text-muted); }
+    .gql-comment { color: var(--text-muted); font-style: italic; }
+
+    .ts-workspace { display:grid; gap:var(--space-5); margin-bottom:var(--space-5); }
+    @media (min-width: 800px) { .ts-workspace { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .ts-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:var(--space-2); padding:var(--space-3) var(--space-4); background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-lg); margin-bottom:var(--space-4); }
+    .ts-toolbar__divider { width:1px; height:24px; background:var(--bg-border); flex-shrink:0; margin-inline:var(--space-1); }
+    .ts-toolbar__label   { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+    .ts-input { padding:var(--space-2) var(--space-3); background:var(--bg-base); color:var(--text-primary); border:1px solid var(--bg-border); border-radius:var(--radius-md); font-size:var(--text-xs); font-family:var(--font-mono); outline:none; width:140px; transition:border-color var(--transition-fast); }
+    .ts-input:focus { border-color:var(--accent); }
+    .toggle-check { display:inline-flex; align-items:center; gap:var(--space-2); font-size:var(--text-xs); font-weight:var(--font-medium); color:var(--text-secondary); cursor:pointer; user-select:none; }
+    .toggle-check input { accent-color:var(--accent); width:14px; height:14px; }
+    .ts-pane { display:flex; flex-direction:column; }
+    .ts-pane__header { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-2); }
+    .ts-pane__title  { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.08em; }
+    .ts-textarea { background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-4); font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); color:var(--text-primary); outline:none; resize:vertical; min-height:320px; tab-size:2; transition:border-color var(--transition-fast), box-shadow var(--transition-fast); }
+    .ts-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .ts-textarea.error { border-color:var(--error); box-shadow:0 0 0 3px var(--error-bg); }
+    .ts-output { font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed); background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg); padding:var(--space-4); min-height:320px; max-height:600px; overflow:auto; white-space:pre; tab-size:2; color:var(--text-primary); }
+    .ts-output--empty { color:var(--text-muted); font-style:italic; white-space:pre-wrap; }
+    .ts-error { display:flex; align-items:flex-start; gap:var(--space-3); padding:var(--space-3) var(--space-4); background:var(--error-bg); color:var(--error); border:1px solid hsla(0,82%,63%,0.3); border-radius:var(--radius-md); font-size:var(--text-xs); margin-bottom:var(--space-4); }
+    .ts-error__badge { flex-shrink:0; background:var(--error); color:#fff; border-radius:var(--radius-sm); padding:1px var(--space-2); font-weight:var(--font-semibold); font-family:var(--font-mono); }
+    .ts-stats { display:flex; gap:var(--space-4); font-size:var(--text-xs); color:var(--text-muted); margin-bottom:var(--space-3); }
+    .ts-stat  { display:flex; gap:var(--space-2); align-items:center; }
+    .ts-stat__val { font-family:var(--font-mono); font-weight:var(--font-semibold); color:var(--text-secondary); }
+    .output-tabs { display:flex; gap:var(--space-1); margin-bottom:var(--space-2); }
+    .output-tab { padding:var(--space-2) var(--space-4); font-size:var(--text-xs); font-weight:var(--font-semibold); border:1px solid var(--bg-border); border-radius:var(--radius-md) var(--radius-md) 0 0; background:var(--bg-raised); color:var(--text-muted); cursor:pointer; transition:all var(--transition-fast); border-bottom:none; user-select:none; }
+    .output-tab.active { background:var(--bg-base); color:var(--text-primary); border-color:var(--bg-border); border-bottom:1px solid var(--bg-base); }
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-card code { font-family:var(--font-mono); font-size:0.85em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px 4px; color:var(--accent); }
+  
+</style>
+
+  <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">GraphQL SDL</div>
+        <h1 class="tool-hero__title">JSON to GraphQL Types</h1>
+      </div>
+
+      <div class="ts-toolbar" role="toolbar">
+        <span class="ts-toolbar__label">Type name</span>
+        <input class="ts-input" id="root-name" type="text" value="MyType" aria-label="Root type name" maxlength="60" />
+
+        <div class="ts-toolbar__divider"></div>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="input-toggle" checked />
+          Generate Input type
+        </label>
+        <label class="toggle-check">
+          <input type="checkbox" id="query-toggle" checked />
+          Generate Query boilerplate
+        </label>
+        <label class="toggle-check">
+          <input type="checkbox" id="nonnull-toggle" checked />
+          Non-null (!)
+        </label>
+
+        <div class="ts-toolbar__divider"></div>
+
+        <button class="btn btn--primary" id="generate-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Generate
+        </button>
+        <button class="btn btn--ghost" id="copy-btn">Copy</button>
+        <button class="btn btn--ghost" id="download-btn">Download .graphql</button>
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <div class="ts-workspace">
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">JSON Input</span>
+          </div>
+          <textarea class="ts-textarea" id="json-input" aria-label="JSON input" spellcheck="false" autocorrect="off"
+            placeholder='{&#10;  "id": "abc123",&#10;  "name": "Alice",&#10;  "email": "alice@example.com",&#10;  "age": 28,&#10;  "active": true,&#10;  "score": 4.5&#10;}'></textarea>
+        </div>
+
+        <div class="ts-pane">
+          <div class="ts-pane__header">
+            <span class="ts-pane__title">GraphQL SDL Output</span>
+          </div>
+          <div id="ts-error" class="ts-error" style="display:none">
+            <span class="ts-error__badge">ERR</span>
+            <span id="ts-error-msg"></span>
+          </div>
+          <div class="ts-stats" id="ts-stats" style="display:none">
+            <div class="ts-stat"><span>Types</span><span class="ts-stat__val" id="stat-types">0</span></div>
+            <div class="ts-stat"><span>Fields</span><span class="ts-stat__val" id="stat-fields">0</span></div>
+          </div>
+          <pre class="ts-output ts-output--empty" id="ts-output">GraphQL type definitions will appear here…</pre>
+        </div>
+      </div>
+</div>
+
+  <script is:inline>
+
+  (function () {
+    'use strict';
+
+    const inputEl    = document.getElementById('json-input');
+    const outputEl   = document.getElementById('ts-output');
+    const errorEl    = document.getElementById('ts-error');
+    const errorMsgEl = document.getElementById('ts-error-msg');
+    const statsEl    = document.getElementById('ts-stats');
+    const statTypes  = document.getElementById('stat-types');
+    const statFields = document.getElementById('stat-fields');
+    const rootNameEl = document.getElementById('root-name');
+    const inputToggle= document.getElementById('input-toggle');
+    const queryToggle= document.getElementById('query-toggle');
+    const nnToggle   = document.getElementById('nonnull-toggle');
+    const genBtn     = document.getElementById('generate-btn');
+    const copyBtn    = document.getElementById('copy-btn');
+    const dlBtn      = document.getElementById('download-btn');
+    const clearBtn   = document.getElementById('clear-btn');
+
+    let lastRaw = '';
+    let typeCount = 0;
+    let fieldCount = 0;
+
+    function toPascal(s) { return s.replace(/(?:^|[_\-\s])(\w)/g, (_, c) => c.toUpperCase()); }
+
+    function inferGqlType(val, key) {
+      if (['id', '_id'].includes(key.toLowerCase())) return 'ID';
+      if (val === null) return null; // nullable
+      if (typeof val === 'boolean') return 'Boolean';
+      if (typeof val === 'number') return Number.isInteger(val) ? 'Int' : 'Float';
+      if (typeof val === 'string') return 'String';
+      return null;
+    }
+
+    function generateType(obj, typeName, types) {
+      const nn = nnToggle.checked ? '!' : '';
+      const fields = [];
+      typeCount++;
+
+      for (const [key, val] of Object.entries(obj)) {
+        fieldCount++;
+        if (Array.isArray(val)) {
+          if (val.length > 0 && typeof val[0] === 'object' && val[0] !== null) {
+            const childName = toPascal(key.replace(/s$/, ''));
+            generateType(val[0], childName, types);
+            fields.push(`  ${key}: [${childName}!]${nn}`);
+          } else {
+            fields.push(`  ${key}: [String]${nn} # primitive array`);
+          }
+        } else if (val !== null && typeof val === 'object') {
+          const childName = toPascal(key);
+          generateType(val, childName, types);
+          fields.push(`  ${key}: ${childName}${nn}`);
+        } else {
+          const gqlType = inferGqlType(val, key) || 'String';
+          const bang = (val === null || !nnToggle.checked) ? '' : '!';
+          fields.push(`  ${key}: ${gqlType}${bang}`);
+        }
+      }
+      types.push({ name: typeName, fields });
+    }
+
+    function highlight(raw) {
+      return raw
+        .replace(/\b(type|input|interface|enum|scalar|extend|query|mutation|Query|Mutation)\b/g, '<span class="gql-kw">$1</span>')
+        .replace(/^(\s+)(\w+):/gm, '$1<span class="gql-field">$2</span>:')
+        .replace(/:\s*(\[?[A-Z][a-zA-Z]+\]?!?)/g, ': <span class="gql-type">$1</span>')
+        .replace(/(#[^\n]*)/g, '<span class="gql-comment">$1</span>');
+    }
+
+    function render() {
+      const raw = inputEl.value.trim();
+      if (!raw) { showEmpty(); return; }
+
+      let parsed;
+      try { parsed = JSON.parse(raw); } catch (e) { showError(e.message); return; }
+      if (Array.isArray(parsed)) {
+        if (parsed.length > 0 && typeof parsed[0] === 'object') parsed = parsed[0];
+        else { showError('Root array must contain at least one object.'); return; }
+      }
+      if (typeof parsed !== 'object' || parsed === null) { showError('Root JSON must be an object.'); return; }
+
+      typeCount = 0;
+      fieldCount = 0;
+      const types = [];
+      const rootName = toPascal(rootNameEl.value.trim() || 'MyType');
+      generateType(parsed, rootName, types);
+
+      let output = '';
+      for (const t of types) {
+        output += `type ${t.name} {\n${t.fields.join('\n')}\n}\n\n`;
+      }
+
+      if (inputToggle.checked) {
+        // Generate input types (same fields, no !ID, all optional)
+        for (const t of types) {
+          const inputFields = t.fields.map(f => {
+            // Remove ! from input fields (for create: keep, for update: optional)
+            return f.replace(/([A-Z][a-zA-Z]+)!/, '$1');
+          });
+          output += `input ${t.name}Input {\n${inputFields.join('\n')}\n}\n\n`;
+        }
+      }
+
+      if (queryToggle.checked) {
+        const nn = nnToggle.checked ? '!' : '';
+        output += `type Query {\n  get${rootName}(id: ID${nn}): ${rootName}\n  list${rootName}s: [${rootName}${nn}]${nn}\n}\n\n`;
+        output += `type Mutation {\n  create${rootName}(input: ${rootName}Input${nn}): ${rootName}\n  update${rootName}(id: ID${nn}, input: ${rootName}Input${nn}): ${rootName}\n  delete${rootName}(id: ID${nn}): Boolean\n}\n`;
+      }
+
+      lastRaw = output.trim();
+      hideError();
+      outputEl.classList.remove('ts-output--empty');
+      outputEl.innerHTML = highlight(output.trim());
+      statsEl.style.display = 'flex';
+      statTypes.textContent = typeCount;
+      statFields.textContent = fieldCount;
+    }
+
+    function showEmpty() { outputEl.textContent = 'GraphQL type definitions will appear here…'; outputEl.classList.add('ts-output--empty'); hideError(); statsEl.style.display = 'none'; }
+    function showError(msg) { errorMsgEl.textContent = msg; errorEl.style.display = 'flex'; inputEl.classList.add('error'); statsEl.style.display = 'none'; }
+    function hideError() { errorEl.style.display = 'none'; inputEl.classList.remove('error'); }
+
+    genBtn.addEventListener('click', render);
+    let t;
+    inputEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 400); });
+    rootNameEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 200); });
+    [inputToggle, queryToggle, nnToggle].forEach(el => el.addEventListener('change', render));
+    copyBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      navigator.clipboard.writeText(lastRaw).then(() => { copyBtn.textContent = 'Copied!'; setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1800); });
+    });
+    dlBtn.addEventListener('click', () => {
+      if (!lastRaw) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([lastRaw], { type: 'text/plain' }));
+      a.download = (rootNameEl.value.trim() || 'schema') + '.graphql';
+      a.click();
+    });
+    clearBtn.addEventListener('click', () => { inputEl.value = ''; showEmpty(); });
+
+    render();
+  })();
+  
+</script>
+</ToolLayout>

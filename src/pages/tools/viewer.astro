@@ -1,0 +1,238 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('viewer') || {
+  id: 'viewer',
+  slug: 'viewer',
+  aliases: [],
+  name: 'Viewer',
+  title: 'Viewer — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'viewer',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/viewer',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  <style>
+
+    /* JSON Tree styles */
+    .tree-wrap {
+      background: var(--bg-base);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      min-height: 300px;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.8;
+      overflow: auto;
+    }
+
+    .tree-node { padding-left: var(--space-5); position: relative; }
+    .tree-node::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--bg-border);
+    }
+
+    .tree-toggle {
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      border: none;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+    }
+    .tree-toggle::before {
+      content: '';
+      width: 0;
+      height: 0;
+      margin-right: 4px;
+      display: inline-block;
+      vertical-align: 1px;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      transition: transform var(--transition-fast);
+    }
+    .tree-toggle.collapsed::before { transform: rotate(-90deg); }
+
+    .tree-key   { color: var(--hl-key); }
+    .tree-colon { color: var(--text-muted); margin-inline: 2px; }
+    .type-string  { color: var(--hl-str); }
+    .type-number  { color: var(--hl-num); }
+    .type-boolean { color: var(--hl-bool); }
+    .type-null    { color: var(--hl-null); }
+    .tree-count   { font-size: 10px; color: var(--text-muted); margin-left: var(--space-2); }
+
+    .search-input-wrap {
+      position: relative;
+      max-width: 320px;
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    #search-input {
+      padding-left: 34px;
+    }
+    .highlight { background: hsla(38, 90%, 65%, 0.3); border-radius: 2px; }
+  
+</style>
+
+  <div class="pane" style="margin-bottom: var(--space-4)">
+        <div class="pane__header">
+          <span class="pane__title">JSON Input</span>
+          <span id="input-size" class="text-xs text-muted"></span>
+        </div>
+        <textarea class="textarea" id="json-input" style="min-height:160px"
+          placeholder='{"user":{"name":"Alice","roles":["admin","user"]}}' aria-label="JSON input" spellcheck="false"></textarea>
+      </div>
+
+      <!-- Tree toolbar -->
+      <div class="options-bar" style="margin-bottom:var(--space-4)">
+        <div class="search-input-wrap">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2"/>
+            <path d="M14 14l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input type="search" id="search-input" class="input" placeholder="Search keys &amp; values…" aria-label="Search JSON tree" />
+        </div>
+        <button class="btn btn--ghost btn--sm" id="expand-all-btn">Expand All</button>
+        <button class="btn btn--ghost btn--sm" id="collapse-all-btn">Collapse All</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-bottom:var(--space-4)"></div>
+
+      <!-- Tree -->
+      <div class="tree-wrap" id="tree-output" aria-label="JSON tree" role="tree"></div>
+
+  <script is:inline>
+
+    /**
+     * Recursive tree renderer.
+     * Full virtualization for very large JSON goes in phase 2.
+     */
+    const statusEl  = document.getElementById('tool-status');
+    const treeEl    = document.getElementById('tree-output');
+    const inputEl   = document.getElementById('json-input');
+
+    function showStatus(msg, type = 'info') {
+      statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+    }
+
+    function escape(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    function renderValue(val, key) {
+      const type = JT.getType(val);
+      const keySpan = key !== null ? `<span class="tree-key">${escape(JSON.stringify(key))}</span><span class="tree-colon">:</span>` : '';
+
+      if (type === 'string')  return `${keySpan}<span class="type-string">${escape(JSON.stringify(val))}</span>`;
+      if (type === 'number')  return `${keySpan}<span class="type-number">${val}</span>`;
+      if (type === 'boolean') return `${keySpan}<span class="type-boolean">${val}</span>`;
+      if (type === 'null')    return `${keySpan}<span class="type-null">null</span>`;
+
+      const isArr  = type === 'array';
+      const items  = isArr ? val : Object.entries(val);
+      const len    = items.length;
+      const open   = isArr ? '[' : '{';
+      const close  = isArr ? ']' : '}';
+      const label  = isArr ? `Array[${len}]` : `Object{${len}}`;
+
+      let children = '';
+      if (isArr) {
+        val.forEach((item, i) => {
+          children += `<div class="tree-row">${renderValue(item, i)}</div>`;
+        });
+      } else {
+        Object.entries(val).forEach(([k, v]) => {
+          children += `<div class="tree-row">${renderValue(v, k)}</div>`;
+        });
+      }
+
+      return `
+        ${keySpan}
+        <button class="tree-toggle" aria-expanded="true">${open} <span class="tree-count">${label}</span></button>
+        <div class="tree-node">${children}</div>
+        <span class="type-null">${close}</span>`;
+    }
+
+    function renderTree(data) {
+      treeEl.innerHTML = `<div class="tree-row">${renderValue(data, null)}</div>`;
+
+      // Toggle collapse on buttons
+      treeEl.querySelectorAll('.tree-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const node = btn.nextElementSibling;
+          const isCollapsed = btn.classList.toggle('collapsed');
+          btn.setAttribute('aria-expanded', String(!isCollapsed));
+          node.style.display = isCollapsed ? 'none' : '';
+        });
+      });
+    }
+
+    function parse() {
+      const raw = inputEl.value;
+      document.getElementById('input-size').textContent = JT.formatBytes(new Blob([raw]).size);
+      const { data, error, line } = JT.parseJSON(raw);
+      if (error) { showStatus(`<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>${error}${line ? ` (line ${line})` : ''}`, 'error'); treeEl.innerHTML = ''; return; }
+      renderTree(data);
+      showStatus('');
+    }
+
+    inputEl.addEventListener('input', JT.debounce(parse, 400));
+
+    document.getElementById('expand-all-btn').addEventListener('click', () => {
+      treeEl.querySelectorAll('.tree-toggle').forEach(btn => {
+        btn.classList.remove('collapsed');
+        btn.setAttribute('aria-expanded', 'true');
+        const node = btn.nextElementSibling;
+        if (node) node.style.display = '';
+      });
+    });
+
+    document.getElementById('collapse-all-btn').addEventListener('click', () => {
+      treeEl.querySelectorAll('.tree-toggle').forEach(btn => {
+        btn.classList.add('collapsed');
+        btn.setAttribute('aria-expanded', 'false');
+        const node = btn.nextElementSibling;
+        if (node) node.style.display = 'none';
+      });
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      inputEl.value = ''; treeEl.innerHTML = ''; showStatus('');
+      document.getElementById('input-size').textContent = '';
+    });
+
+    // Basic search highlight (full implementation in phase 2)
+    document.getElementById('search-input').addEventListener('input', JT.debounce(function () {
+      const q = this.value.trim().toLowerCase();
+      treeEl.querySelectorAll('.tree-row').forEach(row => {
+        if (!q) { row.style.opacity = ''; return; }
+        row.style.opacity = row.textContent.toLowerCase().includes(q) ? '1' : '0.2';
+      });
+    }, 250));
+  
+</script>
+</ToolLayout>

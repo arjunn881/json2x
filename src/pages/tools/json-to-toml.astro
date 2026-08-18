@@ -1,0 +1,122 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('json-to-toml') || {
+  id: 'json-to-toml',
+  slug: 'json-to-toml',
+  aliases: [],
+  name: 'Json To Toml',
+  title: 'Json To Toml — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'json to toml',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/json-to-toml',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  
+
+  <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <button class="btn btn--primary" id="convert-btn">Convert</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy TOML</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download .toml</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">JSON Input</span></div>
+          <textarea class="textarea" id="converter-input"
+            placeholder='{"package":{"name":"my-app","version":"1.0.0"},"dependencies":{"serde":"1.0"}}'
+            aria-label="Input code pane" spellcheck="false" style="min-height:300px;font-family:var(--font-mono);"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title">TOML Output</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:300px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Also try</span>
+        <a href="json-formatter" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+        <a href="json-to-yaml" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to YAML</a>
+      </div>
+
+  <script is:inline>
+
+    (function() {
+      'use strict';
+      const inputEl = document.getElementById('converter-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function convert() {
+        const text = inputEl.value.trim();
+        if (!text) {
+          outputEl.textContent = '';
+          showStatus('');
+          return;
+        }
+
+        const { data, error } = JT.parseJSON(text);
+        if (error) {
+          showStatus(`JSON Parse Error: ${error}`, 'error');
+          return;
+        }
+
+        const { toml, error: tErr } = JT.jsonToToml(data);
+        if (tErr) {
+          showStatus(`TOML Error: ${tErr}`, 'error');
+          return;
+        }
+
+        outputEl.textContent = toml;
+        showStatus('Successfully converted to TOML', 'success');
+      }
+
+      document.getElementById('convert-btn').addEventListener('click', convert);
+      inputEl.addEventListener('input', JT.debounce(convert, 400));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const blob = new Blob([res], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'config.toml';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', () => {
+        inputEl.value = '';
+        outputEl.textContent = '';
+        showStatus('');
+      });
+    })();
+  
+</script>
+</ToolLayout>

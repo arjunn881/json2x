@@ -1,0 +1,155 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('json-to-yaml') || {
+  id: 'json-to-yaml',
+  slug: 'json-to-yaml',
+  aliases: [],
+  name: 'Json To Yaml',
+  title: 'Json To Yaml — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'json to yaml',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/json-to-yaml',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  
+
+  <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
+        <label class="flex items-center gap-2 text-sm text-secondary">
+          Mode:
+          <select id="mode-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Conversion direction mode">
+            <option value="json2yaml" selected>JSON → YAML</option>
+            <option value="yaml2json">YAML → JSON</option>
+          </select>
+        </label>
+        <button class="btn btn--primary" id="convert-btn">Convert</button>
+        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Result</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
+      </div>
+
+      <div class="split-pane">
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title" id="input-title">JSON Input</span></div>
+          <textarea class="textarea" id="converter-input"
+            placeholder='{"apiVersion":"v1","kind":"Pod","metadata":{"name":"web-server"},"spec":{"containers":[{"name":"nginx","image":"nginx:1.21"}]}}'
+            aria-label="Input code pane" spellcheck="false" style="min-height:300px;font-family:var(--font-mono);"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane__header"><span class="pane__title" id="output-title">YAML Output</span></div>
+          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:300px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        </div>
+      </div>
+
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
+        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Also try</span>
+        <a href="json-formatter" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
+        <a href="json-validator" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
+        <a href="json-to-csv" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+        <a href="json-to-xml" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to XML</a>
+      </div>
+
+  <script is:inline>
+
+    (function() {
+      'use strict';
+      const modeSel = document.getElementById('mode-select');
+      const inputEl = document.getElementById('converter-input');
+      const outputEl = document.getElementById('converter-output');
+      const statusEl = document.getElementById('tool-status');
+      const inputTitle = document.getElementById('input-title');
+      const outputTitle = document.getElementById('output-title');
+
+      function showStatus(msg, type = 'info') {
+        statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+      }
+
+      function convert() {
+        const text = inputEl.value.trim();
+        const mode = modeSel.value;
+
+        if (!text) {
+          outputEl.textContent = '';
+          showStatus('');
+          return;
+        }
+
+        if (mode === 'json2yaml') {
+          const { data, error } = JT.parseJSON(text);
+          if (error) {
+            showStatus(`JSON Parse Error: ${error}`, 'error');
+            return;
+          }
+          const { yaml, error: yErr } = JT.jsonToYaml(data);
+          if (yErr) {
+            showStatus(`YAML Error: ${yErr}`, 'error');
+            return;
+          }
+          outputEl.textContent = yaml;
+          showStatus('Successfully converted to YAML', 'success');
+        } else {
+          const { data, error } = JT.yamlToJson(text);
+          if (error) {
+            showStatus(`YAML Parse Error: ${error}`, 'error');
+            return;
+          }
+          const { text: jsonText } = JT.stringifyJSON(data, 2);
+          outputEl.textContent = jsonText;
+          showStatus('Successfully converted to JSON', 'success');
+        }
+      }
+
+      modeSel.addEventListener('change', () => {
+        if (modeSel.value === 'json2yaml') {
+          inputTitle.textContent = 'JSON Input';
+          outputTitle.textContent = 'YAML Output';
+        } else {
+          inputTitle.textContent = 'YAML Input';
+          outputTitle.textContent = 'JSON Output';
+        }
+        convert();
+      });
+
+      document.getElementById('convert-btn').addEventListener('click', convert);
+      inputEl.addEventListener('input', JT.debounce(convert, 400));
+
+      document.getElementById('copy-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        JT.copyToClipboard(res)
+          .then(() => showStatus('Copied to clipboard!', 'success'))
+          .catch(() => showStatus('Copy failed.', 'warning'));
+      });
+
+      document.getElementById('download-btn').addEventListener('click', () => {
+        const res = outputEl.textContent;
+        if (!res) return;
+        const ext = modeSel.value === 'json2yaml' ? 'yaml' : 'json';
+        const blob = new Blob([res], { type: 'text/plain;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `data.${ext}`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', () => {
+        inputEl.value = '';
+        outputEl.textContent = '';
+        showStatus('');
+      });
+    })();
+  
+</script>
+</ToolLayout>

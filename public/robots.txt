@@ -1,0 +1,43 @@
+# ============================================
+# JSON2X (json2x.com) — Optimized robots.txt
+# Conforms to Google Search Central (RFC 9309)
+# ============================================
+
+User-agent: *
+Allow: /
+
+# Explicitly allow critical rendering assets for Googlebot & Bingbot
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.svg$
+
+# Block Administrative & Internal API Endpoints
+Disallow: /admin/
+Disallow: /api/
+
+# Block Temporary & Preview Routes
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /drafts/
+Disallow: /preview/
+Disallow: /*?preview=*
+Disallow: /*?draft=*
+
+# Block Unindexed Templates & Duplicate Aliases
+Disallow: /tools/_template.html
+Disallow: /tools/converter.html
+Disallow: /tools/formatter.html
+Disallow: /tools/validator.html
+Disallow: /tools/minifier.html
+Disallow: /tools/diff.html
+Disallow: /tools/schema.html
+Disallow: /tools/viewer.html
+Disallow: /tools/json-to-ts.html
+
+# Sitemaps
+Sitemap: https://json2x.com/sitemap-index.xml
+Sitemap: https://json2x.com/sitemap.xml
+Sitemap: https://json2x.com/sitemap-images.xml
+Sitemap: https://json2x.com/sitemap-news.xml

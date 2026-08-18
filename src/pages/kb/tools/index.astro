@@ -1,0 +1,63 @@
+﻿---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/layout/Breadcrumbs.astro';
+import { TOOL_PAGES } from '../../../data/tool-pseo';
+
+const categories = Array.from(new Set(TOOL_PAGES.map((p) => p.category)));
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': 'JSON2X Developer Tool Keyword Hub',
+  'url': 'https://json2x.com/kb/tools/index',
+  'itemListElement': TOOL_PAGES.map((p, idx) => ({
+    '@type': 'ListItem',
+    'position': idx + 1,
+    'name': p.title,
+    'url': `https://json2x.com/kb/tools/${p.slug}`
+  }))
+};
+---
+
+<BaseLayout
+  title="Tool Keyword & Intent Directory — JSON2X"
+  description="Comprehensive keyword directory covering online formatters, syntax checkers, minifiers, and schema converters across all developer personas."
+  canonical="/kb/tools/"
+  currentId="kb"
+  schema={itemListSchema}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Knowledge Base', href: '/kb/index' },
+      { label: 'Tool Guides' }
+    ]}
+  />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
+    <div class="tool-hero__badge">Tool Specific Intent Guides</div>
+    <h1 class="tool-hero__title">Tool Guides &amp; Alternatives</h1>
+    <p class="tool-hero__desc">In-depth feature comparisons, online alternatives, and use-case tutorials for all 21 client-side developer utilities.</p>
+  </div>
+
+  {categories.map((cat) => {
+    const pages = TOOL_PAGES.filter((p) => p.category === cat);
+    return (
+      <section style="margin-bottom:var(--space-12);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4);border-bottom:1px solid var(--bg-border);padding-bottom:var(--space-2);">
+          <h2 style="font-size:var(--text-xl);font-weight:var(--font-bold);color:var(--text-primary);">{cat}</h2>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">{pages.length} Pages</span>
+        </div>
+
+        <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-4);">
+          {pages.map((p) => (
+            <a href={`/kb/tools/${p.slug}`} class="faq-card" style="text-decoration:none;">
+              <span style="font-size:11px;font-weight:600;color:var(--accent);text-transform:uppercase;">{p.category}</span>
+              <h3 class="faq-card__q" style="font-size:var(--text-base);margin-top:4px;">{p.h1}</h3>
+              <p class="faq-card__a">{p.metaDesc}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+</BaseLayout>

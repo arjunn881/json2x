@@ -1,0 +1,30 @@
+---
+import type { ToolItem } from '../../data/tools';
+import { getRelatedTools } from '../../data/tools';
+
+export interface Props {
+  tool: ToolItem;
+}
+
+const { tool } = Astro.props;
+const related = getRelatedTools(tool);
+---
+
+{related.length > 0 && (
+  <section class="tool-section" style="margin-top:var(--space-12);">
+    <h2 class="tool-section__title">Related Developer Tools</h2>
+    <div class="related-tools-grid">
+      {related.map((rel) => (
+        <a class="related-tool-card" href={rel.href}>
+          <span class="related-tool-card__icon">
+            <Fragment set:html={rel.icon} />
+          </span>
+          <span class="related-tool-card__body">
+            <span class="related-tool-card__title">{rel.name}</span>
+            <span class="related-tool-card__desc">{rel.desc}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}

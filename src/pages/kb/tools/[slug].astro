@@ -1,0 +1,35 @@
+---
+import KbLayout from '../../../layouts/KbLayout.astro';
+import { TOOL_PAGES } from '../../../data/tool-pseo';
+import type { ToolPseoPage } from '../../../data/tool-pseo';
+
+export function getStaticPaths() {
+  return TOOL_PAGES.map((page) => ({
+    params: { slug: page.slug },
+    props: { page }
+  }));
+}
+
+export interface Props {
+  page: ToolPseoPage;
+}
+
+const { page } = Astro.props;
+---
+
+<KbLayout
+  title={page.title}
+  metaDesc={page.metaDesc}
+  h1={page.h1}
+  category={page.category}
+  primaryTool={page.toolSlug}
+  keywords={page.keywords}
+  content={page.content}
+  faqs={page.faqs}
+  canonical={`/kb/tools/${page.slug}`}
+  breadcrumbs={[
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'Tool Guides', href: '/kb/tools/' },
+    { label: page.h1 }
+  ]}
+/>

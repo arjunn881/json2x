@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import { BLOG_ARTICLES } from '../../data/blog';
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': 'JSON2X Engineering Blog & Developer Tutorials',
+  'url': 'https://json2x.com/blog/',
+  'itemListElement': BLOG_ARTICLES.map((a, idx) => ({
+    '@type': 'ListItem',
+    'position': idx + 1,
+    'name': a.title,
+    'url': `https://json2x.com/blog/${a.slug}`
+  }))
+};
+---
+
+<BaseLayout
+  title="Engineering Blog & Developer Tutorials — JSON2X"
+  description="In-depth developer articles, architectural benchmarks, data migration tutorials, and performance guides for JSON, CSV, TypeScript, SQL, and APIs."
+  canonical="/blog/"
+  currentId="blog"
+  schema={itemListSchema}
+>
+  <Breadcrumbs items={[{ label: 'Engineering Blog' }]} />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+    <div class="tool-hero__badge">Engineering Hub</div>
+    <h1 class="tool-hero__title">Engineering Blog &amp; Tutorials</h1>
+    <p class="tool-hero__desc">Authoritative guides on client-side data engineering, RFC standards, type inference, performance benchmarks, and zero-server privacy.</p>
+  </div>
+
+  <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+    {BLOG_ARTICLES.map((article) => (
+      <a href={`/blog/${article.slug}`} class="faq-card" style="text-decoration:none; display:flex; flex-direction:column;">
+        <p class="faq-section__eyebrow">{article.category}</p>
+        <h2 class="faq-card__q" style="margin-top:0;">{article.h1}</h2>
+        <p class="faq-card__a">{article.metaDesc}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

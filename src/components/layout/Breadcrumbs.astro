@@ -1,0 +1,40 @@
+---
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+export interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const siteUrl = 'https://json2x.com';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': items.map((item, index) => ({
+    '@type': 'ListItem',
+    'position': index + 1,
+    'name': item.label,
+    'item': item.href ? (item.href.startsWith('http') ? item.href : `${siteUrl}${item.href}`) : undefined
+  }))
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<nav aria-label="Breadcrumb" class="breadcrumb">
+  <a class="breadcrumb__link" href="/">Home</a>
+  {items.map((item, index) => (
+    <Fragment>
+      <span class="breadcrumb__separator" aria-hidden="true">/</span>
+      {item.href && index < items.length - 1 ? (
+        <a class="breadcrumb__link" href={item.href}>{item.label}</a>
+      ) : (
+        <span class="breadcrumb__current" aria-current="page">{item.label}</span>
+      )}
+    </Fragment>
+  ))}
+</nav>

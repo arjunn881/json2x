@@ -1,0 +1,20 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { BLOG_ARTICLES } from '../../data/blog';
+import type { BlogArticle } from '../../data/blog';
+
+export function getStaticPaths() {
+  return BLOG_ARTICLES.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+export interface Props {
+  article: BlogArticle;
+}
+
+const { article } = Astro.props;
+---
+
+<BlogLayout article={article} />

@@ -1,0 +1,130 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import type { KbFAQ } from '../data/kb';
+import { KB_TOPICS } from '../data/kb';
+
+export interface Props {
+  title: string;
+  metaDesc: string;
+  h1: string;
+  category: string;
+  primaryTool?: string;
+  keywords?: string;
+  content: string;
+  codeExample?: string;
+  faqs?: KbFAQ[];
+  canonical?: string;
+  breadcrumbs?: { label: string; href?: string }[];
+}
+
+const {
+  title,
+  metaDesc,
+  h1,
+  category,
+  primaryTool = 'json-validator',
+  keywords,
+  content,
+  codeExample,
+  faqs = [],
+  canonical = Astro.url.pathname,
+  breadcrumbs = [
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: h1 }
+  ]
+} = Astro.props;
+
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  'headline': h1,
+  'description': metaDesc,
+  'author': {
+    '@type': 'Organization',
+    'name': 'JSON2X Engineering Team'
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'JSON2X',
+    'url': 'https://json2x.com'
+  }
+};
+
+const currentSlug = canonical.replace('/kb/', '').replace(/\/$/, '');
+const relatedTopics = KB_TOPICS
+  .filter((t) => t.slug !== currentSlug)
+  .slice(0, 5);
+---
+
+<BaseLayout
+  title={`${title} | JSON2X Knowledge Base`}
+  description={metaDesc}
+  keywords={keywords}
+  canonical={canonical}
+  currentId="kb"
+  schema={techArticleSchema}
+>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+    <div class="tool-hero__badge">{category} Knowledge Base</div>
+    <h1 class="tool-hero__title">{h1}</h1>
+    <p class="tool-hero__desc">{metaDesc}</p>
+  </div>
+
+  <article class="faq-prose" style="margin-bottom:var(--space-12);">
+    <div class="kb-content" set:html={content} />
+
+    {codeExample && (
+      <div class="code-block-wrap" style="margin-top:var(--space-6);">
+        <div class="code-block-header">
+          <div class="code-block-dots" aria-hidden="true">
+            <span class="code-dot code-dot--red"></span>
+            <span class="code-dot code-dot--yellow"></span>
+            <span class="code-dot code-dot--green"></span>
+          </div>
+          <span class="code-lang">json</span>
+        </div>
+        <pre><code>{codeExample}</code></pre>
+      </div>
+    )}
+
+    {primaryTool && (
+      <div class="tool-cta-banner">
+        <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+        <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+        <a href={`/tools/${primaryTool}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
+      </div>
+    )}
+  </article>
+
+  <!-- FAQs -->
+  {faqs && faqs.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Frequently Asked Questions</h2>
+      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+        {faqs.map((faq) => (
+          <div class="faq-card">
+            <h3 class="faq-card__q">{faq.q}</h3>
+            <p class="faq-card__a">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Related Topics -->
+  {relatedTopics.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Related JSON Topics &amp; Reference Articles</h2>
+      <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+        {relatedTopics.map((rel) => (
+          <li>
+            <a href={`/kb/${rel.slug}`} style="color:var(--accent); text-decoration:none;">{rel.h1}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

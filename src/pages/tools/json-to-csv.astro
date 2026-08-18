@@ -1,0 +1,663 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('json-to-csv') || {
+  id: 'json-to-csv',
+  slug: 'json-to-csv',
+  aliases: [],
+  name: 'Json To Csv',
+  title: 'Json To Csv — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'json to csv',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/json-to-csv',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  <style>
+
+    /* ══════════════════════════════════════════════════════════
+       JSON → CSV — page styles
+       ══════════════════════════════════════════════════════════ */
+
+    /* ── Toolbar ─────────────────────────────────────────────── */
+    .jc-toolbar {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-2);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+    }
+
+    .jc-toolbar__divider { width:1px; height:24px; background:var(--bg-border); flex-shrink:0; margin-inline:var(--space-1); }
+    .jc-toolbar__label { font-size:var(--text-xs); font-weight:var(--font-semibold); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; }
+
+    .jc-select {
+      width:       auto;
+      padding:     var(--space-2) var(--space-3);
+      background:  var(--bg-base);
+      color:       var(--text-primary);
+      border:      1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      font-size:   var(--text-xs);
+      font-weight: var(--font-semibold);
+      cursor:      pointer;
+      outline:     none;
+      transition:  border-color var(--transition-fast);
+    }
+    .jc-select:focus { border-color: var(--accent); }
+
+    .toggle-check {
+      display:     inline-flex;
+      align-items: center;
+      gap:         var(--space-2);
+      font-size:   var(--text-xs);
+      font-weight: var(--font-medium);
+      color:       var(--text-secondary);
+      cursor:      pointer;
+      user-select: none;
+    }
+    .toggle-check input { accent-color: var(--accent); width:14px; height:14px; }
+
+    /* ── Input wrap ───────────────────────────────────────────── */
+    .jc-input-wrap {
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      overflow:      hidden;
+      background:    var(--bg-base);
+      transition:    border-color var(--transition-fast), box-shadow var(--transition-fast);
+      margin-bottom: var(--space-4);
+    }
+    .jc-input-wrap:focus-within {
+      border-color: var(--accent);
+      box-shadow:   0 0 0 3px var(--accent-glow);
+    }
+    .jc-input-wrap.error {
+      border-color: var(--error);
+      box-shadow:   0 0 0 3px var(--error-bg);
+    }
+
+    .jc-textarea {
+      display:     block;
+      width:       100%;
+      padding:     var(--space-4);
+      min-height:  280px;
+      background:  transparent;
+      color:       var(--text-primary);
+      border:      none;
+      outline:     none;
+      font-family: var(--font-mono);
+      font-size:   var(--text-xs);
+      line-height: var(--leading-relaxed);
+      resize:      vertical;
+      tab-size:    2;
+    }
+
+    /* ── Warning banners ──────────────────────────────────────── */
+    .warning-stack {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--space-2);
+      margin-bottom:  var(--space-4);
+    }
+
+    .warning-banner {
+      display:       flex;
+      align-items:   flex-start;
+      gap:           var(--space-3);
+      padding:       var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size:     var(--text-xs);
+      border:        1px solid transparent;
+    }
+    .warning-banner--warn {
+      background:   var(--warning-bg);
+      color:        var(--warning);
+      border-color: var(--warning-bg);
+    }
+    .warning-banner--info {
+      background:   var(--info-bg);
+      color:        var(--info);
+      border-color: var(--info-bg);
+    }
+    .warning-banner--err {
+      background:   var(--error-bg);
+      color:        var(--error);
+      border-color: var(--error-bg);
+    }
+
+    /* ── Column chips ─────────────────────────────────────────── */
+    .col-chips-wrap {
+      margin-bottom: var(--space-4);
+    }
+
+    .col-chips-header {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      margin-bottom:   var(--space-3);
+    }
+
+    .col-chips {
+      display:   flex;
+      flex-wrap: wrap;
+      gap:       var(--space-2);
+    }
+
+    .col-chip {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-1);
+      padding:       var(--space-1) var(--space-3);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-full);
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      color:         var(--text-secondary);
+    }
+
+    /* ── CSV output ───────────────────────────────────────────── */
+    .jc-output-header {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      margin-bottom:   var(--space-2);
+    }
+
+    .jc-output {
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      line-height:   var(--leading-relaxed);
+      background:    var(--bg-base);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding:       var(--space-4);
+      min-height:    160px;
+      max-height:    400px;
+      overflow:      auto;
+      white-space:   pre;
+      color:         var(--text-primary);
+    }
+    .jc-output--empty { color:var(--text-muted); font-style:italic; white-space:pre-wrap; }
+
+    /* ── Stats row ────────────────────────────────────────────── */
+    .jc-stats {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-6);
+      padding:       var(--space-3) var(--space-5);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      font-size:     var(--text-xs);
+      margin-bottom: var(--space-6);
+    }
+
+    .jc-stat { display:flex; align-items:center; gap:var(--space-2); }
+    .jc-stat__label { color:var(--text-muted); }
+    .jc-stat__value { font-family:var(--font-mono); font-weight:var(--font-semibold); color:var(--text-primary); }
+
+    /* ── Crosslinks ───────────────────────────────────────────── */
+    .crosslinks {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-3);
+      padding:       var(--space-4) var(--space-5);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-top:    var(--space-6);
+    }
+    .crosslinks__label { font-weight:var(--font-semibold); color:var(--text-muted); font-size:var(--text-xs); text-transform:uppercase; letter-spacing:0.06em; }
+    .crosslinks__link {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-1);
+      padding:       var(--space-2) var(--space-3);
+      background:    var(--bg-surface);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      font-size:     var(--text-sm);
+      font-weight:   var(--font-medium);
+      color:         var(--text-secondary);
+      text-decoration: none;
+      transition:    all var(--transition-fast);
+    }
+    .crosslinks__link:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
+
+    /* ── FAQ ──────────────────────────────────────────────────── */
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-prose   { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); max-width:760px; display:flex; flex-direction:column; gap:var(--space-4); }
+    .faq-prose p { margin:0; }
+    .faq-prose strong { color:var(--text-primary); font-weight:var(--font-semibold); }
+    .faq-prose code { font-family:var(--font-mono); font-size:0.9em; background:var(--bg-raised); border:1px solid var(--bg-border); border-radius:var(--radius-sm); padding:1px var(--space-2); color:var(--accent); }
+    .faq-prose a { color:var(--accent); }
+  
+</style>
+
+  <div class="container container--tool">
+
+      <!-- ── Hero ────────────────────────────────────────────── -->
+      <div class="tool-hero">
+        <div class="tool-hero__badge">JSON → CSV</div>
+        <h1 class="tool-hero__title">JSON to CSV Converter</h1>
+        
+      </div>
+
+      <!-- ── Toolbar ──────────────────────────────────────────── -->
+      <div class="jc-toolbar" role="toolbar" aria-label="Converter options">
+
+        <div style="display:flex;align-items:center;gap:var(--space-2)">
+          <span class="jc-toolbar__label">Delimiter</span>
+          <select id="delimiter-select" class="jc-select" aria-label="CSV delimiter">
+            <option value=","  selected>, comma</option>
+            <option value=";">; semicolon</option>
+            <option value="&#9;">⇥ tab</option>
+            <option value="|">| pipe</option>
+          </select>
+        </div>
+
+        <div class="jc-toolbar__divider" aria-hidden="true"></div>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="flatten-toggle" checked aria-label="Flatten nested objects" />
+          Flatten nested objects
+        </label>
+
+        <label class="toggle-check">
+          <input type="checkbox" id="headers-toggle" checked aria-label="Include header row" />
+          Include headers
+        </label>
+
+        <div class="jc-toolbar__divider" aria-hidden="true"></div>
+
+        <button class="btn btn--primary" id="convert-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 2v10M2 7l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Convert
+        </button>
+
+        <button class="btn btn--ghost" id="copy-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 10V2h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Copy CSV
+        </button>
+
+        <button class="btn btn--ghost" id="download-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 1v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 10v1.5A1.5 1.5 0 0 0 3.5 13h7a1.5 1.5 0 0 0 1.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Download .csv
+        </button>
+
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Clear
+        </button>
+      </div>
+
+      <!-- ── Input ────────────────────────────────────────────── -->
+      <div class="pane__header" style="margin-bottom:var(--space-2)">
+        <span class="pane__title">JSON Input</span>
+        <span id="input-meta" class="text-xs text-muted"></span>
+      </div>
+
+      <div class="jc-input-wrap" id="input-wrap">
+        <textarea
+          class="jc-textarea"
+          id="json-input"
+          aria-label="JSON input"
+          spellcheck="false"
+          autocorrect="off"
+          placeholder='Paste a JSON array of objects here…&#10;&#10;Example:&#10;[&#10;  { "name": "Alice", "age": 30, "city": "London" },&#10;  { "name": "Bob",   "age": 25, "city": "Paris"  }&#10;]'
+        ></textarea>
+      </div>
+
+      <!-- ── Warning banners ──────────────────────────────────── -->
+      <div class="warning-stack" id="warning-stack" style="display:none" aria-live="polite"></div>
+
+      <!-- ── Column chips ─────────────────────────────────────── -->
+      <div class="col-chips-wrap" id="col-chips-wrap" style="display:none">
+        <div class="col-chips-header">
+          <span class="pane__title">Columns <span id="col-count" class="text-muted text-xs font-normal"></span></span>
+        </div>
+        <div class="col-chips" id="col-chips" role="list" aria-label="CSV column headers"></div>
+      </div>
+
+      <!-- ── Stats bar ─────────────────────────────────────────── -->
+      <div class="jc-stats" id="jc-stats" style="display:none" aria-live="polite">
+        <div class="jc-stat">
+          <span class="jc-stat__label">Rows</span>
+          <span class="jc-stat__value" id="stat-rows">—</span>
+        </div>
+        <div class="jc-stat">
+          <span class="jc-stat__label">Columns</span>
+          <span class="jc-stat__value" id="stat-cols">—</span>
+        </div>
+        <div class="jc-stat">
+          <span class="jc-stat__label">Output size</span>
+          <span class="jc-stat__value" id="stat-size">—</span>
+        </div>
+        <div class="jc-stat" id="stat-skipped-wrap" style="display:none">
+          <span class="jc-stat__label">Non-object rows skipped</span>
+          <span class="jc-stat__value" id="stat-skipped" style="color:var(--warning)">—</span>
+        </div>
+      </div>
+
+      <!-- ── CSV Output ────────────────────────────────────────── -->
+      <div class="jc-output-header">
+        <span class="pane__title">CSV Output</span>
+        <div style="display:flex;gap:var(--space-2)"></div>
+      </div>
+      <pre class="jc-output jc-output--empty" id="csv-output" tabindex="0" role="region" aria-label="CSV output" aria-live="polite">Converted CSV will appear here…</pre>
+
+      <!-- ── Crosslinks ────────────────────────────────────────── -->
+      <div class="crosslinks" aria-label="Related tools">
+        <span class="crosslinks__label">Also try</span>
+        <a class="crosslinks__link" href="csv-to-json">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M2 7h14M2 11h14M7 7v7" stroke="currentColor" stroke-width="1.5"/><path d="M13 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          CSV to JSON
+        </a>
+        <a class="crosslinks__link" href="formatter">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3" width="14" height="2" rx="1" fill="currentColor"/><rect x="2" y="8" width="10" height="2" rx="1" fill="currentColor"/><rect x="2" y="13" width="12" height="2" rx="1" fill="currentColor"/></svg>
+          JSON Formatter
+        </a>
+        <a class="crosslinks__link" href="minifier">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 7l4-4 4 4M5 11l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          JSON Minifier
+        </a>
+        <a class="crosslinks__link" href="viewer">
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="4" cy="4" r="1.5" fill="currentColor"/><circle cx="4" cy="9" r="1.5" fill="currentColor"/><circle cx="4" cy="14" r="1.5" fill="currentColor"/><path d="M7 4h7M7 9h5M7 14h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          JSON Tree Viewer
+        </a>
+      </div>
+
+      <!-- ── Rectangle ad ─────────────────────────────────────── -->
+      
+
+      <!-- ── Related tools grid ───────────────────────────────── -->
+</div>
+
+  <script is:inline>
+
+  (function () {
+    'use strict';
+
+    /* ── DOM refs ────────────────────────────────────────────── */
+    const inputEl      = document.getElementById('json-input');
+    const inputWrap    = document.getElementById('input-wrap');
+    const outputEl     = document.getElementById('csv-output');
+    const warnStack    = document.getElementById('warning-stack');
+    const chipsWrap    = document.getElementById('col-chips-wrap');
+    const chipsEl      = document.getElementById('col-chips');
+    const statsEl      = document.getElementById('jc-stats');
+    const delimSel     = document.getElementById('delimiter-select');
+    const flattenCheck = document.getElementById('flatten-toggle');
+    const headersCheck = document.getElementById('headers-toggle');
+
+    let lastCSV = '';
+
+    /* ── Helpers ─────────────────────────────────────────────── */
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function showWarnings(msgs) {
+      if (!msgs || msgs.length === 0) {
+        warnStack.style.display = 'none';
+        warnStack.innerHTML = '';
+        return;
+      }
+      warnStack.innerHTML = msgs.map(m => `
+        <div class="warning-banner warning-banner--${m.type || 'warn'}" role="status">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style="flex-shrink:0;margin-top:1px">
+            <path d="M7 1L13 12H1L7 1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M7 5v3M7 10h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          ${escHtml(m.text)}
+        </div>`).join('');
+      warnStack.style.display = 'flex';
+      warnStack.style.flexDirection = 'column';
+    }
+
+    function showColumns(headers) {
+      if (!headers || headers.length === 0) { chipsWrap.style.display = 'none'; return; }
+      document.getElementById('col-count').textContent = `(${headers.length})`;
+      chipsEl.innerHTML = headers.map(h =>
+        `<span class="col-chip" role="listitem">${escHtml(h)}</span>`
+      ).join('');
+      chipsWrap.style.display = 'block';
+    }
+
+    function showStats(rows, cols, csvText, skipped) {
+      document.getElementById('stat-rows').textContent = rows.toLocaleString();
+      document.getElementById('stat-cols').textContent = cols.toLocaleString();
+      document.getElementById('stat-size').textContent = JT.formatBytes(new Blob([csvText]).size);
+      const skipWrap = document.getElementById('stat-skipped-wrap');
+      if (skipped > 0) {
+        document.getElementById('stat-skipped').textContent = skipped.toLocaleString();
+        skipWrap.style.display = 'flex';
+      } else {
+        skipWrap.style.display = 'none';
+      }
+      statsEl.style.display = 'flex';
+    }
+
+    /* ── Core conversion ─────────────────────────────────────── */
+    function convert() {
+      const raw = inputEl.value.trim();
+
+      document.getElementById('input-meta').textContent = raw
+        ? JT.formatBytes(new Blob([raw]).size)
+        : '';
+
+      if (!raw) {
+        inputWrap.classList.remove('error');
+        outputEl.textContent = 'Converted CSV will appear here…';
+        outputEl.classList.add('jc-output--empty');
+        showWarnings([]);
+        chipsWrap.style.display = 'none';
+        statsEl.style.display = 'none';
+        lastCSV = '';
+        return;
+      }
+
+      /* 1. Parse JSON */
+      const { data, error, line } = JT.parseJSON(raw);
+      if (error) {
+        inputWrap.classList.add('error');
+        showWarnings([{ type: 'err', text: `JSON parse error${line ? ` (line ${line})` : ''}: ${error}` }]);
+        outputEl.textContent = 'Fix the JSON error above.';
+        outputEl.classList.add('jc-output--empty');
+        chipsWrap.style.display = 'none';
+        statsEl.style.display = 'none';
+        lastCSV = '';
+        return;
+      }
+      inputWrap.classList.remove('error');
+
+      /* 2. Normalise to array */
+      let arr = data;
+      const warnings = [];
+      let pathHint = null;
+
+      if (!Array.isArray(data)) {
+        if (data !== null && typeof data === 'object') {
+          // Look for an array property
+          const arrayKey = Object.keys(data).find(k => Array.isArray(data[k]));
+          if (arrayKey) {
+            arr = data[arrayKey];
+            pathHint = arrayKey;
+            warnings.push({ type: 'info', text: `Found array at key "${arrayKey}" — using ${arr.length} rows from it.` });
+          } else {
+            // Wrap single object
+            arr = [data];
+            warnings.push({ type: 'info', text: 'Input is a single JSON object. Wrapping it as one CSV row.' });
+          }
+        } else {
+          showWarnings([{ type: 'err', text: 'Input must be a JSON array of objects. Primitive values cannot be converted to CSV.' }]);
+          outputEl.textContent = 'Input must be a JSON array of objects.';
+          outputEl.classList.add('jc-output--empty');
+          chipsWrap.style.display = 'none';
+          statsEl.style.display = 'none';
+          lastCSV = '';
+          return;
+        }
+      }
+
+      /* 3. Filter & flatten rows */
+      const delimiter = delimSel.value;
+      const flatten   = flattenCheck.checked;
+      const incHdr    = headersCheck.checked;
+
+      let skipped = 0;
+      const processedRows = [];
+
+      arr.forEach(item => {
+        if (item === null || typeof item !== 'object' || Array.isArray(item)) {
+          skipped++;
+          return;
+        }
+        if (flatten) {
+          processedRows.push(JT.flattenObject(item));
+        } else {
+          // Keep only first-level keys; stringify nested values
+          const row = {};
+          Object.keys(item).forEach(k => {
+            const v = item[k];
+            row[k] = (typeof v === 'object' && v !== null) ? JSON.stringify(v) : v;
+          });
+          processedRows.push(row);
+        }
+      });
+
+      if (skipped > 0) {
+        warnings.push({ type: 'warn', text: `${skipped} non-object item${skipped > 1 ? 's' : ''} (arrays, primitives) skipped — CSV supports only object rows.` });
+      }
+
+      if (processedRows.length === 0) {
+        showWarnings([{ type: 'err', text: 'No convertible rows found. The array must contain at least one object.' }]);
+        outputEl.textContent = 'No convertible rows found.';
+        outputEl.classList.add('jc-output--empty');
+        chipsWrap.style.display = 'none';
+        statsEl.style.display = 'none';
+        lastCSV = '';
+        return;
+      }
+
+      /* 4. Check for indexed array keys (from flattening) */
+      if (flatten) {
+        const hasArrayKeys = processedRows.some(row =>
+          Object.keys(row).some(k => /\.\d+/.test(k))
+        );
+        if (hasArrayKeys) {
+          warnings.push({
+            type: 'warn',
+            text: 'Some nested arrays were flattened to indexed columns (e.g. tags.0, tags.1). Consider restructuring your data if this isn\'t what you want.'
+          });
+        }
+      }
+
+      /* 5. Convert via JT.jsonToCsv */
+      const { csv, headers, error: csvErr } = JT.jsonToCsv(processedRows, {
+        delimiter,
+        includeHeaders: incHdr,
+      });
+
+      if (csvErr) {
+        showWarnings([{ type: 'err', text: csvErr }]);
+        lastCSV = '';
+        return;
+      }
+
+      lastCSV = csv;
+      outputEl.textContent = csv;
+      outputEl.classList.remove('jc-output--empty');
+
+      showWarnings(warnings);
+      showColumns(incHdr ? headers : []);
+      showStats(processedRows.length, headers.length, csv, skipped);
+    }
+
+    /* ── Events ─────────────────────────────────────────────── */
+    document.getElementById('convert-btn').addEventListener('click', convert);
+    inputEl.addEventListener('input', JT.debounce(convert, 400));
+    delimSel.addEventListener('change', () => { if (inputEl.value.trim()) convert(); });
+    flattenCheck.addEventListener('change', () => { if (inputEl.value.trim()) convert(); });
+    headersCheck.addEventListener('change', () => { if (inputEl.value.trim()) convert(); });
+
+    document.getElementById('copy-btn').addEventListener('click', function () {
+      if (!lastCSV) return;
+      JT.copyToClipboard(lastCSV)
+        .then(() => {
+          const orig = this.innerHTML;
+          this.innerHTML = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:4px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Copied!';
+          this.style.color = 'var(--success)';
+          setTimeout(() => { this.innerHTML = orig; this.style.color = ''; }, 1800);
+        })
+        .catch(() => alert('Copy failed — please copy manually.'));
+    });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+      if (!lastCSV) return;
+      const blob = new Blob([lastCSV], { type: 'text/csv;charset=utf-8;' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url; a.download = 'data.csv'; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      inputEl.value = '';
+      lastCSV = '';
+      inputWrap.classList.remove('error');
+      outputEl.textContent = 'Converted CSV will appear here…';
+      outputEl.classList.add('jc-output--empty');
+      showWarnings([]);
+      chipsWrap.style.display = 'none';
+      statsEl.style.display = 'none';
+      document.getElementById('input-meta').textContent = '';
+    });
+
+    /* ── Drag and drop ──────────────────────────────────────── */
+    document.body.addEventListener('dragover', e => {
+      if ([...e.dataTransfer.types].includes('Files')) e.preventDefault();
+    });
+    document.body.addEventListener('drop', e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => { inputEl.value = ev.target.result; convert(); };
+      reader.readAsText(file);
+    });
+
+  })();
+  
+</script>
+</ToolLayout>

@@ -5,9 +5,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Cloudflare / Wrangler
+# Cloudflare / Wrangler / Astro
 .wrangler/
 .dev.vars
+dist/
+.astro/
 
 # Temporary & Scratch / Debug files
 scratch/tmp/

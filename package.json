@@ -4,17 +4,13 @@
   "description": "Developer tools platform — 100% client-side data privacy",
   "main": "assets/js/common.js",
   "scripts": {
-    "blog": "node scripts/build-blog.js",
-    "docs": "node scripts/build-docs.js",
-    "pseo": "node scripts/build-pseo.js && node scripts/build-tool-pseo.js",
-    "trust": "node scripts/build-trust-pages.js",
-    "robots": "node scripts/generate-robots.js",
-    "sitemap": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/build-tool-pseo.js && node scripts/sync-all-tools-faq-seo.js && node scripts/update-tool-og-images.js && node scripts/build-blog.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js",
-    "test": "node scripts/build-trust-pages.js && node scripts/build-docs.js && node scripts/build-pseo.js && node scripts/build-tool-pseo.js && node scripts/sync-all-tools-faq-seo.js && node scripts/update-tool-og-images.js && node scripts/build-blog.js && node scripts/generate-robots.js && node scripts/generate-sitemap.js && node scratch/validate-seo.js",
-    "dev": "npx --yes serve -l 8080",
-    "start": "npx --yes serve -l 8080",
-    "deploy": "npm test && npx wrangler pages deploy . --commit-dirty=true",
-    "deploy:pages": "npx wrangler pages deploy . --commit-dirty=true"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "deploy": "npm run build && npx wrangler pages deploy dist --commit-dirty=true",
+    "deploy:pages": "npx wrangler pages deploy dist --commit-dirty=true"
   },
   "keywords": [
     "json",
@@ -33,5 +29,14 @@
   "bugs": {
     "url": "https://github.com/arjunn881/json2x/issues"
   },
-  "homepage": "https://json2x.com"
+  "homepage": "https://json2x.com",
+  "devDependencies": {
+    "@astrojs/cloudflare": "^14.2.2",
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.2.0",
+    "astro": "^7.2.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  }
 }

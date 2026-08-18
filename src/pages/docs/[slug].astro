@@ -1,0 +1,89 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import { DOCS } from '../../data/docs';
+import type { DocItem } from '../../data/docs';
+
+export function getStaticPaths() {
+  return DOCS.map((doc) => {
+    const slug = doc.filename.replace(/\.mdx?$/, '');
+    return {
+      params: { slug },
+      props: { doc }
+    };
+  });
+}
+
+export interface Props {
+  doc: DocItem;
+}
+
+const { doc } = Astro.props;
+
+function parseMarkdown(md: string): string {
+  let html = md;
+  // Tables
+  html = html.replace(/\|(.+)\|\n\|[-:| ]+\|\n((?:\|.*\|\n?)*)/g, (match, header, body) => {
+    const ths = header.split('|').filter((c: string) => c.trim()).map((c: string) => `<th>${c.trim()}</th>`).join('');
+    const rows = body.trim().split('\n').map((row: string) => {
+      const tds = row.split('|').filter((c: string) => c.trim()).map((c: string) => `<td>${c.trim()}</td>`).join('');
+      return `<tr>${tds}</tr>`;
+    }).join('');
+    return `<div class="table-responsive"><table class="docs-table"><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  });
+
+  // Code blocks
+  html = html.replace(/```([a-z0-9_-]+)?\n([\s\S]*?)```/g, (_m, _lang, code) => {
+    const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return `<div class="code-block-wrap"><div class="code-block-header"><div class="code-block-dots" aria-hidden="true"><span class="code-dot code-dot--red"></span><span class="code-dot code-dot--yellow"></span><span class="code-dot code-dot--green"></span></div></div><pre><code>${escaped.trim()}</code></pre></div>`;
+  });
+
+  // Strip top H1 heading
+  html = html.replace(/^# .*$/m, '');
+  // Headings
+  html = html.replace(/^### (.*$)/gim, '<h3 style="font-size:var(--text-lg);font-weight:bold;margin:var(--space-6) 0 var(--space-2);">$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2 style="font-size:var(--text-xl);font-weight:bold;margin:var(--space-8) 0 var(--space-3);border-bottom:1px solid var(--bg-border);padding-bottom:var(--space-2);">$1</h2>');
+  // Lists
+  html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+  html = html.replace(/^\s*\d+\.\s+(.*$)/gim, '<li>$1</li>');
+  html = html.replace(/(<li>[\s\S]*?<\/li>)/gm, '<ul style="margin:var(--space-4) 0 var(--space-4) var(--space-6);list-style:disc;">$1</ul>');
+  html = html.replace(/<\/ul>\s*<ul[^>]*>/g, '');
+  // Bold & Italic
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  // Inline code
+  html = html.replace(/`([^`]+)`/g, '<code style="font-family:var(--font-mono);background:var(--bg-raised);padding:2px 6px;border-radius:var(--radius-sm);font-size:0.9em;color:var(--accent);">$1</code>');
+  // Paragraphs
+  html = html.split('\n\n').map(p => {
+    p = p.trim();
+    if (!p) return '';
+    if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<div') || p.startsWith('<table')) return p;
+    return `<p style="margin-bottom:var(--space-4);">${p}</p>`;
+  }).join('\n');
+
+  return html;
+}
+
+const htmlContent = parseMarkdown(doc.markdown);
+const slug = doc.filename.replace(/\.mdx?$/, '');
+---
+
+<DocLayout
+  title={doc.frontmatter.title}
+  description={doc.frontmatter.description}
+  category={doc.frontmatter.category}
+  tags={doc.frontmatter.tags}
+  author={doc.frontmatter.author}
+  date={doc.frontmatter.date}
+  primaryTool={doc.frontmatter.primaryTool}
+  canonical={`/docs/${slug}`}
+>
+  <div set:html={htmlContent} />
+
+  <div class="card" style="margin-top:var(--space-12);padding:var(--space-8);text-align:center;background:var(--bg-surface);">
+    <h2 style="font-size:var(--text-xl);font-weight:bold;margin-bottom:var(--space-2);">Try Our Free Client-Side Developer Tools</h2>
+    <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">Zero latency, 100% data privacy, and Web Worker performance.</p>
+    <a href={`/tools/${doc.frontmatter.primaryTool || 'json-formatter'}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8);">
+      Launch Tool &rarr;
+    </a>
+  </div>
+</DocLayout>

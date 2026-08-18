@@ -1,0 +1,111 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import { CATEGORIES, TOOLS } from '../../data/tools';
+
+const siteTitle = "Developer Tools Catalog (21 Utilities) — JSON2X";
+const siteDesc = "Complete directory of 21 free online JSON and CSV developer tools. Formatters, validators, minifiers, diff checkers, code generators, and schema analyzers.";
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': 'JSON2X Developer Tools Suite',
+  'url': 'https://json2x.com/tools/index',
+  'itemListElement': TOOLS.map((t, idx) => ({
+    '@type': 'ListItem',
+    'position': idx + 1,
+    'name': t.name,
+    'url': `https://json2x.com${t.href}`
+  }))
+};
+---
+
+<BaseLayout
+  title={siteTitle}
+  description={siteDesc}
+  canonical="/tools/"
+  currentId="tools-index"
+  schema={itemListSchema}
+>
+  <Breadcrumbs items={[{ label: 'Tools Catalog' }]} />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+    <div class="tool-hero__badge">Tools Catalog ({TOOLS.length} Utilities)</div>
+    <h1 class="tool-hero__title">Developer Tools Suite</h1>
+    <p class="tool-hero__desc">All 21 tools run 100% locally in your browser with zero latency and zero data leakage. Categorized for rapid engineering access.</p>
+  </div>
+
+  <!-- Category Filter Bar -->
+  <div class="cat-filter-bar" role="tablist" aria-label="Tool Categories" style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);padding:var(--space-2);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);">
+    <button class="cat-filter-btn active" data-cat="all" style="padding:var(--space-2) var(--space-4);font-size:var(--text-xs);font-weight:var(--font-semibold);border-radius:var(--radius-md);border:1px solid transparent;background:var(--bg-surface);color:var(--accent);cursor:pointer;">All Tools ({TOOLS.length})</button>
+    {CATEGORIES.map((cat) => {
+      const count = TOOLS.filter((t) => t.category === cat.id).length;
+      return (
+        <button class="cat-filter-btn" data-cat={cat.id} style="padding:var(--space-2) var(--space-4);font-size:var(--text-xs);font-weight:var(--font-semibold);border-radius:var(--radius-md);border:1px solid transparent;background:transparent;color:var(--text-secondary);cursor:pointer;">
+          {cat.name} ({count})
+        </button>
+      );
+    })}
+  </div>
+
+  <!-- Categorized Sections -->
+  {CATEGORIES.map((cat) => {
+    const catTools = TOOLS.filter((t) => t.category === cat.id);
+    return (
+      <section class="cat-section" data-category={cat.id} style="margin-bottom:var(--space-12);">
+        <div class="cat-section__header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);padding-bottom:var(--space-3);border-bottom:1px solid var(--bg-border);">
+          <h2 class="cat-section__title" style="font-size:var(--text-lg);font-weight:var(--font-bold);color:var(--text-primary);display:flex;align-items:center;gap:var(--space-2);">
+            <Fragment set:html={cat.icon} />
+            {cat.name}
+          </h2>
+          <span class="cat-section__badge" style="font-size:var(--text-xs);font-family:var(--font-mono);color:var(--text-muted);">{catTools.length} Utilities</span>
+        </div>
+
+        <div class="related-tools-grid">
+          {catTools.map((tool) => (
+            <a href={tool.href} class="related-tool-card">
+              <span class="related-tool-card__icon">
+                <Fragment set:html={tool.icon} />
+              </span>
+              <span class="related-tool-card__body">
+                <span class="related-tool-card__title">
+                  {tool.name}
+                  {tool.badge && <span class="badge badge--accent" style="font-size:9px;margin-left:4px">{tool.badge}</span>}
+                </span>
+                <span class="related-tool-card__desc">{tool.desc}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- Client-side filter tab script -->
+  <script is:inline>
+    (function () {
+      var btns = document.querySelectorAll('.cat-filter-btn');
+      var sections = document.querySelectorAll('.cat-section');
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b) {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--text-secondary)';
+          });
+          btn.style.background = 'var(--bg-surface)';
+          btn.style.color = 'var(--accent)';
+
+          var cat = btn.getAttribute('data-cat');
+          sections.forEach(function (sec) {
+            if (cat === 'all' || sec.getAttribute('data-category') === cat) {
+              sec.style.display = 'block';
+            } else {
+              sec.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,110 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import type { BlogArticle } from '../data/blog';
+import { BLOG_ARTICLES } from '../data/blog';
+
+export interface Props {
+  article: BlogArticle;
+}
+
+const { article } = Astro.props;
+
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  'headline': article.title,
+  'description': article.metaDesc,
+  'author': {
+    '@type': 'Person',
+    'name': article.author
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'JSON2X',
+    'url': 'https://json2x.com'
+  },
+  'datePublished': article.date,
+  'dateModified': article.date,
+  'mainEntityOfPage': `https://json2x.com/blog/${article.slug}`
+};
+
+const relatedArticles = BLOG_ARTICLES
+  .filter((b) => b.slug !== article.slug)
+  .slice(0, 5);
+---
+
+<BaseLayout
+  title={`${article.title.slice(0, 65)} | JSON2X`}
+  description={article.metaDesc}
+  canonical={`/blog/${article.slug}`}
+  currentId="blog"
+  ogType="article"
+  publishedTime={article.date}
+  author={article.author}
+  schema={blogPostingSchema}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Engineering Blog', href: '/blog/' },
+      { label: article.h1 }
+    ]}
+  />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+    <div class="tool-hero__badge">{article.category} Engineering</div>
+    <h1 class="tool-hero__title">{article.h1}</h1>
+    <p class="tool-hero__desc">{article.metaDesc}</p>
+  </div>
+
+  <article class="faq-prose" style="margin-bottom:var(--space-12);">
+    <div style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
+      {article.intro}
+    </div>
+
+    <!-- Sections -->
+    {article.sections.map((s) => (
+      <section style="margin:var(--space-8) 0;">
+        <h2 style="font-size:var(--text-2xl);font-weight:var(--font-bold);margin-bottom:var(--space-3);">{s.heading}</h2>
+        <div class="section-content" set:html={s.body} />
+      </section>
+    ))}
+
+    {article.primaryTool && (
+      <div class="tool-cta-banner">
+        <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+        <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+        <a href={`/tools/${article.primaryTool}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
+      </div>
+    )}
+  </article>
+
+  <!-- Article FAQs -->
+  {article.faqs && article.faqs.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Frequently Asked Questions</h2>
+      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+        {article.faqs.map((faq) => (
+          <div class="faq-card">
+            <h3 class="faq-card__q">{faq.q}</h3>
+            <p class="faq-card__a">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Related Articles -->
+  {relatedArticles.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Related Engineering Tutorials &amp; Benchmarks</h2>
+      <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+        {relatedArticles.map((rel) => (
+          <li>
+            <a href={`/blog/${rel.slug}`} style="color:var(--accent); text-decoration:none;">{rel.h1}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

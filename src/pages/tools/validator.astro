@@ -1,0 +1,143 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('validator') || {
+  id: 'validator',
+  slug: 'validator',
+  aliases: [],
+  name: 'Validator',
+  title: 'Validator — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'validator',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/validator',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  <style>
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .stat-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-3) var(--space-5);
+      background: var(--bg-raised);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      min-width: 90px;
+    }
+    .stat-chip__value {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      font-family: var(--font-mono);
+      color: var(--accent);
+    }
+    .stat-chip__label {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+  
+</style>
+
+  <div class="options-bar">
+        <span class="options-bar__label">Validate</span>
+        <button class="btn btn--primary" id="validate-btn">Validate JSON</button>
+        <button class="btn btn--ghost btn--sm" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <!-- Input -->
+      <div class="pane">
+        <div class="pane__header">
+          <span class="pane__title">JSON Input</span>
+          <span id="char-count" class="text-xs text-muted"></span>
+        </div>
+        <textarea class="textarea" id="json-input" style="min-height:320px"
+          placeholder='Paste JSON to validate…' aria-label="JSON input" spellcheck="false"></textarea>
+      </div>
+
+      <!-- Status -->
+      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+
+      <!-- Stats -->
+      <div class="stats-row" id="stats-row" style="display:none" aria-label="JSON statistics">
+        <div class="stat-chip">
+          <span class="stat-chip__value" id="stat-keys">—</span>
+          <span class="stat-chip__label">Keys</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-chip__value" id="stat-depth">—</span>
+          <span class="stat-chip__label">Depth</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-chip__value" id="stat-arrays">—</span>
+          <span class="stat-chip__label">Arrays</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-chip__value" id="stat-objects">—</span>
+          <span class="stat-chip__label">Objects</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-chip__value" id="stat-size">—</span>
+          <span class="stat-chip__label">Size</span>
+        </div>
+      </div>
+
+  <script is:inline>
+
+    const inputEl  = document.getElementById('json-input');
+    const statusEl = document.getElementById('tool-status');
+    const statsRow = document.getElementById('stats-row');
+    const charCount = document.getElementById('char-count');
+
+    function showStatus(msg, type = 'info') {
+      statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
+    }
+
+    function validate() {
+      const raw = inputEl.value;
+      charCount.textContent = `${raw.length.toLocaleString()} chars`;
+      statsRow.style.display = 'none';
+
+      const { data, error, line, column } = JT.parseJSON(raw);
+
+      if (error) {
+        const loc = [line && `line ${line}`, column && `col ${column}`].filter(Boolean).join(', ');
+        showStatus(`<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Invalid JSON${loc ? ` — ${loc}` : ''}: ${error}`, 'error');
+        return;
+      }
+
+      showStatus('<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Valid JSON', 'success');
+      const stats = JT.countNodes(data);
+      document.getElementById('stat-keys').textContent    = stats.keys.toLocaleString();
+      document.getElementById('stat-depth').textContent   = stats.depth;
+      document.getElementById('stat-arrays').textContent  = stats.arrays.toLocaleString();
+      document.getElementById('stat-objects').textContent = stats.objects.toLocaleString();
+      document.getElementById('stat-size').textContent    = JT.formatBytes(new Blob([raw]).size);
+      statsRow.style.display = 'flex';
+    }
+
+    document.getElementById('validate-btn').addEventListener('click', validate);
+    inputEl.addEventListener('input', JT.debounce(validate, 450));
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      inputEl.value = '';
+      showStatus('');
+      statsRow.style.display = 'none';
+      charCount.textContent = '';
+    });
+  
+</script>
+</ToolLayout>

@@ -1,0 +1,47 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import { BLOG_ARTICLES } from '../../data/blog';
+
+const categories = Array.from(new Set(BLOG_ARTICLES.map((a) => a.category)));
+---
+
+<BaseLayout
+  title="Blog Categories & Topic Matrix — JSON2X"
+  description="Explore JSON2X engineering articles organized by category: Architecture, Validation, Performance, DevOps, Data Engineering, and TypeScript."
+  canonical="/blog/categories"
+  currentId="blog"
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Engineering Blog', href: '/blog/' },
+      { label: 'Categories' }
+    ]}
+  />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
+    <div class="tool-hero__badge">Topic Matrix</div>
+    <h1 class="tool-hero__title">Blog Categories</h1>
+    <p class="tool-hero__desc">Browse articles and tutorials categorized by engineering discipline.</p>
+  </div>
+
+  {categories.map((cat) => {
+    const articles = BLOG_ARTICLES.filter((a) => a.category === cat);
+    return (
+      <section style="margin-bottom:var(--space-12);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4);border-bottom:1px solid var(--bg-border);padding-bottom:var(--space-2);">
+          <h2 style="font-size:var(--text-xl);font-weight:var(--font-bold);color:var(--text-primary);">{cat}</h2>
+          <span style="font-size:var(--text-xs);color:var(--text-muted);">{articles.length} Articles</span>
+        </div>
+        <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-4);">
+          {articles.map((art) => (
+            <a href={`//blog/${art.slug}`} class="faq-card" style="text-decoration:none;">
+              <h3 class="faq-card__q" style="font-size:var(--text-sm);margin-bottom:var(--space-1);">{art.h1}</h3>
+              <p class="faq-card__a" style="font-size:var(--text-xs);">{art.metaDesc}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+import type { ToolFAQ } from '../../data/tools';
+
+export interface Props {
+  faqs?: ToolFAQ[];
+  title?: string;
+}
+
+const { faqs = [], title = 'Frequently Asked Questions' } = Astro.props;
+
+const faqSchema = faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': faqs.map((f) => ({
+    '@type': 'Question',
+    'name': f.q,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': f.a
+    }
+  }))
+} : null;
+---
+
+{faqSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+)}
+
+{faqs.length > 0 && (
+  <section class="tool-section" style="margin-top:var(--space-12);">
+    <h2 class="tool-section__title">{title}</h2>
+    <div class="faq-grid">
+      {faqs.map((faq) => (
+        <div class="faq-card">
+          <h3 class="faq-card__q">{faq.q}</h3>
+          <p class="faq-card__a">{faq.a}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+)}

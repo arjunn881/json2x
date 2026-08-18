@@ -1,0 +1,35 @@
+---
+import KbLayout from '../../layouts/KbLayout.astro';
+import { KB_TOPICS } from '../../data/kb';
+import type { KbTopic } from '../../data/kb';
+
+export function getStaticPaths() {
+  return KB_TOPICS.map((topic) => ({
+    params: { slug: topic.slug },
+    props: { topic }
+  }));
+}
+
+export interface Props {
+  topic: KbTopic;
+}
+
+const { topic } = Astro.props;
+---
+
+<KbLayout
+  title={topic.title}
+  metaDesc={topic.metaDesc}
+  h1={topic.h1}
+  category={topic.category}
+  primaryTool={topic.primaryTool}
+  keywords={topic.keywords}
+  content={topic.content}
+  codeExample={topic.codeExample}
+  faqs={topic.faqs}
+  canonical={`/kb/${topic.slug}`}
+  breadcrumbs={[
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: topic.h1 }
+  ]}
+/>

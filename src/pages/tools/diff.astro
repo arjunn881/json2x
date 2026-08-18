@@ -1,0 +1,588 @@
+﻿---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlugOrId } from '../../data/tools';
+
+const tool = getToolBySlugOrId('diff') || {
+  id: 'diff',
+  slug: 'diff',
+  aliases: [],
+  name: 'Diff',
+  title: 'Diff — JSON2X',
+  metaDesc: 'Free client-side developer tool on JSON2X.',
+  keywords: 'diff',
+  desc: 'Developer tool',
+  category: 'format-validate',
+  icon: '',
+  href: '/tools/diff',
+  related: [],
+  faqs: []
+};
+---
+
+<ToolLayout tool={tool}>
+  <style>
+
+    --diff-added:    var(--success);
+    --diff-removed:  var(--error);
+    --diff-changed:  var(--warning);
+    --diff-same:     var(--text-muted);
+
+    /* ── Two-input layout ─────────────────────────────────── */
+    .diff-inputs {
+      display: grid;
+      gap:     var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+    @media (min-width: 800px) {
+      .diff-inputs { grid-template-columns: 1fr 1fr; }
+    }
+
+    .diff-pane {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .diff-pane__label {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      margin-bottom:   var(--space-2);
+    }
+
+    .diff-pane__title {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color:          var(--text-secondary);
+    }
+
+    .diff-pane__badge {
+      font-size:    var(--text-xs);
+      color:        var(--text-muted);
+      font-family:  var(--font-mono);
+    }
+
+    .diff-textarea {
+      flex:        1;
+      background:  var(--bg-base);
+      border:      1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding:     var(--space-4);
+      font-family: var(--font-mono);
+      font-size:   var(--text-xs);
+      line-height: var(--leading-relaxed);
+      color:       var(--text-primary);
+      outline:     none;
+      resize:      vertical;
+      min-height:  280px;
+      tab-size:    2;
+      transition:  border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .diff-textarea:focus {
+      border-color: var(--accent);
+      box-shadow:   0 0 0 3px var(--accent-glow);
+    }
+    .diff-textarea.error {
+      border-color: var(--error);
+      box-shadow:   0 0 0 3px hsla(0,82%,63%,0.18);
+    }
+
+    /* ── Toolbar ──────────────────────────────────────────── */
+    .diff-toolbar {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-2);
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-5);
+    }
+    .diff-toolbar__divider { width:1px; height:24px; background:var(--bg-border); flex-shrink:0; margin-inline:var(--space-1); }
+
+    /* ── Summary badges ───────────────────────────────────── */
+    .diff-summary {
+      display:       flex;
+      align-items:   center;
+      flex-wrap:     wrap;
+      gap:           var(--space-3);
+      padding:       var(--space-3) var(--space-5);
+      background:    var(--bg-raised);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      font-size:     var(--text-xs);
+      margin-bottom: var(--space-5);
+    }
+
+    .diff-badge {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           var(--space-1);
+      padding:       2px var(--space-2);
+      border-radius: var(--radius-full);
+      font-family:   var(--font-mono);
+      font-weight:   var(--font-semibold);
+    }
+    .diff-badge--added   { background: hsla(152,68%,46%,.15); color: hsl(152,68%,56%); }
+    .diff-badge--removed { background: hsla(0,82%,63%,.15);   color: hsl(0,82%,70%); }
+    .diff-badge--changed { background: hsla(38,92%,58%,.15);  color: hsl(38,92%,65%); }
+    .diff-badge--same    { background: var(--bg-overlay);     color: var(--text-muted); }
+    .diff-summary__label { color: var(--text-muted); margin-right: var(--space-2); }
+    .diff-summary__spacer { flex: 1; }
+    .diff-summary__identical { color: var(--success); font-weight: var(--font-semibold); }
+
+    /* ── Diff output tree ─────────────────────────────────── */
+    .diff-output {
+      background:    var(--bg-base);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      overflow:      auto;
+      min-height:    200px;
+      max-height:    600px;
+      font-family:   var(--font-mono);
+      font-size:     var(--text-xs);
+      line-height:   1.7;
+    }
+
+    .diff-output--empty {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      color:           var(--text-muted);
+      font-style:      italic;
+      font-family:     var(--font-sans);
+      font-size:       var(--text-sm);
+    }
+
+    /* Tree nodes */
+    .dt-node {
+      padding-left: var(--space-3);
+      border-left:  2px solid var(--bg-border);
+      margin-left:  var(--space-1);
+    }
+    @media (max-width: 600px) {
+      .dt-node {
+        padding-left: var(--space-2);
+        margin-left:  2px;
+      }
+    }
+
+    .dt-row {
+      display:     flex;
+      align-items: baseline;
+      gap:         var(--space-2);
+      padding:     1px var(--space-3);
+      cursor:      default;
+      flex-wrap:   wrap;
+    }
+
+    /* Status colouring */
+    .dt-removed { color: hsl(0,82%,70%); text-decoration: line-through; }
+    .dt-changed { color: hsl(38,92%,65%); }
+    .dt-arrow   { color: var(--text-muted); }
+    .dt-badge {
+      font-size:     9px;
+      font-weight:   var(--font-bold);
+      border-radius: var(--radius-sm);
+      padding:       0 3px;
+      text-transform: uppercase;
+      flex-shrink:   0;
+    }
+    .dt-badge--added   { background: hsla(152,68%,46%,.3); color: hsl(152,68%,66%); }
+    .dt-badge--removed { background: hsla(0,82%,63%,.3);   color: hsl(0,82%,80%); }
+    .dt-badge--changed { background: hsla(38,92%,58%,.3);  color: hsl(38,92%,75%); }
+
+    /* Collapsible */
+    .dt-toggle {
+      cursor:    pointer;
+      user-select: none;
+      color:     var(--text-muted);
+      display:   inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding:   0 2px;
+      flex-shrink: 0;
+    }
+    .dt-toggle svg {
+      transition: transform var(--transition-fast);
+    }
+    .dt-toggle.collapsed svg {
+      transform: rotate(-90deg);
+    }
+    .dt-children { }
+    .dt-children.collapsed { display: none; }
+
+    /* ── FAQ reuse ────────────────────────────────────────── */
+    .faq-section { margin-top:var(--space-16); padding-top:var(--space-10); border-top:1px solid var(--bg-border); }
+    .faq-eyebrow { font-size:var(--text-xs); font-weight:var(--font-semibold); text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:var(--space-3); }
+    .faq-title   { font-size:var(--text-2xl); font-weight:var(--font-bold); margin-bottom:var(--space-8); }
+    .faq-grid    { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:var(--space-5); margin-bottom:var(--space-8); }
+    .faq-card    { background:var(--bg-surface); border:1px solid var(--bg-border); border-radius:var(--radius-xl); padding:var(--space-5); }
+    .faq-card h3 { font-size:var(--text-base); font-weight:var(--font-semibold); margin-bottom:var(--space-3); line-height:var(--leading-snug); }
+    .faq-card p  { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); }
+    .faq-prose   { font-size:var(--text-sm); color:var(--text-secondary); line-height:var(--leading-relaxed); max-width:760px; display:flex; flex-direction:column; gap:var(--space-4); }
+    .faq-prose p { margin:0; }
+    .faq-prose strong { color:var(--text-primary); font-weight:var(--font-semibold); }
+    .faq-prose a { color:var(--accent); }
+  
+</style>
+
+  <div class="container container--tool">
+
+      <div class="tool-hero">
+        <div class="tool-hero__badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="margin-right:4px">
+            <circle cx="6" cy="6" r="5" fill="hsl(38,92%,58%)" />
+          </svg>
+          Deep Structural Diff
+        </div>
+        <h1 class="tool-hero__title">JSON Diff Online</h1>
+        
+      </div>
+
+
+      <!-- ── Toolbar ────────────────────────────────────────── -->
+      <div class="diff-toolbar" role="toolbar">
+        <button class="btn btn--primary" id="diff-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="4" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7 4v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Compare
+        </button>
+        <button class="btn btn--ghost" id="swap-btn" title="Swap JSON A and B">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 5h10M9 2l3 3-3 3M12 9H2M5 6l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Swap
+        </button>
+        <div class="diff-toolbar__divider"></div>
+        <button class="btn btn--ghost" id="expand-btn" title="Expand all nodes">Expand All</button>
+        <button class="btn btn--ghost" id="collapse-btn" title="Collapse all nodes">Collapse All</button>
+        <div class="diff-toolbar__divider"></div>
+        <button class="btn btn--ghost" id="copy-diff-btn" title="Copy plain-text diff report">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 10V2h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Copy Report
+        </button>
+        <button class="btn btn--ghost" id="clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+
+      <!-- ── Two inputs ─────────────────────────────────────── -->
+      <div class="diff-inputs">
+        <div class="diff-pane">
+          <div class="diff-pane__label">
+            <span class="diff-pane__title">JSON A <span style="color:hsl(0,82%,63%)">(original)</span></span>
+            <span class="diff-pane__badge" id="a-meta"></span>
+          </div>
+          <textarea class="diff-textarea" id="json-a" aria-label="JSON A — original"
+            spellcheck="false" autocorrect="off"
+            placeholder='{"name":"Alice","age":30,"roles":["admin"]}'></textarea>
+        </div>
+        <div class="diff-pane">
+          <div class="diff-pane__label">
+            <span class="diff-pane__title">JSON B <span style="color:hsl(152,68%,46%)">(modified)</span></span>
+            <span class="diff-pane__badge" id="b-meta"></span>
+          </div>
+          <textarea class="diff-textarea" id="json-b" aria-label="JSON B — modified"
+            spellcheck="false" autocorrect="off"
+            placeholder='{"name":"Alice","age":31,"roles":["admin","editor"],"email":"alice@example.com"}'></textarea>
+        </div>
+      </div>
+
+      <!-- ── Summary ────────────────────────────────────────── -->
+      <div class="diff-summary" id="diff-summary" style="display:none" aria-live="polite">
+        <span class="diff-summary__label">Diff result:</span>
+        <span class="diff-badge diff-badge--added"   id="sum-added">+0 added</span>
+        <span class="diff-badge diff-badge--removed" id="sum-removed">−0 removed</span>
+        <span class="diff-badge diff-badge--changed" id="sum-changed">~0 changed</span>
+        <span class="diff-badge diff-badge--same"    id="sum-same">0 unchanged</span>
+        <span class="diff-summary__spacer"></span>
+        <span class="diff-summary__identical" id="sum-identical" style="display:none"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Identical</span>
+      </div>
+
+      <!-- ── Diff output ─────────────────────────────────────── -->
+      <div class="pane__header" style="margin-bottom:var(--space-2)">
+        <span class="pane__title">Diff Output</span>
+      </div>
+      <div class="diff-output diff-output--empty" id="diff-output" role="region" aria-label="Diff result" aria-live="polite">
+        Paste JSON in both panes and click Compare (or edit — diff runs live)
+      </div>
+
+      <!-- ── Ad + Related ────────────────────────────────────── -->
+</div>
+
+  <script is:inline>
+
+  (function () {
+    'use strict';
+
+    const aEl      = document.getElementById('json-a');
+    const bEl      = document.getElementById('json-b');
+    const outEl    = document.getElementById('diff-output');
+    const summEl   = document.getElementById('diff-summary');
+
+    let lastReport  = '';    // plain-text copy report
+    let diffTimeout = null;
+
+    /* ══════════════════════════════════════════════════════════
+       Deep diff engine — no external library
+       Returns a tree of DiffNode objects.
+       ══════════════════════════════════════════════════════════ */
+    /**
+     * @typedef {{ type: 'same'|'added'|'removed'|'changed'|'object', key: string|number,
+     *             oldVal?: any, newVal?: any, children?: DiffNode[] }} DiffNode
+     */
+
+    function deepDiff(a, b, key) {
+      // Both are objects (non-null, non-array separately)
+      const aIsObj = a !== null && typeof a === 'object' && !Array.isArray(a);
+      const bIsObj = b !== null && typeof b === 'object' && !Array.isArray(b);
+      const aIsArr = Array.isArray(a);
+      const bIsArr = Array.isArray(b);
+
+      // Both plain objects
+      if (aIsObj && bIsObj) {
+        const allKeys = new Set([...Object.keys(a), ...Object.keys(b)]);
+        const children = [];
+        allKeys.forEach(k => children.push(deepDiff(a[k], b[k], k)));
+        return { type: 'object', key, children };
+      }
+
+      // Both arrays
+      if (aIsArr && bIsArr) {
+        const len = Math.max(a.length, b.length);
+        const children = [];
+        for (let i = 0; i < len; i++) {
+          children.push(deepDiff(a[i], b[i], i));
+        }
+        return { type: 'object', key, children };
+      }
+
+      // a undefined (key only in b)
+      if (a === undefined) return { type: 'added',   key, newVal: b };
+      // b undefined (key only in a)
+      if (b === undefined) return { type: 'removed', key, oldVal: a };
+
+      // Scalar or type mismatch
+      if (a === b) return { type: 'same', key, val: a };
+      if (JSON.stringify(a) === JSON.stringify(b)) return { type: 'same', key, val: a };
+      return { type: 'changed', key, oldVal: a, newVal: b };
+    }
+
+    /* Count leaf stats */
+    function countStats(node) {
+      let added = 0, removed = 0, changed = 0, same = 0;
+      function walk(n) {
+        if (n.type === 'object') { n.children.forEach(walk); return; }
+        if (n.type === 'added')   { added++;   return; }
+        if (n.type === 'removed') { removed++;  return; }
+        if (n.type === 'changed') { changed++;  return; }
+        same++;
+      }
+      walk(node);
+      return { added, removed, changed, same };
+    }
+
+    /* ── Plain text report ─────────────────────────────────── */
+    function buildReport(node, prefix) {
+      const lines = [];
+      function walk(n, p) {
+        const path = p ? p + (typeof n.key === 'number' ? `[${n.key}]` : `.${n.key}`) : String(n.key ?? '');
+        if (n.type === 'object') {
+          n.children.forEach(c => walk(c, path));
+          return;
+        }
+        if (n.type === 'same')    lines.push(`  ${path}: ${JSON.stringify(n.val)}`);
+        if (n.type === 'added')   lines.push(`+ ${path}: ${JSON.stringify(n.newVal)}`);
+        if (n.type === 'removed') lines.push(`- ${path}: ${JSON.stringify(n.oldVal)}`);
+        if (n.type === 'changed') lines.push(`~ ${path}: ${JSON.stringify(n.oldVal)} → ${JSON.stringify(n.newVal)}`);
+      }
+      node.children
+        ? node.children.forEach(c => walk(c, ''))
+        : walk(node, '');
+      return lines.join('\n');
+    }
+
+    /* ── HTML tree renderer ──────────────────────────────────  */
+    function escH(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function valHtml(v) {
+      if (v === null) return `<span class="dt-val dt-val--null">null</span>`;
+      if (typeof v === 'boolean') return `<span class="dt-val dt-val--bool">${v}</span>`;
+      if (typeof v === 'number')  return `<span class="dt-val dt-val--num">${v}</span>`;
+      if (typeof v === 'string')  return `<span class="dt-val">"${escH(v)}"</span>`;
+      return `<span class="dt-val">${escH(JSON.stringify(v))}</span>`;
+    }
+
+    let nodeIdCounter = 0;
+
+    function renderNode(node, depth) {
+      const id = `dt-${++nodeIdCounter}`;
+      const indent = depth * 20;
+      const keyHtml = (node.key !== undefined && node.key !== null)
+        ? `<span class="dt-key">"${escH(String(node.key))}"</span><span class="dt-arrow">: </span>`
+        : '';
+
+      if (node.type === 'object') {
+        const childHtml = (node.children || []).map(c => renderNode(c, depth + 1)).join('');
+        const hasDiff = node.children && node.children.some(c => c.type !== 'same' && c.type !== 'object');
+        const bracketO = Array.isArray(node.oldVal ?? node.newVal ?? []) ? '[' : '{';
+        const bracketC = bracketO === '[' ? ']' : '}';
+        return `
+<div class="dt-node" style="padding-left:${indent}px">
+  <div class="dt-row">
+    <span class="dt-toggle" data-target="${id}"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    ${keyHtml}<span class="dt-arrow">${bracketO}</span>
+  </div>
+  <div class="dt-children" id="${id}">${childHtml}</div>
+  <div class="dt-row" style="padding-left:${indent}px"><span class="dt-arrow">${bracketC}</span></div>
+</div>`;
+      }
+
+      if (node.type === 'same') {
+        return `<div class="dt-row" style="padding-left:${indent}px">${keyHtml}${valHtml(node.val)}</div>`;
+      }
+      if (node.type === 'added') {
+        return `<div class="dt-row dt-row--added" style="padding-left:${indent}px">
+          <span class="dt-badge dt-badge--added">+</span>${keyHtml}<span class="dt-added">${valHtml(node.newVal)}</span></div>`;
+      }
+      if (node.type === 'removed') {
+        return `<div class="dt-row dt-row--removed" style="padding-left:${indent}px">
+          <span class="dt-badge dt-badge--removed">−</span>${keyHtml}<span class="dt-removed">${valHtml(node.oldVal)}</span></div>`;
+      }
+      if (node.type === 'changed') {
+        return `<div class="dt-row dt-row--changed" style="padding-left:${indent}px">
+          <span class="dt-badge dt-badge--changed">~</span>${keyHtml}
+          <span class="dt-removed">${valHtml(node.oldVal)}</span>
+          <span class="dt-arrow"> → </span>
+          <span class="dt-added">${valHtml(node.newVal)}</span></div>`;
+      }
+      return '';
+    }
+
+    /* ── Run diff ───────────────────────────────────────────── */
+    function runDiff() {
+      const rawA = aEl.value.trim();
+      const rawB = bEl.value.trim();
+
+      // Update meta
+      document.getElementById('a-meta').textContent = rawA ? JT.formatBytes(new Blob([rawA]).size) : '';
+      document.getElementById('b-meta').textContent = rawB ? JT.formatBytes(new Blob([rawB]).size) : '';
+
+      if (!rawA && !rawB) {
+        outEl.className   = 'diff-output diff-output--empty';
+        outEl.textContent = 'Paste JSON in both panes and click Compare (or edit — diff runs live)';
+        summEl.style.display = 'none';
+        aEl.classList.remove('error'); bEl.classList.remove('error');
+        return;
+      }
+
+      // Parse A
+      const pa = JT.parseJSON(rawA || '{}');
+      const pb = JT.parseJSON(rawB || '{}');
+
+      aEl.classList.toggle('error', !!pa.error);
+      bEl.classList.toggle('error', !!pb.error);
+
+      if (pa.error) { outEl.className='diff-output diff-output--empty'; outEl.textContent=`JSON A error: ${pa.error}`; return; }
+      if (pb.error) { outEl.className='diff-output diff-output--empty'; outEl.textContent=`JSON B error: ${pb.error}`; return; }
+
+      // Diff
+      nodeIdCounter = 0;
+      const diffTree = deepDiff(pa.data, pb.data, null);
+      const stats    = countStats(diffTree);
+
+      // Render HTML
+      const html = diffTree.type === 'object'
+        ? (diffTree.children || []).map(c => renderNode(c, 0)).join('')
+        : renderNode(diffTree, 0);
+
+      outEl.className = 'diff-output';
+      outEl.innerHTML = html || '<div style="padding:var(--space-4);color:var(--text-muted)">Empty objects — nothing to compare.</div>';
+
+      // Summary
+      summEl.style.display = 'flex';
+      document.getElementById('sum-added').textContent   = `+${stats.added} added`;
+      document.getElementById('sum-removed').textContent = `−${stats.removed} removed`;
+      document.getElementById('sum-changed').textContent = `~${stats.changed} changed`;
+      document.getElementById('sum-same').textContent    = `${stats.same} unchanged`;
+
+      const identEl = document.getElementById('sum-identical');
+      identEl.style.display = (stats.added + stats.removed + stats.changed === 0) ? 'block' : 'none';
+
+      // Plain-text report for copy
+      lastReport = buildReport(diffTree, '');
+    }
+
+    /* ── Toggle nodes ─────────────────────────────────────── */
+    outEl.addEventListener('click', function (e) {
+      const toggle = e.target.closest('.dt-toggle');
+      if (!toggle) return;
+      const target = document.getElementById(toggle.dataset.target);
+      if (!target) return;
+      const collapsed = target.classList.toggle('collapsed');
+      toggle.classList.toggle('collapsed', collapsed);
+    });
+
+    document.getElementById('expand-btn').addEventListener('click', () => {
+      outEl.querySelectorAll('.dt-children.collapsed').forEach(el => {
+        el.classList.remove('collapsed');
+        const toggle = outEl.querySelector(`[data-target="${el.id}"]`);
+        if (toggle) toggle.classList.remove('collapsed');
+      });
+    });
+
+    document.getElementById('collapse-btn').addEventListener('click', () => {
+      outEl.querySelectorAll('.dt-children').forEach(el => {
+        if (el.children.length > 0) {
+          el.classList.add('collapsed');
+          const toggle = outEl.querySelector(`[data-target="${el.id}"]`);
+          if (toggle) toggle.classList.add('collapsed');
+        }
+      });
+    });
+
+    /* ── Misc buttons ─────────────────────────────────────── */
+    document.getElementById('diff-btn').addEventListener('click', runDiff);
+
+    document.getElementById('swap-btn').addEventListener('click', () => {
+      const tmp = aEl.value; aEl.value = bEl.value; bEl.value = tmp;
+      runDiff();
+    });
+
+    document.getElementById('copy-diff-btn').addEventListener('click', function () {
+      if (!lastReport) return;
+      JT.copyToClipboard(lastReport)
+        .then(() => { this.innerHTML = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:4px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Copied!'; setTimeout(() => { this.innerHTML = `<svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M2 10V2h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Copy Report`; }, 1800); })
+        .catch(() => alert('Copy failed.'));
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      aEl.value = ''; bEl.value = '';
+      aEl.classList.remove('error'); bEl.classList.remove('error');
+      outEl.className = 'diff-output diff-output--empty';
+      outEl.textContent = 'Paste JSON in both panes and click Compare (or edit — diff runs live)';
+      summEl.style.display = 'none';
+      document.getElementById('a-meta').textContent = '';
+      document.getElementById('b-meta').textContent = '';
+      lastReport = '';
+    });
+
+    /* ── Live debounced diff ─────────────────────────────── */
+    function scheduleDiff() {
+      clearTimeout(diffTimeout);
+      diffTimeout = setTimeout(runDiff, 500);
+    }
+    aEl.addEventListener('input', scheduleDiff);
+    bEl.addEventListener('input', scheduleDiff);
+
+  })();
+  
+</script>
+</ToolLayout>
