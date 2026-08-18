@@ -464,6 +464,12 @@ BLOG_ARTICLES.forEach(art => {
   const toolSlug = art.primaryTool || 'json-formatter';
   const toolHref = `/tools/${toolSlug.endsWith('.html') ? toolSlug : toolSlug + '.html'}`;
 
+  const relatedBlogHtml = BLOG_ARTICLES
+    .filter(b => b.slug !== art.slug)
+    .slice(0, 5)
+    .map(b => `<li><a href="${BASE_URL}/blog/${b.slug}.html" style="color:var(--accent); text-decoration:none;">${b.h1}</a></li>`)
+    .join('\n');
+
   const sectionsHtml = art.sections.map(s => {
     let processedBody = s.body;
     // Format tables into responsive docs tables
@@ -574,6 +580,14 @@ BLOG_ARTICLES.forEach(art => {
       </article>
 
       ${faqsHtml}
+
+      <!-- Internal Linking & Related Topics -->
+      <section class="tool-section" style="margin-top:var(--space-12)">
+        <h2 class="tool-section__title">Related Engineering Tutorials &amp; Benchmarks</h2>
+        <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+          ${relatedBlogHtml}
+        </ul>
+      </section>
     </div>
   </main>
 
