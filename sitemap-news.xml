@@ -10,7 +10,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Automating API Contracts with Draft-07 JSON Schema Inference — JSON2X</news:title>
+      <news:title>Automating API Contracts with Draft-07 JSON Schema Inference</news:title>
     </news:news>
   </url>
   <url>
@@ -21,7 +21,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Building Bulletproof TypeScript Interfaces &amp; Runtime Zod Schemas  — JSON2X</news:title>
+      <news:title>Building Bulletproof TypeScript Interfaces &amp; Runtime Zod Schemas</news:title>
     </news:news>
   </url>
   <url>
@@ -43,7 +43,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Exporting Complex Nested JSON to Clean CSV Spreadsheets for Analy — JSON2X</news:title>
+      <news:title>Exporting Complex Nested JSON to Clean CSV Spreadsheets for Analy</news:title>
     </news:news>
   </url>
   <url>
@@ -54,7 +54,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Generating Relational SQL Tables &amp; INSERT Statements from JSON Pa — JSON2X</news:title>
+      <news:title>Generating Relational SQL Tables &amp; INSERT Statements from JSON Pa</news:title>
     </news:news>
   </url>
   <url>
@@ -65,7 +65,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>How to Format and Validate Large JSON Payloads in the Browser Wit — JSON2X</news:title>
+      <news:title>How to Format and Validate Large JSON Payloads in the Browser Wit</news:title>
     </news:news>
   </url>
   <url>
@@ -98,7 +98,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>JSON Minification Benchmarks: Network Savings, Compression &amp; Late — JSON2X</news:title>
+      <news:title>JSON Minification Benchmarks: Network Savings, Compression &amp; Late</news:title>
     </news:news>
   </url>
   <url>
@@ -109,7 +109,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Mastering JSONPath: Querying &amp; Filtering Complex JSON Payloads Li — JSON2X</news:title>
+      <news:title>Mastering JSONPath: Querying &amp; Filtering Complex JSON Payloads Li</news:title>
     </news:news>
   </url>
   <url>
@@ -120,7 +120,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Mastering TOML for Rust Cargo and Python pyproject.toml Packages — JSON2X</news:title>
+      <news:title>Mastering TOML for Rust Cargo and Python pyproject.toml Packages</news:title>
     </news:news>
   </url>
   <url>
@@ -131,7 +131,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Migrating Infrastructure Configs: Converting JSON to Clean YAML — JSON2X</news:title>
+      <news:title>Migrating Infrastructure Configs: Converting JSON to Clean YAML</news:title>
     </news:news>
   </url>
   <url>
@@ -142,7 +142,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Modernizing Legacy Enterprise Services: Converting JSON to XML — JSON2X</news:title>
+      <news:title>Modernizing Legacy Enterprise Services: Converting JSON to XML</news:title>
     </news:news>
   </url>
   <url>
@@ -153,7 +153,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Navigating Multi-Megabyte Payloads with Virtualized JSON Tree Vie — JSON2X</news:title>
+      <news:title>Navigating Multi-Megabyte Payloads with Virtualized JSON Tree Vie</news:title>
     </news:news>
   </url>
   <url>
@@ -164,7 +164,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Parsing CSV to Strongly-Typed JSON Without Data Loss — JSON2X</news:title>
+      <news:title>Parsing CSV to Strongly-Typed JSON Without Data Loss</news:title>
     </news:news>
   </url>
   <url>
@@ -175,7 +175,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Preventing Production API Breakage with Strict RFC 8259 JSON Vali — JSON2X</news:title>
+      <news:title>Preventing Production API Breakage with Strict RFC 8259 JSON Vali</news:title>
     </news:news>
   </url>
   <url>
@@ -186,7 +186,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Synthesizing Idiomatic Backend Models: Go Structs, Rust Serde &amp; P — JSON2X</news:title>
+      <news:title>Synthesizing Idiomatic Backend Models: Go Structs, Rust Serde &amp; P</news:title>
     </news:news>
   </url>
   <url>
@@ -197,7 +197,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>The 7-in-1 Developer Converter: Streamlining Full-Stack Data Mode — JSON2X</news:title>
+      <news:title>The 7-in-1 Developer Converter: Streamlining Full-Stack Data Mode</news:title>
     </news:news>
   </url>
   <url>
@@ -219,7 +219,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Visual &amp; Semantic JSON Diffing: Eliminating False Positives in CI — JSON2X</news:title>
+      <news:title>Visual &amp; Semantic JSON Diffing: Eliminating False Positives in CI</news:title>
     </news:news>
   </url>
   <url>
@@ -230,7 +230,7 @@
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>2026-08-18</news:publication_date>
-      <news:title>Zero-PII API Testing with Synthetic JSON Mock Data Generation — JSON2X</news:title>
+      <news:title>Zero-PII API Testing with Synthetic JSON Mock Data Generation</news:title>
     </news:news>
   </url>
 

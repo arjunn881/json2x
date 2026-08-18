@@ -482,14 +482,16 @@ BLOG_ARTICLES.forEach(art => {
   }).join('\n');
 
   const faqsHtml = art.faqs ? `
-    <section style="margin:var(--space-10) 0;padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);">
-      <h2 style="font-size:var(--text-xl);font-weight:var(--font-bold);margin-bottom:var(--space-4);">Frequently Asked Questions</h2>
-      ${art.faqs.map(f => `
-        <div style="margin-bottom:var(--space-4);">
-          <h3 style="font-size:var(--text-base);font-weight:var(--font-semibold);margin-bottom:var(--space-1);">${f.q}</h3>
-          <p style="font-size:var(--text-sm);color:var(--text-secondary);margin:0;">${f.a}</p>
-        </div>
-      `).join('')}
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Frequently Asked Questions</h2>
+      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+        ${art.faqs.map(f => `
+          <div class="faq-card">
+            <h3 class="faq-card__q">${f.q}</h3>
+            <p class="faq-card__a">${f.a}</p>
+          </div>
+        `).join('')}
+      </div>
     </section>
   ` : '';
 
@@ -500,14 +502,17 @@ BLOG_ARTICLES.forEach(art => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${art.title.slice(0, 65)} — JSON2X</title>
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>${art.title.slice(0, 65)} | JSON2X</title>
   <meta name="description" content="${art.metaDesc.slice(0, 165)}" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#1a73e8" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="${BASE_URL}/blog/${art.slug}.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <meta property="og:title" content="${art.title.slice(0, 65)} — JSON2X" />
+  <meta property="og:title" content="${art.title.slice(0, 65)} | JSON2X" />
   <meta property="og:description" content="${art.metaDesc.slice(0, 165)}" />
   <meta property="og:url" content="${BASE_URL}/blog/${art.slug}.html" />
   <meta property="og:type" content="article" />
@@ -516,11 +521,11 @@ BLOG_ARTICLES.forEach(art => {
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${art.title.slice(0, 65)} — JSON2X" />
+  <meta name="twitter:title" content="${art.title.slice(0, 65)}" />
   <meta name="twitter:description" content="${art.metaDesc.slice(0, 165)}" />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
   <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
@@ -544,45 +549,32 @@ BLOG_ARTICLES.forEach(art => {
 <body>
   <div id="site-header-placeholder"></div>
 
-  <main id="main-content" class="docs-page">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a class="breadcrumb__link" href="/">Home</a>
-      <span class="breadcrumb__separator" aria-hidden="true">/</span>
-      <a class="breadcrumb__link" href="/blog/index.html">Blog</a>
-      <span class="breadcrumb__separator" aria-hidden="true">/</span>
-      <span class="breadcrumb__current" aria-current="page">${art.h1}</span>
-    </nav>
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
 
-    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
-      <div class="tool-hero__badge">${art.category}</div>
-      <h1 class="tool-hero__title">${art.h1}</h1>
-      <div class="docs-meta">
-        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3"/></svg>${art.date}</span>
-        <span class="docs-meta__sep">•</span>
-        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 3" stroke="currentColor" stroke-width="1.3"/></svg>${art.readTime}</span>
-        <span class="docs-meta__sep">•</span>
-        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 8a3 3 0 100-6 3 3 0 000 6zM2 14a6 6 0 0112 0" stroke="currentColor" stroke-width="1.3"/></svg>By ${art.author}</span>
-      </div>
-    </div>
-
-    <article class="docs-article">
-      <div style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
-        ${art.intro}
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">${art.category} Engineering</div>
+        <h1 class="tool-hero__title">${art.h1}</h1>
+        <p class="tool-hero__desc">${art.metaDesc}</p>
       </div>
 
-      <div class="docs-content">
-        ${sectionsHtml}
-        ${faqsHtml}
-      </div>
-
-      <div class="docs-tool-cta">
-        <div>
-          <div class="docs-tool-cta__title">Try our free interactive developer tool</div>
-          <p class="docs-tool-cta__desc">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+      <article class="faq-prose" style="margin-bottom:var(--space-12)">
+        <div style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
+          ${art.intro}
         </div>
-        <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
-      </div>
-    </article>
+
+        ${sectionsHtml}
+
+        <div class="tool-cta-banner">
+          <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+          <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+          <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
+        </div>
+      </article>
+
+      ${faqsHtml}
+    </div>
   </main>
 
   <div id="site-footer-placeholder"></div>
@@ -600,16 +592,10 @@ BLOG_ARTICLES.forEach(art => {
 
 // Build Blog Hub Index (blog/index.html)
 const blogCardsHtml = compiledArticles.map(a => `
-  <a class="dev-tool-card" href="/blog/${a.slug}.html" style="text-decoration:none;">
-    <div class="dev-card__head">
-      <span class="dev-card__title">${a.h1}</span>
-      <span class="dev-card__badge">${a.category}</span>
-    </div>
-    <div class="dev-card__desc">${a.metaDesc}</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-4);font-size:var(--text-xs);color:var(--text-muted);font-family:var(--font-mono);">
-      <span>${a.readTime}</span>
-      <span style="color:var(--accent);font-weight:600;">Read Article →</span>
-    </div>
+  <a href="/blog/${a.slug}.html" class="faq-card" style="text-decoration:none; display:block;">
+    <p class="faq-section__eyebrow">${a.category}</p>
+    <h2 class="faq-card__q">${a.h1}</h2>
+    <p class="faq-card__a">${a.metaDesc}</p>
   </a>
 `).join('\n');
 
@@ -618,10 +604,13 @@ const blogIndexHtml = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
   <title>Engineering Blog &amp; Developer Tutorials — JSON2X</title>
   <meta name="description" content="In-depth developer articles, architectural benchmarks, data migration tutorials, and performance guides for JSON, CSV, TypeScript, SQL, and APIs." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#1a73e8" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="${BASE_URL}/blog/index.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -638,7 +627,7 @@ const blogIndexHtml = `<!DOCTYPE html>
   <meta name="twitter:description" content="In-depth developer articles, architectural benchmarks, data migration tutorials, and performance guides for JSON, CSV, TypeScript, SQL, and APIs." />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
   <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
@@ -667,7 +656,7 @@ const blogIndexHtml = `<!DOCTYPE html>
         <p class="tool-hero__desc">Authoritative guides on client-side data engineering, RFC standards, type inference, performance benchmarks, and zero-server privacy.</p>
       </div>
 
-      <div class="dev-tools-grid" style="margin-bottom:var(--space-12);">
+      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
         ${blogCardsHtml}
       </div>
     </div>

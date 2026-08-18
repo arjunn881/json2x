@@ -797,10 +797,10 @@ function parseMarkdown(md) {
     }).join('\n');
     return `<div class="table-responsive"><table class="docs-table"><thead><tr>${headers}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   });
-  // Fenced Code blocks with terminal card header
+  // Fenced Code blocks matching Knowledge Base tool-code-example
   html = html.replace(/```([a-z0-9_-]+)?\n([\s\S]*?)```/g, (m, lang, code) => {
     const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return `<div class="code-block-wrap"><div class="code-block-header"><div class="code-block-dots" aria-hidden="true"><span class="code-dot code-dot--red"></span><span class="code-dot code-dot--yellow"></span><span class="code-dot code-dot--green"></span></div><span class="code-lang">${lang || 'code'}</span><button class="code-copy-btn" onclick="navigator.clipboard.writeText(this.closest('.code-block-wrap').querySelector('code').innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3.5A1.5 1.5 0 014.5 2H11" stroke="currentColor" stroke-width="1.3"/></svg>Copy</button></div><pre><code class="language-${lang || 'text'}">${escaped.trim()}</code></pre></div>`;
+    return `<div class="tool-code-example" style="margin:var(--space-6) 0;"><code>${escaped.trim()}</code></div>`;
   });
   // Strip top H1 heading (rendered cleanly in page hero)
   html = html.replace(/^# .*$/m, '');
@@ -839,19 +839,31 @@ SAMPLE_DOCS.forEach(doc => {
   const toolSlug = doc.frontmatter.primaryTool || 'json-formatter';
   const toolHref = `/tools/${toolSlug.endsWith('.html') ? toolSlug : toolSlug + '.html'}`;
 
+  const relatedDocsHtml = SAMPLE_DOCS
+    .filter(d => d.filename !== doc.filename)
+    .slice(0, 5)
+    .map(d => {
+      const s = d.filename.replace(/\.mdx?$/, '');
+      return `<li><a href="${BASE_URL}/docs/${s}.html" style="color:var(--accent); text-decoration:none;">${d.frontmatter.title}</a></li>`;
+    })
+    .join('\n');
+
   const docHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${doc.frontmatter.title} — JSON2X</title>
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
+  <title>${doc.frontmatter.title} | JSON2X</title>
   <meta name="description" content="${doc.frontmatter.description.slice(0, 165)}" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="${BASE_URL}/docs/${slug}.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-  <meta property="og:title" content="${doc.frontmatter.title} — JSON2X" />
+  <meta property="og:title" content="${doc.frontmatter.title} | JSON2X" />
   <meta property="og:description" content="${doc.frontmatter.description.slice(0, 165)}" />
   <meta property="og:url" content="${BASE_URL}/docs/${slug}.html" />
   <meta property="og:type" content="article" />
@@ -860,11 +872,11 @@ SAMPLE_DOCS.forEach(doc => {
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${doc.frontmatter.title} — JSON2X" />
+  <meta name="twitter:title" content="${doc.frontmatter.title}" />
   <meta name="twitter:description" content="${doc.frontmatter.description.slice(0, 165)}" />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
   <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
@@ -884,40 +896,34 @@ SAMPLE_DOCS.forEach(doc => {
 <body>
   <div id="site-header-placeholder"></div>
 
-  <main id="main-content" class="docs-page">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a class="breadcrumb__link" href="/">Home</a>
-      <span class="breadcrumb__separator" aria-hidden="true">/</span>
-      <a class="breadcrumb__link" href="/docs/index.html">Docs</a>
-      <span class="breadcrumb__separator" aria-hidden="true">/</span>
-      <span class="breadcrumb__current" aria-current="page">${doc.frontmatter.title}</span>
-    </nav>
+  <main id="main-content">
+    <div class="container" style="padding: var(--space-12) var(--space-4);">
+      <div id="breadcrumb-placeholder"></div>
 
-    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8);">
-      <div class="tool-hero__badge">${doc.frontmatter.category}</div>
-      <h1 class="tool-hero__title">${doc.frontmatter.title}</h1>
-      <div class="docs-meta">
-        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.3"/></svg>Updated: ${doc.frontmatter.date}</span>
-        <span class="docs-meta__sep">•</span>
-        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" stroke-width="1.3"/></svg>Technical Reference</span>
-        <span class="docs-meta__sep">•</span>
-        <span class="docs-meta__item"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2l6 2v4c0 3.5-2.5 6.5-6 7.5C4.5 14.5 2 11.5 2 8V4l6-2z" stroke="currentColor" stroke-width="1.3"/></svg>100% Client-Side</span>
+      <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10)">
+        <div class="tool-hero__badge">${doc.frontmatter.category} Documentation</div>
+        <h1 class="tool-hero__title">${doc.frontmatter.title}</h1>
+        <p class="tool-hero__desc">${doc.frontmatter.description}</p>
       </div>
-    </div>
 
-    <article class="docs-article">
-      <div class="docs-content">
+      <article class="faq-prose" style="margin-bottom:var(--space-12)">
         ${htmlContent}
-      </div>
 
-      <div class="docs-tool-cta">
-        <div>
-          <div class="docs-tool-cta__title">Test with our free interactive tool</div>
-          <p class="docs-tool-cta__desc">100% Client-Side Privacy • Zero Server Uploads • Fast &amp; Free</p>
+        <div class="tool-cta-banner">
+          <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
+          <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
+          <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
         </div>
-        <a href="${toolHref}" class="btn btn--primary" style="padding:var(--space-3) var(--space-6);text-decoration:none;font-weight:var(--font-semibold);">Launch Tool →</a>
-      </div>
-    </article>
+      </article>
+
+      <!-- Internal Linking & Related Topics -->
+      <section class="tool-section" style="margin-top:var(--space-12)">
+        <h2 class="tool-section__title">Related Documentation &amp; Reference Articles</h2>
+        <ul style="line-height: var(--leading-relaxed); padding-left: var(--space-6);">
+          ${relatedDocsHtml}
+        </ul>
+      </section>
+    </div>
   </main>
 
   <div id="site-footer-placeholder"></div>
@@ -936,13 +942,10 @@ SAMPLE_DOCS.forEach(doc => {
 // Build Docs Hub Index
 const docsHubCardsHtml = compiledDocs.map(d => {
   return `
-  <a class="dev-tool-card" href="/docs/${d.slug}.html" style="text-decoration:none;">
-    <div class="dev-card__head">
-      <span class="dev-card__title">${d.title}</span>
-      <span class="dev-card__badge">${d.category}</span>
-    </div>
-    <div class="dev-card__desc">${d.description}</div>
-    <div style="margin-top:var(--space-4);font-size:var(--text-xs);font-weight:600;color:var(--accent);font-family:var(--font-mono);">Read Documentation →</div>
+  <a href="/docs/${d.slug}.html" class="faq-card" style="text-decoration:none; display:block;">
+    <p class="faq-section__eyebrow">${d.category}</p>
+    <h2 class="faq-card__q">${d.title}</h2>
+    <p class="faq-card__a">${d.description}</p>
   </a>`;
 }).join('\n');
 
@@ -951,10 +954,13 @@ const docsIndexHtml = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>(function(){var t;try{t=localStorage.getItem('jsontoolkit_theme')}catch(e){}if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)})();</script>
+
   <title>Developer Documentation Hub &amp; Specifications — JSON2X</title>
   <meta name="description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#1a73e8" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="${BASE_URL}/docs/index.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
@@ -971,7 +977,7 @@ const docsIndexHtml = `<!DOCTYPE html>
   <meta name="twitter:description" content="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities." />
   <meta name="twitter:image" content="${BASE_URL}/assets/og-image.png" />
 
-  <link rel="stylesheet" href="/assets/css/design-system.css?v=2.9.0" />
+  <link rel="stylesheet" href="/assets/css/design-system.css" />
   <link rel="stylesheet" href="/assets/css/components.css?v=2.9.0" />
   <script type="application/ld+json">
   {
@@ -1000,7 +1006,7 @@ const docsIndexHtml = `<!DOCTYPE html>
         <p class="tool-hero__desc">Authoritative architectural references, IETF RFC standards, parser mechanics, and type-safety guides for our suite of 17 browser-native tools.</p>
       </div>
 
-      <div class="dev-tools-grid" style="margin-bottom:var(--space-12);">
+      <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
         ${docsHubCardsHtml}
       </div>
     </div>
