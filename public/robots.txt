@@ -1,41 +1,105 @@
-# ============================================
-# JSON2X (json2x.com) — Optimized robots.txt
-# Conforms to Google Search Central (RFC 9309)
-# ============================================
+# ================================================================
+# JSON2X (json2x.com) — Production-Grade robots.txt
+# Conforms to RFC 9309 | Google Search Central Best Practices
+# Last updated: 2026-08-19
+# ================================================================
 
-User-agent: *
+# ----------------------------------------------------------------
+# PRIMARY CRAWLERS — Full access to all content
+# ----------------------------------------------------------------
+User-agent: Googlebot
 Allow: /
-
-# Explicitly allow critical rendering assets for Googlebot & Bingbot
 Allow: /assets/
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.png$
-Allow: /*.svg$
-
-# Block Administrative & Internal API Endpoints
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.woff2
 Disallow: /admin/
 Disallow: /api/
-
-# Block Temporary & Preview Routes
 Disallow: /tmp/
 Disallow: /temp/
 Disallow: /drafts/
 Disallow: /preview/
 Disallow: /*?preview=*
 Disallow: /*?draft=*
+# Duplicate alias pages (canonical tool pages are at /tools/json-formatter etc.)
+Disallow: /tools/converter
+Disallow: /tools/formatter
+Disallow: /tools/validator
+Disallow: /tools/minifier
+Disallow: /tools/diff
+Disallow: /tools/schema
+Disallow: /tools/viewer
+Disallow: /tools/json-to-ts
 
-# Block Unindexed Templates & Duplicate Aliases
-Disallow: /tools/_template.html
-Disallow: /tools/converter.html
-Disallow: /tools/formatter.html
-Disallow: /tools/validator.html
-Disallow: /tools/minifier.html
-Disallow: /tools/diff.html
-Disallow: /tools/schema.html
-Disallow: /tools/viewer.html
-Disallow: /tools/json-to-ts.html
+User-agent: Googlebot-Image
+Allow: /assets/images/
+Allow: /assets/og-image.png
+Allow: /favicon.png
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.webp
+Allow: /*.svg
 
-# Sitemaps
+User-agent: Bingbot
+Allow: /
+Allow: /assets/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*?preview=*
+Disallow: /*?draft=*
+
+# ----------------------------------------------------------------
+# AI & LLM CRAWLERS — Allow content for AI training visibility
+# (IndexNow-compatible agents get full read access)
+# ----------------------------------------------------------------
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# ----------------------------------------------------------------
+# AGGRESSIVE / LOW-VALUE CRAWLERS — Block to save crawl budget
+# ----------------------------------------------------------------
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# ----------------------------------------------------------------
+# ALL OTHER CRAWLERS — Default open access
+# ----------------------------------------------------------------
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /tmp/
+Disallow: /*?preview=*
+Disallow: /*?draft=*
+
+# ----------------------------------------------------------------
+# SITEMAPS — All valid, live XML sitemaps on json2x.com
+# ----------------------------------------------------------------
 Sitemap: https://json2x.com/sitemap-index.xml
 Sitemap: https://json2x.com/sitemap-images.xml
