@@ -1,146 +1,145 @@
-﻿---
+---
 import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getToolBySlugOrId } from '../../data/tools';
 
-const tool = getToolBySlugOrId('json-validator') || {
-  id: 'json-validator',
-  slug: 'json-validator',
-  aliases: [],
-  name: 'Json Validator',
-  title: 'Json Validator — JSON2X',
-  metaDesc: 'Free client-side developer tool on JSON2X.',
-  keywords: 'json validator',
-  desc: 'Developer tool',
-  category: 'format-validate',
-  icon: '',
-  href: '/tools/json-validator',
-  related: [],
-  faqs: []
-};
+const tool = getToolBySlugOrId('json-validator')!;
 ---
 
 <ToolLayout tool={tool}>
-  <style>
-
-    .stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-      margin-top: var(--space-6);
-    }
-
-    .stat-chip {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: var(--space-3) var(--space-5);
-      background: var(--bg-raised);
-      border: 1px solid var(--bg-border);
-      border-radius: var(--radius-lg);
-      min-width: 90px;
-    }
-
-    .stat-chip__value {
-      font-size: var(--text-2xl);
-      font-weight: var(--font-bold);
-      font-family: var(--font-mono);
-      color: var(--accent);
-    }
-
-    .stat-chip__label {
-      font-size: var(--text-xs);
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-  
-</style>
-
   <div class="options-bar">
-        <span class="options-bar__label">Validate</span>
-        <button class="btn btn--primary" id="validate-btn">Validate JSON</button>
-        <button class="btn btn--ghost btn--sm" id="clear-btn" style="margin-left:auto">Clear</button>
-      </div>
+    <span class="options-bar__label">Validate</span>
+    <button class="btn btn--primary" id="validate-btn">Validate JSON</button>
+    <button class="btn btn--ghost btn--sm" id="sample-btn">Load sample</button>
+    <button class="btn btn--ghost btn--sm" id="clear-btn" style="margin-left:auto">Clear</button>
+  </div>
 
-      <!-- Input -->
-      <div class="pane">
-        <div class="pane__header">
-          <span class="pane__title">JSON Input</span>
-          <span id="char-count" class="text-xs text-muted"></span>
-        </div>
-        <textarea class="textarea" id="json-input" style="min-height:320px" placeholder='Paste JSON to validate…'
-          aria-label="JSON input" spellcheck="false"></textarea>
+  <div class="tw-workspace tw-workspace--sticky-out">
+    <!-- LEFT: input -->
+    <section class="tw-pane tw-pane--input" aria-labelledby="pane-in-title">
+      <div class="tw-pane__header">
+        <h2 class="tw-pane__title" id="pane-in-title">
+          {tool.inputLabel || 'JSON Input'}
+          <span class="tw-pane__side">Input</span>
+        </h2>
+        <span class="tw-pane__meta" id="char-count"></span>
       </div>
+      <textarea
+        class="tw-input"
+        id="json-input"
+        placeholder="Paste JSON to validate…"
+        aria-label="JSON input"
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+      ></textarea>
+    </section>
 
-      <!-- Status -->
-      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
+    <!-- RIGHT: validation report -->
+    <section class="tw-pane tw-pane--output" aria-labelledby="pane-out-title">
+      <div class="tw-pane__header">
+        <h2 class="tw-pane__title" id="pane-out-title">
+          {tool.outputLabel || 'Validation Report'}
+          <span class="tw-pane__side">Output</span>
+        </h2>
+        <span class="tw-pane__meta" id="rfc-note">RFC 8259</span>
+      </div>
+      <div class="tw-report" id="report" role="status" aria-live="polite">
+        <p class="tw-empty" id="report-empty">Paste JSON on the left — the verdict, error position and structure metrics appear here.</p>
 
-      <!-- Stats -->
-      <div class="stats-row" id="stats-row" style="display:none" aria-label="JSON statistics">
-        <div class="stat-chip">
-          <span class="stat-chip__value" id="stat-keys">—</span>
-          <span class="stat-chip__label">Keys</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip__value" id="stat-depth">—</span>
-          <span class="stat-chip__label">Depth</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip__value" id="stat-arrays">—</span>
-          <span class="stat-chip__label">Arrays</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip__value" id="stat-objects">—</span>
-          <span class="stat-chip__label">Objects</span>
-        </div>
-        <div class="stat-chip">
-          <span class="stat-chip__value" id="stat-size">—</span>
-          <span class="stat-chip__label">Size</span>
+        <div id="verdict" hidden></div>
+
+        <div class="tw-stats" id="stats-row" hidden aria-label="JSON structure metrics">
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-keys">—</span><span class="tw-stat__label">Keys</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-depth">—</span><span class="tw-stat__label">Depth</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-arrays">—</span><span class="tw-stat__label">Arrays</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-objects">—</span><span class="tw-stat__label">Objects</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-size">—</span><span class="tw-stat__label">Size</span></div>
         </div>
       </div>
+    </section>
+  </div>
 
   <script is:inline>
+    (function () {
+      var inputEl    = document.getElementById('json-input');
+      var verdictEl  = document.getElementById('verdict');
+      var emptyEl    = document.getElementById('report-empty');
+      var statsRow   = document.getElementById('stats-row');
+      var charCount  = document.getElementById('char-count');
 
-    const inputEl = document.getElementById('json-input');
-    const statusEl = document.getElementById('tool-status');
-    const statsRow = document.getElementById('stats-row');
-    const charCount = document.getElementById('char-count');
+      var OK_ICON  = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var BAD_ICON = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
-    function showStatus(msg, type = 'info') {
-      statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
-    }
-
-    function validate() {
-      const raw = inputEl.value;
-      charCount.textContent = `${raw.length.toLocaleString()} chars`;
-      statsRow.style.display = 'none';
-
-      const { data, error, line, column } = JT.parseJSON(raw);
-
-      if (error) {
-        const loc = [line && `line ${line}`, column && `col ${column}`].filter(Boolean).join(', ');
-        showStatus(`<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Invalid JSON${loc ? ` — ${loc}` : ''}: ${error}`, 'error');
-        return;
+      function reset() {
+        verdictEl.hidden = true;
+        statsRow.hidden = true;
+        emptyEl.hidden = false;
       }
 
-      showStatus('<svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:-1px;margin-right:3px"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Valid JSON', 'success');
-      const stats = JT.countNodes(data);
-      document.getElementById('stat-keys').textContent = stats.keys.toLocaleString();
-      document.getElementById('stat-depth').textContent = stats.depth;
-      document.getElementById('stat-arrays').textContent = stats.arrays.toLocaleString();
-      document.getElementById('stat-objects').textContent = stats.objects.toLocaleString();
-      document.getElementById('stat-size').textContent = JT.formatBytes(new Blob([raw]).size);
-      statsRow.style.display = 'flex';
-    }
+      function showVerdict(ok, title, detail) {
+        emptyEl.hidden = true;
+        verdictEl.hidden = false;
+        verdictEl.className = 'tw-verdict ' + (ok ? 'tw-verdict--ok' : 'tw-verdict--bad');
+        verdictEl.innerHTML =
+          '<span class="tw-verdict__icon">' + (ok ? OK_ICON : BAD_ICON) + '</span>' +
+          '<span><span class="tw-verdict__title">' + title + '</span>' +
+          (detail ? '<span class="tw-verdict__detail">' + detail + '</span>' : '') +
+          '</span>';
+      }
 
-    document.getElementById('validate-btn').addEventListener('click', validate);
-    inputEl.addEventListener('input', JT.debounce(validate, 450));
-    document.getElementById('clear-btn').addEventListener('click', () => {
-      inputEl.value = '';
-      showStatus('');
-      statsRow.style.display = 'none';
-      charCount.textContent = '';
-    });
-  
-</script>
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function validate() {
+        var raw = inputEl.value;
+        charCount.textContent = raw.length ? raw.length.toLocaleString() + ' chars' : '';
+
+        if (!raw.trim()) { reset(); return; }
+
+        var res = JT.parseJSON(raw);
+
+        if (res.error) {
+          var loc = [];
+          if (res.line) loc.push('line ' + res.line);
+          if (res.column) loc.push('column ' + res.column);
+          showVerdict(false, 'Invalid JSON' + (loc.length ? ' at ' + loc.join(', ') : ''), esc(res.error));
+          statsRow.hidden = true;
+          return;
+        }
+
+        showVerdict(true, 'Valid JSON', 'Parses cleanly against RFC 8259.');
+
+        var stats = JT.countNodes(res.data);
+        document.getElementById('stat-keys').textContent    = stats.keys.toLocaleString();
+        document.getElementById('stat-depth').textContent   = stats.depth;
+        document.getElementById('stat-arrays').textContent  = stats.arrays.toLocaleString();
+        document.getElementById('stat-objects').textContent = stats.objects.toLocaleString();
+        document.getElementById('stat-size').textContent    = JT.formatBytes(new Blob([raw]).size);
+        statsRow.hidden = false;
+      }
+
+      document.getElementById('validate-btn').addEventListener('click', validate);
+      inputEl.addEventListener('input', JT.debounce(validate, 450));
+
+      document.getElementById('sample-btn').addEventListener('click', function () {
+        inputEl.value = JSON.stringify({
+          id: 4821,
+          name: 'Ada Lovelace',
+          active: true,
+          roles: ['admin', 'engineer'],
+          profile: { city: 'London', joined: '2026-01-14', score: 99.5 },
+          meta: null
+        }, null, 2);
+        validate();
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', function () {
+        inputEl.value = '';
+        charCount.textContent = '';
+        reset();
+        inputEl.focus();
+      });
+    })();
+  </script>
 </ToolLayout>

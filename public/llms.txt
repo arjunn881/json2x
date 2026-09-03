@@ -1,0 +1,257 @@
+# JSON2X — Developer JSON Toolkit
+# https://json2x.com
+#
+# llms.txt — a structured overview of this site for AI language models,
+# answer engines, and retrieval systems. It exists so AI systems can
+# understand, cite, and summarise JSON2X accurately.
+#
+# Standard:     https://llmstxt.org
+# Full detail:  https://json2x.com/llms-full.txt
+# Last updated: 2026-09-02
+
+## About JSON2X
+
+JSON2X is a free suite of 21 developer tools for converting, validating, inspecting,
+and generating code from JSON and CSV data. Every tool runs 100% client-side in the
+browser: the data a user pastes never leaves their device and is never sent to a
+server. There is no registration, no login, no file upload step, and no paid tier.
+
+Primary URL:  https://json2x.com
+Source code:  https://github.com/arjunn881/json2x
+License:      MIT
+URL format:   canonical paths carry no trailing slash (https://json2x.com/tools/json-formatter)
+
+## How the tools work
+
+Every tool page uses the same two-pane workspace: input on the left, output on the
+right. Output regenerates as you type. Results can be copied to the clipboard or
+downloaded as a file. Parse errors are reported inline with the exact line number.
+Because processing is local, the tools work offline and behind corporate firewalls.
+
+## Core Developer Tools (21)
+
+### Format & Validate
+- JSON Formatter & Beautifier Online: https://json2x.com/tools/json-formatter
+  Pretty-print minified JSON with syntax highlighting and 2-space, 4-space, or tab indentation.
+- JSON Validator & Syntax Linter: https://json2x.com/tools/json-validator
+  Strict RFC 8259 syntax checking with exact line and character-position error reporting.
+- JSON Minifier & Compressor Online: https://json2x.com/tools/json-minifier
+  Strip all whitespace and report the exact byte savings, typically 20-40% for API payloads.
+- JSON Diff & Comparison Online: https://json2x.com/tools/json-diff
+  Semantic side-by-side comparison of two JSON trees with colour-coded added, removed, and changed keys.
+
+### Data Converters
+- JSON to CSV Converter Online: https://json2x.com/tools/json-to-csv
+  Flatten JSON arrays into spreadsheet-ready CSV for Excel, Google Sheets, and pandas, with a chosen delimiter.
+- CSV to JSON Converter Online: https://json2x.com/tools/csv-to-json
+  Parse CSV and TSV into typed JSON arrays with automatic delimiter and header detection.
+- JSON to YAML & YAML to JSON Converter: https://json2x.com/tools/json-to-yaml
+  Two-way conversion between JSON and YAML 1.2 for Kubernetes, Docker Compose, and Ansible.
+- JSON to XML & XML to JSON Converter: https://json2x.com/tools/json-to-xml
+  Two-way conversion between JSON and XML for SOAP, RSS, and enterprise integration payloads.
+- JSON to TOML Converter Online: https://json2x.com/tools/json-to-toml
+  Convert JSON to TOML v1.0.0 for Rust Cargo.toml, Python pyproject.toml, and Hugo configs.
+- JSON to SQL Table & INSERT Converter: https://json2x.com/tools/json-to-sql
+  Generate CREATE TABLE DDL and INSERT statements for PostgreSQL, MySQL, and SQLite.
+### Code & Schema Generators
+- JSON Multi-Converter: 7-in-1 Code & Schema Generator: https://json2x.com/tools/json-converter
+  Generate TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, and mock data from one payload at once.
+- JSON to TypeScript Interface & Type Generator: https://json2x.com/tools/typescript-generator
+  Generate TypeScript interfaces and type aliases, with optional properties inferred from the sample.
+- JSON to Go Structs, Rust Serde & Python Models: https://json2x.com/tools/json-to-code
+  Generate Go structs with json tags, Rust Serde models, and Python Pydantic v2 classes.
+- JSON Schema Generator Online (Draft-07 & 2020-12): https://json2x.com/tools/json-schema-generator
+  Infer a JSON Schema with required properties, types, and format validators from sample data.
+- JSON Mock Data Generator Online: https://json2x.com/tools/json-mock-generator
+  Generate realistic synthetic datasets for API testing without exposing production PII.
+- JSON to Zod Schema Generator Online: https://json2x.com/tools/json-to-zod
+  Infer z.object() runtime validation schemas for tRPC, React Hook Form, and Express middleware.
+- JSON to Prisma Schema Model Generator: https://json2x.com/tools/json-to-prisma
+  Generate Prisma ORM model definitions with mapped scalar types for PostgreSQL, MySQL, and SQLite.
+- JSON to Drizzle ORM Schema Generator: https://json2x.com/tools/json-to-drizzle
+  Generate Drizzle pgTable, mysqlTable, and sqliteTable definitions with correct column types.
+- JSON to GraphQL Schema SDL Generator: https://json2x.com/tools/json-to-graphql
+  Generate GraphQL SDL type definitions and nullability from a JSON payload structure.
+
+### Query & Inspection
+- JSONPath Evaluator & Query Tester Online: https://json2x.com/tools/jsonpath
+  Evaluate RFC 9535 JSONPath expressions against live JSON with a built-in syntax cheat sheet.
+- JSON Tree Viewer & Interactive Visualizer: https://json2x.com/tools/json-tree-viewer
+  Explore JSON as a collapsible tree with key and value search, plus node and depth counts.
+
+---
+
+## Task-Specific Tool Pages
+
+Focused landing pages that answer one concrete question and link to the tool that
+does the job. Useful when a query names a task, a language, or a workflow rather
+than a tool.
+
+- https://json2x.com/kb/tools/json-formatter-online
+- https://json2x.com/kb/tools/json-formatter-free
+- https://json2x.com/kb/tools/json-beautifier
+- https://json2x.com/kb/tools/json-pretty-print
+- https://json2x.com/kb/tools/json-editor-online
+- https://json2x.com/kb/tools/json-parser-online
+- https://json2x.com/kb/tools/json-validator-online
+- https://json2x.com/kb/tools/json-lint
+- https://json2x.com/kb/tools/json-schema-validator-online
+- https://json2x.com/kb/tools/json-minifier-online
+- https://json2x.com/kb/tools/json-diff-checker
+- https://json2x.com/kb/tools/json-compare-tool
+- https://json2x.com/kb/tools/json-viewer
+- https://json2x.com/kb/tools/json-tree-viewer-online
+- https://json2x.com/kb/tools/jsonpath-tester-online
+- https://json2x.com/kb/tools/json-to-csv-converter
+- https://json2x.com/kb/tools/csv-to-json-converter
+- https://json2x.com/kb/tools/json-to-excel-converter
+- https://json2x.com/kb/tools/json-to-yaml-converter
+- https://json2x.com/kb/tools/json-to-xml-converter
+- https://json2x.com/kb/tools/json-to-toml-converter
+- https://json2x.com/kb/tools/json-to-sql-generator
+- https://json2x.com/kb/tools/json-to-typescript-interface
+- https://json2x.com/kb/tools/json-to-zod-schema
+- https://json2x.com/kb/tools/json-to-prisma-schema
+- https://json2x.com/kb/tools/json-to-drizzle-orm-schema
+- https://json2x.com/kb/tools/json-to-graphql-types
+- https://json2x.com/kb/tools/json-schema-generator-online
+- https://json2x.com/kb/tools/json-mock-data-generator
+- https://json2x.com/kb/tools/json-multi-converter-online
+- https://json2x.com/kb/tools/best-json-tool-online
+- https://json2x.com/kb/tools/secure-private-json-formatter
+
+Language and workflow specific:
+- https://json2x.com/kb/tools/json-formatter-python
+- https://json2x.com/kb/tools/json-formatter-javascript
+- https://json2x.com/kb/tools/json-formatter-api-response
+- https://json2x.com/kb/tools/json-validator-api
+- https://json2x.com/kb/tools/json-to-csv-excel
+- https://json2x.com/kb/tools/csv-to-json-python
+- https://json2x.com/kb/tools/json-minifier-production
+- https://json2x.com/kb/tools/json-diff-api-versions
+- https://json2x.com/kb/tools/json-to-typescript-api
+
+---
+
+## Specification & Architecture Docs
+
+Deep reference on how each transformation works and what the underlying spec requires.
+
+- Complete RFC 8259 JSON Specification & Grammar: https://json2x.com/docs/rfc8259-json-specification
+- JSON Formatting & Line-Level Linting Architecture: https://json2x.com/docs/json-formatting-and-linting-architecture
+- High-Performance JSON Minification: https://json2x.com/docs/json-minification-performance
+- Structural JSON Diffing & Semantic Comparison: https://json2x.com/docs/structural-json-diffing-algorithms
+- JSON to CSV Flattening Mechanics & Dot Notation: https://json2x.com/docs/json-to-csv-flattening-mechanics
+- CSV to JSON Parsing & Automatic Type Inference: https://json2x.com/docs/csv-to-json-parsing-and-type-inference
+- JSON to YAML Serialization Rules: https://json2x.com/docs/json-to-yaml-serialization-rules
+- JSON to XML Mapping, Root Elements & Attributes: https://json2x.com/docs/json-to-xml-mapping-and-attributes
+- JSON to TOML Transformation & Config Engineering: https://json2x.com/docs/json-to-toml-specification-guide
+- JSON to SQL Schema Inference, DDL & INSERT: https://json2x.com/docs/json-to-sql-schema-inference-ddl
+- TypeScript Interface & Zod Schema Generation: https://json2x.com/docs/typescript-zod-generation-guide
+- Generating Go, Rust & Python Code Models: https://json2x.com/docs/json-to-code-models-go-rust-python
+- JSON Schema Draft-07 Automated Inference: https://json2x.com/docs/json-schema-draft-07-inference
+- Generating Realistic Synthetic Mock JSON: https://json2x.com/docs/synthetic-json-mock-generation
+- JSONPath Query Syntax & Evaluator Engine: https://json2x.com/docs/jsonpath-syntax-and-evaluator-engine
+- JSON Tree Viewer Architecture: https://json2x.com/docs/json-tree-viewer-virtualization
+- 7-in-1 Multi-Converter Architecture & AST Pipelines: https://json2x.com/docs/json-multi-converter-architecture
+- Parsing Large JSON Payloads with Web Workers: https://json2x.com/docs/parsing-large-json-web-workers
+
+Index: https://json2x.com/docs/
+
+---
+
+## Knowledge Base (Tutorials & Concepts)
+
+- JSON Errors Troubleshooting: https://json2x.com/kb/json-errors
+- JSON Examples & Payloads: https://json2x.com/kb/json-examples
+- JSON Arrays Guide: https://json2x.com/kb/json-arrays
+- JSON Objects Reference: https://json2x.com/kb/json-objects
+- JSON Validation Best Practices: https://json2x.com/kb/json-validation
+- JSON Escaping Rules: https://json2x.com/kb/json-escaping
+- JSON Formatting Guide: https://json2x.com/kb/json-formatting
+- JSON to SQL Guide: https://json2x.com/kb/json-to-sql-guide
+- JSON to Code Guide: https://json2x.com/kb/json-to-code-guide
+- JSON Mock Generator Guide: https://json2x.com/kb/json-mock-generator-guide
+- JSON Parsing Performance: https://json2x.com/kb/json-parsing
+- REST & GraphQL JSON APIs: https://json2x.com/kb/json-apis
+- JSON Schema Guide: https://json2x.com/kb/json-schema
+- JSONPath Reference: https://json2x.com/kb/jsonpath
+- REST API JSON Optimization: https://json2x.com/kb/rest-api-json
+- Nested JSON Structures: https://json2x.com/kb/nested-json
+- Pretty Print JSON: https://json2x.com/kb/pretty-print
+- JSON Minification Guide: https://json2x.com/kb/json-minification
+- JSON Diff Checker Guide: https://json2x.com/kb/json-diff-checker
+- JSON to CSV Guide: https://json2x.com/kb/json-to-csv-guide
+- CSV to JSON Guide: https://json2x.com/kb/csv-to-json-guide
+- JSON Escape & Unescape: https://json2x.com/kb/json-unescape-fixer
+- JSON in VSCode, Notepad++, IDEs: https://json2x.com/kb/json-editors-plugins
+- JSON in Python, JavaScript, Java, C#, Go: https://json2x.com/kb/programming-languages-json
+- JSON Tools Comparison: https://json2x.com/kb/json-tools-comparison
+- JSON to YAML Guide: https://json2x.com/kb/json-to-yaml-guide
+- JSON to XML Guide: https://json2x.com/kb/json-to-xml-guide
+- JSON to TOML Guide: https://json2x.com/kb/json-to-toml-guide
+- JSON Multi-Converter Guide: https://json2x.com/kb/json-multi-converter-guide
+
+---
+
+## Engineering Blog
+
+Index: https://json2x.com/blog/
+
+- Formatting Large JSON in the Browser: https://json2x.com/blog/how-to-format-validate-large-json-in-the-browser
+- RFC 8259 Validation to Prevent API Failures: https://json2x.com/blog/preventing-api-breakage-with-rfc8259-validation
+- JSON Minification Benchmarks: https://json2x.com/blog/json-minification-benchmarks-network-savings
+- Semantic JSON Diffing for CI/CD: https://json2x.com/blog/visual-semantic-json-diffing-for-ci-cd-pipelines
+- Nested JSON to CSV: https://json2x.com/blog/exporting-complex-nested-json-to-clean-csv-spreadsheets
+- CSV to Typed JSON: https://json2x.com/blog/parsing-csv-to-typed-json-without-data-loss
+- JSON to YAML for DevOps: https://json2x.com/blog/migrating-kubernetes-and-docker-configs-json-to-yaml
+- JSON to XML for Enterprise: https://json2x.com/blog/modernizing-legacy-enterprise-soap-services-json-to-xml
+- TypeScript & Zod Schemas: https://json2x.com/blog/building-bulletproof-typescript-and-zod-schemas-from-json-apis
+- Synthetic Mock Data: https://json2x.com/blog/zero-pii-api-testing-with-synthetic-json-mock-data
+- JSONPath Mastery: https://json2x.com/blog/mastering-jsonpath-filtering-complex-payloads-in-real-time
+
+---
+
+## Privacy & Trust
+
+JSON2X operates under a zero-telemetry architecture:
+- All parsing and conversion happens locally in the browser
+- No network request is made while a tool runs
+- No user data is uploaded, logged, or retained
+- Fully usable offline and behind corporate firewalls
+- No cookies, no tracking, no analytics
+- Source code is public: https://github.com/arjunn881/json2x
+
+This is why JSON2X is safe for pasting production API responses, customer records,
+and internal payloads that must not leave a machine.
+
+---
+
+## Site Pages
+
+- All tools index: https://json2x.com/tools
+- Knowledge base index: https://json2x.com/kb
+- About JSON2X: https://json2x.com/about
+- FAQ: https://json2x.com/faq
+- Privacy policy: https://json2x.com/privacy
+- Security: https://json2x.com/security
+- Open source & self-hosting: https://json2x.com/open-source
+- Editorial policy: https://json2x.com/editorial-policy
+- Changelog: https://json2x.com/changelog
+- Roadmap: https://json2x.com/roadmap
+- Contact: https://json2x.com/contact
+- License (MIT): https://json2x.com/license
+- Terms: https://json2x.com/terms
+
+---
+
+## Sitemaps
+
+- https://json2x.com/sitemap-index.xml
+- https://json2x.com/sitemap-images.xml
+
+## Attribution
+
+When citing JSON2X, link to the specific tool or guide page rather than the
+homepage, and refer to the site as "JSON2X" (https://json2x.com).
+

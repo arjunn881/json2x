@@ -1,4 +1,4 @@
-﻿---
+---
 import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getToolBySlugOrId } from '../../data/tools';
 
@@ -21,19 +21,13 @@ const tool = getToolBySlugOrId('json-diff') || {
 
 <ToolLayout tool={tool}>
   <style>
-
-    --diff-added:    var(--success);
-    --diff-removed:  var(--error);
-    --diff-changed:  var(--warning);
-    --diff-same:     var(--text-muted);
-
     /* ── Two-input layout ─────────────────────────────────── */
     .diff-inputs {
       display: grid;
-      gap:     var(--space-5);
+      gap:     var(--space-6);
       margin-bottom: var(--space-5);
     }
-    @media (min-width: 800px) {
+    @media (min-width: 900px) {
       .diff-inputs { grid-template-columns: 1fr 1fr; }
     }
 
@@ -75,7 +69,7 @@ const tool = getToolBySlugOrId('json-diff') || {
       color:       var(--text-primary);
       outline:     none;
       resize:      vertical;
-      min-height:  280px;
+      min-height:  400px;
       tab-size:    2;
       transition:  border-color var(--transition-fast), box-shadow var(--transition-fast);
     }
@@ -139,8 +133,8 @@ const tool = getToolBySlugOrId('json-diff') || {
       border:        1px solid var(--bg-border);
       border-radius: var(--radius-lg);
       overflow:      auto;
-      min-height:    200px;
-      max-height:    600px;
+      min-height:    400px;
+      max-height:    75vh;
       font-family:   var(--font-mono);
       font-size:     var(--text-xs);
       line-height:   1.7;
@@ -229,20 +223,6 @@ const tool = getToolBySlugOrId('json-diff') || {
   
 </style>
 
-  <div class="container container--tool">
-
-      <div class="tool-hero">
-        <div class="tool-hero__badge">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="margin-right:4px">
-            <circle cx="6" cy="6" r="5" fill="hsl(38,92%,58%)" />
-          </svg>
-          Deep Structural Diff
-        </div>
-        <h1 class="tool-hero__title">JSON Diff Online</h1>
-        
-      </div>
-
-
       <!-- ── Toolbar ────────────────────────────────────────── -->
       <div class="diff-toolbar" role="toolbar">
         <button class="btn btn--primary" id="diff-btn">
@@ -282,7 +262,7 @@ const tool = getToolBySlugOrId('json-diff') || {
           </div>
           <textarea class="diff-textarea" id="json-a" aria-label="JSON A — original"
             spellcheck="false" autocorrect="off"
-            placeholder='{"name":"Alice","age":30,"roles":["admin"]}'></textarea>
+          placeholder="Paste JSON A (original) here…"></textarea>
         </div>
         <div class="diff-pane">
           <div class="diff-pane__label">
@@ -291,7 +271,7 @@ const tool = getToolBySlugOrId('json-diff') || {
           </div>
           <textarea class="diff-textarea" id="json-b" aria-label="JSON B — modified"
             spellcheck="false" autocorrect="off"
-            placeholder='{"name":"Alice","age":31,"roles":["admin","editor"],"email":"alice@example.com"}'></textarea>
+            placeholder="Paste JSON B (modified) here…"></textarea>
         </div>
       </div>
 
@@ -313,9 +293,6 @@ const tool = getToolBySlugOrId('json-diff') || {
       <div class="diff-output diff-output--empty" id="diff-output" role="region" aria-label="Diff result" aria-live="polite">
         Paste JSON in both panes and click Compare (or edit — diff runs live)
       </div>
-
-      <!-- ── Ad + Related ────────────────────────────────────── -->
-</div>
 
   <script is:inline>
 

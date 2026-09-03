@@ -1,4 +1,4 @@
-﻿---
+---
 import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getToolBySlugOrId } from '../../data/tools';
 
@@ -20,151 +20,142 @@ const tool = getToolBySlugOrId('json-converter') || {
 ---
 
 <ToolLayout tool={tool}>
-  
 
-  <div class="container container--tool">
+  <!-- ── Error strip ──────────────────────────────────────── -->
+  <div id="jc-error" class="jc-error" style="display:none">
+    <span class="jc-error__badge">ERR</span>
+    <span id="jc-error-msg"></span>
+  </div>
 
-      <div class="tool-hero">
-        <div class="tool-hero__badge">7 Formats · One Paste</div>
-        <h1 class="tool-hero__title">JSON Converter</h1>
-        <p class="tool-hero__desc">Paste JSON once — get TypeScript, Zod, Mongoose, SQL, OpenAPI, JSON Schema, or Mock Data instantly. 100% browser-side, zero uploads.</p>
+  <!-- ── Main layout: Input Left | Output Right ────────────── -->
+  <div class="jc-layout">
+
+    <!-- Input pane -->
+    <div class="jc-input-pane">
+      <div class="jc-pane-header">
+        <span class="jc-pane-title">JSON Input</span>
+        <span id="jc-input-meta" class="jc-pane__meta"></span>
+      </div>
+      <textarea
+        class="jc-textarea"
+        id="jc-input"
+        aria-label="JSON input"
+        spellcheck="false"
+        autocorrect="off"
+        placeholder="Paste or type JSON here…"
+      ></textarea>
+
+      <div class="jc-actions">
+        <button class="btn btn--primary" id="jc-generate-btn">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:4px">
+            <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Convert
+        </button>
+        <button class="btn btn--ghost" id="jc-sample-btn">Load sample</button>
+        <button class="btn btn--ghost" id="jc-clear-btn" style="margin-left:auto">Clear</button>
+      </div>
+    </div>
+
+    <!-- Output pane -->
+    <div class="jc-output-pane">
+
+      <!-- Tab strip -->
+      <div class="jc-tabs" role="tablist" id="jc-tab-list">
+        <button class="jc-tab active" role="tab" data-tab="ts"        aria-selected="true">TypeScript</button>
+        <button class="jc-tab"        role="tab" data-tab="zod"       aria-selected="false">Zod</button>
+        <button class="jc-tab"        role="tab" data-tab="mongoose"  aria-selected="false">Mongoose</button>
+        <button class="jc-tab"        role="tab" data-tab="sql"       aria-selected="false">SQL</button>
+        <button class="jc-tab"        role="tab" data-tab="openapi"   aria-selected="false">OpenAPI</button>
+        <button class="jc-tab"        role="tab" data-tab="jsonschema" aria-selected="false">JSON Schema</button>
+        <button class="jc-tab"        role="tab" data-tab="mock"      aria-selected="false">Mock Data <span class="jc-tab-badge">NEW</span></button>
       </div>
 
-      <!-- ── Error strip ────────────────────────────────────── -->
-      <div id="jc-error" class="jc-error" style="display:none">
-        <span class="jc-error__badge">ERR</span>
-        <span id="jc-error-msg"></span>
+      <!-- Per-tab options bars -->
+      <div id="opts-ts" class="jc-panel-options">
+        <span class="jc-panel-label">Root</span>
+        <input class="jc-input-sm" id="ts-root-name" type="text" value="Root" aria-label="Root interface name" maxlength="60" />
+        <div class="jc-panel-divider"></div>
+        <span class="jc-panel-label">Style</span>
+        <select class="jc-select" id="ts-style">
+          <option value="interface">interface</option>
+          <option value="type">type alias</option>
+        </select>
+        <div class="jc-panel-divider"></div>
+        <label class="jc-toggle"><input type="checkbox" id="ts-export" checked /> export</label>
+        <label class="jc-toggle"><input type="checkbox" id="ts-optional" /> optional</label>
       </div>
 
-      <!-- ── Main layout ────────────────────────────────────── -->
-      <div class="jc-layout">
+      <div id="opts-zod" class="jc-panel-options" style="display:none">
+        <span class="jc-panel-label">Root</span>
+        <input class="jc-input-sm" id="zod-root-name" type="text" value="Root" aria-label="Root schema name" maxlength="60" />
+        <div class="jc-panel-divider"></div>
+        <label class="jc-toggle"><input type="checkbox" id="zod-export" checked /> export</label>
+        <label class="jc-toggle"><input type="checkbox" id="zod-infer" checked /> z.infer type</label>
+      </div>
 
-        <!-- Input pane -->
-        <div class="jc-input-pane">
-          <div class="jc-pane-header">
-            <span class="jc-pane-title">JSON Input</span>
-            <span id="jc-input-meta" class="text-xs text-muted"></span>
-          </div>
-          <textarea
-            class="jc-textarea"
-            id="jc-input"
-            aria-label="JSON input"
-            spellcheck="false"
-            autocorrect="off"
-            placeholder='{&#10;  "user": {&#10;    "id": 1,&#10;    "name": "Alice",&#10;    "email": "alice@example.com",&#10;    "roles": ["admin", "editor"],&#10;    "active": true,&#10;    "createdAt": "2026-01-15T10:30:00Z"&#10;  }&#10;}'
-          ></textarea>
+      <div id="opts-mongoose" class="jc-panel-options" style="display:none">
+        <span class="jc-panel-label">Model</span>
+        <input class="jc-input-sm" id="mg-model-name" type="text" value="MyModel" aria-label="Mongoose model name" maxlength="60" />
+        <div class="jc-panel-divider"></div>
+        <label class="jc-toggle"><input type="checkbox" id="mg-timestamps" checked /> timestamps</label>
+      </div>
 
-          <div class="jc-actions" style="margin-top:var(--space-3)">
-            <button class="btn btn--primary" id="jc-generate-btn">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:4px">
-                <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Convert
-            </button>
-            <button class="btn btn--ghost" id="jc-sample-btn">Load sample</button>
-            <button class="btn btn--ghost" id="jc-clear-btn" style="margin-left:auto">Clear</button>
-          </div>
-        </div>
+      <div id="opts-sql" class="jc-panel-options" style="display:none">
+        <span class="jc-panel-label">Table</span>
+        <input class="jc-input-sm" id="sql-table" type="text" value="my_table" aria-label="SQL table name" maxlength="60" />
+        <div class="jc-panel-divider"></div>
+        <span class="jc-panel-label">Dialect</span>
+        <select class="jc-select" id="sql-dialect">
+          <option value="postgres">PostgreSQL</option>
+          <option value="mysql">MySQL</option>
+          <option value="sqlite">SQLite</option>
+        </select>
+        <div class="jc-panel-divider"></div>
+        <label class="jc-toggle"><input type="checkbox" id="sql-inserts" checked /> INSERT</label>
+      </div>
 
-        <!-- Output pane -->
-        <div class="jc-output-pane">
+      <div id="opts-openapi" class="jc-panel-options" style="display:none">
+        <span class="jc-panel-label">Schema name</span>
+        <input class="jc-input-sm" id="oa-schema-name" type="text" value="MySchema" aria-label="OpenAPI schema name" maxlength="60" />
+        <div class="jc-panel-divider"></div>
+        <label class="jc-toggle"><input type="checkbox" id="oa-required" checked /> mark required</label>
+      </div>
 
-          <!-- Tab strip -->
-          <div class="jc-tabs" role="tablist" id="jc-tab-list">
-            <button class="jc-tab active" role="tab" data-tab="ts"        aria-selected="true">TypeScript</button>
-            <button class="jc-tab"        role="tab" data-tab="zod"       aria-selected="false">Zod</button>
-            <button class="jc-tab"        role="tab" data-tab="mongoose"  aria-selected="false">Mongoose</button>
-            <button class="jc-tab"        role="tab" data-tab="sql"       aria-selected="false">SQL</button>
-            <button class="jc-tab"        role="tab" data-tab="openapi"   aria-selected="false">OpenAPI</button>
-            <button class="jc-tab"        role="tab" data-tab="jsonschema" aria-selected="false">JSON Schema</button>
-            <button class="jc-tab"        role="tab" data-tab="mock"      aria-selected="false">Mock Data <span class="jc-tab-badge">NEW</span></button>
-          </div>
+      <div id="opts-jsonschema" class="jc-panel-options" style="display:none">
+        <label class="jc-toggle"><input type="checkbox" id="js-required" checked /> mark required</label>
+        <div class="jc-panel-divider"></div>
+        <label class="jc-toggle"><input type="checkbox" id="js-examples" checked /> include examples</label>
+      </div>
 
-          <!-- Per-tab options bars -->
-          <div id="opts-ts" class="jc-panel-options">
-            <span class="jc-panel-label">Root</span>
-            <input class="jc-input-sm" id="ts-root-name" type="text" value="Root" aria-label="Root interface name" maxlength="60" />
-            <div class="jc-panel-divider"></div>
-            <span class="jc-panel-label">Style</span>
-            <select class="jc-select" id="ts-style">
-              <option value="interface">interface</option>
-              <option value="type">type alias</option>
-            </select>
-            <div class="jc-panel-divider"></div>
-            <label class="jc-toggle"><input type="checkbox" id="ts-export" checked /> export</label>
-            <label class="jc-toggle"><input type="checkbox" id="ts-optional" /> optional</label>
-          </div>
+      <div id="opts-mock" class="jc-panel-options" style="display:none">
+        <span class="jc-panel-label">Records</span>
+        <input class="jc-input-sm" id="mock-count" type="number" value="5" min="1" max="100" style="width:70px" aria-label="Number of mock records" />
+      </div>
 
-          <div id="opts-zod" class="jc-panel-options" style="display:none">
-            <span class="jc-panel-label">Root</span>
-            <input class="jc-input-sm" id="zod-root-name" type="text" value="Root" aria-label="Root schema name" maxlength="60" />
-            <div class="jc-panel-divider"></div>
-            <label class="jc-toggle"><input type="checkbox" id="zod-export" checked /> export</label>
-            <label class="jc-toggle"><input type="checkbox" id="zod-infer" checked /> z.infer type</label>
-          </div>
+      <!-- Stats bar -->
+      <div id="jc-stats" class="jc-stats" style="display:none">
+        <div class="jc-stat"><span>Interfaces</span><span class="jc-stat__val" id="jc-stat-ifaces">0</span></div>
+        <div class="jc-stat"><span>Properties</span><span class="jc-stat__val" id="jc-stat-props">0</span></div>
+      </div>
 
-          <div id="opts-mongoose" class="jc-panel-options" style="display:none">
-            <span class="jc-panel-label">Model</span>
-            <input class="jc-input-sm" id="mg-model-name" type="text" value="MyModel" aria-label="Mongoose model name" maxlength="60" />
-            <div class="jc-panel-divider"></div>
-            <label class="jc-toggle"><input type="checkbox" id="mg-timestamps" checked /> timestamps</label>
-          </div>
+      <!-- Output area -->
+      <pre class="jc-output jc-output--empty" id="jc-output" tabindex="0" role="region" aria-label="Conversion output">Select a tab and paste JSON to begin…</pre>
 
-          <div id="opts-sql" class="jc-panel-options" style="display:none">
-            <span class="jc-panel-label">Table</span>
-            <input class="jc-input-sm" id="sql-table" type="text" value="my_table" aria-label="SQL table name" maxlength="60" />
-            <div class="jc-panel-divider"></div>
-            <span class="jc-panel-label">Dialect</span>
-            <select class="jc-select" id="sql-dialect">
-              <option value="postgres">PostgreSQL</option>
-              <option value="mysql">MySQL</option>
-              <option value="sqlite">SQLite</option>
-            </select>
-            <div class="jc-panel-divider"></div>
-            <label class="jc-toggle"><input type="checkbox" id="sql-inserts" checked /> INSERT</label>
-          </div>
+      <!-- Action buttons -->
+      <div class="jc-actions">
+        <button class="btn btn--ghost" id="jc-copy-btn">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:3px">
+            <rect x="1" y="3" width="7" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M3.5 3V2a1 1 0 011-1h4.5a1 1 0 011 1v7a1 1 0 01-1 1H8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          Copy
+        </button>
+        <button class="btn btn--ghost" id="jc-download-btn">Download</button>
+      </div>
+    </div>
 
-          <div id="opts-openapi" class="jc-panel-options" style="display:none">
-            <span class="jc-panel-label">Schema name</span>
-            <input class="jc-input-sm" id="oa-schema-name" type="text" value="MySchema" aria-label="OpenAPI schema name" maxlength="60" />
-            <div class="jc-panel-divider"></div>
-            <label class="jc-toggle"><input type="checkbox" id="oa-required" checked /> mark required</label>
-          </div>
-
-          <div id="opts-jsonschema" class="jc-panel-options" style="display:none">
-            <label class="jc-toggle"><input type="checkbox" id="js-required" checked /> mark required</label>
-            <div class="jc-panel-divider"></div>
-            <label class="jc-toggle"><input type="checkbox" id="js-examples" checked /> include examples</label>
-          </div>
-
-          <div id="opts-mock" class="jc-panel-options" style="display:none">
-            <span class="jc-panel-label">Records</span>
-            <input class="jc-input-sm" id="mock-count" type="number" value="5" min="1" max="100" style="width:70px" aria-label="Number of mock records" />
-          </div>
-
-          <!-- Output pre -->
-          <div id="jc-stats" class="jc-stats" style="display:none;margin-top:var(--space-2)">
-            <div class="jc-stat"><span>Interfaces</span><span class="jc-stat__val" id="jc-stat-ifaces">0</span></div>
-            <div class="jc-stat"><span>Properties</span><span class="jc-stat__val" id="jc-stat-props">0</span></div>
-          </div>
-
-          <pre class="jc-output jc-output--empty" id="jc-output" tabindex="0" role="region" aria-label="Conversion output">Select a tab and paste JSON to begin…</pre>
-
-          <!-- Action buttons -->
-          <div class="jc-actions">
-            <button class="btn btn--ghost" id="jc-copy-btn">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style="vertical-align:-1px;margin-right:3px">
-                <rect x="1" y="3" width="7" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M3.5 3V2a1 1 0 011-1h4.5a1 1 0 011 1v7a1 1 0 01-1 1H8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              </svg>
-              Copy
-            </button>
-            <button class="btn btn--ghost" id="jc-download-btn">Download</button>
-          </div>
-        </div>
-
-      </div><!-- /jc-layout -->
-</div>
+  </div><!-- /jc-layout -->
 
   <script is:inline>
 

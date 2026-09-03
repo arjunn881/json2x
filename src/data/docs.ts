@@ -446,7 +446,7 @@ INSERT INTO users (id, name, email, is_active) VALUES
     filename: 'json-multi-converter-architecture.mdx',
     frontmatter: {
       title: '7-in-1 JSON Multi-Converter Architecture & AST Pipelines',
-      description: 'Technical architecture of the unified 7-in-1 JSON multi-converter: simultaneous synthesis of TypeScript, Zod, Mongoose, SQL, OpenAPI 3.0, JSON Schema, and Mock Data.',
+      description: 'Technical architecture of the 7-in-1 JSON multi-converter: simultaneous synthesis of TypeScript, Zod, Mongoose, SQL, OpenAPI 3.0, and mock data.',
       category: 'Code & Schema',
       tags: ['json-converter', 'multi-converter', 'typescript', 'zod', 'openapi', 'mongoose'],
       author: 'Staff Developer Tools Engineer',

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import FAQSchema from '../components/seo/FAQSchema.astro';
 import type { BlogArticle } from '../data/blog';
 import { BLOG_ARTICLES } from '../data/blog';
 
@@ -9,6 +10,11 @@ export interface Props {
 }
 
 const { article } = Astro.props;
+
+// Approximate word count from sections + intro for BlogPosting schema
+const wordCount = Math.round(
+  (article.intro.length + article.sections.reduce((acc, s) => acc + s.body.length + s.heading.length, 0)) / 5
+);
 
 const blogPostingSchema = {
   '@context': 'https://schema.org',
@@ -26,16 +32,41 @@ const blogPostingSchema = {
   },
   'datePublished': article.date,
   'dateModified': article.date,
-  'mainEntityOfPage': `https://json2x.com/blog/${article.slug}`
+  'mainEntityOfPage': `https://json2x.com/blog/${article.slug}`,
+  'wordCount': wordCount,
+  'articleSection': article.category,
+  'keywords': article.tags.join(', '),
+  // AEO/GEO: speakable — signals to Google & AI engines which content to read aloud / extract
+  'speakable': {
+    '@type': 'SpeakableSpecification',
+    'cssSelector': ['.tool-hero__title', '.tool-hero__desc', '#blog-intro']
+  }
 };
 
 const relatedArticles = BLOG_ARTICLES
   .filter((b) => b.slug !== article.slug)
   .slice(0, 5);
+
+// Google renders roughly 60 characters of a title. Slicing at a fixed offset chops
+// words mid-syllable ("…in the Browser Wit | JSON2X"), which reads as broken in the
+// SERP, so trim back to the last word boundary instead and only keep the brand
+// suffix when the headline still fits beside it.
+const TITLE_BUDGET = 60;
+
+function fitTitle(headline: string): string {
+  const full = `${headline} | JSON2X`;
+  if (full.length <= TITLE_BUDGET) return full;
+  if (headline.length <= TITLE_BUDGET) return headline;
+  const cut = headline.slice(0, TITLE_BUDGET);
+  const lastSpace = cut.lastIndexOf(' ');
+  return (lastSpace > 30 ? cut.slice(0, lastSpace) : cut).replace(/[\s,:;—-]+$/, '');
+}
+
+const pageTitle = fitTitle(article.title);
 ---
 
 <BaseLayout
-  title={`${article.title.slice(0, 65)} | JSON2X`}
+  title={pageTitle}
   description={article.metaDesc}
   canonical={`/blog/${article.slug}`}
   currentId="blog"
@@ -44,9 +75,12 @@ const relatedArticles = BLOG_ARTICLES
   author={article.author}
   schema={blogPostingSchema}
 >
+  {/* AEO: FAQPage JSON-LD for rich results and AI Q&A extraction */}
+  {article.faqs && article.faqs.length > 0 && <FAQSchema faqs={article.faqs} />}
+
   <Breadcrumbs
     items={[
-      { label: 'Engineering Blog', href: '/blog/' },
+      { label: 'Engineering Blog', href: '/blog' },
       { label: article.h1 }
     ]}
   />
@@ -58,7 +92,8 @@ const relatedArticles = BLOG_ARTICLES
   </div>
 
   <article class="faq-prose" style="margin-bottom:var(--space-12);">
-    <div style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
+    {/* id=blog-intro is referenced by speakable cssSelector in BlogPosting schema */}
+    <div id="blog-intro" style="padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;margin-bottom:var(--space-8);">
       {article.intro}
     </div>
 

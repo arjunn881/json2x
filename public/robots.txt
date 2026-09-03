@@ -1,7 +1,7 @@
 # ================================================================
 # JSON2X (json2x.com) — Production-Grade robots.txt
 # Conforms to RFC 9309 | Google Search Central Best Practices
-# Last updated: 2026-08-19
+# Last updated: 2026-08-23
 # ================================================================
 
 # ----------------------------------------------------------------
@@ -54,10 +54,14 @@ Disallow: /*?preview=*
 Disallow: /*?draft=*
 
 # ----------------------------------------------------------------
-# AI & LLM CRAWLERS — Allow content for AI training visibility
-# (IndexNow-compatible agents get full read access)
+# AI & LLM CRAWLERS — Allow content for AI training & RAG visibility
+# (All AI/GEO crawlers get full read access to maximise citation quality)
+# See also: /llms.txt and /llms-full.txt
 # ----------------------------------------------------------------
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ClaudeBot
@@ -67,6 +71,21 @@ User-agent: anthropic-ai
 Allow: /
 
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Gemini-Crawler
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Applebot
 Allow: /
 
 # ----------------------------------------------------------------
@@ -103,3 +122,11 @@ Disallow: /*?draft=*
 # ----------------------------------------------------------------
 Sitemap: https://json2x.com/sitemap-index.xml
 Sitemap: https://json2x.com/sitemap-images.xml
+
+# ----------------------------------------------------------------
+# GEO — AI Crawler Context Files (llms.txt standard)
+# See https://llmstxt.org for the specification
+# ----------------------------------------------------------------
+# LLM-Context: https://json2x.com/llms.txt
+# LLM-Context-Full: https://json2x.com/llms-full.txt
+

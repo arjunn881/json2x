@@ -1,0 +1,55 @@
+---
+export interface HowToStep {
+  name: string;
+  text: string;
+  url?: string;
+}
+
+export interface Props {
+  name: string;
+  description: string;
+  totalTime?: string;    // ISO 8601 duration, e.g. "PT1M"
+  estimatedCost?: string;
+  steps: HowToStep[];
+  toolName?: string;
+  toolUrl?: string;
+}
+
+const {
+  name,
+  description,
+  totalTime = 'PT1M',
+  estimatedCost = '0',
+  steps,
+  toolName = 'JSON2X',
+  toolUrl = 'https://json2x.com'
+} = Astro.props;
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  'name': name,
+  'description': description,
+  'totalTime': totalTime,
+  'estimatedCost': {
+    '@type': 'MonetaryAmount',
+    'currency': 'USD',
+    'value': estimatedCost
+  },
+  'tool': [
+    {
+      '@type': 'HowToTool',
+      'name': toolName,
+      'url': toolUrl
+    }
+  ],
+  'step': steps.map((step, idx) => ({
+    '@type': 'HowToStep',
+    'position': idx + 1,
+    'name': step.name,
+    'text': step.text,
+    ...(step.url ? { 'url': step.url } : {})
+  }))
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />

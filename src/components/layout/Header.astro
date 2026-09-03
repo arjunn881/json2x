@@ -71,10 +71,16 @@ const LANGUAGES = [
 
     <nav class="site-nav" aria-label="Primary navigation">
       <div class="site-nav__dropdown-wrap">
-        <a class={`site-nav__link${currentId.includes('tool') || currentId === 'catalog' ? ' active' : ''}`} href="/tools/">
+        <a
+          class={`site-nav__link site-nav__link--has-menu${currentId.includes('tool') || currentId === 'catalog' ? ' active' : ''}`}
+          href="/tools"
+          aria-expanded="false"
+          aria-controls="catalog-menu"
+        >
           Catalog
+          <svg class="site-nav__caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <div class="site-nav__dropdown-menu">
+        <div class="site-nav__dropdown-menu" id="catalog-menu">
           {CATEGORIES.map((cat) => {
             const catTools = TOOLS.filter((t) => t.category === cat.id);
             return (
@@ -98,9 +104,9 @@ const LANGUAGES = [
         </div>
       </div>
 
-      <a class={`site-nav__link${currentId === 'docs' ? ' active' : ''}`} href="/docs/">Docs</a>
-      <a class={`site-nav__link${currentId === 'kb' ? ' active' : ''}`} href="/kb/">Knowledge Base</a>
-      <a class={`site-nav__link${currentId === 'blog' ? ' active' : ''}`} href="/blog/">Blog</a>
+      <a class={`site-nav__link${currentId === 'docs' ? ' active' : ''}`} href="/docs">Docs</a>
+      <a class={`site-nav__link${currentId === 'kb' ? ' active' : ''}`} href="/kb">Knowledge Base</a>
+      <a class={`site-nav__link${currentId === 'blog' ? ' active' : ''}`} href="/blog">Blog</a>
     </nav>
 
     <!-- Search Button -->
@@ -155,7 +161,7 @@ const LANGUAGES = [
 
   <!-- Quick Tools Index Link -->
   <div style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);background:var(--bg-raised);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:space-between;border:1px solid var(--bg-border);">
-    <a href="/tools/" style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">Browse All Tools Catalog &rarr;</a>
+    <a href="/tools" style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">Browse All Tools Catalog &rarr;</a>
   </div>
 
   <!-- Collapsible Categorized Tool Accordions -->
@@ -200,9 +206,9 @@ const LANGUAGES = [
       </svg>
     </summary>
     <div class="mobile-nav__cat-links">
-      <a class={`mobile-nav__link${currentId === 'docs' ? ' active' : ''}`} href="/docs/">Documentation Matrix</a>
-      <a class={`mobile-nav__link${currentId === 'kb' ? ' active' : ''}`} href="/kb/">Knowledge Base Guides</a>
-      <a class={`mobile-nav__link${currentId === 'blog' ? ' active' : ''}`} href="/blog/">Engineering Blog</a>
+      <a class={`mobile-nav__link${currentId === 'docs' ? ' active' : ''}`} href="/docs">Documentation Matrix</a>
+      <a class={`mobile-nav__link${currentId === 'kb' ? ' active' : ''}`} href="/kb">Knowledge Base Guides</a>
+      <a class={`mobile-nav__link${currentId === 'blog' ? ' active' : ''}`} href="/blog">Engineering Blog</a>
     </div>
   </details>
 
@@ -241,6 +247,60 @@ const LANGUAGES = [
     // Header single theme toggle
     var toggle = document.getElementById('theme-toggle');
     if (toggle) toggle.addEventListener('click', toggleTheme);
+
+    // Catalog mega-menu
+    // Desktop (real hover): CSS :hover / :focus-within opens it, and a click on
+    // "Catalog" navigates straight to /tools. Touch (no hover): first tap opens
+    // the menu, second tap follows the link.
+    var catalogWrap = document.querySelector('.site-nav__dropdown-wrap');
+    var catalogLink = catalogWrap && catalogWrap.querySelector('.site-nav__link');
+    if (catalogWrap && catalogLink) {
+      var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+      function setCatalogOpen(open) {
+        catalogWrap.classList.toggle('open', open);
+        catalogLink.setAttribute('aria-expanded', String(open));
+      }
+
+      catalogLink.addEventListener('click', function (e) {
+        if (canHover.matches) return; // let the link navigate on desktop
+        if (!catalogWrap.classList.contains('open')) {
+          e.preventDefault();
+          setCatalogOpen(true);
+        }
+      });
+
+      // Keep aria-expanded honest for hover/focus-driven opening
+      catalogWrap.addEventListener('pointerenter', function () {
+        if (canHover.matches) catalogLink.setAttribute('aria-expanded', 'true');
+      });
+      catalogWrap.addEventListener('pointerleave', function () {
+        if (canHover.matches && !catalogWrap.classList.contains('open')) {
+          catalogLink.setAttribute('aria-expanded', 'false');
+        }
+      });
+      catalogWrap.addEventListener('focusin', function () {
+        catalogLink.setAttribute('aria-expanded', 'true');
+      });
+      catalogWrap.addEventListener('focusout', function (e) {
+        if (!catalogWrap.contains(e.relatedTarget) && !catalogWrap.classList.contains('open')) {
+          catalogLink.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!catalogWrap.contains(e.target)) setCatalogOpen(false);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && catalogWrap.contains(document.activeElement)) {
+          setCatalogOpen(false);
+          catalogLink.blur();
+        } else if (e.key === 'Escape') {
+          setCatalogOpen(false);
+        }
+      });
+    }
 
     // Mobile nav drawer toggle
     var navToggle = document.getElementById('nav-toggle');

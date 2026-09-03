@@ -10,7 +10,8 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   'name': 'JSON2X Developer Tools Suite',
-  'url': 'https://json2x.com/tools/index',
+  'url': 'https://json2x.com/tools/',
+  'numberOfItems': TOOLS.length,
   'itemListElement': TOOLS.map((t, idx) => ({
     '@type': 'ListItem',
     'position': idx + 1,
@@ -23,7 +24,7 @@ const itemListSchema = {
 <BaseLayout
   title={siteTitle}
   description={siteDesc}
-  canonical="/tools/"
+  canonical="/tools"
   currentId="tools-index"
   schema={itemListSchema}
 >
@@ -52,7 +53,7 @@ const itemListSchema = {
   {CATEGORIES.map((cat) => {
     const catTools = TOOLS.filter((t) => t.category === cat.id);
     return (
-      <section class="cat-section" data-category={cat.id} style="margin-bottom:var(--space-12);">
+      <section class="cat-section" id={cat.id} data-category={cat.id} style="margin-bottom:var(--space-12);">
         <div class="cat-section__header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);padding-bottom:var(--space-3);border-bottom:1px solid var(--bg-border);">
           <h2 class="cat-section__title" style="font-size:var(--text-lg);font-weight:var(--font-bold);color:var(--text-primary);display:flex;align-items:center;gap:var(--space-2);">
             <Fragment set:html={cat.icon} />

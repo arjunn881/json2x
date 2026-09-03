@@ -11,10 +11,14 @@ export interface Props {
 const { items } = Astro.props;
 const siteUrl = 'https://json2x.com';
 
+// The visible trail starts at Home, so the JSON-LD must too — Google requires
+// BreadcrumbList to match the rendered breadcrumb exactly.
+const schemaItems: BreadcrumbItem[] = [{ label: 'Home', href: '/' }, ...items];
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  'itemListElement': items.map((item, index) => ({
+  'itemListElement': schemaItems.map((item, index) => ({
     '@type': 'ListItem',
     'position': index + 1,
     'name': item.label,

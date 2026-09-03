@@ -20,85 +20,207 @@ const tool = getToolBySlugOrId('json-mock-generator') || {
 ---
 
 <ToolLayout tool={tool}>
-  
+  <style>
+    .mg-form {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--space-5);
+      padding:        var(--space-5);
+      background:     var(--bg-base);
+      flex:           1;
+    }
 
-  <div class="options-bar" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);">
-        <label class="flex items-center gap-2 text-sm text-secondary">
-          Dataset Template:
-          <select id="template-select" class="jc-select" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;" aria-label="Mock Dataset Template">
-            <option value="users" selected>Users Profile</option>
-            <option value="products">E-Commerce Products</option>
-            <option value="transactions">Financial Transactions</option>
-            <option value="logs">Server Logs</option>
-          </select>
-        </label>
-        <label class="flex items-center gap-2 text-sm text-secondary">
-          Record Count:
-          <input type="number" id="count-input" value="10" min="1" max="500" style="padding:4px 8px;background:var(--bg-base);color:var(--text-primary);border:1px solid var(--bg-border);border-radius:4px;width:80px;" aria-label="Mock Record Count" />
-        </label>
-        <button class="btn btn--primary" id="generate-btn">Generate JSON</button>
-        <button class="btn btn--ghost btn--sm" id="copy-btn" style="margin-left:auto">Copy Output</button>
-        <button class="btn btn--ghost btn--sm" id="download-btn">Download .json</button>
+    .mg-field {
+      display:        flex;
+      flex-direction: column;
+      gap:            var(--space-2);
+    }
+
+    .mg-field__label {
+      font-size:      var(--text-xs);
+      font-weight:    var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color:          var(--text-secondary);
+    }
+
+    .mg-field__hint {
+      font-size:   var(--text-xs);
+      color:       var(--text-muted);
+      line-height: var(--leading-relaxed);
+    }
+
+    .mg-control {
+      width:         100%;
+      padding:       var(--space-3) var(--space-4);
+      background:    var(--bg-raised);
+      color:         var(--text-primary);
+      border:        1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      font-size:     var(--text-sm);
+      font-family:   var(--font-sans);
+      outline:       none;
+      transition:    border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .mg-control:focus-visible {
+      border-color: var(--accent);
+      box-shadow:   0 0 0 3px var(--accent-glow);
+    }
+
+    .mg-actions {
+      display:     flex;
+      flex-wrap:   wrap;
+      gap:         var(--space-3);
+      margin-top:  auto;
+      padding-top: var(--space-4);
+    }
+  </style>
+
+  <div class="tw-workspace tw-workspace--sticky-out">
+    <!-- ── LEFT: input / configuration ───────────────────────── -->
+    <section class="tw-pane tw-pane--input" aria-label="Mock data options">
+      <div class="tw-pane__header">
+        <h2 class="tw-pane__title">Options <span class="tw-pane__side">Input</span></h2>
       </div>
+      <div class="mg-form">
+        <div class="mg-field">
+          <label class="mg-field__label" for="template-select">Dataset template</label>
+          <select class="mg-control" id="template-select" aria-describedby="template-hint">
+            <option value="users" selected>Users &mdash; profiles, roles, scores</option>
+            <option value="products">E-commerce products &mdash; price, stock, tags</option>
+            <option value="transactions">Financial transactions &mdash; amount, status</option>
+            <option value="logs">Server logs &mdash; level, latency, status code</option>
+          </select>
+          <span class="mg-field__hint" id="template-hint">Each template produces a realistic field set you can paste straight into a test fixture.</span>
+        </div>
 
-      <div class="split-pane" style="grid-template-columns: 1fr;">
-        <div class="pane">
-          <div class="pane__header"><span class="pane__title">Generated JSON Dataset</span></div>
-          <pre class="code-output" id="converter-output" tabindex="0" style="min-height:360px;font-family:var(--font-mono);padding:var(--space-4);background:var(--bg-base);border:1px solid var(--bg-border);border-radius:var(--radius-lg);overflow:auto;"></pre>
+        <div class="mg-field">
+          <label class="mg-field__label" for="count-input">Record count</label>
+          <input class="mg-control" type="number" id="count-input" value="10" min="1" max="500" aria-describedby="count-hint" />
+          <span class="mg-field__hint" id="count-hint">1&ndash;500 records. Generated in your browser &mdash; nothing is uploaded.</span>
+        </div>
+
+        <div class="mg-field">
+          <label class="mg-field__label" for="root-key-input">Wrap in root key <span style="text-transform:none;font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <input class="mg-control" type="text" id="root-key-input" placeholder="e.g. data" maxlength="40" aria-describedby="root-hint" />
+          <span class="mg-field__hint" id="root-hint">Leave empty for a bare array. Enter a key to emit <code>&#123;"data": [ … ]&#125;</code>.</span>
+        </div>
+
+        <div class="mg-field">
+          <label class="mg-field__label" for="indent-select">Output format</label>
+          <select class="mg-control" id="indent-select">
+            <option value="2" selected>Pretty &mdash; 2 spaces</option>
+            <option value="4">Pretty &mdash; 4 spaces</option>
+            <option value="0">Minified &mdash; single line</option>
+          </select>
+        </div>
+
+        <div class="mg-actions">
+          <button class="btn btn--primary" id="generate-btn">Generate JSON</button>
+          <button class="btn btn--ghost btn--sm" id="clear-btn">Clear output</button>
         </div>
       </div>
+    </section>
 
-      <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
-
-      <div class="crosslinks" style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-3);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);margin-top:var(--space-6);" aria-label="Related tools">
-        <span style="font-weight:600;color:var(--text-muted);font-size:var(--text-xs);text-transform:uppercase;">Related Tools</span>
-        <a href="json-formatter" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Formatter</a>
-        <a href="json-validator" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON Validator</a>
-        <a href="json-to-csv" style="color:var(--accent);text-decoration:none;font-size:var(--text-sm);">JSON to CSV</a>
+    <!-- ── RIGHT: output ─────────────────────────────────────── -->
+    <section class="tw-pane tw-pane--output" aria-label="Generated JSON">
+      <div class="tw-pane__header">
+        <h2 class="tw-pane__title">Generated JSON <span class="tw-pane__side">Output</span></h2>
+        <div class="tw-pane__meta">
+          <span id="stat-records">0 records</span>
+          <span id="stat-size">0 B</span>
+        </div>
       </div>
+      <pre class="tw-output" id="converter-output" tabindex="0" data-placeholder="Choose a template and click Generate JSON — your dataset appears here."></pre>
+      <div class="tw-pane__header" style="border-top:1px solid var(--bg-border);border-bottom:0">
+        <button class="btn btn--ghost btn--sm" id="copy-btn">Copy</button>
+        <button class="btn btn--ghost btn--sm" id="download-btn">Download .json</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="tool-status" role="status" aria-live="polite" style="margin-top:var(--space-4)"></div>
 
   <script is:inline>
 
     (function() {
       'use strict';
       const templateSel = document.getElementById('template-select');
-      const countInput = document.getElementById('count-input');
-      const outputEl = document.getElementById('converter-output');
-      const statusEl = document.getElementById('tool-status');
+      const countInput  = document.getElementById('count-input');
+      const rootKeyEl   = document.getElementById('root-key-input');
+      const indentSel   = document.getElementById('indent-select');
+      const outputEl    = document.getElementById('converter-output');
+      const statusEl    = document.getElementById('tool-status');
+      const recordsEl   = document.getElementById('stat-records');
+      const sizeEl      = document.getElementById('stat-size');
 
       function showStatus(msg, type = 'info') {
         statusEl.innerHTML = msg ? `<div class="alert alert--${type}">${msg}</div>` : '';
       }
 
+      function formatBytes(n) {
+        if (n < 1024) return n + ' B';
+        if (n < 1048576) return (n / 1024).toFixed(1) + ' KB';
+        return (n / 1048576).toFixed(2) + ' MB';
+      }
+
+      function setStats(count, text) {
+        recordsEl.textContent = count + (count === 1 ? ' record' : ' records');
+        sizeEl.textContent = formatBytes(new Blob([text]).size);
+      }
+
       function generate() {
         const tpl = templateSel.value;
-        const count = countInput.value;
-
-        const { json, error } = JT.generateMockJson(tpl, count);
+        const { json, error } = JT.generateMockJson(tpl, countInput.value);
         if (error) {
-          showStatus(`Mock Generation Error: ${error}`, 'error');
+          showStatus(`Mock generation error: ${error}`, 'error');
           return;
         }
 
-        outputEl.textContent = json;
-        showStatus(`Generated ${countInput.value} synthetic ${templateSel.value} records!`, 'success');
+        let items;
+        try {
+          items = JSON.parse(json);
+        } catch (e) {
+          showStatus('Mock generation error: could not parse generated data.', 'error');
+          return;
+        }
+
+        const indent = parseInt(indentSel.value, 10) || 0;
+        const rootKey = rootKeyEl.value.trim();
+        const payload = rootKey ? { [rootKey]: items } : items;
+        const text = JSON.stringify(payload, null, indent);
+
+        outputEl.textContent = text;
+        setStats(items.length, text);
+        showStatus(`Generated ${items.length} synthetic ${tpl} records.`, 'success');
+      }
+
+      function clearOutput() {
+        outputEl.textContent = '';
+        recordsEl.textContent = '0 records';
+        sizeEl.textContent = '0 B';
+        showStatus('');
       }
 
       document.getElementById('generate-btn').addEventListener('click', generate);
+      document.getElementById('clear-btn').addEventListener('click', clearOutput);
       templateSel.addEventListener('change', generate);
+      indentSel.addEventListener('change', function () { if (outputEl.textContent) generate(); });
+      rootKeyEl.addEventListener('input', JT.debounce(function () { if (outputEl.textContent) generate(); }, 300));
       countInput.addEventListener('input', JT.debounce(generate, 300));
 
       document.getElementById('copy-btn').addEventListener('click', () => {
         const res = outputEl.textContent;
-        if (!res) return;
+        if (!res) return showStatus('Nothing to copy — generate a dataset first.', 'warning');
         JT.copyToClipboard(res)
-          .then(() => showStatus('Copied mock JSON to clipboard!', 'success'))
+          .then(() => showStatus('Copied mock JSON to clipboard.', 'success'))
           .catch(() => showStatus('Copy failed.', 'warning'));
       });
 
       document.getElementById('download-btn').addEventListener('click', () => {
         const res = outputEl.textContent;
-        if (!res) return;
+        if (!res) return showStatus('Nothing to download — generate a dataset first.', 'warning');
         const blob = new Blob([res], { type: 'application/json;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -108,7 +230,6 @@ const tool = getToolBySlugOrId('json-mock-generator') || {
         setTimeout(() => URL.revokeObjectURL(url), 5000);
       });
 
-      // Initial generation
       generate();
     })();
   

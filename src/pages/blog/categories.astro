@@ -14,7 +14,7 @@ const categories = Array.from(new Set(BLOG_ARTICLES.map((a) => a.category)));
 >
   <Breadcrumbs
     items={[
-      { label: 'Engineering Blog', href: '/blog/' },
+      { label: 'Engineering Blog', href: '/blog' },
       { label: 'Categories' }
     ]}
   />
@@ -35,7 +35,7 @@ const categories = Array.from(new Set(BLOG_ARTICLES.map((a) => a.category)));
         </div>
         <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-4);">
           {articles.map((art) => (
-            <a href={`//blog/${art.slug}`} class="faq-card" style="text-decoration:none;">
+            <a href={`/blog/${art.slug}`} class="faq-card" style="text-decoration:none;">
               <h3 class="faq-card__q" style="font-size:var(--text-sm);margin-bottom:var(--space-1);">{art.h1}</h3>
               <p class="faq-card__a" style="font-size:var(--text-xs);">{art.metaDesc}</p>
             </a>

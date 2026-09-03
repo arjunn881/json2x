@@ -41,6 +41,11 @@ const baseSchemas = [
       '@type': 'SearchAction',
       'target': 'https://json2x.com/tools/?q={search_term_string}',
       'query-input': 'required name=search_term_string'
+    },
+    // GEO: speakable — marks key page sections for AI voice/summary extraction
+    'speakable': {
+      '@type': 'SpeakableSpecification',
+      'cssSelector': ['h1', '.tool-hero__desc', '#direct-answer', '#blog-intro', '.tool-hero__title']
     }
   },
   {

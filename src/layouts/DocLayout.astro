@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 import { DOCS } from '../data/docs';
+import { getToolBySlugOrId } from '../data/tools';
 
 export interface Props {
   title: string;
@@ -30,6 +31,12 @@ const techArticleSchema = {
   '@type': 'TechArticle',
   'headline': title,
   'description': description,
+  'inLanguage': 'en',
+  'articleSection': category,
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': `https://json2x.com${canonical}`
+  },
   'author': {
     '@type': 'Organization',
     'name': author
@@ -43,12 +50,31 @@ const techArticleSchema = {
   }
 };
 
-const currentSlug = canonical.replace('/docs/', '').replace(/\/$/, '');
+// `primaryTool` is authored as a tool id, slug, or alias; expose the resolved
+// tool so the page-level CTA can link to the canonical URL, not an alias.
+const ctaTool = getToolBySlugOrId(primaryTool);
+const relatedTools = ctaTool
+  ? ctaTool.related
+      .map((r) => getToolBySlugOrId(r))
+      .filter((t): t is NonNullable<typeof t> => Boolean(t))
+      .slice(0, 4)
+  : [];
+
+const currentSlug = canonical.replace('/docs', '').replace(/\/$/, '');
 const relatedDocs = DOCS.filter((d) => d.filename.replace(/\.mdx?$/, '') !== currentSlug).slice(0, 5);
+
+// Google renders roughly 60 characters of a title, and " | JSON2X Docs" costs 14 of
+// them. Keep the suffix only while the doc title still fits beside it; past that the
+// title itself carries the keywords, so it gets the whole budget.
+const TITLE_BUDGET = 60;
+const branded = `${title} | JSON2X Docs`;
+const pageTitle = branded.length <= TITLE_BUDGET
+  ? branded
+  : (`${title} | JSON2X`.length <= TITLE_BUDGET ? `${title} | JSON2X` : title);
 ---
 
 <BaseLayout
-  title={`${title} | JSON2X Docs`}
+  title={pageTitle}
   description={description}
   canonical={canonical}
   currentId="docs"
@@ -56,7 +82,7 @@ const relatedDocs = DOCS.filter((d) => d.filename.replace(/\.mdx?$/, '') !== cur
 >
   <Breadcrumbs
     items={[
-      { label: 'Documentation', href: '/docs/' },
+      { label: 'Documentation', href: '/docs' },
       { label: title }
     ]}
   />
@@ -69,15 +95,26 @@ const relatedDocs = DOCS.filter((d) => d.filename.replace(/\.mdx?$/, '') !== cur
 
   <article class="faq-prose" style="margin-bottom:var(--space-12);">
     <slot />
-
-    {primaryTool && (
-      <div class="tool-cta-banner">
-        <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
-        <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
-        <a href={`/tools/${primaryTool}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
-      </div>
-    )}
   </article>
+
+  {relatedTools.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Tools referenced in this document</h2>
+      <div class="related-tools-grid">
+        {relatedTools.map((t) => (
+          <a href={t.href} class="related-tool-card">
+            <span class="related-tool-card__icon">
+              <Fragment set:html={t.icon} />
+            </span>
+            <span class="related-tool-card__body">
+              <span class="related-tool-card__title">{t.name}</span>
+              <span class="related-tool-card__desc">{t.desc}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   {relatedDocs.length > 0 && (
     <section class="tool-section" style="margin-top:var(--space-12);">

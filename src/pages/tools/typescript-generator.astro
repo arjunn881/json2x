@@ -1,4 +1,4 @@
-﻿---
+---
 import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getToolBySlugOrId } from '../../data/tools';
 
@@ -35,10 +35,10 @@ const tool = getToolBySlugOrId('typescript-generator') || {
     /* ── Layout ───────────────────────────────────────────── */
     .ts-workspace {
       display: grid;
-      gap:     var(--space-5);
-      margin-bottom: var(--space-5);
+      gap:     var(--space-6);
+      margin-bottom: var(--space-6);
     }
-    @media (min-width: 800px) {
+    @media (min-width: 900px) {
       .ts-workspace { grid-template-columns: 1fr 1fr; align-items: start; }
     }
 
@@ -89,7 +89,7 @@ const tool = getToolBySlugOrId('typescript-generator') || {
       background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg);
       padding:var(--space-4); font-family:var(--font-mono); font-size:var(--text-xs);
       line-height:var(--leading-relaxed); color:var(--text-primary); outline:none; resize:vertical;
-      min-height:300px; tab-size:2; transition:border-color var(--transition-fast), box-shadow var(--transition-fast);
+      min-height:460px; tab-size:2; transition:border-color var(--transition-fast), box-shadow var(--transition-fast);
     }
     .ts-textarea:focus  { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
     .ts-textarea.error  { border-color:var(--error);  box-shadow:0 0 0 3px var(--error-bg); }
@@ -98,7 +98,7 @@ const tool = getToolBySlugOrId('typescript-generator') || {
     .ts-output {
       font-family:var(--font-mono); font-size:var(--text-xs); line-height:var(--leading-relaxed);
       background:var(--bg-base); border:1px solid var(--bg-border); border-radius:var(--radius-lg);
-      padding:var(--space-4); min-height:300px; max-height:600px; overflow:auto;
+      padding:var(--space-4); min-height:460px; max-height:75vh; overflow:auto;
       white-space:pre; tab-size:2; color:var(--text-primary);
     }
     .ts-output--empty { color:var(--text-muted); font-style:italic; white-space:pre-wrap; }
@@ -147,15 +147,6 @@ const tool = getToolBySlugOrId('typescript-generator') || {
     .faq-prose a { color:var(--accent); }
   
 </style>
-
-  <div class="container container--tool">
-
-      <div class="tool-hero">
-        <div class="tool-hero__badge">TypeScript &amp; Zod</div>
-        <h1 class="tool-hero__title">JSON to TypeScript Generator</h1>
-        
-      </div>
-
 
       <!-- ── Toolbar ─────────────────────────────────────────── -->
       <div class="ts-toolbar" role="toolbar">
@@ -211,7 +202,7 @@ const tool = getToolBySlugOrId('typescript-generator') || {
             aria-label="JSON input"
             spellcheck="false"
             autocorrect="off"
-            placeholder='{&#10;  "user": {&#10;    "id": 1,&#10;    "name": "Alice",&#10;    "email": "alice@example.com",&#10;    "roles": ["admin", "editor"],&#10;    "active": true&#10;  }&#10;}'
+          placeholder="Paste or type JSON here…"
           ></textarea>
         </div>
 
@@ -244,9 +235,6 @@ const tool = getToolBySlugOrId('typescript-generator') || {
           </div>
         </div>
       </div>
-
-      <!-- ── Ad + Related ────────────────────────────────────── -->
-</div>
 
   <script is:inline>
 

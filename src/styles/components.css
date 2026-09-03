@@ -843,6 +843,261 @@
   }
 }
 
+/* ── JSON Converter (jc-*) — Desktop Layout: Input Left, Output Right ─────────────────────── */
+
+.jc-layout {
+  display:       grid;
+  gap:           var(--space-6);
+  margin-bottom: var(--space-6);
+  min-width:     0;
+}
+
+@media (min-width: 900px) {
+  .jc-layout {
+    grid-template-columns: 1fr 1fr;
+    align-items:           start;
+  }
+}
+
+.jc-input-pane,
+.jc-output-pane {
+  display:        flex;
+  flex-direction: column;
+  min-width:      0;
+  background:     var(--bg-raised);
+  border:         1px solid var(--bg-border);
+  border-radius:  var(--radius-lg);
+  overflow:       hidden;
+}
+
+.jc-pane-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  flex-wrap:       wrap;
+  gap:             var(--space-2);
+  padding:         var(--space-3) var(--space-4);
+  border-bottom:   1px solid var(--bg-border);
+  background:      var(--bg-surface, var(--bg-raised));
+}
+
+.jc-pane-title {
+  font-size:      var(--text-xs);
+  font-weight:    var(--font-semibold);
+  color:          var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.jc-textarea {
+  width:        100%;
+  flex:         1;
+  min-height:   460px;
+  border:       0;
+  border-radius: 0;
+  background:   var(--bg-base);
+  color:        var(--text-primary);
+  padding:      var(--space-4);
+  font-family:  var(--font-mono);
+  font-size:    var(--text-xs);
+  line-height:  var(--leading-relaxed);
+  resize:       vertical;
+  outline:      none;
+  tab-size:     2;
+}
+
+.jc-textarea:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent-glow);
+}
+
+.jc-output {
+  flex:          1;
+  min-height:    460px;
+  max-height:    75vh;
+  margin:        0;
+  padding:       var(--space-4);
+  background:    var(--bg-base);
+  color:         var(--text-primary);
+  font-family:   var(--font-mono);
+  font-size:     var(--text-xs);
+  line-height:   var(--leading-relaxed);
+  overflow:      auto;
+  white-space:   pre;
+  tab-size:      2;
+}
+
+.jc-output--empty {
+  color:       var(--text-muted);
+  font-style:  italic;
+  white-space: pre-wrap;
+}
+
+.jc-actions {
+  display:     flex;
+  align-items: center;
+  flex-wrap:   wrap;
+  gap:         var(--space-2);
+  padding:     var(--space-3) var(--space-4);
+  border-top:  1px solid var(--bg-border);
+  background:  var(--bg-raised);
+}
+
+.jc-tabs {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+  flex-wrap:   wrap;
+  padding:     var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--bg-border);
+  background:  var(--bg-surface, var(--bg-raised));
+}
+
+.jc-tab {
+  padding:       var(--space-1) var(--space-3);
+  font-size:     var(--text-xs);
+  font-weight:   var(--font-medium);
+  color:         var(--text-secondary);
+  background:    transparent;
+  border:        1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor:        pointer;
+  transition:    all var(--transition-fast);
+  white-space:   nowrap;
+}
+
+.jc-tab:hover {
+  color:      var(--text-primary);
+  background: var(--bg-overlay);
+}
+
+.jc-tab.active {
+  color:        hsl(var(--accent-hue), 60%, 42%);
+  background:   var(--accent-light);
+  border-color: hsla(var(--accent-hue), 86%, 60%, 0.35);
+}
+
+.jc-tab-badge {
+  display:       inline-block;
+  padding:       1px 5px;
+  font-size:     10px;
+  font-weight:   var(--font-semibold);
+  background:    var(--accent);
+  color:         #fff;
+  border-radius: var(--radius-sm);
+  margin-left:   2px;
+  vertical-align: middle;
+}
+
+.jc-panel-options {
+  display:     flex;
+  align-items: center;
+  flex-wrap:   wrap;
+  gap:         var(--space-3);
+  padding:     var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--bg-border);
+  background:    var(--bg-raised);
+  font-size:     var(--text-xs);
+}
+
+.jc-panel-label {
+  font-size:      var(--text-xs);
+  font-weight:    var(--font-semibold);
+  color:          var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.jc-panel-divider {
+  width:  1px;
+  height: 18px;
+  background: var(--bg-border);
+  flex-shrink: 0;
+}
+
+.jc-select {
+  padding:       var(--space-1) var(--space-2);
+  background:    var(--bg-base);
+  color:         var(--text-primary);
+  border:        1px solid var(--bg-border);
+  border-radius: var(--radius-sm);
+  font-size:     var(--text-xs);
+  font-family:   inherit;
+  cursor:        pointer;
+  outline:       none;
+}
+
+.jc-select:focus { border-color: var(--accent); }
+
+.jc-input-sm {
+  padding:       var(--space-1) var(--space-2);
+  background:    var(--bg-base);
+  color:         var(--text-primary);
+  border:        1px solid var(--bg-border);
+  border-radius: var(--radius-sm);
+  font-size:     var(--text-xs);
+  font-family:   var(--font-mono);
+  outline:       none;
+  width:         120px;
+}
+
+.jc-input-sm:focus { border-color: var(--accent); }
+
+.jc-toggle {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+  font-size:   var(--text-xs);
+  color:       var(--text-secondary);
+  cursor:      pointer;
+  user-select: none;
+}
+
+.jc-error {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--space-2);
+  padding:       var(--space-2) var(--space-4);
+  background:    var(--error-bg);
+  border:        1px solid hsla(0, 82%, 63%, 0.3);
+  border-radius: var(--radius-md);
+  font-size:     var(--text-xs);
+  color:         var(--error);
+  margin-bottom: var(--space-3);
+}
+
+.jc-error__badge {
+  flex-shrink:   0;
+  background:    var(--error);
+  color:         #fff;
+  border-radius: var(--radius-sm);
+  padding:       1px var(--space-2);
+  font-weight:   var(--font-semibold);
+  font-family:   var(--font-mono);
+  font-size:     10px;
+}
+
+.jc-stats {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+  padding:     var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--bg-border);
+  font-size:   var(--text-xs);
+  color:       var(--text-muted);
+}
+
+.jc-stat {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-1);
+}
+
+.jc-stat__val {
+  font-family: var(--font-mono);
+  font-weight: var(--font-semibold);
+  color:       var(--text-primary);
+}
+
 /* ── Fully Responsive Toolbars & Buttons (Mobile & Small Viewports — NO SLIDERS) ───────────── */
 .toolbar,
 .mn-toolbar,
@@ -867,14 +1122,17 @@
   width:           100%;
 }
 
-.tab-bar, .converter-tabs, .jc-tabs {
+.tab-bar, .converter-tabs {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   flex-wrap: wrap;
 }
 
-@media (max-width: 860px) {
+/* Mobile/tablet stacking. Kept in lockstep with the 900px two-column
+   breakpoint used by .tw-workspace, .split-pane, .ts-workspace, .jp-workspace,
+   .jc-layout, .fm-workspace and .diff-inputs. */
+@media (max-width: 899px) {
   .panes,
   .split-pane,
   .jc-layout,
@@ -2299,4 +2557,480 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--text-secondary);
   margin: 0;
 }
+
+
+/* ══════════════════════════════════════════════════════════
+   TOOL WORKSPACE — shared input/output split
+   Canonical two-column workspace for every tool page: input on
+   the left, output on the right, stacking to input-then-output
+   on narrow viewports. Replaces the per-page `.fm-*`, `.ts-*`,
+   `.jp-*` variants for new and converted tools.
+   ══════════════════════════════════════════════════════════ */
+
+.tw-workspace {
+  display:       grid;
+  gap:           var(--space-6);
+  margin-bottom: var(--space-6);
+  min-width:     0;
+}
+
+@media (min-width: 900px) {
+  .tw-workspace {
+    grid-template-columns: 1fr 1fr;
+    align-items:           start;
+  }
+
+  /* Output pane tracks the page while a tall input is edited. */
+  .tw-workspace--sticky-out > .tw-pane--output {
+    position: sticky;
+    top:      var(--space-4);
+  }
+}
+
+.tw-pane {
+  display:        flex;
+  flex-direction: column;
+  min-width:      0;
+  background:     var(--bg-raised);
+  border:         1px solid var(--bg-border);
+  border-radius:  var(--radius-lg);
+  overflow:       hidden;
+}
+
+.tw-pane__header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  flex-wrap:       wrap;
+  gap:             var(--space-2);
+  padding:         var(--space-3) var(--space-4);
+  border-bottom:   1px solid var(--bg-border);
+  background:      var(--bg-surface, var(--bg-raised));
+}
+
+.tw-pane__title {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--space-2);
+  font-size:       var(--text-xs);
+  font-weight:     var(--font-semibold);
+  color:           var(--text-secondary);
+  text-transform:  uppercase;
+  letter-spacing:  0.06em;
+  margin:          0;
+}
+
+/* Marks which side of the workspace a pane is, for assistive tech
+   and for authors scanning the markup. */
+.tw-pane__side {
+  font-size:      var(--text-2xs, 0.6875rem);
+  font-weight:    var(--font-medium);
+  color:          var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.tw-pane__meta {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-3);
+  font-size:   var(--text-xs);
+  color:       var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Editable side. `resize: vertical` only — horizontal resizing would
+   break out of the grid column. */
+.tw-input {
+  width:            100%;
+  flex:             1;
+  min-height:       460px;
+  border:           0;
+  border-radius:    0;
+  background:       var(--bg-base);
+  color:            var(--text-primary);
+  padding:          var(--space-5);
+  font-family:      var(--font-mono);
+  font-size:        var(--text-xs);
+  line-height:      var(--leading-relaxed);
+  resize:           vertical;
+  outline:          none;
+  tab-size:         2;
+}
+
+.tw-input:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent-glow);
+}
+
+/* Read-only side. Never `resize`, always scrollable. */
+.tw-output {
+  flex:          1;
+  min-height:    460px;
+  max-height:    75vh;
+  margin:        0;
+  padding:       var(--space-5);
+  background:    var(--bg-base);
+  color:         var(--text-primary);
+  font-family:   var(--font-mono);
+  font-size:     var(--text-xs);
+  line-height:   var(--leading-relaxed);
+  overflow:      auto;
+  white-space:   pre-wrap;
+  word-break:    break-word;
+  overflow-wrap: anywhere;
+}
+
+.tw-output:empty::after {
+  content:    attr(data-placeholder);
+  color:      var(--text-muted);
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TOOL PAGE CONTENT (.tp-*)
+   Long-form SEO/AEO blocks rendered below the workspace by
+   ToolLayout from src/data/tool-content.ts. Namespaced so they
+   never collide with a tool's own bespoke workspace styles.
+   ══════════════════════════════════════════════════════════════ */
+
+/* AEO: snippet-bait direct answer. Referenced by the `speakable`
+   cssSelector in SEO.astro, so keep the #direct-answer id intact. */
+.tp-answer {
+  margin:        var(--space-8) 0 var(--space-10);
+  padding:       var(--space-5) var(--space-6);
+  background:    var(--bg-raised);
+  border:        1px solid var(--bg-border);
+  border-left:   4px solid var(--accent);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.tp-answer__label {
+  display:        block;
+  margin-bottom:  var(--space-2);
+  font-size:      11px;
+  font-weight:    var(--font-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          var(--accent);
+}
+
+.tp-answer__text {
+  margin:      0;
+  font-size:   var(--text-base);
+  line-height: 1.75;
+  color:       var(--text-primary);
+}
+
+/* Long-form prose: intro paragraph + question-shaped H2 sections. */
+.tp-prose {
+  max-width: 820px;
+}
+
+.tp-prose__lead {
+  margin:      0 0 var(--space-8);
+  font-size:   var(--text-base);
+  line-height: var(--leading-relaxed);
+  color:       var(--text-secondary);
+}
+
+.tp-block {
+  margin-bottom: var(--space-8);
+}
+
+.tp-block__h2 {
+  margin:          0 0 var(--space-3);
+  font-size:       var(--text-xl);
+  font-weight:     var(--font-bold);
+  letter-spacing:  -0.01em;
+  color:           var(--text-primary);
+}
+
+.tp-block__body {
+  font-size:   var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color:       var(--text-secondary);
+}
+
+.tp-block__body p { margin: 0 0 var(--space-3); }
+.tp-block__body p:last-child { margin-bottom: 0; }
+.tp-block__body ul,
+.tp-block__body ol { margin: 0 0 var(--space-3); padding-left: var(--space-6); }
+.tp-block__body li { margin-bottom: var(--space-2); }
+.tp-block__body strong { color: var(--text-primary); font-weight: var(--font-semibold); }
+.tp-block__body a { color: var(--accent); text-decoration: none; }
+.tp-block__body a:hover { text-decoration: underline; }
+.tp-block__body code {
+  font-family:   var(--font-mono);
+  font-size:     0.9em;
+  background:    var(--bg-raised);
+  border:        1px solid var(--bg-border);
+  border-radius: var(--radius-sm);
+  padding:       1px var(--space-2);
+  color:         var(--accent);
+}
+
+/* AEO: HowTo steps, mirrored one-for-one by HowTo JSON-LD. */
+.tp-steps {
+  counter-reset: tp-step;
+  margin:        0;
+  padding:       0;
+  list-style:    none;
+  display:       grid;
+  gap:           var(--space-4);
+}
+
+.tp-steps__item {
+  position:      relative;
+  padding:       var(--space-4) var(--space-5) var(--space-4) var(--space-12);
+  background:    var(--bg-raised);
+  border:        1px solid var(--bg-border);
+  border-radius: var(--radius-lg);
+}
+
+.tp-steps__item::before {
+  counter-increment: tp-step;
+  content:           counter(tp-step);
+  position:          absolute;
+  top:               var(--space-4);
+  left:              var(--space-4);
+  display:           grid;
+  place-items:       center;
+  width:             24px;
+  height:            24px;
+  border-radius:     999px;
+  background:        var(--accent);
+  color:             var(--bg-base);
+  font-family:       var(--font-mono);
+  font-size:         var(--text-xs);
+  font-weight:       var(--font-bold);
+}
+
+.tp-steps__name {
+  display:     block;
+  margin-bottom: 4px;
+  font-size:   var(--text-sm);
+  font-weight: var(--font-semibold);
+  color:       var(--text-primary);
+}
+
+.tp-steps__text {
+  margin:      0;
+  font-size:   var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color:       var(--text-secondary);
+}
+
+/* pSEO: use-case bullets covering "for <task>" intent variants. */
+.tp-usecases {
+  display:    grid;
+  gap:        var(--space-3);
+  margin:     0;
+  padding:    0;
+  list-style: none;
+}
+
+.tp-usecases__item {
+  position:    relative;
+  padding-left: var(--space-6);
+  font-size:   var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color:       var(--text-secondary);
+}
+
+.tp-usecases__item::before {
+  content:     '';
+  position:    absolute;
+  top:         0.6em;
+  left:        0;
+  width:       7px;
+  height:      7px;
+  border-radius: 2px;
+  background:  var(--accent);
+}
+
+/* pSEO: links down into the /kb/tools/ long-tail cluster. */
+.tp-guides {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap:                   var(--space-3);
+}
+
+.tp-guides__card {
+  display:         block;
+  padding:         var(--space-4);
+  background:      var(--bg-raised);
+  border:          1px solid var(--bg-border);
+  border-radius:   var(--radius-lg);
+  text-decoration: none;
+  transition:      border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.tp-guides__card:hover {
+  border-color: var(--accent);
+  transform:    translateY(-1px);
+}
+
+.tp-guides__title {
+  display:     block;
+  font-size:   var(--text-sm);
+  font-weight: var(--font-semibold);
+  color:       var(--text-primary);
+}
+
+.tp-guides__desc {
+  display:     block;
+  margin-top:  4px;
+  font-size:   var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color:       var(--text-muted);
+}
+
+/* Search-intent coverage: the queries this page is built to answer. */
+.tp-searches {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--space-2);
+  margin:    0;
+  padding:   0;
+  list-style: none;
+}
+
+.tp-searches__item {
+  padding:       4px var(--space-3);
+  background:    var(--bg-raised);
+  border:        1px solid var(--bg-border);
+  border-radius: 999px;
+  font-size:     var(--text-xs);
+  color:         var(--text-secondary);
+}
+
+/* Entity grounding row (GEO): outbound authority links. */
+.tp-entities {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--space-2) var(--space-4);
+  margin:      var(--space-6) 0 0;
+  padding:     var(--space-4) 0 0;
+  border-top:  1px solid var(--bg-border);
+  list-style:  none;
+  font-size:   var(--text-xs);
+  color:       var(--text-muted);
+}
+
+.tp-entities__link { color: var(--text-secondary); text-decoration: none; }
+.tp-entities__link:hover { color: var(--accent); text-decoration: underline; }
+
+/* ── Workspace pane extras ────────────────────────────────────
+   Header action buttons, and the report body used by tools whose
+   right-hand pane shows a verdict + metrics rather than text. */
+
+.tw-pane__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-2);
+  margin-left: auto;
+}
+
+.tw-report {
+  flex:       1;
+  min-height: 320px;
+  padding:    var(--space-4);
+  background: var(--bg-base);
+  overflow:   auto;
+}
+
+.tw-empty {
+  display:         grid;
+  place-items:     center;
+  min-height:      220px;
+  padding:         var(--space-6);
+  text-align:      center;
+  font-size:       var(--text-sm);
+  font-style:      italic;
+  color:           var(--text-muted);
+}
+
+.tw-verdict {
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--space-3);
+  padding:       var(--space-4);
+  border:        1px solid var(--bg-border);
+  border-radius: var(--radius-md);
+  font-size:     var(--text-sm);
+  line-height:   var(--leading-relaxed);
+}
+
+.tw-verdict__icon {
+  flex-shrink:   0;
+  display:       grid;
+  place-items:   center;
+  width:         22px;
+  height:        22px;
+  border-radius: 999px;
+  color:         var(--bg-base);
+}
+
+.tw-verdict__title {
+  display:     block;
+  font-weight: var(--font-semibold);
+  color:       var(--text-primary);
+}
+
+.tw-verdict__detail {
+  display:     block;
+  margin-top:  2px;
+  font-family: var(--font-mono);
+  font-size:   var(--text-xs);
+  color:       var(--text-secondary);
+  word-break:  break-word;
+}
+
+.tw-verdict--ok  { border-color: var(--success); background: var(--success-bg); }
+.tw-verdict--ok  .tw-verdict__icon { background: var(--success); }
+.tw-verdict--bad { border-color: var(--error);   background: var(--error-bg); }
+.tw-verdict--bad .tw-verdict__icon { background: var(--error); }
+
+.tw-stats {
+  display:               grid;
+  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  gap:                   var(--space-2);
+  margin-top:            var(--space-4);
+}
+
+.tw-stat {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             2px;
+  padding:         var(--space-3) var(--space-2);
+  background:      var(--bg-raised);
+  border:          1px solid var(--bg-border);
+  border-radius:   var(--radius-md);
+}
+
+.tw-stat__value {
+  font-family: var(--font-mono);
+  font-size:   var(--text-lg);
+  font-weight: var(--font-bold);
+  color:       var(--accent);
+  line-height: 1.1;
+}
+
+.tw-stat__label {
+  font-size:      10px;
+  font-weight:    var(--font-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color:          var(--text-muted);
+  text-align:     center;
+}
+
+/* A class-level `display` beats the UA `[hidden] { display: none }` rule, so
+   every workspace block that JS toggles with the `hidden` attribute needs an
+   explicit opt-out here or it stays visible. */
+.tw-empty[hidden],
+.tw-verdict[hidden],
+.tw-stats[hidden],
+.tw-pane__actions[hidden] { display: none; }
 

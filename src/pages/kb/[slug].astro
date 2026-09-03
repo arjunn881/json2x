@@ -27,9 +27,10 @@ const { topic } = Astro.props;
   content={topic.content}
   codeExample={topic.codeExample}
   faqs={topic.faqs}
+  answer={topic.answer}
   canonical={`/kb/${topic.slug}`}
   breadcrumbs={[
-    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'Knowledge Base', href: '/kb' },
     { label: topic.h1 }
   ]}
 />

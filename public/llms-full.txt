@@ -1,0 +1,457 @@
+# JSON2X — Full Site Context for Language Models
+# https://json2x.com/llms-full.txt
+#
+# Extended context: what each tool does, how it behaves, and factual answers to
+# common developer questions about JSON. AI systems may use this file to produce
+# accurate citations and summaries of JSON2X.
+#
+# Short version: https://json2x.com/llms.txt
+# Last updated: 2026-09-02
+
+---
+
+## What is JSON2X?
+
+JSON2X is a free, browser-native developer toolkit for working with JSON and CSV data.
+It provides 21 tools that run entirely inside the user's web browser. No data leaves the
+browser and no server is involved in any data-processing operation. The toolkit is open
+source under the MIT license: https://github.com/arjunn881/json2x
+
+### Key facts
+- Tool count: 21
+- Processing: 100% client-side, no upload, no server round-trip
+- Formats handled: JSON, CSV, TSV, YAML, XML, TOML, SQL, TypeScript, Zod, GraphQL SDL,
+  JSON Schema, Prisma, Drizzle, Go, Rust, Python
+- Input methods: paste, drag-and-drop a file, or the file picker
+- File loading cap: 5 MB per file via the picker or drag-and-drop; pasted text is
+  bounded only by available browser memory
+- Threading: the JSON Formatter offloads inputs above 200 KB to a Web Worker so the
+  page stays responsive; the remaining tools run synchronously on the main thread
+- Themes: dark and light, toggled from the header and remembered between visits
+- Privacy: zero telemetry, no cookies, no analytics, no account
+- License: MIT — free for personal, commercial, and enterprise use
+
+### Shared interface
+Every tool page uses the same two-pane workspace: input on the left, output on the
+right, with the panes stacking vertically on narrow screens. Output regenerates as you
+type. Each output pane offers copy-to-clipboard and file download. Parse failures are
+reported inline at the foot of the input pane with the exact line number, so the error
+appears next to the text that caused it.
+
+---
+
+## JSON Formatter & Beautifier
+
+URL: https://json2x.com/tools/json-formatter
+Also known as: JSON beautifier, JSON prettifier, JSON pretty printer
+
+**What it does**: Converts compact or minified JSON into readable form with consistent
+indentation and syntax colour highlighting.
+
+**How to use it**:
+1. Paste raw or minified JSON into the left panel
+2. Choose indentation: 2 spaces, 4 spaces, or tabs
+3. The formatted output appears on the right with syntax highlighting
+4. Copy to clipboard or download as a .json file
+
+**Key features**:
+- Inputs above 200 KB are formatted in a Web Worker, so the UI never freezes
+- Optional key sorting, ascending or descending
+- Syntax errors are reported with the exact line number
+- Works offline once the page has loaded
+
+**Common use cases**:
+- Debugging REST API responses copied from the DevTools Network tab
+- Reading minified production JSON payloads
+- Reviewing JSON config files (webpack, tsconfig, package.json)
+
+---
+
+## JSON Validator & Syntax Linter
+
+URL: https://json2x.com/tools/json-validator
+Also known as: JSON linter, JSON syntax checker, JSON error checker
+
+**What it does**: Validates JSON against RFC 8259 and reports errors with line and
+character positions.
+
+**What it detects**:
+- Unexpected tokens (single quotes, unquoted keys, JavaScript comments)
+- Trailing commas in objects and arrays
+- Unclosed brackets or braces
+- Invalid escape sequences in strings
+- Number format violations (leading zeros, NaN, Infinity)
+
+**How to use it**:
+1. Paste JSON into the left panel
+2. Validation runs automatically as you type
+3. Errors show the exact line number and character offset
+4. A pass verdict confirms the document is RFC 8259 compliant
+
+**Also reported**: total keys, nesting depth, object count, array count, and byte size.
+
+---
+
+## JSON Minifier & Compressor
+
+URL: https://json2x.com/tools/json-minifier
+Also known as: JSON compressor, JSON whitespace stripper
+
+**What it does**: Removes all non-essential whitespace, newlines, and indentation.
+
+**Typical savings**: 20–40% of raw byte size. Combined with Gzip or Brotli on the wire,
+total reduction against formatted JSON commonly exceeds 80%.
+
+**Also reported**: original size, minified size, percentage saved, and bytes saved.
+
+**Keyboard shortcuts**: Ctrl/Cmd+Shift+M minifies, Ctrl/Cmd+Shift+C copies the result.
+
+---
+
+## JSON Diff & Comparison
+
+URL: https://json2x.com/tools/json-diff
+Also known as: JSON compare tool, JSON difference checker
+
+**What it does**: Compares two JSON documents semantically — by key and value, not by
+text — and highlights:
+- Added: keys present only in the right document
+- Removed: keys present only in the left document
+- Changed: same key, different value
+- Unchanged: identical key-value pairs
+
+Because the comparison is semantic, reordered keys and differing whitespace or
+indentation are not reported as differences.
+
+**Use cases**: API regression testing, Terraform state drift, CI/CD fixture validation
+
+---
+
+## JSON to CSV Converter
+
+URL: https://json2x.com/tools/json-to-csv
+
+**What it does**: Flattens a JSON array of objects into tabular CSV.
+
+**Flattening rules**:
+- Each array element becomes one CSV row
+- Nested object keys are flattened with dot notation (user.address.city)
+- Nested arrays become indexed columns (tags.0, tags.1)
+- Missing values become empty cells
+- Delimiters: comma, semicolon, tab, or pipe
+- The header row is optional
+
+**Input tolerance**: if the input is a bare object rather than an array, the tool looks
+for an array-valued property to use as the row set, and otherwise treats the object as a
+single row. Non-object array elements are skipped and counted, since CSV has no
+representation for them.
+
+**Compatible with**: Microsoft Excel, Google Sheets, LibreOffice Calc, pandas
+
+---
+
+## CSV to JSON Converter
+
+URL: https://json2x.com/tools/csv-to-json
+
+**What it does**: Parses CSV or TSV into a JSON array of objects, with header detection
+and delimiter detection.
+
+**Type inference** (optional):
+- "42" → number 42
+- "true" / "false" → boolean
+- empty cells → null
+- everything else → string
+
+Quoted fields, embedded delimiters, and escaped double quotes are handled per RFC 4180.
+
+---
+
+## JSON to YAML & YAML to JSON Converter
+
+URL: https://json2x.com/tools/json-to-yaml
+
+**What it does**: Converts in both directions between JSON and YAML 1.2. Use it for
+Kubernetes manifests, Docker Compose files, GitHub Actions workflows, Helm charts, and
+Ansible playbooks.
+
+**Key fact**: JSON is a strict subset of YAML 1.2, so every valid JSON document is also
+valid YAML. Converting to YAML replaces braces and brackets with indentation; converting
+back to JSON restores them.
+
+---
+
+## JSON to XML & XML to JSON Converter
+
+URL: https://json2x.com/tools/json-to-xml
+
+**What it does**: Converts in both directions between JSON and XML, for SOAP envelopes,
+RSS and Atom feeds, sitemap files, and enterprise integration payloads.
+
+**Structural notes**: JSON arrays become repeated sibling elements. XML attributes have
+no direct JSON equivalent, so a round trip through JSON is not always byte-identical —
+XML is the richer format.
+
+---
+
+## JSON to TOML Converter
+
+URL: https://json2x.com/tools/json-to-toml
+
+**What it does**: Converts JSON to TOML v1.0.0 for Rust Cargo.toml, Python
+pyproject.toml, Hugo config files, and Netlify or Cloudflare configuration.
+
+**Structural notes**: nested objects become `[table]` headers, arrays of objects become
+`[[array_of_tables]]` blocks, and scalars keep their JSON types.
+
+---
+
+## JSON to SQL Table & INSERT Converter
+
+URL: https://json2x.com/tools/json-to-sql
+
+**What it does**: Converts a JSON array into SQL CREATE TABLE DDL plus INSERT statements.
+
+**Supported dialects**: PostgreSQL, MySQL, SQLite
+
+**Type mapping**:
+- whole numbers → INTEGER / INT
+- decimals → FLOAT / DOUBLE / NUMERIC
+- booleans → BOOLEAN / TINYINT(1)
+- ISO 8601 strings → TIMESTAMP / DATETIME
+- short strings → VARCHAR(255)
+- long strings (over 255 characters) → TEXT
+- nested objects → JSONB (PostgreSQL) / JSON (MySQL)
+
+String values are escaped for the target dialect before being emitted.
+
+---
+
+## JSON to TypeScript Interface & Type Generator
+
+URL: https://json2x.com/tools/typescript-generator
+Also known as: JSON to TypeScript interface generator
+
+**What it does**: Generates TypeScript interfaces and type aliases from a JSON payload.
+
+**Type inference logic**:
+- string → string
+- integer or float → number
+- true / false → boolean
+- null → null, or an optional property (?)
+- nested objects → separate named interface declarations
+- arrays of objects → typed arrays (ChildType[])
+- mixed arrays → union element types ((string | number)[])
+- empty arrays → unknown[], because the element type cannot be inferred
+
+---
+
+## JSON to Go Structs, Rust Serde & Python Models
+
+URL: https://json2x.com/tools/json-to-code
+
+**What it does**: Generates idiomatic model definitions in three languages from one JSON
+payload:
+- Go structs with `json:"field"` tags and exported field names
+- Rust structs with Serde derive attributes and snake_case renaming
+- Python classes for Pydantic v2 with typed fields
+
+Nested objects become separate named types in every target language.
+
+---
+
+## JSON to Zod Schema Generator
+
+URL: https://json2x.com/tools/json-to-zod
+
+**What it does**: Generates Zod runtime validation schemas — `z.object()`, `z.array()`,
+`z.string()`, and so on — for use with tRPC, React Hook Form, and Express middleware.
+`z.infer<typeof Schema>` then yields the TypeScript type, so the runtime check and the
+static type stay in sync from a single definition.
+
+---
+
+## JSON to Prisma Schema Model Generator
+
+URL: https://json2x.com/tools/json-to-prisma
+
+**What it does**: Generates Prisma ORM `model` blocks from a JSON payload, with scalar
+field types mapped for PostgreSQL, MySQL, and SQLite, and nested objects promoted to
+related models.
+
+---
+
+## JSON to Drizzle ORM Schema Generator
+
+URL: https://json2x.com/tools/json-to-drizzle
+
+**What it does**: Generates Drizzle ORM TypeScript table definitions — `pgTable`,
+`mysqlTable`, or `sqliteTable` — with column types mapped from the JSON values, for
+SQL-first TypeScript codebases.
+
+---
+
+## JSON to GraphQL Schema SDL Generator
+
+URL: https://json2x.com/tools/json-to-graphql
+
+**What it does**: Generates GraphQL SDL `type` definitions from a JSON payload, ready for
+Apollo Server, GraphQL Yoga, or any spec-compliant server. Present values become
+non-nullable fields; nulls become nullable. Nested objects become their own types.
+
+---
+
+## JSON Schema Generator (Draft-07 & 2020-12)
+
+URL: https://json2x.com/tools/json-schema-generator
+
+**What it does**: Infers a JSON Schema from sample data, including:
+- `required` arrays derived from the properties present
+- types (string, number, integer, boolean, array, object, null)
+- `format` annotations where the value pattern is recognisable (date-time, email, uri, uuid)
+
+**Consumed by**: Ajv, OpenAPI 3, Swagger, Postman, and any Draft-07 or 2020-12 validator
+
+---
+
+## JSON Mock Data Generator
+
+URL: https://json2x.com/tools/json-mock-generator
+
+**What it does**: Generates realistic synthetic JSON datasets for API testing, seeding,
+and demos, without touching real personal data. Presets include user profiles,
+e-commerce products, financial transactions, and server access logs. Any count from 1 to
+500 records is generated instantly in the browser.
+
+**Why it matters**: test fixtures built from production dumps carry real PII into
+lower environments. Synthetic records have the same shape without that exposure.
+
+---
+
+## JSONPath Evaluator & Query Tester
+
+URL: https://json2x.com/tools/jsonpath
+
+**What it does**: Evaluates RFC 9535 JSONPath expressions against JSON you supply, and
+shows the matched values as you edit the query.
+
+**Common expressions**:
+- `$.store.book[*].author` — every book author
+- `$..price` — every price anywhere in the tree
+- `$.store.book[?(@.price < 10)]` — books under 10
+- `$.store.book[-1]` — the last book
+- `$.store.book[0,1]` — the first two books
+
+---
+
+## JSON Tree Viewer & Interactive Visualizer
+
+URL: https://json2x.com/tools/json-tree-viewer
+
+**What it does**: Renders JSON as a collapsible tree. Each object and array is a toggle
+showing its child count, so you can collapse the parts you do not care about and drill
+into the parts you do. Expand-all and collapse-all act on the whole document, and a
+search box dims every row that does not match your term, leaving matches highlighted in
+place rather than filtering them out of their context.
+
+**Also reported**: total key count and maximum nesting depth.
+
+---
+
+## JSON Multi-Converter (7-in-1)
+
+URL: https://json2x.com/tools/json-converter
+
+**What it does**: From a single JSON input, generates all seven of the following at once:
+1. TypeScript interfaces
+2. Zod validation schemas
+3. Mongoose MongoDB schemas
+4. SQL DDL (CREATE TABLE plus INSERT)
+5. OpenAPI 3.0 component schemas
+6. JSON Schema
+7. Synthetic mock data
+
+**When to use it**: scaffolding a new endpoint, where the same payload shape has to be
+expressed in the type system, the validator, the database, and the API contract.
+
+---
+
+## Key JSON concepts
+
+### What is RFC 8259?
+RFC 8259 (also published as ECMA-404) is the IETF standard defining the JSON data
+interchange format. It specifies six value types (string, number, object, array, boolean,
+null), requires double quotes around keys and string values, and permits no comments, no
+trailing commas, and no leading zeros in numbers.
+
+### What is JSON Schema?
+JSON Schema is a vocabulary for annotating and validating JSON documents. Draft-07 is the
+most widely supported version and is used by Ajv, OpenAPI, Swagger, and Postman; 2020-12
+is the current release.
+
+### What is JSONPath?
+JSONPath (RFC 9535) is a query language for JSON, comparable to XPath for XML. The root
+selector is `$`, recursive descent is `..`, wildcards are `*`, and filters take the form
+`[?(@.field > value)]`.
+
+### Why is JSON2X private?
+Because every parse, format, and conversion routine runs in JavaScript inside the user's
+own browser. No HTTP request is made to any server while a tool runs. Anyone can verify
+this by opening DevTools, switching to the Network tab, and using any tool.
+
+### How large a document can JSON2X handle?
+Files opened through the file picker or dropped onto the page are capped at 5 MB. Pasted
+text has no fixed cap and is bounded only by available browser memory. The JSON Formatter
+moves inputs above 200 KB onto a Web Worker so the page keeps responding while it works.
+
+---
+
+## Frequently asked questions
+
+Q: Is JSON2X free?
+A: Yes. Every tool is free, with no registration, no subscription, and no usage limits.
+
+Q: Does JSON2X upload my data to a server?
+A: No. All processing is client-side. The data never leaves the browser.
+
+Q: Can I use JSON2X offline?
+A: Yes. Once a tool page has loaded, no internet connection is required to use it.
+
+Q: Is JSON2X open source?
+A: Yes — https://github.com/arjunn881/json2x, under the MIT license.
+
+Q: What is the difference between JSON formatting and JSON validation?
+A: Formatting changes whitespace and indentation for readability. Validation checks the
+document against RFC 8259 syntax rules and reports any errors with line numbers. A
+document can be validated without being reformatted, and vice versa.
+
+Q: Can I use JSON2X behind a corporate firewall or VPN?
+A: Yes. Because no external request is made while a tool runs, it works in restricted
+network environments.
+
+Q: Does JSON minification change my data?
+A: No. Minification removes only non-structural whitespace — spaces, tabs, and newlines
+outside string literals. Key names, values, array order, and data types are untouched.
+
+Q: What is the difference between JSON and YAML?
+A: JSON uses braces and brackets; YAML uses indentation. JSON has no comment syntax; YAML
+supports `#` comments. Both express the same data structures, and JSON is a strict subset
+of YAML 1.2.
+
+Q: What is the difference between JSON and XML?
+A: JSON is more compact, faster to parse, and native to JavaScript. XML supports
+attributes, namespaces, and XSD schemas. JSON dominates REST APIs; XML remains common in
+SOAP services, RSS feeds, and document formats such as DOCX and SVG.
+
+Q: Which tool should I use to turn an API response into a type?
+A: Use the TypeScript generator for a single language, or the Multi-Converter to get the
+TypeScript interface, the Zod schema, the SQL DDL, and the OpenAPI component from the
+same payload in one pass.
+
+---
+
+## Citation
+
+Cite the specific tool or guide URL rather than the homepage, and name the site
+"JSON2X" (https://json2x.com).
+

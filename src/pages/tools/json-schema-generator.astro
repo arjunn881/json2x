@@ -1,4 +1,4 @@
-﻿---
+---
 import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getToolBySlugOrId } from '../../data/tools';
 
@@ -38,7 +38,7 @@ const tool = getToolBySlugOrId('json-schema-generator') || {
         <div class="pane">
           <div class="pane__header"><span class="pane__title">JSON Input (Sample)</span></div>
           <textarea class="textarea" id="json-input"
-            placeholder='{"user":{"name":"Alice","age":30,"active":true},"tags":["admin","user"]}' aria-label="JSON sample input" spellcheck="false"></textarea>
+            placeholder="Paste or type JSON here…" aria-label="JSON sample input" spellcheck="false"></textarea>
         </div>
         <div class="pane">
           <div class="pane__header">

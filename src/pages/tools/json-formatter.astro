@@ -1,4 +1,4 @@
-﻿---
+---
 import ToolLayout from '../../layouts/ToolLayout.astro';
 import { getToolBySlugOrId } from '../../data/tools';
 
@@ -110,8 +110,8 @@ const tool = getToolBySlugOrId('json-formatter') || {
     /* ── Workspace ───────────────────────────────────────────  */
     .fm-workspace {
       display: grid;
-      gap:     var(--space-5);
-      margin-bottom: var(--space-5);
+      gap:     var(--space-6);
+      margin-bottom: var(--space-6);
     }
 
     @media (min-width: 900px) {
@@ -215,7 +215,7 @@ const tool = getToolBySlugOrId('json-formatter') || {
       line-height:  1.6rem;   /* must match gutter */
       resize:       none;
       tab-size:     2;
-      min-height:   440px;
+      min-height:   520px;
       overflow:     auto;
     }
 
@@ -241,7 +241,7 @@ const tool = getToolBySlugOrId('json-formatter') || {
       overflow:    auto;
       white-space: pre;
       tab-size:    2;
-      min-height:  440px;
+      min-height:  520px;
     }
 
     /* Placeholder state */

@@ -1,6 +1,6 @@
 ---
 import KbLayout from '../../../layouts/KbLayout.astro';
-import { TOOL_PAGES } from '../../../data/tool-pseo';
+import { TOOL_PAGES, resolveToolSlug, getPseoKeywords, getPseoCategory } from '../../../data/tool-pseo';
 import type { ToolPseoPage } from '../../../data/tool-pseo';
 
 export function getStaticPaths() {
@@ -15,21 +15,31 @@ export interface Props {
 }
 
 const { page } = Astro.props;
+
+// The two authoring generations differ in which fields they populate; normalise
+// here so every pSEO page renders with real keywords, category and CTA tool.
+const primaryTool = resolveToolSlug(page);
+const keywords = getPseoKeywords(page);
+const category = getPseoCategory(page);
 ---
 
 <KbLayout
-  title={page.title}
+  title={page.metaTitle || page.title}
   metaDesc={page.metaDesc}
   h1={page.h1}
-  category={page.category}
-  primaryTool={page.toolSlug}
-  keywords={page.keywords}
+  category={category}
+  primaryTool={primaryTool}
+  keywords={keywords}
   content={page.content}
+  codeExample={page.codeExample}
   faqs={page.faqs}
+  answer={page.intro}
+  useCases={page.useCases}
+  relatedTools={page.relatedTools}
   canonical={`/kb/tools/${page.slug}`}
   breadcrumbs={[
-    { label: 'Knowledge Base', href: '/kb/' },
-    { label: 'Tool Guides', href: '/kb/tools/' },
+    { label: 'Knowledge Base', href: '/kb' },
+    { label: 'Tool Guides', href: '/kb/tools' },
     { label: page.h1 }
   ]}
 />

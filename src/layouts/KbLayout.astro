@@ -1,14 +1,16 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import FAQSchema from '../components/seo/FAQSchema.astro';
 import type { KbFAQ } from '../data/kb';
 import { KB_TOPICS } from '../data/kb';
+import { getToolBySlugOrId } from '../data/tools';
 
 export interface Props {
   title: string;
   metaDesc: string;
   h1: string;
-  category: string;
+  category?: string;
   primaryTool?: string;
   keywords?: string;
   content: string;
@@ -16,13 +18,20 @@ export interface Props {
   faqs?: KbFAQ[];
   canonical?: string;
   breadcrumbs?: { label: string; href?: string }[];
+  answer?: string; // AEO: concise 1-2 sentence direct answer for snippet targeting
+  /** Programmatic SEO: scannable "who this is for" list rendered above the CTA. */
+  useCases?: string[];
+  /** Programmatic SEO: tool ids/slugs cross-linked at the foot of the page. */
+  relatedTools?: string[];
+  /** Technical SEO: ISO date for schema `dateModified`. */
+  dateModified?: string;
 }
 
 const {
   title,
   metaDesc,
   h1,
-  category,
+  category = 'Guides',
   primaryTool = 'json-validator',
   keywords,
   content,
@@ -30,16 +39,38 @@ const {
   faqs = [],
   canonical = Astro.url.pathname,
   breadcrumbs = [
-    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'Knowledge Base', href: '/kb' },
     { label: h1 }
-  ]
+  ],
+  answer,
+  useCases = [],
+  relatedTools = [],
+  dateModified = '2026-09-02'
 } = Astro.props;
+
+const ctaTool = getToolBySlugOrId(primaryTool);
+const relatedToolItems = relatedTools
+  .map((t) => getToolBySlugOrId(t))
+  .filter((t): t is NonNullable<typeof t> => Boolean(t))
+  .filter((t) => t.slug !== ctaTool?.slug);
 
 const techArticleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
   'headline': h1,
   'description': metaDesc,
+  'inLanguage': 'en',
+  'dateModified': dateModified,
+  'articleSection': category,
+  'isPartOf': {
+    '@type': 'WebSite',
+    'name': 'JSON2X',
+    'url': 'https://json2x.com'
+  },
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': `https://json2x.com${canonical}`
+  },
   'author': {
     '@type': 'Organization',
     'name': 'JSON2X Engineering Team'
@@ -51,29 +82,46 @@ const techArticleSchema = {
   }
 };
 
-const currentSlug = canonical.replace('/kb/', '').replace(/\/$/, '');
+const currentSlug = canonical.replace('/kb', '').replace(/\/$/, '');
 const relatedTopics = KB_TOPICS
   .filter((t) => t.slug !== currentSlug)
   .slice(0, 5);
+
+// Google renders roughly 60 characters of a title before truncating it, so the
+// brand suffix is only worth appending when the keyword-bearing part still fits
+// beside it. Past that budget the bare title wins — a clipped keyword costs more
+// clicks than a missing brand name does.
+const TITLE_BUDGET = 60;
+const brandedTitle = `${title} | JSON2X`;
+const pageTitle = brandedTitle.length <= TITLE_BUDGET ? brandedTitle : title;
 ---
 
 <BaseLayout
-  title={`${title} | JSON2X Knowledge Base`}
+  title={pageTitle}
   description={metaDesc}
   keywords={keywords}
   canonical={canonical}
   currentId="kb"
   schema={techArticleSchema}
 >
+  {/* AEO: FAQPage JSON-LD for rich results and AI answer engine extraction */}
+  {faqs && faqs.length > 0 && <FAQSchema faqs={faqs} />}
+
   <Breadcrumbs items={breadcrumbs} />
 
   <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
     <div class="tool-hero__badge">{category} Knowledge Base</div>
     <h1 class="tool-hero__title">{h1}</h1>
     <p class="tool-hero__desc">{metaDesc}</p>
+    {/* AEO: Direct answer block — snippet bait for featured snippet / AI overview extraction */}
+    {answer && (
+      <p id="direct-answer" style="margin-top:var(--space-4);padding:var(--space-4) var(--space-5);background:var(--bg-raised);border-left:4px solid var(--accent);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-base);color:var(--text-primary);line-height:1.7;">
+        {answer}
+      </p>
+    )}
   </div>
 
-  <article class="faq-prose" style="margin-bottom:var(--space-12);">
+  <article id="kb-article" class="faq-prose" style="margin-bottom:var(--space-12);">
     <div class="kb-content" set:html={content} />
 
     {codeExample && (
@@ -90,11 +138,20 @@ const relatedTopics = KB_TOPICS
       </div>
     )}
 
-    {primaryTool && (
+    {useCases.length > 0 && (
+      <section style="margin-top:var(--space-8);">
+        <h2>Who this guide is for</h2>
+        <ul>
+          {useCases.map((uc) => <li>{uc}</li>)}
+        </ul>
+      </section>
+    )}
+
+    {ctaTool && (
       <div class="tool-cta-banner">
-        <h2 class="tool-cta-banner__title">Try Our Free Client-Side Developer Tools</h2>
-        <p class="tool-cta-banner__desc">Zero latency, 100% data privacy, and Web Worker performance.</p>
-        <a href={`/tools/${primaryTool}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Launch Tool</a>
+        <h2 class="tool-cta-banner__title">Try the free {ctaTool.name}</h2>
+        <p class="tool-cta-banner__desc">Runs entirely in your browser — no upload, no signup, and your data never leaves your device.</p>
+        <a href={ctaTool.href} class="btn btn--primary" style="padding:var(--space-3) var(--space-8); text-decoration:none; font-weight:var(--font-semibold);">Open {ctaTool.name}</a>
       </div>
     )}
   </article>
@@ -109,6 +166,26 @@ const relatedTopics = KB_TOPICS
             <h3 class="faq-card__q">{faq.q}</h3>
             <p class="faq-card__a">{faq.a}</p>
           </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Related Tools (programmatic SEO: pushes authority back into the tool cluster) -->
+  {relatedToolItems.length > 0 && (
+    <section class="tool-section" style="margin-top:var(--space-12);">
+      <h2 class="tool-section__title">Tools mentioned in this guide</h2>
+      <div class="related-tools-grid">
+        {relatedToolItems.map((t) => (
+          <a href={t.href} class="related-tool-card">
+            <span class="related-tool-card__icon">
+              <Fragment set:html={t.icon} />
+            </span>
+            <span class="related-tool-card__body">
+              <span class="related-tool-card__title">{t.name}</span>
+              <span class="related-tool-card__desc">{t.desc}</span>
+            </span>
+          </a>
         ))}
       </div>
     </section>

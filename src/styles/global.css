@@ -389,7 +389,7 @@ main {
   font-size:        var(--text-xs);
   line-height:      var(--leading-relaxed);
   resize:           vertical;
-  min-height:       240px;
+  min-height:       460px;
 }
 
 .textarea:focus, .input:focus, .select:focus {
@@ -400,12 +400,15 @@ main {
 /* ── Split Panes ─────────────────────────────────────────── */
 .split-pane {
   display: grid;
-  gap:     var(--space-6);
+  gap:     var(--space-8);
   min-width: 0;
   width: 100%;
+  margin-bottom: var(--space-6);
 }
 
-@media (min-width: 768px) {
+/* Two columns at 900px to match .tw-workspace, .jc-layout and the 901px nav
+   breakpoint — every tool on the site flips to side-by-side at the same width. */
+@media (min-width: 900px) {
   .split-pane {
     grid-template-columns: 1fr 1fr;
   }
@@ -416,6 +419,7 @@ main {
   flex-direction: column;
   min-width: 0;
   width: 100%;
+  min-height: 480px;
 }
 
 .pane__header {
@@ -438,7 +442,7 @@ main {
   background:    var(--bg-base);
   border:        1px solid var(--bg-border);
   border-radius: var(--radius-md);
-  padding:       var(--space-4);
+  padding:       var(--space-5);
   font-family:   var(--font-mono);
   font-size:     var(--text-xs);
   line-height:   var(--leading-relaxed);
@@ -447,7 +451,7 @@ main {
   white-space:   pre-wrap;
   word-break:    break-word;
   overflow-wrap: anywhere;
-  min-height:    240px;
+  min-height:    460px;
   min-width:     0;
   tab-size:      2;
 }
@@ -654,7 +658,11 @@ main {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
-  width: min(940px, calc(100vw - 32px));
+  width: min(940px, calc(100vw - 200px));
+  max-height: calc(100vh - 96px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--bg-surface);
   border: 1px solid var(--bg-border);
   border-radius: var(--radius-xl);
@@ -663,19 +671,68 @@ main {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   z-index: 250;
   display: none;
-  grid-template-columns: repeat(4, 1fr);
+  /* minmax(0, 1fr), not 1fr: a bare 1fr keeps an `auto` minimum, so the widest
+     tool name in each group forced its track past its share and pushed the
+     fourth group (Query & Inspection) outside the panel, where its links could
+     not be clicked at all. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
   padding: var(--space-5) var(--space-6);
   animation: megaMenuSlide 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.site-nav__dropdown-wrap:hover .site-nav__dropdown-menu {
+/* Invisible hover bridge across the 10px gap between the Catalog link and the
+   menu. Without it the menu closes as the pointer crosses the gap, making every
+   tool link unclickable. It has to hang off the wrap, not the menu: the menu is
+   an overflow:auto scroll container, so anything at a negative offset inside it
+   is clipped away and never receives the pointer. */
+.site-nav__dropdown-wrap::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
+  pointer-events: none;
+}
+
+.site-nav__dropdown-wrap:hover::after,
+.site-nav__dropdown-wrap:focus-within::after,
+.site-nav__dropdown-wrap.open::after {
+  pointer-events: auto;
+}
+
+.site-nav__dropdown-wrap:hover .site-nav__dropdown-menu,
+.site-nav__dropdown-wrap:focus-within .site-nav__dropdown-menu,
+.site-nav__dropdown-wrap.open .site-nav__dropdown-menu {
   display: grid;
 }
 
+.site-nav__link--has-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav__caret {
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.site-nav__dropdown-wrap:hover .site-nav__caret,
+.site-nav__dropdown-wrap:focus-within .site-nav__caret,
+.site-nav__dropdown-wrap.open .site-nav__caret {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* 901–1100px: three columns rather than two. Two columns made the panel ~930px
+   tall, taller than the viewport, so the last group sat behind a scroll; three
+   brings it to ~710px and every tool is reachable without scrolling. */
 @media (max-width: 1100px) {
   .site-nav__dropdown-menu {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -683,6 +740,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  min-width: 0;
 }
 
 .site-nav__dropdown-head {
@@ -745,6 +803,8 @@ main {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .site-nav__dropdown-item:hover .site-nav__dropdown-name {

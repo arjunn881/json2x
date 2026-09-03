@@ -83,7 +83,7 @@ const tool = getToolBySlugOrId('jsonpath')!;
       gap:     var(--space-4);
       margin-bottom: var(--space-5);
     }
-    @media (min-width: 800px) {
+    @media (min-width: 900px) {
       .jp-workspace { grid-template-columns: 1fr 1fr; align-items: start; }
     }
 
@@ -108,7 +108,7 @@ const tool = getToolBySlugOrId('jsonpath')!;
 
     .jp-textarea {
       width:         100%;
-      min-height:    360px;
+      min-height:    460px;
       padding:       var(--space-3) var(--space-4);
       background:    var(--bg-base);
       border:        1px solid var(--bg-border);
@@ -130,7 +130,7 @@ const tool = getToolBySlugOrId('jsonpath')!;
 
     /* Results */
     .jp-results {
-      min-height:    360px;
+      min-height:    460px;
       padding:       var(--space-3) var(--space-4);
       background:    var(--bg-base);
       border:        1px solid var(--bg-border);
@@ -140,7 +140,7 @@ const tool = getToolBySlugOrId('jsonpath')!;
       line-height:   var(--leading-relaxed);
       overflow:      auto;
       box-sizing:    border-box;
-      max-height:    600px;
+      max-height:    75vh;
     }
     .jp-results-header {
       display:         flex;
@@ -228,12 +228,13 @@ const tool = getToolBySlugOrId('jsonpath')!;
       class="jp-expr-input"
       id="jp-expr"
       type="text"
-      value="$.store.book[*].title"
+      placeholder="$.store.book[*].title"
       aria-label="JSONPath expression"
       spellcheck="false"
       autocorrect="off"
       autocomplete="off"
     />
+    <button class="btn btn--ghost btn--sm" id="load-sample-btn" title="Load a sample JSON document and expression">Load sample</button>
     <button class="btn btn--ghost btn--sm" id="copy-results-btn" title="Copy all matched values">Copy Results</button>
     <button class="btn btn--ghost btn--sm" id="clear-btn">Clear</button>
   </div>
@@ -286,17 +287,8 @@ const tool = getToolBySlugOrId('jsonpath')!;
         aria-label="JSON data"
         spellcheck="false"
         autocorrect="off"
-      >{`{
-  "store": {
-    "book": [
-      { "category": "reference", "author": "Nigel Rees",   "title": "Sayings of the Century", "price": 8.95 },
-      { "category": "fiction",   "author": "Evelyn Waugh", "title": "Sword of Honour",         "price": 12.99 },
-      { "category": "fiction",   "author": "Herman Melville","title": "Moby Dick",             "price": 8.99, "isbn": "0-553-21311-3" },
-      { "category": "fiction",   "author": "J. R. R. Tolkien","title": "The Lord of the Rings","price": 22.99, "isbn": "0-395-19395-8" }
-    ],
-    "bicycle": { "color": "red", "price": 19.95 }
-  }
-}`}</textarea>
+        placeholder={'Paste your JSON here, or click "Load sample" to try the classic bookstore document.'}
+      ></textarea>
     </div>
 
     <!-- Results pane -->
@@ -612,16 +604,42 @@ const tool = getToolBySlugOrId('jsonpath')!;
     document.querySelectorAll('.jp-preset').forEach(btn => {
       btn.addEventListener('click', () => {
         exprEl.value = btn.dataset.expr;
+        // Presets target the sample document, so load it if the pane is empty
+        // rather than showing "no matches" for an expression that is correct.
+        if (!inputEl.value.trim()) inputEl.value = SAMPLE_JSON;
         runEvaluation();
       });
     });
 
     document.getElementById('clear-btn').addEventListener('click', () => {
       inputEl.value = '';
-      exprEl.value = '$';
+      exprEl.value = '';
       resultsEl.innerHTML = '<div class="jp-results-placeholder">Results will appear here as you type…</div>';
       countEl.textContent = '0 matches';
       clearError();
+      inputEl.focus();
+    });
+
+    // Sample document — kept out of the input so the tool opens empty for the
+    // user's own JSON, but one click away when someone wants to explore syntax.
+    var SAMPLE_JSON = [
+      '{',
+      '  "store": {',
+      '    "book": [',
+      '      { "category": "reference", "author": "Nigel Rees", "title": "Sayings of the Century", "price": 8.95 },',
+      '      { "category": "fiction", "author": "Evelyn Waugh", "title": "Sword of Honour", "price": 12.99 },',
+      '      { "category": "fiction", "author": "Herman Melville", "title": "Moby Dick", "price": 8.99, "isbn": "0-553-21311-3" },',
+      '      { "category": "fiction", "author": "J. R. R. Tolkien", "title": "The Lord of the Rings", "price": 22.99, "isbn": "0-395-19395-8" }',
+      '    ],',
+      '    "bicycle": { "color": "red", "price": 19.95 }',
+      '  }',
+      '}'
+    ].join('\n');
+
+    document.getElementById('load-sample-btn').addEventListener('click', () => {
+      inputEl.value = SAMPLE_JSON;
+      if (!exprEl.value.trim()) exprEl.value = '$.store.book[*].title';
+      runEvaluation();
     });
 
     document.getElementById('copy-results-btn').addEventListener('click', () => {

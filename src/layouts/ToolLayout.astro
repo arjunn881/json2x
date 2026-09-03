@@ -1,9 +1,13 @@
-﻿---
+---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
 import RelatedTools from '../components/tools/RelatedTools.astro';
 import ToolFAQ from '../components/tools/ToolFAQ.astro';
+import HowToSchema from '../components/seo/HowToSchema.astro';
 import type { ToolItem } from '../data/tools';
+import { CATEGORIES } from '../data/tools';
+import { TOOL_CONTENT } from '../data/tool-content';
+import { getPseoBySlug } from '../data/tool-pseo';
 
 export interface Props {
   tool: ToolItem;
@@ -11,12 +15,27 @@ export interface Props {
 
 const { tool } = Astro.props;
 
+const content = TOOL_CONTENT[tool.id];
+const category = CATEGORIES.find((c) => c.id === tool.category);
+const dateModified = tool.dateModified || '2026-09-02';
+const toolUrl = `https://json2x.com${tool.href}`;
+
+// Programmatic SEO: resolve the long-tail /kb/tools/ guides declared on the
+// tool so the pSEO cluster is reachable from the tool it belongs to.
+const guides = (tool.guides || [])
+  .map((slug) => getPseoBySlug(slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const entities = content?.entities || [];
+
 // Schema.org SoftwareApplication
 const softwareAppSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   'name': tool.name,
+  'alternateName': tool.h1 || tool.name,
   'applicationCategory': 'DeveloperApplication',
+  'applicationSubCategory': category?.name || 'Developer Tool',
   'operatingSystem': 'Any (Web Browser)',
   'offers': {
     '@type': 'Offer',
@@ -24,16 +43,39 @@ const softwareAppSchema = {
     'priceCurrency': 'USD'
   },
   'description': tool.metaDesc,
-  'url': `https://json2x.com${tool.href}`,
+  'url': toolUrl,
+  'inLanguage': 'en',
+  'dateModified': dateModified,
+  'isAccessibleForFree': true,
   'browserRequirements': 'Requires JavaScript. Requires HTML5.',
   'softwareVersion': '2.9.0',
-  'featureList': [
-    '100% Client-Side Processing',
-    'Zero Server Uploads',
-    'Syntax Highlighting',
-    'Web Worker Performance',
-    'Dark Mode Support'
-  ]
+  'isPartOf': {
+    '@type': 'WebSite',
+    'name': 'JSON2X',
+    'url': 'https://json2x.com'
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'JSON2X',
+    'url': 'https://json2x.com'
+  },
+  ...(entities.length > 0 && {
+    // GEO: ground the page against known entities so answer engines can
+    // resolve what the tool is about rather than inferring it from prose.
+    'about': entities.map((e) => ({ '@type': 'Thing', 'name': e.name, 'sameAs': e.sameAs }))
+  }),
+  'featureList': tool.features && tool.features.length > 0
+    ? tool.features
+    : [
+        // Keep this list to capabilities every tool on the site genuinely has.
+        // Web Worker offloading is specific to the JSON Formatter (above 200 KB),
+        // so it belongs in that tool's own `features`, not in the shared default.
+        '100% Client-Side Processing',
+        'Zero Server Uploads',
+        'Syntax Highlighting',
+        'Copy and Download Output',
+        'Dark Mode Support'
+      ]
 };
 ---
 
@@ -45,10 +87,23 @@ const softwareAppSchema = {
   currentId={tool.id}
   schema={softwareAppSchema}
   containerClass="container container--tool"
+  needsToolRuntime={true}
 >
+  {/* AEO: HowTo JSON-LD mirroring the on-page steps below. */}
+  {content && content.howTo.length > 0 && (
+    <HowToSchema
+      name={`How to use the ${tool.name}`}
+      description={tool.answer || tool.metaDesc}
+      steps={content.howTo}
+      toolName={tool.name}
+      toolUrl={toolUrl}
+    />
+  )}
+
   <Breadcrumbs
     items={[
-      { label: 'Tools', href: '/tools/' },
+      { label: 'Tools', href: '/tools' },
+      ...(category ? [{ label: category.name, href: `/tools/#${category.id}` }] : []),
       { label: tool.name, href: tool.href }
     ]}
   />
@@ -65,9 +120,99 @@ const softwareAppSchema = {
   <!-- Interactive Workspace Slot -->
   <slot />
 
+  {/* AEO: self-contained direct answer, placed immediately below the tool so
+      the workspace stays above the fold. #direct-answer is listed in the
+      `speakable` cssSelector in SEO.astro. */}
+  {tool.answer && (
+    <div class="tp-answer">
+      <span class="tp-answer__label">In short</span>
+      <p id="direct-answer" class="tp-answer__text">{tool.answer}</p>
+    </div>
+  )}
+
+  {content && (
+    <div class="tp-prose">
+      <p class="tp-prose__lead" set:html={content.intro} />
+
+      {content.sections.map((s) => (
+        <section class="tp-block">
+          <h2 class="tp-block__h2">{s.h2}</h2>
+          <div class="tp-block__body" set:html={s.html} />
+        </section>
+      ))}
+    </div>
+  )}
+
+  {content && content.howTo.length > 0 && (
+    <section class="tool-section">
+      <h2 class="tool-section__title">How to use the {tool.name}</h2>
+      <p class="tool-section__desc">Takes under a minute. Nothing is uploaded — every step runs in this browser tab.</p>
+      <ol class="tp-steps">
+        {content.howTo.map((step) => (
+          <li class="tp-steps__item">
+            <span class="tp-steps__name">{step.name}</span>
+            <p class="tp-steps__text">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {content && content.useCases.length > 0 && (
+    <section class="tool-section">
+      <h2 class="tool-section__title">When to use it</h2>
+      <ul class="tp-usecases">
+        {content.useCases.map((uc) => (
+          <li class="tp-usecases__item">{uc}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {guides.length > 0 && (
+    <section class="tool-section">
+      <h2 class="tool-section__title">Step-by-step guides for this tool</h2>
+      <p class="tool-section__desc">Task-specific walkthroughs covering the most common ways this tool gets used.</p>
+      <div class="tp-guides">
+        {guides.map((g) => (
+          <a class="tp-guides__card" href={`/kb/tools/${g.slug}`}>
+            <span class="tp-guides__title">{g.h1}</span>
+            <span class="tp-guides__desc">{g.metaDesc}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {tool.ctrKeywords && tool.ctrKeywords.length > 0 && (
+    <section class="tool-section">
+      <h2 class="tool-section__title">Searches this page answers</h2>
+      <ul class="tp-searches">
+        {tool.ctrKeywords.map((k) => (
+          <li class="tp-searches__item">{k}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+
   <!-- FAQs & Rich Schemas -->
   <ToolFAQ faqs={tool.faqs} />
 
   <!-- Related Tools Navigation -->
   <RelatedTools tool={tool} />
+
+  {entities.length > 0 && (
+    <ul class="tp-entities">
+      <li>Standards &amp; references:</li>
+      {entities.map((e) => (
+        <li>
+          <a class="tp-entities__link" href={e.sameAs} rel="noopener nofollow" target="_blank">{e.name}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  <p style="margin-top:var(--space-6);font-size:var(--text-xs);color:var(--text-muted);">
+    Last reviewed <time datetime={dateModified}>{new Date(dateModified + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time> by the JSON2X Engineering Team.
+  </p>
 </BaseLayout>

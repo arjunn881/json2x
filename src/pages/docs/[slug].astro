@@ -2,6 +2,7 @@
 import DocLayout from '../../layouts/DocLayout.astro';
 import { DOCS } from '../../data/docs';
 import type { DocItem } from '../../data/docs';
+import { getToolBySlugOrId } from '../../data/tools';
 
 export function getStaticPaths() {
   return DOCS.map((doc) => {
@@ -65,6 +66,7 @@ function parseMarkdown(md: string): string {
 
 const htmlContent = parseMarkdown(doc.markdown);
 const slug = doc.filename.replace(/\.mdx?$/, '');
+const ctaTool = getToolBySlugOrId(doc.frontmatter.primaryTool) || getToolBySlugOrId('json-formatter');
 ---
 
 <DocLayout
@@ -79,11 +81,13 @@ const slug = doc.filename.replace(/\.mdx?$/, '');
 >
   <div set:html={htmlContent} />
 
-  <div class="card" style="margin-top:var(--space-12);padding:var(--space-8);text-align:center;background:var(--bg-surface);">
-    <h2 style="font-size:var(--text-xl);font-weight:bold;margin-bottom:var(--space-2);">Try Our Free Client-Side Developer Tools</h2>
-    <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">Zero latency, 100% data privacy, and Web Worker performance.</p>
-    <a href={`/tools/${doc.frontmatter.primaryTool || 'json-formatter'}`} class="btn btn--primary" style="padding:var(--space-3) var(--space-8);">
-      Launch Tool &rarr;
-    </a>
-  </div>
+  {ctaTool && (
+    <div class="card" style="margin-top:var(--space-12);padding:var(--space-8);text-align:center;background:var(--bg-surface);">
+      <h2 style="font-size:var(--text-xl);font-weight:bold;margin-bottom:var(--space-2);">Put this into practice with the {ctaTool.name}</h2>
+      <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);">Runs entirely in your browser — no upload, no signup, and your data never leaves your device.</p>
+      <a href={ctaTool.href} class="btn btn--primary" style="padding:var(--space-3) var(--space-8);">
+        Open {ctaTool.name} &rarr;
+      </a>
+    </div>
+  )}
 </DocLayout>
