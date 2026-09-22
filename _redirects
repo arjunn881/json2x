@@ -1,0 +1,31 @@
+# ================================================================
+# Cloudflare Pages _redirects — json2x.com
+# Format: [source] [destination] [status]
+# All 301 = permanent redirect (canonical signal to Google)
+# Last updated: 2026-09-20
+# ================================================================
+
+# ----------------------------------------------------------------
+# Canonical directory paths — resolve /foo to /foo/index.html
+# (Fixes "Redirect error" and "Page with redirect" in Search Console)
+# ----------------------------------------------------------------
+/faq                    /faq.html                              301
+/kb                     /kb/index.html                         301
+/docs                   /docs/index.html                       301
+/blog                   /blog/index.html                       301
+/tools                  /tools/index.html                      301
+/errors                 /errors/index.html                     301
+
+# ----------------------------------------------------------------
+# Tool alias short-paths to canonical long-form tool URLs
+# (Fixes 8 pages that were "Blocked by robots.txt" - now they
+#  cleanly 301 to the canonical, Googlebot follows and indexes)
+# ----------------------------------------------------------------
+/tools/converter        /tools/json-converter.html             301
+/tools/formatter        /tools/json-formatter.html             301
+/tools/validator        /tools/json-validator.html             301
+/tools/minifier         /tools/json-minifier.html              301
+/tools/diff             /tools/json-diff.html                  301
+/tools/schema           /tools/json-schema-generator.html      301
+/tools/viewer           /tools/json-tree-viewer.html           301
+/tools/json-to-ts       /tools/json-to-ts.html                 301

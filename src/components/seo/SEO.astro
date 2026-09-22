@@ -29,6 +29,12 @@ const siteUrl = 'https://json2x.com';
 const canonicalUrl = canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
+// Force noindex on ALL *.pages.dev hostnames (main staging + every unique
+// deployment preview URL like 79a2e0af.jsontoolkit-3bb.pages.dev).
+// Complements the X-Robots-Tag: noindex in _headers (HTTP header level).
+const isStaging = Astro.url.hostname.endsWith('.pages.dev');
+const effectiveRobots = isStaging ? 'noindex, nofollow' : robots;
+
 // Base Schema.org WebSite & Organization
 const baseSchemas = [
   {
@@ -68,7 +74,7 @@ const allSchemas = [...baseSchemas, ...customSchemas];
 <title>{title}</title>
 <meta name="description" content={description} />
 {keywords && <meta name="keywords" content={keywords} />}
-<meta name="robots" content={robots} />
+<meta name="robots" content={effectiveRobots} />
 <link rel="canonical" href={canonicalUrl} />
 <meta name="author" content={author} />
 <meta name="theme-color" content="#0d1117" />

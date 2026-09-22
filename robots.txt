@@ -1,7 +1,7 @@
 # ================================================================
 # JSON2X (json2x.com) — Production-Grade robots.txt
 # Conforms to RFC 9309 | Google Search Central Best Practices
-# Last updated: 2026-08-23
+# Last updated: 2026-09-20
 # ================================================================
 
 # ----------------------------------------------------------------
@@ -25,15 +25,6 @@ Disallow: /drafts/
 Disallow: /preview/
 Disallow: /*?preview=*
 Disallow: /*?draft=*
-# Duplicate alias pages (canonical tool pages are at /tools/json-formatter etc.)
-Disallow: /tools/converter
-Disallow: /tools/formatter
-Disallow: /tools/validator
-Disallow: /tools/minifier
-Disallow: /tools/diff
-Disallow: /tools/schema
-Disallow: /tools/viewer
-Disallow: /tools/json-to-ts
 
 User-agent: Googlebot-Image
 Allow: /assets/images/
@@ -121,7 +112,6 @@ Disallow: /*?draft=*
 # SITEMAPS — All valid, live XML sitemaps on json2x.com
 # ----------------------------------------------------------------
 Sitemap: https://json2x.com/sitemap-index.xml
-Sitemap: https://json2x.com/sitemap-images.xml
 
 # ----------------------------------------------------------------
 # GEO — AI Crawler Context Files (llms.txt standard)
