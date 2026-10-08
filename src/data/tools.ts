@@ -1,4 +1,4 @@
-﻿export interface ToolFAQ {
+export interface ToolFAQ {
   q: string;
   a: string;
 }
@@ -481,24 +481,24 @@ export const TOOLS: ToolItem[] = [
     ctrKeywords: ['json to xml online free', 'free json to xml converter', 'xml to json converter online', 'convert xml to json online', 'free xml to json converter', 'convert json to xml with root tag', 'json to soap xml', 'json to xml formatter', 'json xml converter no upload'],
     faqs: [
       {
-        q: 'How does JSON to XML mapping work?',
-        a: 'Object keys become XML tags, primitives become tag contents, and array items repeat matching enclosing element tags under a configurable root node.'
+        q: 'Why does converting JSON root arrays or multiple sibling keys require a synthetic XML root node?',
+        a: 'Under the W3C XML 1.0 (Fifth Edition) Specification (Section 2.1), every well-formed XML document must contain exactly one root document entity enclosing all subordinate elements. Because JSON allows top-level arrays (e.g. `[{"id": 1}, {"id": 2}]`) or multiple root-level keys without a singular parent container, attempting to serialize them directly would produce multi-root markup that causes fatal syntax errors in standard DOM and SAX parsers. The converter wraps all root contents within a configurable wrapper element (such as `<root>`, `<response>`, or `<data>`) to guarantee strict well-formedness compliance.'
       },
       {
-        q: 'Can I customize the XML root tag name?',
-        a: 'Yes. Specify custom root element tags such as <root>, <data>, or <response> in the toolbar.'
+        q: 'How are primitive arrays and heterogeneous sequences serialized into valid child XML tags?',
+        a: 'In JSON, array members are anonymous, indexed values without associated dictionary keys. To serialize primitive lists (e.g. `["admin", "dev"]` or numeric matrices `[10, 20]`), the engine wraps each individual array item in a repeated sibling `<item>` node within the parent element (yielding `<roles><item>admin</item><item>dev</item></roles>`). For arrays of nested objects, each child object generates repeated element tags matching the parent key or a singularized item tag, ensuring downstream XML schema validators (XSD) can validate repeatable sequences without encountering tagless text nodes.'
       },
       {
-        q: 'How do I convert XML to JSON?',
-        a: 'Switch the direction selector to XML → JSON and paste your XML. Element names become object keys, text content is coerced to a number or boolean where it looks like one, and repeated sibling elements collapse into a JSON array.'
+        q: 'How does the converter handle XML reserved characters and CDATA boundary conditions in string values?',
+        a: 'All primitive string values undergo character reference encoding for the five predefined XML entities: ampersand (`&` → `&amp;`), less-than (`<` → `&lt;`), greater-than (`>` → `&gt;`), quotation mark (`"` → `&quot;`), and apostrophe (`\'` → `&apos;`). When string values contain raw HTML fragments, unescaped scripts, or binary data strings, encoding them as standard text nodes prevents parser abortion. For complex payload blocks, CDATA sections (`<![CDATA[...]]>`) can be utilized to pass unparsed character streams without triggering XML parser entity evaluation.'
       },
       {
-        q: 'Are XML attributes preserved in the JSON output?',
-        a: 'No. Both directions work on elements and text only, so attributes on incoming XML are dropped and JSON keys always become child elements rather than attributes. For attribute-heavy documents, treat the output as a starting point.'
+        q: 'How are XML attributes discriminated from nested child elements during bidirectional JSON ↔ XML conversion?',
+        a: 'Standard JSON has no native syntax distinction between attributes and child nodes. During bidirectional translation, this tool adheres to standard XML-JSON mapping conventions: elements map directly to object keys, while attribute-aware parsers recognize prefix markers (such as `@_attr` or `_attributes`). In XML → JSON mode, element text content is isolated into value properties, sibling tags with identical names collapse into typed arrays, and XML namespace declarations (`xmlns:xsi`, `xmlns:soap`) are safely extracted as string properties without corrupting node hierarchies.'
       },
       {
-        q: 'Is this JSON to XML converter free, and is my payload uploaded?',
-        a: 'It is free with no signup, and nothing is uploaded. Conversion runs in your browser, so SOAP envelopes and internal API payloads never leave your machine.'
+        q: 'Why is reverse XML-to-JSON parsing subject to numeric and boolean type coercion ambiguities?',
+        a: 'Unlike JSON—where data types (numbers, booleans, strings, null) are syntactically explicit through quotes and literal keywords—XML stores all element values as untyped character data (PCDATA). When reversing XML back to JSON, the parser applies contextual lexical inference: values strictly matching integer or floating-point patterns are converted to JSON numbers, while `"true"` and `"false"` become boolean literals. However, leading-zero strings (like postal codes `"00123"` or telephone extensions) are preserved as strings to prevent loss of significant digits.'
       }
     ]
   },
@@ -648,24 +648,24 @@ export const TOOLS: ToolItem[] = [
     ctrKeywords: ['json to typescript online free', 'free json to typescript converter', 'json to interface generator', 'typescript interface from json', 'convert api response to typescript', 'json to ts types', 'quicktype alternative online', 'json to typescript no upload'],
     faqs: [
       {
-        q: 'How does JSON to TypeScript generation work?',
-        a: 'The generator recursively traverses nested JSON objects and arrays, creating typed interface declarations with accurate property types (string, number, boolean, array, union, any).'
+        q: 'How does the generator recursively decompose nested JSON object graphs into standalone named TypeScript interfaces?',
+        a: 'Rather than producing unmaintainable, deeply nested inline anonymous object literals (`{ user: { address: { street: string } } }`), the generator traverses the AST depth-first. For every nested dictionary encountered, it synthesizes an isolated PascalCase interface identifier derived from its property key (e.g. `Address`, `UserProfile`), performs structural de-duplication across identical sub-trees, and orders definitions in reverse topological dependency order. This ensures that all child interfaces are declared before they are referenced by parent contracts, preventing circular definition and compilation errors.'
       },
       {
-        q: 'Can I generate type aliases (type T =) instead of interfaces (interface T {})?',
-        a: 'Yes. Switch between interface and type alias declaration modes in the options toolbar.'
+        q: 'How are optional keys (`?`) inferred versus nullable union types across heterogeneous collections?',
+        a: 'When an array of objects is evaluated, the generator computes the mathematical superset union of all property keys across every constituent record. If a property key exists in record `A` but is omitted in record `B`, the engine tags that property with the optional operator (`key?: T`), accurately reflecting schema variance. If a key is present in all records but contains `null` values, it is typed as a nullable union (`key: T | null`). This critical distinction prevents runtime `TypeError: cannot read property of undefined` errors while preserving strict null checking (`--strictNullChecks`).'
       },
       {
-        q: 'How do I turn an API response into a TypeScript interface?',
-        a: 'Paste the response body and set the root name to match the endpoint — UserResponse, for example. Nested objects become their own named interfaces, so you can copy the whole block into a types file and import from it immediately.'
+        q: 'How does array element type inference differentiate homogeneous arrays, union arrays, and tuple representations?',
+        a: 'For arrays of uniform scalar values (`[1, 2, 3]`), the engine emits concise vector syntax (`number[]`). When an array contains heterogeneous primitive or object items (such as `[101, "active", { id: "alpha" }]`), the engine evaluates every element to synthesize a discriminated union type (`Array<number | string | AlphaItem>`) instead of prematurely discarding type safety by falling back to `any[]` or `unknown[]`. For fixed-length arrays with distinct sequential types, tuple syntax (`[string, number]`) can be generated.'
       },
       {
-        q: 'Can it mark properties as optional?',
-        a: 'Yes. Enable the optional-properties toggle and keys are emitted as name?: type, which is the right shape when a field may be absent from some responses. There is also a toggle for adding export to each declaration.'
+        q: 'How does the engine generate dynamic index signatures (`Record<string, T>`) for map-like dictionary payloads?',
+        a: 'In data models where object keys represent dynamic identifier hashes, ISO timestamps, or UUIDs rather than static structural fields (e.g. `{ "uuid-1": {...}, "uuid-2": {...} }`), enumerating each key creates thousands of brittle property definitions. The generator detects dynamic key entropy and allows emitting TypeScript index signatures (`[key: string]: SubEntity` or `Record<string, SubEntity>`), yielding clean, idiomatic representations for key-value stores and lookup tables.'
       },
       {
-        q: 'Is this a free quicktype alternative that runs offline?',
-        a: 'It is free with no account, and generation happens entirely in your browser — no payload is uploaded. That makes it usable on API responses containing customer data, where a server-side generator would not be.'
+        q: 'How are JSON property keys with hyphens, spaces, or ECMAScript reserved keywords escaped?',
+        a: 'JSON allows arbitrary Unicode string keys, but TypeScript interface properties must conform to valid JavaScript identifier syntax. Keys that collide with reserved language keywords (such as `delete`, `class`, `function`, `default`, `import`) or contain non-identifier characters (like `@context`, `content-type`, `123_index`) are automatically wrapped in quotes (e.g. `\'content-type\': string;`, `\'default\'?: boolean;`). This prevents TypeScript compiler parser termination while maintaining exact fidelity with runtime payload keys.'
       }
     ]
   },
@@ -854,24 +854,24 @@ export const TOOLS: ToolItem[] = [
     ctrKeywords: ['json to prisma schema online', 'free json to prisma converter', 'prisma schema generator online', 'prisma model generator from json', 'generate schema.prisma from json', 'json to prisma orm', 'prisma schema from api response'],
     faqs: [
       {
-        q: 'How does JSON to Prisma conversion work?',
-        a: 'The generator inspects your JSON entity properties and produces valid Prisma schema.prisma model declarations.'
+        q: 'How does the schema generator distinguish PostgreSQL relational models from MongoDB document models in schema.prisma?',
+        a: 'The generator differentiates provider-specific schema requirements at the AST level. For relational targets (PostgreSQL, MySQL, SQLite), primary keys map to relational ID conventions such as `id Int @id @default(autoincrement())` or `id String @id @default(uuid())`, and nested entities trigger foreign key relations (`@relation(...)`). Conversely, for MongoDB datasource providers, primary keys require strict ObjectId mapping syntax: `id String @id @default(auto()) @map("_id") @db.ObjectId`. Additionally, nested JSON structures in MongoDB can be mapped to Prisma composite types (`type SubDocument { ... }`) rather than standalone relational models.'
       },
       {
-        q: 'Which Prisma scalar types are inferred?',
-        a: 'Int and Float for numbers, String for text, Boolean for true/false, and DateTime for values that parse as timestamps. Nulls in the sample produce optional fields marked with ?.'
+        q: 'How are Prisma attribute directives (@id, @default, @updatedAt, @unique) inferred from JSON keys?',
+        a: 'The engine applies heuristic attribute pattern matching: properties matching `id`, `_id`, or `uuid` are assigned the `@id` directive with an appropriate generator (`@default(autoincrement())` for integers or `@default(uuid())` for strings). Fields representing creation dates (`createdAt`) receive `@default(now())`, while modification timestamps (`updatedAt`) receive `@updatedAt`. Distinct identifier fields (such as `email`, `slug`, or `username`) receive the `@unique` constraint to enforce schema-level uniqueness.'
       },
       {
-        q: 'Does it add an @id primary key?',
-        a: 'Yes, when the add-id option is on: an existing id field is annotated as the @id, and if none exists one is added. Turn it off when the model is a relation table you will key differently.'
+        q: 'How does scalar type inference classify numbers into Prisma Int, BigInt, Float, and Decimal types?',
+        a: 'JSON specifies a single numeric representation (IEEE 754 float). The generator inspects values across all sample rows: integers within the signed 32-bit range (`-2,147,483,648` to `2,147,483,647`) map to Prisma `Int`. Numbers exceeding 32-bit thresholds map to `BigInt`. Non-integer fractional values map to `Float` by default, or to `Decimal` (with `@db.Decimal(10, 2)`) when property names denote currency or financial transactions (`price`, `amount`, `balance`, `subtotal`), preventing floating-point rounding inaccuracies.'
       },
       {
-        q: 'Can it emit the datasource and generator blocks too?',
-        a: 'Yes. Enable the datasource option and the output includes the datasource db and generator client blocks, so the result is a schema.prisma file you can run prisma generate against rather than a bare model.'
+        q: 'How are nested JSON objects and arrays resolved between relational models and composite embedded types?',
+        a: 'When an input payload contains nested objects (e.g. `{ user: { address: { street: "..." } } }`), the generator can resolve the relationship in two ways. In relational mode (PostgreSQL), it synthesizes a secondary `Address` model and establishes a 1-to-1 or 1-to-many `@relation(fields: [addressId], references: [id])` foreign key binding. In denormalized or document mode (MongoDB/PostgreSQL JSON columns), it emits the field as a native `Json` scalar type or a composite type (`type Address`), avoiding unnecessary table joins.'
       },
       {
-        q: 'Is this Prisma schema generator free, and is my JSON uploaded?',
-        a: 'It is free with no account, and nothing is uploaded — the model is built in your browser from the JSON you paste.'
+        q: 'How are null values and absent properties translated into Prisma optional modifiers (?) and default fallbacks?',
+        a: 'In Prisma schema syntax, fields marked with `?` denote database nullable columns (`NULL`), whereas unmarked fields are strictly `NOT NULL`. If an input payload contains explicit `null` values or if a key is absent in some records across a multi-object JSON array, the generator marks the field as optional (e.g. `bio String?`, `deletedAt DateTime?`). For boolean flags and counters with absent values, it can infer default fallbacks (e.g. `Boolean @default(false)` or `Int @default(0)`), ensuring valid migrations without schema validation rejections.'
       }
     ]
   },

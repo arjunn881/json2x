@@ -10,30 +10,49 @@ export interface Props {
   publishedTime?: string;
   author?: string;
   schema?: Record<string, any> | Record<string, any>[];
+  isSecondary?: boolean;
+  contentLength?: number;
 }
 
 const {
   title,
   description,
-  canonical = Astro.url.href,
+  canonical,
   keywords = 'json tools, json formatter, json validator, json to typescript, json converter, csv to json, json diff',
   ogImage = 'https://json2x.com/assets/og-image.png',
   ogType = 'website',
   robots = 'index, follow',
   publishedTime,
   author = 'JSON2X Engineering Team',
-  schema
+  schema,
+  isSecondary = false,
+  contentLength
 } = Astro.props;
 
 const siteUrl = 'https://json2x.com';
-const canonicalUrl = canonical.startsWith('http') ? canonical : `${siteUrl}${canonical}`;
+
+// Dynamic, self-referencing canonical tag strictly derived from Astro.url.pathname
+// Strips query parameters, tracking tags (?utm=, ?ref=), and normalizes trailing slashes
+const cleanPathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const defaultCanonical = `${siteUrl}${cleanPathname}`;
+
+let canonicalUrl = defaultCanonical;
+if (canonical) {
+  const cleanExplicit = canonical.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/';
+  canonicalUrl = cleanExplicit.startsWith('http') ? cleanExplicit : `${siteUrl}${cleanExplicit}`;
+}
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 
-// Force noindex on ALL *.pages.dev hostnames (main staging + every unique
-// deployment preview URL like 79a2e0af.jsontoolkit-3bb.pages.dev).
-// Complements the X-Robots-Tag: noindex in _headers (HTTP header level).
+// Secondary threshold check: Automatically drop 'noindex, follow' if secondary, variation parameter, or below content threshold
+// Protects against GSC "Discovered - currently not indexed" bloat and AdSense Low Value Content penalties
+const hasTrackingOrVariantParams = Astro.url.searchParams.size > 0;
+const isMinorVariation = isSecondary || hasTrackingOrVariantParams;
+const meetsContentThreshold = isMinorVariation ? false : (contentLength !== undefined ? contentLength >= 250 : true);
+const thresholdRobots = (!meetsContentThreshold) ? 'noindex, follow' : robots;
+
+// Force noindex on ALL *.pages.dev hostnames (main staging + every unique deployment preview)
 const isStaging = Astro.url.hostname.endsWith('.pages.dev');
-const effectiveRobots = isStaging ? 'noindex, nofollow' : robots;
+const effectiveRobots = isStaging ? 'noindex, nofollow' : thresholdRobots;
 
 // Base Schema.org WebSite & Organization
 const baseSchemas = [
@@ -45,7 +64,7 @@ const baseSchemas = [
     'description': 'Universal developer JSON toolkit — 100% client-side data privacy.',
     'potentialAction': {
       '@type': 'SearchAction',
-      'target': 'https://json2x.com/tools/?q={search_term_string}',
+      'target': 'https://json2x.com/tools?q={search_term_string}',
       'query-input': 'required name=search_term_string'
     },
     // GEO: speakable — marks key page sections for AI voice/summary extraction

@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/layout/Breadcrumbs.astro';
 import { TOOL_PAGES, getPseoCategory } from '../../../data/tool-pseo';
@@ -9,7 +9,7 @@ const itemListSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   'name': 'JSON2X Developer Tool Guides',
-  'url': 'https://json2x.com/kb/tools/',
+  'url': 'https://json2x.com/kb/tools',
   'numberOfItems': TOOL_PAGES.length,
   'itemListElement': TOOL_PAGES.map((p, idx) => ({
     '@type': 'ListItem',

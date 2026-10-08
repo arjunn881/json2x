@@ -1,0 +1,223 @@
+---
+import type { ToolItem } from '../../data/tools';
+import { getToolRegistry } from '../../data/toolsRegistry';
+
+export interface Props {
+  tool: ToolItem;
+}
+
+const { tool } = Astro.props;
+const registry = getToolRegistry(tool.id);
+---
+
+<section class="mt-8 mb-8 font-sans" aria-label="Programmatic Execution Side-Car">
+  <!-- Section Title -->
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <div class="flex items-center gap-2">
+      <span class="p-1.5 rounded-md bg-zinc-800 text-indigo-400">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      </span>
+      <div>
+        <h3 class="text-sm font-semibold text-zinc-100 tracking-wide uppercase font-mono">
+          Programmatic Execution Modules
+        </h3>
+        <p class="text-xs text-zinc-400">
+          Native runtime recipes for automated pipelines &bull; Zero external cloud dependencies
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Terminal Execution -->
+    <div class="flex items-center gap-2 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-1.5 font-mono text-xs text-zinc-300">
+      <span class="text-emerald-400 font-bold">$</span>
+      <code class="text-zinc-300 truncate max-w-[260px] md:max-w-[420px]">{registry.terminalCommand}</code>
+      <button
+        type="button"
+        class="copy-btn ml-1 px-2 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-[11px] text-zinc-200 transition-colors"
+        data-copy-target={registry.terminalCommand}
+        aria-label="Copy CLI Command"
+      >
+        Copy
+      </button>
+    </div>
+  </div>
+
+  <!-- Multi-Language Code Visualization Deck -->
+  <div class="rounded-xl border border-zinc-800 bg-zinc-950 shadow-xl overflow-hidden mb-6">
+    <!-- Tab Controls -->
+    <div class="flex items-center justify-between border-b border-zinc-800/80 bg-zinc-900/70 px-4 py-2.5">
+      <div class="flex items-center gap-2" role="tablist">
+        {registry.executionSnippets.map((snippet, idx) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            class={`snippet-tab px-3 py-1 rounded-md text-xs font-mono font-medium transition-colors ${
+              idx === 0
+                ? 'bg-zinc-800 text-indigo-300 border border-zinc-700 shadow-sm active'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+            }`}
+            data-tab-target={`snippet-panel-${tool.id}-${snippet.language}-${idx}`}
+          >
+            {snippet.label}
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        class="copy-active-snippet-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/80 text-xs font-mono text-zinc-200 transition-all"
+        aria-label="Copy Active Code Snippet"
+      >
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+        </svg>
+        <span class="copy-text">Copy</span>
+      </button>
+    </div>
+
+    <!-- Tab Panels -->
+    <div class="p-4 bg-zinc-950 font-mono text-xs">
+      {registry.executionSnippets.map((snippet, idx) => (
+        <div
+          id={`snippet-panel-${tool.id}-${snippet.language}-${idx}`}
+          role="tabpanel"
+          class={`snippet-panel ${idx === 0 ? 'block' : 'hidden'}`}
+          data-code-content={snippet.code}
+        >
+          <pre class="overflow-x-auto text-zinc-300 leading-relaxed font-mono selection:bg-indigo-500/30"><code>{snippet.code}</code></pre>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Deep Engineering Edge-Case Analysis Cards -->
+  {registry.edgeCaseAnalysis && registry.edgeCaseAnalysis.length > 0 && (
+    <div class="mt-6 mb-4">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-zinc-400 font-mono">
+          ⚙️ Engineering Edge-Case Analysis &amp; Invariants
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {registry.edgeCaseAnalysis.map((item) => (
+          <div class="rounded-lg border border-zinc-800/90 bg-zinc-900/60 p-4 transition-all hover:border-zinc-700">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <h4 class="text-sm font-semibold text-zinc-200">
+                {item.title}
+              </h4>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-800/60">
+                {item.badge}
+              </span>
+            </div>
+            <p class="text-xs text-zinc-400 leading-relaxed mb-3">
+              {item.description}
+            </p>
+            <div class="pt-2.5 border-t border-zinc-800/80 flex items-start gap-1.5 text-[11px] font-mono text-zinc-300">
+              <span class="text-emerald-400 font-bold shrink-0">Directive:</span>
+              <span class="text-zinc-400">{item.technicalDirective}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</section>
+
+<script is:inline>
+  (function initSnippetsCopyModule() {
+    'use strict';
+
+    // Tab Switching Logic
+    const tabButtons = document.querySelectorAll('.snippet-tab');
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab-target');
+        const container = btn.closest('section');
+        if (!container) return;
+
+        // Reset all tabs in this container
+        container.querySelectorAll('.snippet-tab').forEach((t) => {
+          t.classList.remove('bg-zinc-800', 'text-indigo-300', 'border', 'border-zinc-700', 'shadow-sm', 'active');
+          t.classList.add('text-zinc-400');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        // Activate clicked tab
+        btn.classList.add('bg-zinc-800', 'text-indigo-300', 'border', 'border-zinc-700', 'shadow-sm', 'active');
+        btn.classList.remove('text-zinc-400');
+        btn.setAttribute('aria-selected', 'true');
+
+        // Toggle panels
+        container.querySelectorAll('.snippet-panel').forEach((p) => {
+          p.classList.add('hidden');
+          p.classList.remove('block');
+        });
+
+        const activePanel = container.querySelector(`#${targetId}`);
+        if (activePanel) {
+          activePanel.classList.remove('hidden');
+          activePanel.classList.add('block');
+        }
+      });
+    });
+
+    // Copy Button Logic with direct visual rewrites ("Copy" -> "Copied!")
+    function copyToClipboard(text, triggerEl) {
+      if (!navigator.clipboard) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showCopiedState(triggerEl);
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        showCopiedState(triggerEl);
+      }).catch((err) => {
+        console.error('Clipboard copy failed:', err);
+      });
+    }
+
+    function showCopiedState(el) {
+      const copyTextEl = el.querySelector('.copy-text') || el;
+      const originalText = copyTextEl.textContent;
+      copyTextEl.textContent = 'Copied!';
+      el.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
+      
+      setTimeout(() => {
+        copyTextEl.textContent = originalText;
+        el.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500');
+      }, 2000);
+    }
+
+    // Bind individual copy buttons (like CLI one-liner)
+    document.querySelectorAll('.copy-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const text = btn.getAttribute('data-copy-target');
+        if (text) copyToClipboard(text, btn);
+      });
+    });
+
+    // Bind active snippet copy button
+    document.querySelectorAll('.copy-active-snippet-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const container = btn.closest('section');
+        if (!container) return;
+        const visiblePanel = container.querySelector('.snippet-panel.block');
+        if (visiblePanel) {
+          const code = visiblePanel.getAttribute('data-code-content');
+          if (code) copyToClipboard(code, btn);
+        }
+      });
+    });
+  })();
+</script>

@@ -1,31 +1,171 @@
-# ================================================================
-# Cloudflare Pages _redirects � json2x.com
+# ═══════════════════════════════════════════════════════════════
+# Cloudflare Pages Redirects — json2x.com
 # Format: [source] [destination] [status]
-# All 301 = permanent redirect (canonical signal to Google)
-# Last updated: 2026-09-20
-# ================================================================
+# Conforms to RFC 9110 | Google Search Central Canonical Best Practices
+# ═══════════════════════════════════════════════════════════════
 
-# ----------------------------------------------------------------
-# Canonical directory paths � resolve /foo to /foo/index.html
-# (Fixes "Redirect error" and "Page with redirect" in Search Console)
-# ----------------------------------------------------------------
-/faq                    /faq.html                              301
-/kb                     /kb/index.html                         301
-/docs                   /docs/index.html                       301
-/blog                   /blog/index.html                       301
-/tools                  /tools/index.html                      301
-/errors                 /errors/index.html                     301
+# ── Root index ────────────────────────────────────────────────
+/index.html                     / 301
 
-# ----------------------------------------------------------------
-# Tool alias short-paths to canonical long-form tool URLs
-# (Fixes 8 pages that were "Blocked by robots.txt" - now they
-#  cleanly 301 to the canonical, Googlebot follows and indexes)
-# ----------------------------------------------------------------
-/tools/converter        /tools/json-converter.html             301
-/tools/formatter        /tools/json-formatter.html             301
-/tools/validator        /tools/json-validator.html             301
-/tools/minifier         /tools/json-minifier.html              301
-/tools/diff             /tools/json-diff.html                  301
-/tools/schema           /tools/json-schema-generator.html      301
-/tools/viewer           /tools/json-tree-viewer.html           301
-/tools/json-to-ts       /tools/json-to-ts.html                 301
+# ── Directory index paths (resolve to clean canonical URLs) ──
+/tools/index                    /tools 301
+/kb/index                       /kb 301
+/kb/tools/index                 /kb/tools 301
+/blog/index                     /blog 301
+/docs/index                     /docs 301
+
+# ── Trailing slash normalization for core directories ────────
+/faq/                           /faq 301
+/kb/                            /kb 301
+/docs/                          /docs 301
+/tools/                         /tools 301
+/blog/                          /blog 301
+/kb/tools/                      /kb/tools 301
+/about/                         /about 301
+/contact/                       /contact 301
+/privacy/                       /privacy 301
+/terms/                         /terms 301
+/security/                      /security 301
+/disclaimer/                    /disclaimer 301
+/license/                       /license 301
+/changelog/                     /changelog 301
+/roadmap/                       /roadmap 301
+/open-source/                   /open-source 301
+/editorial-policy/              /editorial-policy 301
+
+# ── Fix GSC 404 Pages (Screenshot 2: Not Found 404) ────────────
+/blog/index.html                /blog 301
+/blog/psr-guides.html           /blog 301
+/blog/cron-tools.html           /blog 301
+/blog/psr-guides                /blog 301
+/blog/cron-tools                /blog 301
+
+# ── Static HTML extensions to canonical clean URLs ────────────
+/faq.html                       /faq 301
+/about.html                     /about 301
+/contact.html                   /contact 301
+/privacy.html                   /privacy 301
+/terms.html                     /terms 301
+/security.html                  /security 301
+/disclaimer.html                /disclaimer 301
+/license.html                   /license 301
+/changelog.html                 /changelog 301
+/roadmap.html                   /roadmap 301
+/open-source.html               /open-source 301
+/editorial-policy.html          /editorial-policy 301
+/tools.html                     /tools 301
+/kb.html                        /kb 301
+/docs.html                      /docs 301
+/blog.html                      /blog 301
+
+# ── Tool pages .html redirects ────────────────────────────────
+/tools/json-to-xml.html         /tools/json-to-xml 301
+/tools/json-converter.html      /tools/json-converter 301
+/tools/json-formatter.html      /tools/json-formatter 301
+/tools/json-validator.html      /tools/json-validator 301
+/tools/json-minifier.html       /tools/json-minifier 301
+/tools/json-diff.html           /tools/json-diff 301
+/tools/json-to-csv.html         /tools/json-to-csv 301
+/tools/csv-to-json.html         /tools/csv-to-json 301
+/tools/json-to-yaml.html        /tools/json-to-yaml 301
+/tools/json-to-toml.html        /tools/json-to-toml 301
+/tools/json-to-sql.html         /tools/json-to-sql 301
+/tools/typescript-generator.html /tools/typescript-generator 301
+/tools/json-to-code.html        /tools/json-to-code 301
+/tools/json-to-prisma.html      /tools/json-to-prisma 301
+/tools/json-to-drizzle.html     /tools/json-to-drizzle 301
+/tools/json-to-graphql.html     /tools/json-to-graphql 301
+/tools/json-to-zod.html         /tools/json-to-zod 301
+/tools/json-schema-generator.html /tools/json-schema-generator 301
+/tools/json-mock-generator.html /tools/json-mock-generator 301
+/tools/jsonpath.html            /tools/jsonpath 301
+/tools/json-tree-viewer.html    /tools/json-tree-viewer 301
+
+# ── Knowledge Base .html redirects ────────────────────────────
+/kb/json-errors.html            /kb/json-errors 301
+/kb/json-tutorials.html         /kb/json-tutorials 301
+/kb/json-arrays.html            /kb/json-arrays 301
+/kb/jsonpath.html               /kb/jsonpath 301
+/kb/json-to-code-guide.html     /kb/json-to-code-guide 301
+/kb/json-to-sql-guide.html      /kb/json-to-sql-guide 301
+/kb/csv-to-json-guide.html      /kb/csv-to-json-guide 301
+/kb/nested-json.html            /kb/nested-json 301
+/kb/json-examples.html          /kb/json-examples 301
+/kb/json-diff-checker.html      /kb/json-diff-checker 301
+/kb/json-apis.html              /kb/json-apis 301
+/kb/json-mock-generator-guide.html /kb/json-mock-generator-guide 301
+/kb/rest-api-json.html          /kb/rest-api-json 301
+/kb/json-editors-plugins.html   /kb/json-editors-plugins 301
+/kb/json-validation.html        /kb/json-validation 301
+/kb/json-schema.html            /kb/json-schema 301
+/kb/pretty-print.html           /kb/pretty-print 301
+/kb/json-objects.html           /kb/json-objects 301
+/kb/json-to-csv-guide.html      /kb/json-to-csv-guide 301
+/docs/json-minification-performance.html /docs/json-minification-performance 301
+
+# ── Legacy / mistyped paths ───────────────────────────────────
+/errors/                        /kb/json-errors 301
+/errors                         /kb/json-errors 301
+/tools/json-multi-converter     /tools/json-converter 301
+
+# ── Tool alias consolidation (Redirect directly to canonical) ─
+# Format & Validate
+/tools/formatter                /tools/json-formatter 301
+/tools/json-beautifier          /tools/json-formatter 301
+/tools/json-prettifier          /tools/json-formatter 301
+/tools/json-fixer               /tools/json-formatter 301
+/tools/json-online-formatter    /tools/json-formatter 301
+/tools/format-json              /tools/json-formatter 301
+/tools/validator                /tools/json-validator 301
+/tools/json-checker             /tools/json-validator 301
+/tools/json-lint                /tools/json-validator 301
+/tools/json-syntax-checker      /tools/json-validator 301
+/tools/minifier                 /tools/json-minifier 301
+/tools/minify-json              /tools/json-minifier 301
+/tools/json-compressor          /tools/json-minifier 301
+/tools/diff                     /tools/json-diff 301
+/tools/json-compare             /tools/json-diff 301
+/tools/json-diff-checker        /tools/json-diff 301
+/tools/compare-json             /tools/json-diff 301
+
+# Data Converters
+/tools/json2csv                 /tools/json-to-csv 301
+/tools/json-csv-converter       /tools/json-to-csv 301
+/tools/csv2json                 /tools/csv-to-json 301
+/tools/csv-json-converter       /tools/csv-to-json 301
+/tools/yaml-to-json             /tools/json-to-yaml 301
+/tools/json2yaml                /tools/json-to-yaml 301
+/tools/yaml2json                /tools/json-to-yaml 301
+/tools/xml-to-json              /tools/json-to-xml 301
+/tools/json2xml                 /tools/json-to-xml 301
+/tools/xml2json                 /tools/json-to-xml 301
+/tools/json2toml                /tools/json-to-toml 301
+/tools/json2sql                 /tools/json-to-sql 301
+/tools/json-sql-converter       /tools/json-to-sql 301
+/tools/multi-converter          /tools/json-converter 301
+/tools/json-to-all              /tools/json-converter 301
+/tools/converter                /tools/json-converter 301
+
+# Code & Schema
+/tools/json-to-ts               /tools/typescript-generator 301
+/tools/json-to-typescript       /tools/typescript-generator 301
+/tools/json-to-go               /tools/json-to-code 301
+/tools/json-to-rust             /tools/json-to-code 301
+/tools/json-to-python           /tools/json-to-code 301
+/tools/schema                   /tools/json-schema-generator 301
+/tools/json-schema              /tools/json-schema-generator 301
+/tools/schema-generator         /tools/json-schema-generator 301
+/tools/fake-json                /tools/json-mock-generator 301
+/tools/mock-json                /tools/json-mock-generator 301
+/tools/zod-schema-generator     /tools/json-to-zod 301
+/tools/json-zod                 /tools/json-to-zod 301
+/tools/prisma-schema-generator  /tools/json-to-prisma 301
+/tools/drizzle-schema-generator /tools/json-to-drizzle 301
+/tools/graphql-type-generator   /tools/json-to-graphql 301
+
+# Query & Inspection
+/tools/jsonpath-evaluator       /tools/jsonpath 301
+/tools/jsonpath-tester          /tools/jsonpath 301
+/tools/viewer                   /tools/json-tree-viewer 301
+/tools/json-viewer              /tools/json-tree-viewer 301
+/tools/json-tree                /tools/json-tree-viewer 301

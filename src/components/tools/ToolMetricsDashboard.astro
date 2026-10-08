@@ -1,0 +1,361 @@
+---
+export interface Props {
+  toolId?: string;
+  toolName?: string;
+  specStandard?: string;
+}
+
+const { toolId = 'json-tool', toolName = 'JSON Developer Tool', specStandard = 'RFC 8259 / UTF-8' } = Astro.props;
+---
+
+<section class="mt-8 mb-8 rounded-xl border border-zinc-800 bg-zinc-950 p-5 shadow-2xl font-sans" id="realtime-metrics-dashboard" aria-label="Real-Time Structural Payload Evaluation">
+  <!-- Dashboard Header -->
+  <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-zinc-800/80">
+    <div class="flex items-center gap-2.5">
+      <span class="flex h-2.5 w-2.5 relative">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+      </span>
+      <h2 class="text-sm font-semibold tracking-wide text-zinc-100 flex items-center gap-1.5">
+        <span>📊 Real-Time Structural Payload Evaluation</span>
+      </h2>
+    </div>
+    <div class="flex items-center gap-2 text-xs font-mono text-zinc-400">
+      <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">Spec: {specStandard}</span>
+      <span class="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-medium">100% Client-Side Engine</span>
+    </div>
+  </div>
+
+  <!-- Primary 4-Metric Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+    <!-- 1. Total Object Keys -->
+    <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/60 p-3.5 transition-all hover:border-zinc-700">
+      <div class="flex items-center justify-between text-xs font-medium text-zinc-400 mb-1">
+        <span>Total Object Keys</span>
+        <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+        </svg>
+      </div>
+      <div class="text-2xl font-bold font-mono text-zinc-100 tracking-tight" id="stat-total-keys">0</div>
+      <div class="text-[11px] font-mono text-zinc-400 mt-0.5" id="stat-keys-sub">Recursive key instances</div>
+    </div>
+
+    <!-- 2. Max Nesting Tier Depth -->
+    <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/60 p-3.5 transition-all hover:border-zinc-700">
+      <div class="flex items-center justify-between text-xs font-medium text-zinc-400 mb-1">
+        <span>Max Nesting Tier Depth</span>
+        <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h12M4 18h8" />
+        </svg>
+      </div>
+      <div class="text-2xl font-bold font-mono text-zinc-100 tracking-tight" id="stat-max-depth">Tier 0</div>
+      <div class="text-[11px] font-mono text-zinc-400 mt-0.5" id="stat-depth-sub">AST hierarchy layers</div>
+    </div>
+
+    <!-- 3. Array Structure Instances -->
+    <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/60 p-3.5 transition-all hover:border-zinc-700">
+      <div class="flex items-center justify-between text-xs font-medium text-zinc-400 mb-1">
+        <span>Array Structure Instances</span>
+        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      </div>
+      <div class="text-2xl font-bold font-mono text-zinc-100 tracking-tight" id="stat-arrays-count">0</div>
+      <div class="text-[11px] font-mono text-zinc-400 mt-0.5" id="stat-arrays-sub">Indexed list vectors</div>
+    </div>
+
+    <!-- 4. Calculated Stream Footprint (KB) -->
+    <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/60 p-3.5 transition-all hover:border-zinc-700">
+      <div class="flex items-center justify-between text-xs font-medium text-zinc-400 mb-1">
+        <span>Stream Footprint (KB)</span>
+        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div class="text-2xl font-bold font-mono text-zinc-100 tracking-tight" id="stat-payload-size">0.00 KB</div>
+      <div class="text-[11px] font-mono text-zinc-400 mt-0.5" id="stat-size-sub">0 bytes UTF-8</div>
+    </div>
+  </div>
+
+  <!-- Dynamic Structural Distribution Progress Bar -->
+  <div class="rounded-lg border border-zinc-800/80 bg-zinc-900/40 p-3 mb-4">
+    <div class="flex items-center justify-between text-xs font-mono text-zinc-400 mb-2">
+      <span class="text-zinc-300 font-medium">Memory Allocation Topology</span>
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span><strong id="badge-objects" class="text-zinc-200">0</strong> Objects</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><strong id="badge-arrays" class="text-zinc-200">0</strong> Arrays</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span><strong id="badge-primitives" class="text-zinc-200">0</strong> Primitives</span>
+        <span class="px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 text-[10px]" id="stat-root-badge">Root: Standby</span>
+      </div>
+    </div>
+    <div class="h-2 w-full rounded-full bg-zinc-800 overflow-hidden flex" role="progressbar" aria-label="Structural composition breakdown">
+      <div class="h-full bg-indigo-500 transition-all duration-300" id="bar-objects" style="width: 33.3%;"></div>
+      <div class="h-full bg-emerald-500 transition-all duration-300" id="bar-arrays" style="width: 33.3%;"></div>
+      <div class="h-full bg-amber-500 transition-all duration-300" id="bar-primitives" style="width: 33.4%;"></div>
+    </div>
+  </div>
+
+  <!-- CRUCIAL SEO DYNAMIC MUTATION BOT ANCHOR -->
+  <!-- Changes inner HTML text programmatically using JavaScript based on payload calculations.
+       Guarantees search crawler bots never see identical text profiles across tools. -->
+  <div class="rounded-lg border border-zinc-800/90 bg-zinc-900/90 p-4 border-l-4 border-l-indigo-500">
+    <div class="flex items-center justify-between gap-2 mb-2">
+      <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400 flex items-center gap-1.5 font-mono">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        Runtime Telemetry &amp; Structural Synthesis
+      </span>
+      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400" id="stat-timestamp">Updated Just Now</span>
+    </div>
+    
+    <div id="dynamic-bot-anchor" class="text-xs text-zinc-300 leading-relaxed font-mono">
+      Initializing client-side V8 parser for <span class="text-indigo-300 font-semibold">{toolName}</span>. Awaiting input payload stream to compute live topological graphs, heap memory consumption, and key serialization density.
+    </div>
+
+    <div class="mt-3 pt-2.5 border-t border-zinc-800/80 flex flex-wrap items-center gap-4 text-[11px] font-mono text-zinc-400">
+      <span id="stat-classification-tier">Topology: Standby / Awaiting Input</span>
+      <span id="stat-key-density">Key Density: 0.00 keys/KB</span>
+      <span id="stat-v8-heap">V8 Heap Footprint: ~0.00 KB</span>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function initRuntimeMetricsEngine() {
+    'use strict';
+
+    function formatNumber(n) {
+      return new Intl.NumberFormat('en-US').format(n);
+    }
+
+    function analyzePayload(raw) {
+      if (!raw || !raw.trim()) {
+        return {
+          isEmpty: true,
+          byteSize: 0,
+          sizeKB: '0.00',
+          totalKeys: 0,
+          maxDepth: 0,
+          arraysCount: 0,
+          objectsCount: 0,
+          primitivesCount: 0,
+          rootType: 'Empty',
+          error: null
+        };
+      }
+
+      const encoder = new TextEncoder();
+      const byteSize = encoder.encode(raw).length;
+      const sizeKB = (byteSize / 1024).toFixed(2);
+
+      let totalKeys = 0;
+      let maxDepth = 0;
+      let arraysCount = 0;
+      let objectsCount = 0;
+      let primitivesCount = 0;
+      let rootType = 'Unknown';
+      let error = null;
+
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed === null || typeof parsed !== 'object') {
+          rootType = parsed === null ? 'Null' : typeof parsed;
+          primitivesCount = 1;
+          maxDepth = 1;
+        } else if (Array.isArray(parsed)) {
+          rootType = 'Array';
+          traverse(parsed, 1);
+        } else {
+          rootType = 'Object';
+          traverse(parsed, 1);
+        }
+      } catch (err) {
+        error = err.message;
+        // Fallback shallow regex inspection on malformed streams
+        totalKeys = (raw.match(/"[^"\\]*"(?=\s*:)/g) || []).length;
+        const braces = (raw.match(/\{/g) || []).length;
+        const brackets = (raw.match(/\[/g) || []).length;
+        objectsCount = braces;
+        arraysCount = brackets;
+        maxDepth = Math.max(1, braces + brackets > 0 ? 2 : 1);
+        primitivesCount = (raw.match(/:\s*("[^"]*"|\d+|true|false|null)/g) || []).length;
+        rootType = raw.trim().startsWith('[') ? 'Array (Unclosed)' : 'Object (Malformed)';
+      }
+
+      function traverse(node, depth) {
+        if (depth > maxDepth) maxDepth = depth;
+        if (node === null || typeof node !== 'object') {
+          primitivesCount++;
+          return;
+        }
+        if (Array.isArray(node)) {
+          arraysCount++;
+          for (let i = 0; i < node.length; i++) {
+            traverse(node[i], depth + 1);
+          }
+        } else {
+          objectsCount++;
+          const keys = Object.keys(node);
+          totalKeys += keys.length;
+          for (let i = 0; i < keys.length; i++) {
+            traverse(node[keys[i]], depth + 1);
+          }
+        }
+      }
+
+      return {
+        isEmpty: false,
+        byteSize,
+        sizeKB,
+        totalKeys,
+        maxDepth,
+        arraysCount,
+        objectsCount,
+        primitivesCount,
+        rootType,
+        error
+      };
+    }
+
+    function generateDynamicProse(m) {
+      if (m.isEmpty) {
+        return {
+          html: 'Awaiting developer payload input. Paste or load structured data above to trigger live AST parsing, calculate V8 heap allocations, and derive recursive graph depth.',
+          classification: 'Topology: Standby / Awaiting Input',
+          density: 'Key Density: 0.00 keys/KB',
+          heap: 'V8 Heap Footprint: ~0.00 KB'
+        };
+      }
+
+      let tier = 'Flat Record Map';
+      if (m.maxDepth >= 7) {
+        tier = 'Deeply Recursive Hierarchical Tree (Tier 7+)';
+      } else if (m.maxDepth >= 4) {
+        tier = 'Multi-Tier Nested Entity Structure';
+      } else if (m.rootType === 'Array') {
+        tier = 'Tabular Homogeneous Collection';
+      }
+
+      const density = m.byteSize > 0 ? (m.totalKeys / (m.byteSize / 1024)).toFixed(2) : '0.00';
+      const heapEst = ((m.byteSize * 2.8) / 1024).toFixed(2);
+
+      let text = `Evaluated structural profile: Stream footprint spans <strong class="text-zinc-100">${m.sizeKB} KB</strong> (${formatNumber(m.byteSize)} raw UTF-8 bytes) containing <strong class="text-zinc-100">${formatNumber(m.totalKeys)} total object keys</strong>. `;
+      text += `AST traversal reached a maximum nesting depth of <strong class="text-cyan-300">Tier ${m.maxDepth}</strong> across <strong class="text-indigo-300">${formatNumber(m.objectsCount)} object nodes</strong>, <strong class="text-emerald-300">${formatNumber(m.arraysCount)} array lists</strong>, and <strong class="text-amber-300">${formatNumber(m.primitivesCount)} scalar values</strong>. `;
+
+      if (m.error) {
+        text += `<span class="text-rose-400">Syntax exception detected: ${m.error}. Displaying approximate structural heuristics.</span>`;
+      } else if (m.rootType === 'Array') {
+        text += `Root node resolved to an <strong class="text-emerald-300">Array entity</strong> with batch serialization characteristics.`;
+      } else {
+        text += `Root node resolved to a standard <strong class="text-indigo-300">Object map</strong> with balanced key-value distribution.`;
+      }
+
+      return {
+        html: text,
+        classification: `Topology: ${tier}`,
+        density: `Key Density: ${density} keys/KB`,
+        heap: `V8 Heap Footprint: ~${heapEst} KB`
+      };
+    }
+
+    function updateDOM(m) {
+      const keysEl = document.getElementById('stat-total-keys');
+      const depthEl = document.getElementById('stat-max-depth');
+      const arraysEl = document.getElementById('stat-arrays-count');
+      const sizeEl = document.getElementById('stat-payload-size');
+      const sizeSubEl = document.getElementById('stat-size-sub');
+      const depthSubEl = document.getElementById('stat-depth-sub');
+      const keysSubEl = document.getElementById('stat-keys-sub');
+
+      const badgeObj = document.getElementById('badge-objects');
+      const badgeArr = document.getElementById('badge-arrays');
+      const badgePrim = document.getElementById('badge-primitives');
+      const rootBadge = document.getElementById('stat-root-badge');
+
+      const barObj = document.getElementById('bar-objects');
+      const barArr = document.getElementById('bar-arrays');
+      const barPrim = document.getElementById('bar-primitives');
+
+      const botAnchor = document.getElementById('dynamic-bot-anchor');
+      const classifEl = document.getElementById('stat-classification-tier');
+      const densityEl = document.getElementById('stat-key-density');
+      const heapEl = document.getElementById('stat-v8-heap');
+      const timestampEl = document.getElementById('stat-timestamp');
+
+      if (!keysEl) return;
+
+      keysEl.textContent = formatNumber(m.totalKeys);
+      depthEl.textContent = `Tier ${m.maxDepth}`;
+      arraysEl.textContent = formatNumber(m.arraysCount);
+      sizeEl.textContent = `${m.sizeKB} KB`;
+      sizeSubEl.textContent = `${formatNumber(m.byteSize)} bytes UTF-8`;
+      depthSubEl.textContent = `${m.maxDepth} hierarchy levels`;
+      keysSubEl.textContent = m.error ? 'Estimated keys (lint err)' : 'Recursive key instances';
+
+      if (badgeObj) badgeObj.textContent = formatNumber(m.objectsCount);
+      if (badgeArr) badgeArr.textContent = formatNumber(m.arraysCount);
+      if (badgePrim) badgePrim.textContent = formatNumber(m.primitivesCount);
+      if (rootBadge) rootBadge.textContent = `Root: ${m.rootType}`;
+
+      const totalNodes = Math.max(1, m.objectsCount + m.arraysCount + m.primitivesCount);
+      const pctObj = ((m.objectsCount / totalNodes) * 100).toFixed(1);
+      const pctArr = ((m.arraysCount / totalNodes) * 100).toFixed(1);
+      const pctPrim = Math.max(0, 100 - parseFloat(pctObj) - parseFloat(pctArr)).toFixed(1);
+
+      if (barObj) barObj.style.width = `${pctObj}%`;
+      if (barArr) barArr.style.width = `${pctArr}%`;
+      if (barPrim) barPrim.style.width = `${pctPrim}%`;
+
+      const prose = generateDynamicProse(m);
+      if (botAnchor) botAnchor.innerHTML = prose.html;
+      if (classifEl) classifEl.textContent = prose.classification;
+      if (densityEl) densityEl.textContent = prose.density;
+      if (heapEl) heapEl.textContent = prose.heap;
+      if (timestampEl) {
+        const now = new Date();
+        timestampEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+    }
+
+    function locateInput() {
+      return document.querySelector('#converter-input, #json-input, textarea.textarea, textarea.ts-textarea, main textarea');
+    }
+
+    function evaluate() {
+      const textarea = locateInput();
+      let val = '';
+      if (textarea) {
+        val = textarea.value;
+        if (!val.trim() && textarea.placeholder && textarea.placeholder.trim().startsWith('{')) {
+          val = textarea.placeholder;
+        }
+      }
+      const metrics = analyzePayload(val);
+      updateDOM(metrics);
+    }
+
+    function attach() {
+      const textarea = locateInput();
+      if (!textarea) {
+        setTimeout(attach, 200);
+        return;
+      }
+      let debounce;
+      function handle() {
+        clearTimeout(debounce);
+        debounce = setTimeout(evaluate, 120);
+      }
+      textarea.addEventListener('input', handle);
+      textarea.addEventListener('paste', handle);
+      textarea.addEventListener('change', handle);
+      evaluate();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attach);
+    } else {
+      attach();
+    }
+  })();
+</script>

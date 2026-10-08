@@ -1,6 +1,41 @@
 ---
+export const POWERHOUSE_TOOLS = [
+  { name: 'JSON Formatter', href: '/tools/json-formatter', desc: 'Prettify and syntax-highlight minified JSON' },
+  { name: 'JSON Validator', href: '/tools/json-validator', desc: 'Strict RFC 8259 syntax checker with line numbers' },
+  { name: 'JSON to TypeScript', href: '/tools/typescript-generator', desc: 'Generate TypeScript interfaces and types' },
+  { name: 'JSON to XML', href: '/tools/json-to-xml', desc: 'Convert JSON to clean XML trees with custom root node' },
+  { name: 'JSON to Prisma', href: '/tools/json-to-prisma', desc: 'Generate Prisma ORM schema models from JSON' },
+  { name: 'JSON to CSV', href: '/tools/json-to-csv', desc: 'Export JSON arrays to spreadsheet CSV' },
+  { name: 'CSV to JSON', href: '/tools/csv-to-json', desc: 'Convert CSV spreadsheets into typed JSON arrays' },
+  { name: 'JSON to YAML', href: '/tools/json-to-yaml', desc: 'Convert JSON to YAML configuration manifests' },
+  { name: 'JSON to SQL', href: '/tools/json-to-sql', desc: 'Generate CREATE TABLE and INSERT statements' },
+  { name: 'JSON to Zod', href: '/tools/json-to-zod', desc: 'Generate Zod runtime validation schemas' },
+  { name: 'JSON Diff', href: '/tools/json-diff', desc: 'Semantic tree comparison between two JSON documents' },
+  { name: 'JSON Minifier', href: '/tools/json-minifier', desc: 'Compress JSON payload size client-side' },
+  { name: 'JSON Schema Generator', href: '/tools/json-schema-generator', desc: 'Infer Draft-07 JSON Schema specifications' },
+  { name: 'JSONPath Tester', href: '/tools/jsonpath', desc: 'Evaluate JSONPath queries interactively' },
+  { name: 'JSON Multi-Converter', href: '/tools/json-converter', desc: '7-in-1 Code and Schema multi-generator' }
+];
+
+const powerhouseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': 'Core Developer Utilities',
+  'description': 'High-traffic client-side developer utilities on JSON2X',
+  'itemListElement': POWERHOUSE_TOOLS.map((tool, index) => ({
+    '@type': 'SiteNavigationElement',
+    'position': index + 1,
+    'name': tool.name,
+    'description': tool.desc,
+    'url': `https://json2x.com${tool.href}`
+  }))
+};
+
 const year = new Date().getFullYear();
 ---
+
+<!-- Core Powerhouse Tools Navigation Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(powerhouseSchema)} />
 
 <footer class="site-footer" role="contentinfo">
   <div class="container">
@@ -14,28 +49,14 @@ const year = new Date().getFullYear();
         <p class="footer-brand__tagline">Fast, free, browser-only JSON &amp; CSV utilities. No data leaves your machine.</p>
       </div>
 
-      <!-- Col 2: Developer Tools -->
+      <!-- Col 2: Developer Tools (Powerhouse Tools Prioritized) -->
       <div class="footer-col">
-        <h2 class="footer-col__title">Developer Tools</h2>
+        <h2 class="footer-col__title">Powerhouse Developer Tools</h2>
         <div class="footer-col__links">
-          <a href="/tools/json-formatter" class="footer-col__link">JSON Formatter</a>
-          <a href="/tools/json-validator" class="footer-col__link">JSON Validator</a>
-          <a href="/tools/json-minifier" class="footer-col__link">JSON Minifier</a>
-          <a href="/tools/json-diff" class="footer-col__link">JSON Diff</a>
-          <a href="/tools/json-to-csv" class="footer-col__link">JSON to CSV</a>
-          <a href="/tools/csv-to-json" class="footer-col__link">CSV to JSON</a>
-          <a href="/tools/json-to-yaml" class="footer-col__link">JSON to YAML</a>
-          <a href="/tools/json-to-xml" class="footer-col__link">JSON to XML</a>
-          <a href="/tools/json-to-toml" class="footer-col__link">JSON to TOML</a>
-          <a href="/tools/json-to-sql" class="footer-col__link">JSON to SQL</a>
-          <a href="/tools/json-converter" class="footer-col__link">JSON Multi-Converter</a>
-          <a href="/tools/typescript-generator" class="footer-col__link">JSON to TypeScript</a>
-          <a href="/tools/json-to-code" class="footer-col__link">JSON to Code</a>
-          <a href="/tools/json-schema-generator" class="footer-col__link">JSON Schema Generator</a>
-          <a href="/tools/json-mock-generator" class="footer-col__link">JSON Mock Generator</a>
-          <a href="/tools/jsonpath" class="footer-col__link">JSONPath Tester</a>
-          <a href="/tools/json-tree-viewer" class="footer-col__link">JSON Tree Viewer</a>
-          <a href="/tools" class="footer-col__link" style="color:var(--accent)">All Tools Index &rarr;</a>
+          {POWERHOUSE_TOOLS.map((pt) => (
+            <a href={pt.href} class="footer-col__link">{pt.name}</a>
+          ))}
+          <a href="/tools" class="footer-col__link" style="color:var(--accent); font-weight:600;">All Tools Index &rarr;</a>
         </div>
       </div>
 

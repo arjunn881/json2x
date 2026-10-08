@@ -25,15 +25,6 @@ Disallow: /drafts/
 Disallow: /preview/
 Disallow: /*?preview=*
 Disallow: /*?draft=*
-# Duplicate alias pages (canonical tool pages are at /tools/json-formatter etc.)
-Disallow: /tools/converter
-Disallow: /tools/formatter
-Disallow: /tools/validator
-Disallow: /tools/minifier
-Disallow: /tools/diff
-Disallow: /tools/schema
-Disallow: /tools/viewer
-Disallow: /tools/json-to-ts
 
 User-agent: Googlebot-Image
 Allow: /assets/images/
@@ -120,6 +111,7 @@ Disallow: /*?draft=*
 # ----------------------------------------------------------------
 # SITEMAPS — All valid, live XML sitemaps on json2x.com
 # ----------------------------------------------------------------
+Sitemap: https://json2x.com/sitemap.xml
 Sitemap: https://json2x.com/sitemap-index.xml
 Sitemap: https://json2x.com/sitemap-images.xml
 

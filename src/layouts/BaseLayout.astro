@@ -17,6 +17,8 @@ export interface Props {
   author?: string;
   schema?: Record<string, any> | Record<string, any>[];
   containerClass?: string;
+  isSecondary?: boolean;
+  contentLength?: number;
   /**
    * Tool pages run their logic from an inline <script> inside <main>, which the
    * browser executes while parsing the body — before any deferred script. Set
@@ -40,6 +42,8 @@ const {
   author,
   schema,
   containerClass = 'container',
+  isSecondary = false,
+  contentLength,
   needsToolRuntime = false
 } = Astro.props;
 ---
@@ -87,6 +91,8 @@ const {
     publishedTime={publishedTime}
     author={author}
     schema={schema}
+    isSecondary={isSecondary}
+    contentLength={contentLength}
   />
   {needsToolRuntime && <script src="/assets/js/common.js" is:inline></script>}
 </head>
