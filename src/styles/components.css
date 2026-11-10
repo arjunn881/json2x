@@ -2152,6 +2152,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: var(--text-xs);
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
   transition: all var(--transition-fast);
 }
 
@@ -2194,6 +2195,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: var(--text-xs);
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
 }
 
 .mobile-nav__lang-btn.active {

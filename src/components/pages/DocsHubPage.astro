@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import { DOCS } from '../../data/docs';
+import { defaultLang, type Lang } from '../../i18n/ui';
+import { useTranslations, useTranslatedPath } from '../../i18n/utils';
+import { getPageBundle } from '../../i18n/pages';
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const isEn = lang === 'en';
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const pages = getPageBundle(lang);
+const hubMeta = pages?.docsHub;
+
+const canonicalPath = isEn ? '/docs' : translatePath('/docs');
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  ...(isEn ? {} : { 'inLanguage': lang }),
+  'name': isEn ? 'JSON2X Developer Documentation Hub & Specifications' : hubMeta!.schemaName,
+  'url': isEn ? 'https://json2x.com/docs' : `https://json2x.com${canonicalPath}`,
+  'itemListElement': DOCS.map((d, idx) => {
+    const slug = d.filename.replace(/\.mdx?$/, '');
+    return {
+      '@type': 'ListItem',
+      'position': idx + 1,
+      'name': d.frontmatter.title,
+      'url': `https://json2x.com/docs/${slug}`
+    };
+  })
+};
+---
+
+{isEn ? (
+  <BaseLayout
+    title="Developer Documentation Hub & Specifications — JSON2X"
+    description="Technical documentation, IETF specifications, algorithm breakdowns, and code generation manuals for all 17 JSON2X developer utilities."
+    keywords="json tools, json formatter, json validator, json to typescript, json converter, csv to json, json diff, json documentation, rfc 8259 json specification guide, parsing large json with web workers, typescript interface zod schema generation algorithm, json to csv flattening specification, ietf json standard reference"
+    canonical="/docs"
+    currentId="docs"
+    schema={itemListSchema}
+  >
+    <Breadcrumbs items={[{ label: 'Documentation Hub' }]} />
+
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+      <div class="tool-hero__badge">Documentation Hub</div>
+      <h1 class="tool-hero__title">Developer Documentation &amp; Specifications</h1>
+      <p class="tool-hero__desc">Authoritative architectural references, IETF RFC standards, parser mechanics, and type-safety guides for our suite of 17 browser-native tools.</p>
+    </div>
+
+    <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+      {DOCS.map((doc) => {
+        const slug = doc.filename.replace(/\.mdx?$/, '');
+        return (
+          <a href={`/docs/${slug}`} class="faq-card" style="text-decoration:none; display:flex; flex-direction:column;">
+            <p class="faq-section__eyebrow">{doc.frontmatter.category}</p>
+            <h2 class="faq-card__q" style="margin-top:0;">{doc.frontmatter.title}</h2>
+            <p class="faq-card__a">{doc.frontmatter.description}</p>
+          </a>
+        );
+      })}
+    </div>
+  </BaseLayout>
+) : (
+  <BaseLayout
+    title={hubMeta!.title}
+    description={hubMeta!.description}
+    keywords={hubMeta!.keywords}
+    canonical={canonicalPath}
+    currentId="docs"
+    schema={itemListSchema}
+    lang={lang}
+  >
+    <Breadcrumbs items={[{ label: t('breadcrumb.docs') }]} lang={lang} />
+
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+      <div class="tool-hero__badge">{hubMeta!.badge}</div>
+      <h1 class="tool-hero__title">{hubMeta!.h1}</h1>
+      <p class="tool-hero__desc">{hubMeta!.desc}</p>
+      <div style="margin-top:var(--space-4); padding:var(--space-3) var(--space-4); background:var(--bg-raised); border:1px solid var(--bg-border); border-left:3px solid var(--accent); border-radius:var(--radius-md); font-size:var(--text-sm); color:var(--text-secondary);">
+        {hubMeta!.englishNotice}
+      </div>
+    </div>
+
+    <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+      {DOCS.map((doc) => {
+        const slug = doc.filename.replace(/\.mdx?$/, '');
+        const catLabel = hubMeta!.categoryLabels?.[doc.frontmatter.category] || doc.frontmatter.category;
+        return (
+          <a href={`/docs/${slug}`} hreflang="en" class="faq-card" style="text-decoration:none; display:flex; flex-direction:column;">
+            <p class="faq-section__eyebrow">{catLabel} · EN</p>
+            <h2 class="faq-card__q" style="margin-top:0;" lang="en">{doc.frontmatter.title}</h2>
+            <p class="faq-card__a" lang="en">{doc.frontmatter.description}</p>
+          </a>
+        );
+      })}
+    </div>
+  </BaseLayout>
+)}
+

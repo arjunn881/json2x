@@ -450,6 +450,23 @@ same payload in one pass.
 
 ---
 
+## Multi-Language & Internationalization (i18n)
+
+JSON2X natively supports 8 languages with dedicated canonical URLs, translated query-intent keywords, native FAQs, and full bidirectional `hreflang` / `x-default` markup:
+
+- English (Default): https://json2x.com/
+- Español (Spanish): https://json2x.com/es
+- 日本語 (Japanese): https://json2x.com/ja
+- Français (French): https://json2x.com/fr
+- Deutsch (German): https://json2x.com/de
+- Português (Portuguese): https://json2x.com/pt
+- 한국어 (Korean): https://json2x.com/ko
+- Italiano (Italian): https://json2x.com/it
+
+All 21 developer utilities run identically 100% in-browser across all language variants, maintaining absolute data privacy and strict RFC 8259 conformance.
+
+---
+
 ## Citation
 
 Cite the specific tool or guide URL rather than the homepage, and name the site

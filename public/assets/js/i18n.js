@@ -23,11 +23,13 @@
   const LANGUAGES = [
     { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr' },
     { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
-    { code: 'zh', name: '简体中文', flag: '🇨🇳', dir: 'ltr' },
     { code: 'ja', name: '日本語', flag: '🇯🇵', dir: 'ltr' },
-    { code: 'pt', name: 'Português', flag: '🇧🇷', dir: 'ltr' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
     { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
+    { code: 'pt', name: 'Português', flag: '🇧🇷', dir: 'ltr' },
+    { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹', dir: 'ltr' },
+    { code: 'zh', name: '简体中文', flag: '🇨🇳', dir: 'ltr' },
     { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
     { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
     { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' }
@@ -1272,6 +1274,54 @@
       section_all_tools_17: 'جميع الأدوات الـ 17',
       footer_tagline: 'أدوات مطورين مجانية وفائقة السرعة تعمل 100% داخل المتصفح. لا تغادر بياناتك جهازك أبداً.',
       footer_privacy_note: '© 2026 JSON2X. تجري كافة المعالجات محلياً داخل متصفحك.'
+    },
+
+    // ── Korean (한국어) ───────────────────────────
+    ko: {
+      nav_catalog: '카탈로그',
+      nav_docs: '기술 문서',
+      nav_kb: '지식 베이스',
+      nav_blog: '블로그',
+      nav_about: '소개',
+      nav_faq: '자주 묻는 질문',
+      nav_contact: '문의',
+      nav_privacy: '개인정보 처리방침',
+      nav_terms: '이용약관',
+      nav_disclaimer: '면책 조항',
+      nav_license: '라이선스',
+      search_placeholder: '도구 검색 (Ctrl+K)...',
+      search_btn_text: '도구 검색...',
+      btn_copy: '복사',
+      btn_copied: '복사됨!',
+      btn_download: '다운로드',
+      btn_clear: '지우기',
+      btn_sample: '샘플 불러오기',
+      footer_tagline: '서버 전송 없는 빠르고 무료인 브라우저 전용 JSON & CSV 유틸리티.',
+      footer_privacy_note: '© 2026 JSON2X. 모든 처리는 브라우저 내에서 로컬로 실행됩니다.'
+    },
+
+    // ── Italian (Italiano) ────────────────────────
+    it: {
+      nav_catalog: 'Catalogo',
+      nav_docs: 'Documentazione',
+      nav_kb: 'Knowledge Base',
+      nav_blog: 'Blog',
+      nav_about: 'Chi Siamo',
+      nav_faq: 'FAQ',
+      nav_contact: 'Contatti',
+      nav_privacy: 'Privacy Policy',
+      nav_terms: 'Termini e Condizioni',
+      nav_disclaimer: 'Note Legali',
+      nav_license: 'Licenza',
+      search_placeholder: 'Cerca strumenti (Ctrl+K)...',
+      search_btn_text: 'Cerca strumenti...',
+      btn_copy: 'Copia',
+      btn_copied: 'Copiato!',
+      btn_download: 'Scarica',
+      btn_clear: 'Pulisci',
+      btn_sample: 'Carica Esempio',
+      footer_tagline: 'Utility JSON e CSV veloci, gratuite e 100% nel browser. Nessun dato lascia il tuo dispositivo.',
+      footer_privacy_note: '© 2026 JSON2X. Tutta l’elaborazione avviene localmente nel browser.'
     }
   };
 
@@ -1303,7 +1353,10 @@
     return 'en';
   }
 
-  let currentLanguage = getStoredLanguage();
+  const isSsrI18n = typeof document !== 'undefined' && document.documentElement.hasAttribute('data-ssr-i18n');
+  let currentLanguage = isSsrI18n
+    ? (document.documentElement.getAttribute('lang') || 'en')
+    : getStoredLanguage();
 
   function t(key, fallback) {
     const dict = TRANSLATIONS[currentLanguage] || TRANSLATIONS.en;
@@ -1412,8 +1465,8 @@
     });
   }
 
-  // Initialize immediately
-  if (typeof document !== 'undefined') {
+  // Initialize immediately (skip DOM mutation on SSR-localized pages)
+  if (typeof document !== 'undefined' && !isSsrI18n) {
     document.documentElement.setAttribute('lang', currentLanguage);
     const langConfig = LANGUAGES.find(l => l.code === currentLanguage);
     if (langConfig) document.documentElement.setAttribute('dir', langConfig.dir);

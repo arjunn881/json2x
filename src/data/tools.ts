@@ -254,7 +254,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON Minifier & Compressor Online',
     title: 'JSON Minifier Online — Free JSON Compressor & Size Reducer',
     metaDesc: 'Free online JSON minifier and compressor. Minify JSON to cut payload size up to 60% — every space, tab and newline outside strings stripped, data identical.',
-    keywords: 'json minifier, json minifier online, online json minifier, free json minifier, minify json, json minify, json minify tool, json minify online, json compressor, compress json, json compression, reduce json size, strip json whitespace, json one line',
+    keywords: 'json minifier, json minifier online, online json minifier, free json minifier, minify json, json minify, json minify tool, json minify online, json compressor, compress json, json compression, reduce json size, strip json whitespace, json one line, minify json for curl command, minify json without uploading, json one line string converter, json whitespace remover online, minify large json file browser',
     desc: 'Strip whitespace & compress payload size',
     category: 'format-validate',
     icon: TOOL_ICONS.minifier,
@@ -265,7 +265,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Minified JSON',
     dateModified: '2026-09-03',
     guides: ['json-minifier-online', 'json-compressor', 'json-minifier-production'],
-    ctrKeywords: ['minify json online free', 'free json minifier', 'online json minifier', 'json minify tool', 'json compressor online', 'compress json file', 'reduce json payload size', 'json one line converter', 'remove whitespace from json', 'json minifier no upload'],
+    ctrKeywords: ['minify json online free', 'free json minifier', 'online json minifier', 'json minify tool', 'json compressor online', 'compress json file', 'reduce json payload size', 'json one line converter', 'remove whitespace from json', 'json minifier no upload', 'minify json for api payload', 'json whitespace remover online'],
     faqs: [
       {
         q: 'What is JSON minification and compression?',
@@ -342,7 +342,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to CSV Converter Online',
     title: 'JSON to CSV Converter Online — Free JSON to Excel Export',
     metaDesc: 'Free JSON to CSV converter online. Flattens nested objects into dot-notation columns, auto-detects headers and exports RFC 4180 CSV, TSV or Excel files.',
-    keywords: 'json to csv, convert json to csv, json to csv converter, json to csv online, online json to csv converter, json to csv converter online, convert json to csv online, free json to csv converter, json to csv converter free, convert json to csv format, json to excel, json to tsv, json to spreadsheet, export json to csv, json2csv, convert json array to csv',
+    keywords: 'json to csv, convert json to csv, json to csv converter, json to csv online, online json to csv converter, json to csv converter online, convert json to csv online, free json to csv converter, json to csv converter free, convert json to csv format, json to excel, json to tsv, json to spreadsheet, export json to csv, json2csv, convert json array to csv, json to csv with utf8 bom, nested json to flat csv columns, json to csv online no upload, convert api response json to csv, rfc 4180 json csv converter',
     desc: 'Export JSON arrays to downloadable CSV',
     category: 'converters',
     icon: TOOL_ICONS['json-to-csv'],
@@ -353,7 +353,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'CSV Output',
     dateModified: '2026-09-03',
     guides: ['json-to-csv-converter', 'json-to-excel-converter', 'json-to-csv-excel', 'json-to-tsv-converter'],
-    ctrKeywords: ['json to csv online free', 'free json to csv converter', 'json to csv converter online', 'convert json to csv online', 'json to excel converter', 'json to tsv converter', 'convert json array to csv', 'flatten nested json to csv', 'json to spreadsheet', 'json to csv no upload'],
+    ctrKeywords: ['json to csv online free', 'free json to csv converter', 'json to csv converter online', 'convert json to csv online', 'json to excel converter', 'json to tsv converter', 'convert json array to csv', 'flatten nested json to csv', 'json to spreadsheet', 'json to csv no upload', 'json to csv utf8 bom excel', 'convert api json to csv free'],
     faqs: [
       {
         q: 'How do I convert a JSON array into a CSV file?',
@@ -381,7 +381,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'CSV to JSON Converter Online',
     title: 'CSV to JSON Converter Online — Free CSV & TSV to JSON',
     metaDesc: 'Free CSV to JSON converter online. Turn spreadsheet, TSV or Excel-exported rows into a typed JSON array — numbers, booleans and nulls detected for you.',
-    keywords: 'csv to json, convert csv to json, csv to json converter, csv to json online, online csv to json converter, free csv to json converter, csv to json converter online, excel to json, excel to json converter, tsv to json, tsv to json converter, spreadsheet to json, csv2json, parse csv to json online, convert csv to json array',
+    keywords: 'csv to json, convert csv to json, csv to json converter, csv to json online, online csv to json converter, free csv to json converter, csv to json converter online, excel to json, excel to json converter, tsv to json, tsv to json converter, spreadsheet to json, csv2json, parse csv to json online, convert csv to json array, semicolon csv to json online, tab delimited csv to json, csv with quotes and newlines to json, csv to json auto detect numbers booleans, convert excel csv to json no upload',
     desc: 'Parse CSV into JSON with type auto-detect',
     category: 'converters',
     icon: TOOL_ICONS['csv-to-json'],
@@ -392,7 +392,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'JSON Output',
     dateModified: '2026-09-03',
     guides: ['csv-to-json-converter', 'excel-to-json-converter', 'csv-to-json-python'],
-    ctrKeywords: ['csv to json online free', 'free csv to json converter', 'csv to json converter online', 'excel to json converter', 'excel to json online', 'tsv to json converter', 'convert csv to json array', 'spreadsheet to json converter', 'csv to json with types', 'csv to json no upload'],
+    ctrKeywords: ['csv to json online free', 'free csv to json converter', 'csv to json converter online', 'excel to json converter', 'excel to json online', 'tsv to json converter', 'convert csv to json array', 'spreadsheet to json converter', 'csv to json with types', 'csv to json no upload', 'semicolon csv to json online', 'convert csv with quotes to json'],
     faqs: [
       {
         q: 'How does CSV to JSON conversion work?',
@@ -424,7 +424,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to YAML & YAML to JSON Converter',
     title: 'JSON to YAML & YAML to JSON Converter — Free Online',
     metaDesc: 'Free online JSON to YAML and YAML to JSON converter. Clean 2-space indentation for Kubernetes manifests, Docker Compose and CI pipelines. No upload.',
-    keywords: 'json to yaml, convert json to yaml, json to yaml converter, json to yaml online, yaml to json, convert yaml to json, yaml to json converter, yaml to json online, free json to yaml converter, online yaml to json converter, json yaml converter, json2yaml, yaml2json, convert json to k8s yaml',
+    keywords: 'json to yaml, convert json to yaml, json to yaml converter, json to yaml online, yaml to json, convert yaml to json, yaml to json converter, yaml to json online, free json to yaml converter, online yaml to json converter, json yaml converter, json2yaml, yaml2json, convert json to k8s yaml, convert json to docker compose yaml, convert json to github actions yaml, kubernetes manifest json to yaml, bidirectional json yaml converter online, json to yaml no upload',
     desc: 'Convert JSON to clean YAML and vice versa',
     category: 'converters',
     icon: TOOL_ICONS['json-to-yaml'],
@@ -435,7 +435,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'YAML Output',
     dateModified: '2026-09-03',
     guides: ['json-to-yaml-converter', 'yaml-to-json-converter'],
-    ctrKeywords: ['json to yaml online free', 'free json to yaml converter', 'yaml to json converter online', 'convert yaml to json online', 'json to kubernetes yaml', 'json to docker compose yaml', 'convert json to yaml 2 space indent', 'json yaml converter no upload'],
+    ctrKeywords: ['json to yaml online free', 'free json to yaml converter', 'yaml to json converter online', 'convert yaml to json online', 'json to kubernetes yaml', 'json to docker compose yaml', 'convert json to yaml 2 space indent', 'json yaml converter no upload', 'convert json to github actions yaml', 'yaml to json without upload'],
     faqs: [
       {
         q: 'Why convert JSON to YAML?',
@@ -467,7 +467,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to XML & XML to JSON Converter',
     title: 'JSON to XML & XML to JSON Converter — Free Online',
     metaDesc: 'Free online JSON to XML and XML to JSON converter. Custom root tag, indented well-formed output and repeated array siblings for SOAP, RSS and legacy APIs.',
-    keywords: 'json to xml, convert json to xml, json to xml converter, json to xml online, xml to json, convert xml to json, xml to json converter, xml to json online, online xml to json converter, free xml to json converter, json xml converter, json2xml, xml2json, json to soap xml, xml parser to json',
+    keywords: 'json to xml, convert json to xml, json to xml converter, json to xml online, xml to json, convert xml to json, xml to json converter, xml to json online, online xml to json converter, free xml to json converter, json xml converter, json2xml, xml2json, json to soap xml, xml parser to json, convert json array to xml with root tag, escape xml special characters json, json to xml client side no upload, xml to json attribute parser, well formed xml generator from json',
     desc: 'Convert JSON objects into valid XML trees',
     category: 'converters',
     icon: TOOL_ICONS['json-to-xml'],
@@ -478,7 +478,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'XML Output',
     dateModified: '2026-09-03',
     guides: ['json-to-xml-converter', 'xml-to-json-converter'],
-    ctrKeywords: ['json to xml online free', 'free json to xml converter', 'xml to json converter online', 'convert xml to json online', 'free xml to json converter', 'convert json to xml with root tag', 'json to soap xml', 'json to xml formatter', 'json xml converter no upload'],
+    ctrKeywords: ['json to xml online free', 'free json to xml converter', 'xml to json converter online', 'convert xml to json online', 'free xml to json converter', 'convert json to xml with root tag', 'json to soap xml', 'json to xml formatter', 'json xml converter no upload', 'xml to json converter no upload', 'json to xml escaped entities'],
     faqs: [
       {
         q: 'Why does converting JSON root arrays or multiple sibling keys require a synthetic XML root node?',
@@ -510,7 +510,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to TOML Converter Online',
     title: 'JSON to TOML Converter Online — Free TOML Config Tool',
     metaDesc: 'Free online JSON to TOML converter for Cargo.toml, pyproject.toml and Hugo config. Nested objects become [table] headers and arrays stay inline. No upload.',
-    keywords: 'json to toml, convert json to toml, json to toml converter, json to toml online, online json to toml converter, free json to toml converter, json to toml config, json2toml, toml converter online, pyproject.toml generator, cargo.toml json converter',
+    keywords: 'json to toml, convert json to toml, json to toml converter, json to toml online, online json to toml converter, free json to toml converter, json to toml config, json2toml, toml converter online, pyproject.toml generator, cargo.toml json converter, convert json to hugo config toml, nested json to toml table section, json to python poetry toml, free json to toml no upload',
     desc: 'Convert JSON into TOML configuration files',
     category: 'converters',
     icon: TOOL_ICONS['json-to-toml'],
@@ -521,7 +521,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'TOML Output',
     dateModified: '2026-09-03',
     guides: ['json-to-toml-converter'],
-    ctrKeywords: ['json to toml online free', 'free json to toml converter', 'json to toml converter online', 'convert json to cargo toml', 'json to pyproject toml', 'json to toml config', 'toml converter online', 'json to toml no upload'],
+    ctrKeywords: ['json to toml online free', 'free json to toml converter', 'json to toml converter online', 'convert json to cargo toml', 'json to pyproject toml', 'json to toml config', 'toml converter online', 'json to toml no upload', 'json to hugo toml config', 'nested json to toml table'],
     faqs: [
       {
         q: 'What is TOML used for?',
@@ -549,7 +549,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to SQL Table & INSERT Converter',
     title: 'JSON to SQL Online — Free CREATE TABLE & INSERT Generator',
     metaDesc: 'Free online JSON to SQL converter. Infers column types and generates CREATE TABLE plus escaped INSERT statements for PostgreSQL, MySQL and SQLite. No upload.',
-    keywords: 'json to sql, convert json to sql, json to sql converter, json to sql online, online json to sql converter, free json to sql converter, json to sql insert, json to insert statement, json to create table, json to postgresql, json to mysql, json to sqlite, json sql generator, json array to sql table',
+    keywords: 'json to sql, convert json to sql, json to sql converter, json to sql online, online json to sql converter, free json to sql converter, json to sql insert, json to insert statement, json to create table, json to postgresql, json to mysql, json to sqlite, json sql generator, json array to sql table, convert json array to sql create table and insert, infer sql column types from json, escaped sql insert from json online, json to sql migration seed script, json to sql no upload',
     desc: 'Generate CREATE TABLE & INSERT statements',
     category: 'converters',
     icon: TOOL_ICONS['json-to-sql'],
@@ -560,7 +560,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'SQL Output',
     dateModified: '2026-09-03',
     guides: ['json-to-sql-generator'],
-    ctrKeywords: ['json to sql online free', 'free json to sql converter', 'json to sql converter online', 'json to sql insert statements', 'json to create table', 'json to postgresql converter', 'json to mysql insert', 'json to sqlite converter', 'convert json array to sql'],
+    ctrKeywords: ['json to sql online free', 'free json to sql converter', 'json to sql converter online', 'json to sql insert statements', 'json to create table', 'json to postgresql converter', 'json to mysql insert', 'json to sqlite converter', 'convert json array to sql', 'json to sql migration seed script', 'infer sql column types from json'],
     faqs: [
       {
         q: 'How does JSON to SQL conversion work?',
@@ -594,7 +594,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON Multi-Converter: 7-in-1 Code & Schema Generator',
     title: 'JSON Converter Online — 7-in-1 TS, Zod, SQL & Schema',
     metaDesc: 'One JSON in, seven outputs: TypeScript interfaces, Zod schemas, Mongoose models, SQL DDL, JSON Schema, OpenAPI and mock data. Free and fully client-side.',
-    keywords: 'json converter, json converter online, online json converter, free json converter, convert json, json multi converter, all in one json converter, json to typescript, json to zod, json to mongoose, json to openapi, json to schema, json to sql, convert json to multiple formats',
+    keywords: 'json converter, json converter online, online json converter, free json converter, convert json, json multi converter, all in one json converter, json to typescript, json to zod, json to mongoose, json to openapi, json to schema, json to sql, convert json to multiple formats, convert json to typescript and zod together, api response to schema and types converter, zero upload json multi converter',
     desc: 'TS, Zod, Mongoose, SQL, OpenAPI, Schema & Mock',
     category: 'generators',
     badge: '7-in-1',
@@ -606,7 +606,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Generated Output',
     dateModified: '2026-09-03',
     guides: ['json-multi-converter-online'],
-    ctrKeywords: ['json converter online free', 'free json converter online', 'all in one json converter', 'json to typescript zod sql', 'json to mongoose model', 'json to openapi schema', 'convert json to multiple formats'],
+    ctrKeywords: ['json converter online free', 'free json converter online', 'all in one json converter', 'json to typescript zod sql', 'json to mongoose model', 'json to openapi schema', 'convert json to multiple formats', 'json to typescript and zod together', 'api response to schema and types', 'zero upload json multi converter'],
     faqs: [
       {
         q: 'What is the JSON Multi-Converter?',
@@ -634,7 +634,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to TypeScript Interface & Type Generator',
     title: 'JSON to TypeScript Online — Free Interface & Type Generator',
     metaDesc: 'Generate TypeScript interfaces from JSON in one paste. Infers nested types, unions, optional keys and arrays from any API response. Free, no upload.',
-    keywords: 'json to typescript, json to typescript online, online json to typescript converter, free json to typescript converter, json to ts, convert json to typescript, json to interface, json to interface generator, typescript interface generator, typescript interface from json, json to ts type, quicktype online, ts interface generator from json',
+    keywords: 'json to typescript, json to typescript online, online json to typescript converter, free json to typescript converter, json to ts, convert json to typescript, json to interface, json to interface generator, typescript interface generator, typescript interface from json, json to ts type, quicktype online, ts interface generator from json, nested json to typescript interfaces, json array to typescript union types, infer optional properties typescript json, react nextjs json to typescript generator, generate d.ts types from json api, json to typescript offline no upload',
     desc: 'Generate TS interfaces, types & Zod schemas',
     category: 'generators',
     icon: TOOL_ICONS['json-to-ts'],
@@ -645,7 +645,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'TypeScript Output',
     dateModified: '2026-09-03',
     guides: ['json-to-typescript-interface', 'json-to-typescript-api'],
-    ctrKeywords: ['json to typescript online free', 'free json to typescript converter', 'json to interface generator', 'typescript interface from json', 'convert api response to typescript', 'json to ts types', 'quicktype alternative online', 'json to typescript no upload'],
+    ctrKeywords: ['json to typescript online free', 'free json to typescript converter', 'json to interface generator', 'typescript interface from json', 'convert api response to typescript', 'json to ts types', 'quicktype alternative online', 'json to typescript no upload', 'nested json to typescript interface', 'infer optional keys json to ts', 'nextjs api json to typescript'],
     faqs: [
       {
         q: 'How does the generator recursively decompose nested JSON object graphs into standalone named TypeScript interfaces?',
@@ -677,7 +677,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to Go Structs, Rust Serde & Python Models',
     title: 'JSON to Go, Rust & Python — Free Struct & Model Generator',
     metaDesc: 'Convert JSON to Go structs, Rust Serde structs or Python Pydantic models online. Correct types, json tags and serde attributes included. Free, no upload.',
-    keywords: 'json to go, json to go struct, json to golang, json to rust, json to rust struct, json to python, json to pydantic, json to dataclass, json to code, json to struct online, free json to go converter, convert json to golang, serde struct generator',
+    keywords: 'json to go, json to go struct, json to golang, json to rust, json to rust struct, json to python, json to pydantic, json to dataclass, json to code, json to struct online, free json to go converter, convert json to golang, serde struct generator, json to go struct with json tags, json to rust serde derive serialize deserialize, json to python pydantic v2 basemodel, generate backend models from json free, json to go rust python no upload',
     desc: 'Generate Go, Rust Serde & Python Pydantic models',
     category: 'generators',
     icon: TOOL_ICONS['json-to-code'],
@@ -687,7 +687,7 @@ export const TOOLS: ToolItem[] = [
     inputLabel: 'JSON Input',
     outputLabel: 'Generated Code',
     dateModified: '2026-09-03',
-    ctrKeywords: ['json to go struct online', 'free json to go converter', 'json to rust serde struct', 'json to python pydantic model', 'json to golang converter', 'generate struct from json', 'json to dataclass online'],
+    ctrKeywords: ['json to go struct online', 'free json to go converter', 'json to rust serde struct', 'json to python pydantic model', 'json to golang converter', 'generate struct from json', 'json to dataclass online', 'json to go struct with json tags', 'json to rust derive serde', 'json to python pydantic v2'],
     faqs: [
       {
         q: 'Which programming languages are supported in JSON to Code?',
@@ -715,7 +715,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON Schema Generator Online (Draft-07)',
     title: 'JSON Schema Generator Online — Free Draft-07 From JSON',
     metaDesc: 'Free online JSON schema generator. Turn sample JSON into a Draft-07 schema with inferred types, a required array and optional example values. Nothing uploaded.',
-    keywords: 'json schema generator, json schema generator online, online json schema generator, free json schema generator, generate json schema, generate json schema from json, json schema generator from json, json to json schema, json schema online, infer json schema, json schema draft-07, json schema draft 07 generator, schema json validator, json validator with schema',
+    keywords: 'json schema generator, json schema generator online, online json schema generator, free json schema generator, generate json schema, generate json schema from json, json schema generator from json, json to json schema, json schema online, infer json schema, json schema draft-07, json schema draft 07 generator, schema json validator, json validator with schema, json schema draft 07 from api response, ajv json schema generator from json, generate json schema with required properties, openapi schema inference from json example',
     desc: 'Infer Draft-07 JSON Schema specifications',
     category: 'generators',
     icon: TOOL_ICONS.schema,
@@ -726,7 +726,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'JSON Schema',
     dateModified: '2026-09-03',
     guides: ['json-schema-generator-online', 'json-schema-validator-online'],
-    ctrKeywords: ['json schema generator online free', 'free json schema generator', 'generate json schema from json', 'json schema generator from json', 'json schema draft 07 generator', 'infer json schema from sample', 'json validator with schema', 'api contract schema from json', 'json to json schema converter'],
+    ctrKeywords: ['json schema generator online free', 'free json schema generator', 'generate json schema from json', 'json schema generator from json', 'json schema draft 07 generator', 'infer json schema from sample', 'json validator with schema', 'api contract schema from json', 'json to json schema converter', 'ajv json schema generator from json', 'generate required properties json schema'],
     faqs: [
       {
         q: 'What is JSON Schema?',
@@ -758,7 +758,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON Generator: Free Mock & Example JSON Data',
     title: 'JSON Generator Online — Free Mock & Example JSON Data',
     metaDesc: 'Free online JSON generator for mock and example data. Pick users, products, orders or transactions, set a row count, and get UUIDs, names, dates and geo fields.',
-    keywords: 'json generator, json generator online, online json generator, free json generator, json data generator, json example generator, json mock generator, json mock data generator, mock json generator, fake json generator, generate json data, generate mock json, random json generator, dummy json generator, fake api json, mock data generator',
+    keywords: 'json generator, json generator online, online json generator, free json generator, json data generator, json example generator, json mock generator, json mock data generator, mock json generator, fake json generator, generate json data, generate mock json, random json generator, dummy json generator, fake api json, mock data generator, generate mock json users products orders, synthetic json test fixtures no pii, seed json data for jest vitest tests, mock json generator with uuid iso dates',
     desc: 'Generate realistic synthetic test datasets',
     category: 'generators',
     icon: TOOL_ICONS['json-mock-generator'],
@@ -769,7 +769,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Mock JSON Output',
     dateModified: '2026-09-03',
     guides: ['json-mock-data-generator', 'json-generator-online'],
-    ctrKeywords: ['json generator online free', 'free json generator', 'json example generator', 'json data generator online', 'json mock data generator free', 'fake json generator online', 'generate test json data', 'random json data generator', 'mock api response generator', 'dummy json for testing'],
+    ctrKeywords: ['json generator online free', 'free json generator', 'json example generator', 'json data generator online', 'json mock data generator free', 'fake json generator online', 'generate test json data', 'random json data generator', 'mock api response generator', 'dummy json for testing', 'seed json fixtures without login', 'mock json with uuid iso dates'],
     faqs: [
       {
         q: 'How do I generate mock JSON data for API testing?',
@@ -797,7 +797,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to Zod Schema Generator Online',
     title: 'JSON to Zod Online — Free Zod Schema Generator',
     metaDesc: 'Convert JSON to a Zod schema online. Infers z.string(), z.number(), z.array() and nested z.object() calls with optional keys, ready to paste into TypeScript.',
-    keywords: 'json to zod, json to zod online, online json to zod converter, free json to zod converter, zod schema generator, zod schema generator online, zod schema from json, convert json to zod, zod type inference, typescript runtime validation',
+    keywords: 'json to zod, json to zod online, online json to zod converter, free json to zod converter, zod schema generator, zod schema generator online, zod schema from json, convert json to zod, zod type inference, typescript runtime validation, json to zod z.infer typescript, nextjs api response to zod validator, trpc zod schema from json example, react hook form zod schema from json, generate zod strict nullable schema from json, free json to zod no upload, convert nested json to zod object',
     desc: 'Generate Zod runtime validation schemas from JSON',
     category: 'generators',
     icon: TOOL_ICONS['json-to-zod'],
@@ -808,7 +808,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Zod Schema',
     dateModified: '2026-09-03',
     guides: ['json-to-zod-schema'],
-    ctrKeywords: ['json to zod online free', 'free json to zod converter', 'zod schema generator online', 'zod schema generator from json', 'convert api response to zod', 'json to zod object', 'zod validation from json', 'typescript runtime validation from json'],
+    ctrKeywords: ['json to zod online free', 'free json to zod converter', 'zod schema generator online', 'zod schema generator from json', 'convert api response to zod', 'json to zod object', 'zod validation from json', 'typescript runtime validation from json', 'json to zod with z.infer', 'nextjs api response to zod schema', 'json to zod strict nullable'],
     faqs: [
       {
         q: 'Why use Zod with JSON data?',
@@ -840,7 +840,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to Prisma Schema Model Generator',
     title: 'JSON to Prisma Online — Free Prisma Schema Generator',
     metaDesc: 'Convert JSON to Prisma schema models online. Infers Int, String, Boolean and DateTime columns, marks @id primary keys and optional fields. Free, no upload.',
-    keywords: 'json to prisma, json to prisma online, online json to prisma converter, free json to prisma converter, prisma schema generator, prisma schema generator online, prisma model generator, convert json to prisma, orm schema from json, schema.prisma generator',
+    keywords: 'json to prisma, json to prisma online, online json to prisma converter, free json to prisma converter, prisma schema generator, prisma schema generator online, prisma model generator, convert json to prisma, orm schema from json, schema.prisma generator, json to prisma schema postgresql mongodb, generate prisma model with @id @default, convert api json to schema.prisma model, json to prisma mysql sqlite table, prisma composite types from nested json, infer optional fields prisma from json, json to prisma orm no upload',
     desc: 'Generate Prisma ORM schema models from JSON',
     category: 'generators',
     icon: TOOL_ICONS['json-to-prisma'],
@@ -851,7 +851,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Prisma Schema',
     dateModified: '2026-09-03',
     guides: ['json-to-prisma-schema'],
-    ctrKeywords: ['json to prisma schema online', 'free json to prisma converter', 'prisma schema generator online', 'prisma model generator from json', 'generate schema.prisma from json', 'json to prisma orm', 'prisma schema from api response'],
+    ctrKeywords: ['json to prisma schema online', 'free json to prisma converter', 'prisma schema generator online', 'prisma model generator from json', 'generate schema.prisma from json', 'json to prisma orm', 'prisma schema from api response', 'json to prisma postgresql model', 'json to prisma mongodb objectid', 'infer optional fields schema.prisma'],
     faqs: [
       {
         q: 'How does the schema generator distinguish PostgreSQL relational models from MongoDB document models in schema.prisma?',
@@ -883,7 +883,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to Drizzle ORM Schema Generator',
     title: 'JSON to Drizzle Online — Free Drizzle ORM Schema Generator',
     metaDesc: 'Convert JSON to Drizzle ORM tables online. Emits pgTable, mysqlTable or sqliteTable definitions with typed columns and primary keys. Free, no upload.',
-    keywords: 'json to drizzle, json to drizzle online, online json to drizzle converter, free json to drizzle converter, drizzle orm schema generator, drizzle schema generator online, drizzle table generator, convert json to drizzle, typescript drizzle schema, pgtable generator',
+    keywords: 'json to drizzle, json to drizzle online, online json to drizzle converter, free json to drizzle converter, drizzle orm schema generator, drizzle schema generator online, drizzle table generator, convert json to drizzle, typescript drizzle schema, pgtable generator, json to drizzle pgtable mysqltable sqlitetable, drizzle orm postgresql schema from json, generate drizzle kit table definition from json, nextjs drizzle schema generator from json, free json to drizzle no upload, convert api response to drizzle table',
     desc: 'Generate Drizzle ORM TypeScript table definitions',
     category: 'generators',
     icon: TOOL_ICONS['json-to-drizzle'],
@@ -894,7 +894,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Drizzle Schema',
     dateModified: '2026-09-03',
     guides: ['json-to-drizzle-orm-schema'],
-    ctrKeywords: ['json to drizzle orm online', 'free json to drizzle converter', 'drizzle schema generator online', 'drizzle schema generator from json', 'json to pgtable', 'drizzle table from json', 'json to drizzle typescript'],
+    ctrKeywords: ['json to drizzle orm online', 'free json to drizzle converter', 'drizzle schema generator online', 'drizzle schema generator from json', 'json to pgtable', 'drizzle table from json', 'json to drizzle typescript', 'json to drizzle mysqltable sqlitetable', 'drizzle postgresql schema from json', 'generate drizzle-kit schema from json'],
     faqs: [
       {
         q: 'What is Drizzle ORM schema generator?',
@@ -926,7 +926,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON to GraphQL Schema SDL Generator',
     title: 'JSON to GraphQL Online — Free GraphQL Schema SDL Generator',
     metaDesc: 'Convert JSON to a GraphQL schema online. Maps values to String, Int, Float, Boolean and ID scalars and nests composite types. Free, no upload.',
-    keywords: 'json to graphql, json to graphql online, online json to graphql converter, free json to graphql converter, graphql schema generator, graphql schema generator online, graphql type generator, convert json to graphql, json to sdl, graphql sdl from json, graphql type definitions from json',
+    keywords: 'json to graphql, json to graphql online, online json to graphql converter, free json to graphql converter, graphql schema generator, graphql schema generator online, graphql type generator, convert json to graphql, json to sdl, graphql sdl from json, graphql type definitions from json, json to graphql input and query types, json to graphql non null schema, infer graphql id scalar from json, rest api json response to graphql sdl, apollo graphql schema generator from json, free json to graphql no upload',
     desc: 'Generate GraphQL SDL type definitions from JSON',
     category: 'generators',
     icon: TOOL_ICONS['json-to-graphql'],
@@ -937,7 +937,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'GraphQL SDL',
     dateModified: '2026-09-03',
     guides: ['json-to-graphql-types'],
-    ctrKeywords: ['json to graphql online free', 'free json to graphql converter', 'graphql schema generator online', 'graphql schema generator from json', 'json to sdl converter', 'generate graphql types from json', 'graphql type from api response'],
+    ctrKeywords: ['json to graphql online free', 'free json to graphql converter', 'graphql schema generator online', 'graphql schema generator from json', 'json to sdl converter', 'generate graphql types from json', 'graphql type from api response', 'json to graphql input and query', 'rest api json to graphql sdl', 'apollo graphql types from json'],
     faqs: [
       {
         q: 'How does JSON to GraphQL conversion work?',
@@ -971,7 +971,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSONPath Evaluator & Query Tester Online',
     title: 'JSONPath Tester Online — Free Evaluator & Cheat Sheet',
     metaDesc: 'Test JSONPath expressions online with live results. Supports $, *, recursive descent, array slices and filters, plus a built-in syntax cheat sheet. Free.',
-    keywords: 'jsonpath, jsonpath tester, jsonpath tester online, online jsonpath tester, free jsonpath tester, jsonpath evaluator, jsonpath evaluator online, jsonpath online, jsonpath expression tester, test jsonpath online, query json, json path query, json query tool, jsonpath cheat sheet',
+    keywords: 'jsonpath, jsonpath tester, jsonpath tester online, online jsonpath tester, free jsonpath tester, jsonpath evaluator, jsonpath evaluator online, jsonpath online, jsonpath expression tester, test jsonpath online, query json, json path query, json query tool, jsonpath cheat sheet, jsonpath recursive descent tester, jsonpath array filter expression evaluator, test postman jsonpath query online, aws step functions jsonpath evaluator, extract nested json fields with jsonpath',
     desc: 'Test & debug JSONPath queries interactively',
     category: 'query-view',
     icon: TOOL_ICONS.jsonpath,
@@ -982,7 +982,7 @@ export const TOOLS: ToolItem[] = [
     outputLabel: 'Match Results',
     dateModified: '2026-09-03',
     guides: ['jsonpath-tester-online'],
-    ctrKeywords: ['jsonpath tester online free', 'free jsonpath evaluator', 'online jsonpath tester', 'test jsonpath expression', 'jsonpath cheat sheet', 'query json online', 'json query tool online', 'jsonpath filter examples'],
+    ctrKeywords: ['jsonpath tester online free', 'free jsonpath evaluator', 'online jsonpath tester', 'test jsonpath expression', 'jsonpath cheat sheet', 'query json online', 'json query tool online', 'jsonpath filter examples', 'jsonpath recursive descent tester', 'postman jsonpath expression tester', 'extract nested json with jsonpath'],
     faqs: [
       {
         q: 'What is JSONPath?',
@@ -1014,7 +1014,7 @@ export const TOOLS: ToolItem[] = [
     h1: 'JSON Viewer: Online JSON File & Tree Viewer',
     title: 'JSON Viewer Online — Free JSON File & Tree Viewer',
     metaDesc: 'Free online JSON viewer for large JSON files. Expand or collapse any node in the tree, search keys and values, and read type badges and child counts.',
-    keywords: 'json viewer, json viewer online, online json viewer, free json viewer, json file viewer, json tree viewer, json document viewer, large json viewer, json viewer and formatter, json viewer editor, json visualizer, interactive json tree, collapsible json tree, explore json, inspect json online',
+    keywords: 'json viewer, json viewer online, online json viewer, free json viewer, json file viewer, json tree viewer, json document viewer, large json viewer, json viewer and formatter, json viewer editor, json visualizer, interactive json tree, collapsible json tree, explore json, inspect json online, json tree search keys and values, view minified json as expandable tree, inspect large json api response in browser, open large json file without freezing',
     desc: 'Explore JSON as an interactive collapsible tree',
     category: 'query-view',
     icon: TOOL_ICONS.viewer,

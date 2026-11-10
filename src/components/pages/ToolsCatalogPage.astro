@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../layout/Breadcrumbs.astro';
+import { defaultLang, LANGUAGE_META, type Lang } from '../../i18n/ui';
+import { getPageBundle } from '../../i18n/pages';
+import { getLocalizedCategories, getLocalizedTools } from '../../i18n/tools';
+import { getCanonicalUrl, useTranslations } from '../../i18n/utils';
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const isEn = lang === 'en';
+const t = useTranslations(lang);
+const langMeta = LANGUAGE_META[lang] || LANGUAGE_META[defaultLang];
+const pageBundle = getPageBundle(lang)?.toolsCatalog;
+const categories = getLocalizedCategories(lang);
+const tools = getLocalizedTools(lang);
+
+const canonical = isEn ? '/tools' : `/${lang}/tools`;
+const canonicalAbsolute = getCanonicalUrl(canonical, 'https://json2x.com');
+
+const siteTitle = isEn
+  ? 'Developer Tools Catalog (21 Utilities) — JSON2X'
+  : pageBundle!.title;
+const siteDesc = isEn
+  ? 'Complete directory of 21 free online JSON and CSV developer tools. Formatters, validators, minifiers, diff checkers, code generators, and schema analyzers.'
+  : pageBundle!.description;
+const enCatalogKeywords =
+  'json tools, json formatter, json validator, json to typescript, json converter, csv to json, json diff, developer json tools directory, all 21 json utilities free online, json to yaml xml toml sql converter, json to zod prisma drizzle graphql, json mock data generator, jsonpath evaluator online, json tree viewer no upload, privacy first developer toolkit';
+const keywords = isEn ? enCatalogKeywords : pageBundle!.keywords;
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  'name': isEn ? 'JSON2X Developer Tools Suite' : pageBundle!.schemaName,
+  'inLanguage': langMeta.bcp47,
+  'url': canonicalAbsolute,
+  'numberOfItems': tools.length,
+  'itemListElement': tools.map((tool, idx) => ({
+    '@type': 'ListItem',
+    'position': idx + 1,
+    'name': tool.name,
+    'url': `https://json2x.com${tool.href}`
+  }))
+};
+
+const badgeText = isEn
+  ? `Tools Catalog (${tools.length} Utilities)`
+  : pageBundle!.badgeTemplate.replace('{count}', String(tools.length));
+const h1Text = isEn ? 'Developer Tools Suite' : pageBundle!.h1;
+const leadText = isEn
+  ? 'All 21 tools run 100% locally in your browser with zero latency and zero data leakage. Categorized for rapid engineering access.'
+  : pageBundle!.lead;
+const allBtnLabel = isEn
+  ? `All Tools (${tools.length})`
+  : `${pageBundle!.allToolsLabel} (${tools.length})`;
+const utilitiesUnit = isEn ? 'Utilities' : pageBundle!.utilitiesUnit;
+const filterAria = isEn ? 'Tool Categories' : pageBundle!.filterAria;
+---
+
+<BaseLayout
+  title={siteTitle}
+  description={siteDesc}
+  keywords={keywords}
+  canonical={canonical}
+  currentId="tools-index"
+  schema={itemListSchema}
+  lang={lang}
+>
+  <Breadcrumbs lang={lang} items={[{ label: t('breadcrumb.catalog') }]} />
+
+  <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-8)">
+    <div class="tool-hero__badge">{badgeText}</div>
+    <h1 class="tool-hero__title">{h1Text}</h1>
+    <p class="tool-hero__desc">{leadText}</p>
+  </div>
+
+  <!-- Category Filter Bar -->
+  <div class="cat-filter-bar" role="tablist" aria-label={filterAria} style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);padding:var(--space-2);background:var(--bg-raised);border:1px solid var(--bg-border);border-radius:var(--radius-lg);">
+    <button class="cat-filter-btn active" data-cat="all" style="padding:var(--space-2) var(--space-4);font-size:var(--text-xs);font-weight:var(--font-semibold);border-radius:var(--radius-md);border:1px solid transparent;background:var(--bg-surface);color:var(--accent);cursor:pointer;">{allBtnLabel}</button>
+    {categories.map((cat) => {
+      const count = tools.filter((tool) => tool.category === cat.id).length;
+      return (
+        <button class="cat-filter-btn" data-cat={cat.id} style="padding:var(--space-2) var(--space-4);font-size:var(--text-xs);font-weight:var(--font-semibold);border-radius:var(--radius-md);border:1px solid transparent;background:transparent;color:var(--text-secondary);cursor:pointer;">
+          {cat.name} ({count})
+        </button>
+      );
+    })}
+  </div>
+
+  <!-- Categorized Sections -->
+  {categories.map((cat) => {
+    const catTools = tools.filter((tool) => tool.category === cat.id);
+    return (
+      <section class="cat-section" id={cat.id} data-category={cat.id} style="margin-bottom:var(--space-12);">
+        <div class="cat-section__header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);padding-bottom:var(--space-3);border-bottom:1px solid var(--bg-border);">
+          <h2 class="cat-section__title" style="font-size:var(--text-lg);font-weight:var(--font-bold);color:var(--text-primary);display:flex;align-items:center;gap:var(--space-2);">
+            <Fragment set:html={cat.icon} />
+            {cat.name}
+          </h2>
+          <span class="cat-section__badge" style="font-size:var(--text-xs);font-family:var(--font-mono);color:var(--text-muted);">{catTools.length} {utilitiesUnit}</span>
+        </div>
+
+        <div class="related-tools-grid">
+          {catTools.map((tool) => (
+            <a href={tool.href} class="related-tool-card">
+              <span class="related-tool-card__icon">
+                <Fragment set:html={tool.icon} />
+              </span>
+              <span class="related-tool-card__body">
+                <span class="related-tool-card__title">
+                  {tool.name}
+                  {tool.badge && <span class="badge badge--accent" style="font-size:9px;margin-left:4px">{tool.badge}</span>}
+                </span>
+                <span class="related-tool-card__desc">{tool.desc}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <!-- Client-side filter tab script -->
+  <script is:inline>
+    (function () {
+      var btns = document.querySelectorAll('.cat-filter-btn');
+      var sections = document.querySelectorAll('.cat-section');
+
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b) {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--text-secondary)';
+          });
+          btn.style.background = 'var(--bg-surface)';
+          btn.style.color = 'var(--accent)';
+
+          var cat = btn.getAttribute('data-cat');
+          sections.forEach(function (sec) {
+            if (cat === 'all' || sec.getAttribute('data-category') === cat) {
+              sec.style.display = 'block';
+            } else {
+              sec.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
+

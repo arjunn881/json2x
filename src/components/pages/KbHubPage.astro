@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/layout/Breadcrumbs.astro';
+import { KB_TOPICS } from '../../data/kb';
+import { defaultLang, type Lang } from '../../i18n/ui';
+import { useTranslations, useTranslatedPath } from '../../i18n/utils';
+import { getPageBundle } from '../../i18n/pages';
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const isEn = lang === 'en';
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const pages = getPageBundle(lang);
+const hubMeta = pages?.kbHub;
+
+const canonicalPath = isEn ? '/kb' : translatePath('/kb');
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  ...(isEn ? {} : { 'inLanguage': lang }),
+  'name': isEn ? 'JSON Knowledge Base & Technical Reference Index' : hubMeta!.schemaName,
+  'url': isEn ? 'https://json2x.com/kb' : `https://json2x.com${canonicalPath}`,
+  'itemListElement': KB_TOPICS.map((tItem, idx) => ({
+    '@type': 'ListItem',
+    'position': idx + 1,
+    'name': tItem.title,
+    'url': `https://json2x.com/kb/${tItem.slug}`
+  }))
+};
+---
+
+{isEn ? (
+  <BaseLayout
+    title="JSON Knowledge Base & Technical Reference Index | JSON2X"
+    description="Programmatic developer reference hub covering JSON errors, tutorials, arrays, objects, validation, escaping, formatting, APIs, schemas, and JSONPath."
+    keywords="json tools, json formatter, json validator, json to typescript, json converter, csv to json, json diff, json knowledge base, fix unexpected token json error, json trailing comma error fix, json syntax examples tutorial, json escaping unicode guide, jsonpath query filter reference, how to validate json syntax"
+    canonical="/kb"
+    currentId="kb"
+    schema={itemListSchema}
+  >
+    <Breadcrumbs items={[{ label: 'Knowledge Base' }]} />
+
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+      <div class="tool-hero__badge">Knowledge Hub</div>
+      <h1 class="tool-hero__title">JSON Knowledge Base &amp; Technical Reference</h1>
+      <p class="tool-hero__desc">Programmatically compiled guides, syntax specifications, error troubleshooting, and tutorials for developers.</p>
+    </div>
+
+    <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+      {KB_TOPICS.map((topic) => (
+        <a href={`/kb/${topic.slug}`} class="faq-card" style="text-decoration:none; display:flex; flex-direction:column;">
+          <p class="faq-section__eyebrow">{topic.category}</p>
+          <h2 class="faq-card__q" style="margin-top:0;">{topic.h1}</h2>
+          <p class="faq-card__a">{topic.metaDesc}</p>
+        </a>
+      ))}
+    </div>
+  </BaseLayout>
+) : (
+  <BaseLayout
+    title={hubMeta!.title}
+    description={hubMeta!.description}
+    keywords={hubMeta!.keywords}
+    canonical={canonicalPath}
+    currentId="kb"
+    schema={itemListSchema}
+    lang={lang}
+  >
+    <Breadcrumbs items={[{ label: t('breadcrumb.kb') }]} lang={lang} />
+
+    <div class="tool-hero" style="text-align:left; margin-bottom:var(--space-10);">
+      <div class="tool-hero__badge">{hubMeta!.badge}</div>
+      <h1 class="tool-hero__title">{hubMeta!.h1}</h1>
+      <p class="tool-hero__desc">{hubMeta!.desc}</p>
+      <div style="margin-top:var(--space-4); padding:var(--space-3) var(--space-4); background:var(--bg-raised); border:1px solid var(--bg-border); border-left:3px solid var(--accent); border-radius:var(--radius-md); font-size:var(--text-sm); color:var(--text-secondary);">
+        {hubMeta!.englishNotice}
+      </div>
+    </div>
+
+    <div class="faq-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6);">
+      {KB_TOPICS.map((topic) => {
+        const catLabel = hubMeta!.categoryLabels?.[topic.category] || topic.category;
+        return (
+          <a href={`/kb/${topic.slug}`} hreflang="en" class="faq-card" style="text-decoration:none; display:flex; flex-direction:column;">
+            <p class="faq-section__eyebrow">{catLabel} · EN</p>
+            <h2 class="faq-card__q" style="margin-top:0;" lang="en">{topic.h1}</h2>
+            <p class="faq-card__a" lang="en">{topic.metaDesc}</p>
+          </a>
+        );
+      })}
+    </div>
+  </BaseLayout>
+)}
+

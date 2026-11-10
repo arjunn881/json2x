@@ -1,4 +1,7 @@
 ---
+import { defaultLang, LANGUAGE_META, normalizeCleanPath, type Lang } from '../../i18n/ui';
+import { getCanonicalUrl, getHreflangAlternates } from '../../i18n/utils';
+
 export interface Props {
   title: string;
   description: string;
@@ -12,6 +15,7 @@ export interface Props {
   schema?: Record<string, any> | Record<string, any>[];
   isSecondary?: boolean;
   contentLength?: number;
+  lang?: Lang;
 }
 
 const {
@@ -26,22 +30,39 @@ const {
   author = 'JSON2X Engineering Team',
   schema,
   isSecondary = false,
-  contentLength
+  contentLength,
+  lang = defaultLang
 } = Astro.props;
 
 const siteUrl = 'https://json2x.com';
+const langMeta = LANGUAGE_META[lang] || LANGUAGE_META[defaultLang];
 
-// Dynamic, self-referencing canonical tag strictly derived from Astro.url.pathname
-// Strips query parameters, tracking tags (?utm=, ?ref=), and normalizes trailing slashes
-const cleanPathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const defaultCanonical = `${siteUrl}${cleanPathname}`;
+// Dynamic, self-referencing extensionless canonical tag derived from Astro.url.pathname.
+// Strips query parameters, `.html` suffixes, and normalizes trailing slashes (except root `/`).
+let canonicalUrl = getCanonicalUrl(Astro.url.pathname, siteUrl);
+let canonicalPathname = normalizeCleanPath(Astro.url.pathname);
 
-let canonicalUrl = defaultCanonical;
 if (canonical) {
-  const cleanExplicit = canonical.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/';
-  canonicalUrl = cleanExplicit.startsWith('http') ? cleanExplicit : `${siteUrl}${cleanExplicit}`;
+  const noQuery = canonical.split('?')[0].split('#')[0];
+  if (noQuery.startsWith('http://') || noQuery.startsWith('https://')) {
+    const parsed = new URL(noQuery);
+    const cleanP = normalizeCleanPath(parsed.pathname);
+    canonicalUrl = cleanP === '/' ? `${parsed.origin}/` : `${parsed.origin}${cleanP}`;
+    canonicalPathname = cleanP;
+  } else {
+    const cleanP = normalizeCleanPath(noQuery);
+    canonicalUrl = cleanP === '/' ? `${siteUrl}/` : `${siteUrl}${cleanP}`;
+    canonicalPathname = cleanP;
+  }
 }
+
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+// Bidirectional hreflang + x-default (emitted strictly on routes that exist in all 8 languages)
+const hreflangAlternates = getHreflangAlternates(canonicalPathname, siteUrl);
+const alternateOgLocales = hreflangAlternates.filter(
+  (alt) => alt.hreflang !== 'x-default' && alt.locale !== lang
+);
 
 // Secondary threshold check: Automatically drop 'noindex, follow' if secondary, variation parameter, or below content threshold
 // Protects against GSC "Discovered - currently not indexed" bloat and AdSense Low Value Content penalties
@@ -54,17 +75,33 @@ const thresholdRobots = (!meetsContentThreshold) ? 'noindex, follow' : robots;
 const isStaging = Astro.url.hostname.endsWith('.pages.dev');
 const effectiveRobots = isStaging ? 'noindex, nofollow' : thresholdRobots;
 
+const WEBSITE_DESCRIPTIONS: Record<Lang, string> = {
+  en: 'Universal developer JSON toolkit — 100% client-side data privacy.',
+  es: 'Suite universal JSON y CSV para desarrolladores — 100 % privada en el navegador.',
+  ja: '100% ブラウザ完結型の汎用 JSON・CSV 開発者ツールスイート。',
+  fr: 'Boîte à outils JSON et CSV universelle pour développeurs — 100 % côté client.',
+  de: 'Universelles JSON- & CSV-Entwickler-Toolkit — 100 % clientseitiger Datenschutz.',
+  pt: 'Kit de ferramentas JSON e CSV para desenvolvedores — 100% privado no navegador.',
+  ko: '서버 전송 없는 100% 브라우저 로컬 JSON 및 CSV 개발자 툴킷.',
+  it: 'Toolkit universale JSON e CSV per sviluppatori — privacy al 100% nel browser.',
+};
+
+const searchTargetBase = lang === defaultLang
+  ? `${siteUrl}/tools`
+  : `${siteUrl}/${lang}/tools`;
+
 // Base Schema.org WebSite & Organization
 const baseSchemas = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     'name': 'JSON2X',
-    'url': 'https://json2x.com',
-    'description': 'Universal developer JSON toolkit — 100% client-side data privacy.',
+    'url': lang === defaultLang ? 'https://json2x.com' : `https://json2x.com/${lang}`,
+    'inLanguage': langMeta.bcp47,
+    'description': WEBSITE_DESCRIPTIONS[lang] || WEBSITE_DESCRIPTIONS.en,
     'potentialAction': {
       '@type': 'SearchAction',
-      'target': 'https://json2x.com/tools?q={search_term_string}',
+      'target': `${searchTargetBase}?q={search_term_string}`,
       'query-input': 'required name=search_term_string'
     },
     // GEO: speakable — marks key page sections for AI voice/summary extraction
@@ -81,7 +118,26 @@ const baseSchemas = [
     'logo': 'https://json2x.com/favicon.svg',
     'sameAs': [
       'https://github.com/arjunn881/json2x'
-    ]
+    ],
+    'knowsAbout': [
+      'JavaScript Object Notation (JSON)',
+      'RFC 8259 Specification',
+      'RFC 4180 CSV Specification',
+      'ECMA-404 JSON Standard',
+      'TypeScript Interface & Type Synthesis',
+      'Zod Schema Validation',
+      'Prisma ORM Modeling',
+      'Drizzle ORM TypeScript Tables',
+      'Client-Side Web Workers Processing',
+      'Zero-Server Data Privacy'
+    ],
+    'publishingPrinciples': 'https://json2x.com/editorial-policy',
+    'ethicsPolicy': 'https://json2x.com/privacy',
+    'contactPoint': {
+      '@type': 'ContactPoint',
+      'contactType': 'Technical Support & Security Inquiry',
+      'url': 'https://json2x.com/contact'
+    }
   }
 ];
 
@@ -95,6 +151,9 @@ const allSchemas = [...baseSchemas, ...customSchemas];
 {keywords && <meta name="keywords" content={keywords} />}
 <meta name="robots" content={effectiveRobots} />
 <link rel="canonical" href={canonicalUrl} />
+{hreflangAlternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+))}
 <meta name="author" content={author} />
 <meta name="theme-color" content="#0d1117" />
 <meta name="color-scheme" content="dark light" />
@@ -106,7 +165,10 @@ const allSchemas = [...baseSchemas, ...customSchemas];
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:site_name" content="JSON2X" />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content={langMeta.ogLocale} />
+{alternateOgLocales.map((alt) => (
+  <meta property="og:locale:alternate" content={alt.ogLocale} />
+))}
 {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 
 <!-- Twitter Card -->

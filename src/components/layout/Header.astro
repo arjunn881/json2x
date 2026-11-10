@@ -1,39 +1,72 @@
 ---
-import { CATEGORIES, TOOLS } from '../../data/tools';
+import {
+  defaultLang,
+  isLocalizedRoute,
+  LANGUAGE_META,
+  LOCALES,
+  type Lang,
+} from '../../i18n/ui';
+import { getLocalizedCategories, getLocalizedTools } from '../../i18n/tools';
+import { stripLocaleFromPath, useTranslatedPath, useTranslations } from '../../i18n/utils';
 
 export interface Props {
   currentId?: string;
+  lang?: Lang;
 }
 
-const { currentId = '' } = Astro.props;
+const { currentId = '', lang = defaultLang } = Astro.props;
+
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const currentMeta = LANGUAGE_META[lang] || LANGUAGE_META[defaultLang];
+const localizedCategories = getLocalizedCategories(lang);
+const localizedTools = getLocalizedTools(lang);
+
+const currentCleanRoute = stripLocaleFromPath(Astro.url.pathname);
+const routeIsLocalized = isLocalizedRoute(currentCleanRoute);
 
 const COMPANY_LINKS = [
-  { id: 'about', name: 'About Us', href: '/about' },
-  { id: 'faq', name: 'FAQ', href: '/faq' },
-  { id: 'contact', name: 'Contact', href: '/contact' },
-  { id: 'privacy', name: 'Privacy Policy', href: '/privacy' },
-  { id: 'terms', name: 'Terms & Conditions', href: '/terms' },
-  { id: 'disclaimer', name: 'Disclaimer', href: '/disclaimer' },
-  { id: 'license', name: 'License', href: '/license' },
+  { id: 'about', name: t('nav.about'), href: translatePath('/about') },
+  { id: 'faq', name: t('nav.faq'), href: translatePath('/faq') },
+  { id: 'contact', name: t('nav.contact'), href: '/contact' },
+  { id: 'privacy', name: t('nav.privacy'), href: '/privacy' },
+  { id: 'terms', name: t('nav.terms'), href: '/terms' },
+  { id: 'disclaimer', name: t('nav.disclaimer'), href: '/disclaimer' },
+  { id: 'license', name: t('nav.license'), href: '/license' },
 ];
 
-const LANGUAGES = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'zh', name: '简体中文', flag: '🇨🇳' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'pt', name: 'Português', flag: '🇧🇷' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' }
-];
+const LANGUAGE_SWITCH_ITEMS = LOCALES.map((loc) => {
+  const meta = LANGUAGE_META[loc];
+  const switchHref = routeIsLocalized
+    ? translatePath(currentCleanRoute, loc)
+    : loc === defaultLang
+      ? currentCleanRoute
+      : `/${loc}`;
+  return {
+    code: loc,
+    meta,
+    href: switchHref,
+    isActive: loc === lang,
+  };
+});
+
+const homeHref = translatePath('/');
+const toolsHref = translatePath('/tools');
+const docsHref = translatePath('/docs');
+const kbHref = translatePath('/kb');
+const blogHref = translatePath('/blog');
 ---
 
-<div class="top-bar" role="navigation" aria-label="Utility navigation">
+<div class="top-bar" role="navigation" aria-label={t('a11y.utilityNav')}>
   <div class="container top-bar__inner">
-    <div id="live-user-clock" class="top-bar__clock" title="Live Local Time" aria-label="Live local time"></div>
+    <div
+      id="live-user-clock"
+      class="top-bar__clock"
+      title={t('a11y.localTime')}
+      aria-label={t('a11y.localTime')}
+      data-local-suffix={t('clock.localSuffix')}
+      data-clock-locale={currentMeta.intlLocale}
+    ></div>
     <div class="top-bar__links">
       {COMPANY_LINKS.map((link) => (
         <a href={link.href} class={`top-bar__link${currentId === link.id ? ' active' : ''}`}>
@@ -44,17 +77,34 @@ const LANGUAGES = [
 
     <!-- Language Picker (Desktop) -->
     <div class="lang-picker" id="lang-picker-wrapper">
-      <button class="lang-picker__btn" id="lang-picker-btn" aria-label="Language: English" aria-haspopup="true" aria-expanded="false" title="Change Language">
-        <span class="lang-picker__flag" id="lang-current-flag" aria-hidden="true">🇺🇸</span>
-        <span class="lang-picker__code" id="lang-current-code">EN</span>
+      <button
+        class="lang-picker__btn"
+        id="lang-picker-btn"
+        type="button"
+        aria-label={`${t('a11y.languagePrefix')} ${currentMeta.nativeName}`}
+        aria-haspopup="true"
+        aria-expanded="false"
+        title={t('a11y.changeLang')}
+      >
+        <span class="lang-picker__flag" id="lang-current-flag" aria-hidden="true">{currentMeta.flag}</span>
+        <span class="lang-picker__code" id="lang-current-code">{currentMeta.shortCode}</span>
         <svg width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="lang-picker__menu" id="lang-picker-menu" role="menu" aria-label="Select Language">
-        {LANGUAGES.map((l) => (
-          <button class={`lang-picker__item${l.code === 'en' ? ' active' : ''}`} data-lang={l.code} role="menuitem" aria-label={l.name}>
-            <span class="lang-picker__flag" aria-hidden="true">{l.flag}</span>
-            <span class="lang-picker__item-name">{l.name}</span>
-          </button>
+      <div class="lang-picker__menu" id="lang-picker-menu" role="menu" aria-label={t('a11y.selectLang')}>
+        {LANGUAGE_SWITCH_ITEMS.map((item) => (
+          <a
+            href={item.href}
+            hreflang={item.meta.bcp47}
+            lang={item.meta.bcp47}
+            class={`lang-picker__item${item.isActive ? ' active' : ''}`}
+            data-lang={item.code}
+            role="menuitem"
+            aria-label={item.meta.nativeName}
+            aria-current={item.isActive ? 'page' : undefined}
+          >
+            <span class="lang-picker__flag" aria-hidden="true">{item.meta.flag}</span>
+            <span class="lang-picker__item-name">{item.meta.nativeName}</span>
+          </a>
         ))}
       </div>
     </div>
@@ -62,39 +112,39 @@ const LANGUAGES = [
 </div>
 
 <header class="site-header" role="banner">
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">{t('a11y.skipToMain')}</a>
   <div class="container site-header__inner">
-    <a href="/" class="site-header__logo" aria-label="JSON2X Home">
+    <a href={homeHref} class="site-header__logo" aria-label={t('a11y.homeAria')}>
       <span class="logo-icon" aria-hidden="true">&#123;2X&#125;</span>
       JSON<span style="color:var(--accent)">2X</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary navigation">
+    <nav class="site-nav" aria-label={t('a11y.primaryNav')}>
       <div class="site-nav__dropdown-wrap">
         <a
           class={`site-nav__link site-nav__link--has-menu${currentId.includes('tool') || currentId === 'catalog' ? ' active' : ''}`}
-          href="/tools"
+          href={toolsHref}
           aria-expanded="false"
           aria-controls="catalog-menu"
         >
-          Catalog
+          {t('nav.catalog')}
           <svg class="site-nav__caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <div class="site-nav__dropdown-menu" id="catalog-menu">
-          {CATEGORIES.map((cat) => {
-            const catTools = TOOLS.filter((t) => t.category === cat.id);
+          {localizedCategories.map((cat) => {
+            const catTools = localizedTools.filter((tool) => tool.category === cat.id);
             return (
               <div class="site-nav__dropdown-col">
                 <div class="site-nav__dropdown-head">
                   <Fragment set:html={cat.icon} />
                   <span>{cat.name}</span>
                 </div>
-                {catTools.map((t) => (
-                  <a class={`site-nav__dropdown-item${t.id === currentId || t.slug === currentId ? ' active' : ''}`} href={t.href}>
-                    <span class="site-nav__dropdown-icon"><Fragment set:html={t.icon} /></span>
+                {catTools.map((tool) => (
+                  <a class={`site-nav__dropdown-item${tool.id === currentId || tool.slug === currentId ? ' active' : ''}`} href={tool.href}>
+                    <span class="site-nav__dropdown-icon"><Fragment set:html={tool.icon} /></span>
                     <span class="site-nav__dropdown-info">
-                      <span class="site-nav__dropdown-name">{t.name} {t.badge && <span class="badge badge--sm">{t.badge}</span>}</span>
-                      <span class="site-nav__dropdown-desc">{t.desc}</span>
+                      <span class="site-nav__dropdown-name">{tool.name} {tool.badge && <span class="badge badge--sm">{tool.badge}</span>}</span>
+                      <span class="site-nav__dropdown-desc">{tool.desc}</span>
                     </span>
                   </a>
                 ))}
@@ -104,29 +154,29 @@ const LANGUAGES = [
         </div>
       </div>
 
-      <a class={`site-nav__link${currentId === 'docs' ? ' active' : ''}`} href="/docs">Docs</a>
-      <a class={`site-nav__link${currentId === 'kb' ? ' active' : ''}`} href="/kb">Knowledge Base</a>
-      <a class={`site-nav__link${currentId === 'blog' ? ' active' : ''}`} href="/blog">Blog</a>
+      <a class={`site-nav__link${currentId === 'docs' ? ' active' : ''}`} href={docsHref}>{t('nav.docs')}</a>
+      <a class={`site-nav__link${currentId === 'kb' ? ' active' : ''}`} href={kbHref}>{t('nav.kb')}</a>
+      <a class={`site-nav__link${currentId === 'blog' ? ' active' : ''}`} href={blogHref}>{t('nav.blog')}</a>
     </nav>
 
     <!-- Search Button -->
-    <button class="header-search-btn" id="header-search-btn" aria-label="Search tools and guides (Ctrl+K)" title="Quick Search (Ctrl+K)">
+    <button class="header-search-btn" id="header-search-btn" type="button" aria-label={t('nav.searchAria')} title={t('nav.searchTitle')}>
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
         <path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
-      <span class="header-search-text">Search tools...</span>
+      <span class="header-search-text">{t('nav.searchPlaceholder')}</span>
       <kbd class="header-search-kbd">Ctrl K</kbd>
     </button>
 
     <!-- Single Theme Toggle Icon Button -->
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label={t('a11y.toggleTheme')} title={t('a11y.toggleTheme')}>
       <svg class="theme-toggle__icon-sun" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.34 3.34l1.42 1.42M13.24 13.24l1.42 1.42M3.34 14.66l1.42-1.42M13.24 4.76l1.42-1.42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       <svg class="theme-toggle__icon-moon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M15.5 10.5A7 7 0 1 1 7.5 2.5a5.5 5.5 0 0 0 8 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
     <!-- Mobile Nav Toggle -->
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-nav">
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label={t('a11y.toggleMenu')} aria-expanded="false" aria-controls="mobile-nav">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <rect x="2" y="5"  width="16" height="2" rx="1" fill="currentColor"/>
         <rect x="2" y="9"  width="16" height="2" rx="1" fill="currentColor"/>
@@ -137,37 +187,45 @@ const LANGUAGES = [
 </header>
 
 <!-- Mobile Navigation Drawer -->
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+<nav class="mobile-nav" id="mobile-nav" aria-label={t('a11y.mobileNav')}>
   <!-- Mobile Collapsible Language Dropdown -->
   <details class="mobile-nav__lang-accordion" id="mobile-lang-accordion">
     <summary class="mobile-nav__lang-summary">
       <span style="display:flex;align-items:center;gap:8px;">
-        <span id="mobile-current-flag" aria-hidden="true">🇺🇸</span>
-        <span id="mobile-current-name">English</span>
+        <span id="mobile-current-flag" aria-hidden="true">{currentMeta.flag}</span>
+        <span id="mobile-current-name">{currentMeta.nativeName}</span>
       </span>
       <svg class="accordion-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </summary>
     <div class="mobile-nav__lang">
-      {LANGUAGES.map((l) => (
-        <button class={`mobile-nav__lang-btn${l.code === 'en' ? ' active' : ''}`} data-lang={l.code} aria-label={l.name}>
-          <span aria-hidden="true">{l.flag}</span>
-          <span>{l.name}</span>
-        </button>
+      {LANGUAGE_SWITCH_ITEMS.map((item) => (
+        <a
+          href={item.href}
+          hreflang={item.meta.bcp47}
+          lang={item.meta.bcp47}
+          class={`mobile-nav__lang-btn${item.isActive ? ' active' : ''}`}
+          data-lang={item.code}
+          aria-label={item.meta.nativeName}
+          aria-current={item.isActive ? 'page' : undefined}
+        >
+          <span aria-hidden="true">{item.meta.flag}</span>
+          <span>{item.meta.nativeName}</span>
+        </a>
       ))}
     </div>
   </details>
 
   <!-- Quick Tools Index Link -->
   <div style="padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);background:var(--bg-raised);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:space-between;border:1px solid var(--bg-border);">
-    <a href="/tools" style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">Browse All Tools Catalog &rarr;</a>
+    <a href={toolsHref} style="font-weight:var(--font-bold);color:var(--accent);text-decoration:none;font-size:var(--text-sm);">{t('nav.browseAllCatalog')} &rarr;</a>
   </div>
 
   <!-- Collapsible Categorized Tool Accordions -->
-  {CATEGORIES.map((cat) => {
-    const catTools = TOOLS.filter((t) => t.category === cat.id);
-    const hasActive = catTools.some((t) => t.id === currentId || t.slug === currentId);
+  {localizedCategories.map((cat) => {
+    const catTools = localizedTools.filter((tool) => tool.category === cat.id);
+    const hasActive = catTools.some((tool) => tool.id === currentId || tool.slug === currentId);
     return (
       <details class="mobile-nav__accordion" open={hasActive}>
         <summary>
@@ -180,11 +238,11 @@ const LANGUAGES = [
           </svg>
         </summary>
         <div class="mobile-nav__cat-links">
-          {catTools.map((t) => (
-            <a class={`mobile-nav__link${t.id === currentId || t.slug === currentId ? ' active' : ''}`} href={t.href}>
-              <Fragment set:html={t.icon} />
-              <span>{t.name}</span>
-              {t.badge && <span style="font-size:9px;background:var(--accent);color:#fff;padding:1px 4px;border-radius:3px;margin-left:auto;">{t.badge}</span>}
+          {catTools.map((tool) => (
+            <a class={`mobile-nav__link${tool.id === currentId || tool.slug === currentId ? ' active' : ''}`} href={tool.href}>
+              <Fragment set:html={tool.icon} />
+              <span>{tool.name}</span>
+              {tool.badge && <span style="font-size:9px;background:var(--accent);color:#fff;padding:1px 4px;border-radius:3px;margin-left:auto;">{tool.badge}</span>}
             </a>
           ))}
         </div>
@@ -199,16 +257,16 @@ const LANGUAGES = [
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M3 3h4a2 2 0 012 2v8a2 2 0 00-2-2H3V3zM13 3H9a2 2 0 00-2 2v8a2 2 0 012-2h4V3z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
         </svg>
-        <span>Resources &amp; Knowledge</span>
+        <span>{t('nav.resourcesKnowledge')}</span>
       </span>
       <svg class="accordion-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </summary>
     <div class="mobile-nav__cat-links">
-      <a class={`mobile-nav__link${currentId === 'docs' ? ' active' : ''}`} href="/docs">Documentation Matrix</a>
-      <a class={`mobile-nav__link${currentId === 'kb' ? ' active' : ''}`} href="/kb">Knowledge Base Guides</a>
-      <a class={`mobile-nav__link${currentId === 'blog' ? ' active' : ''}`} href="/blog">Engineering Blog</a>
+      <a class={`mobile-nav__link${currentId === 'docs' ? ' active' : ''}`} href={docsHref}>{t('nav.docsMatrix')}</a>
+      <a class={`mobile-nav__link${currentId === 'kb' ? ' active' : ''}`} href={kbHref}>{t('nav.kbGuides')}</a>
+      <a class={`mobile-nav__link${currentId === 'blog' ? ' active' : ''}`} href={blogHref}>{t('nav.engBlog')}</a>
     </div>
   </details>
 
@@ -220,7 +278,7 @@ const LANGUAGES = [
           <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
           <path d="M5 7V4.5a3 3 0 016 0V7" stroke="currentColor" stroke-width="1.3"/>
         </svg>
-        <span>Company &amp; Legal</span>
+        <span>{t('nav.companyLegal')}</span>
       </span>
       <svg class="accordion-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -326,67 +384,7 @@ const LANGUAGES = [
       }
     }
 
-    var LANG_MAP = {
-      en: { name: 'English', flag: '🇺🇸' },
-      es: { name: 'Español', flag: '🇪🇸' },
-      zh: { name: '简体中文', flag: '🇨🇳' },
-      ja: { name: '日本語', flag: '🇯🇵' },
-      pt: { name: 'Português', flag: '🇧🇷' },
-      de: { name: 'Deutsch', flag: '🇩🇪' },
-      fr: { name: 'Français', flag: '🇫🇷' },
-      hi: { name: 'हिन्दी', flag: '🇮🇳' },
-      ru: { name: 'Русский', flag: '🇷🇺' },
-      ar: { name: 'العربية', flag: '🇸🇦' }
-    };
-
-    // Language picker handler (Desktop & Mobile)
-    function handleLangChange(code) {
-      if (window.JSON2X_I18N && typeof window.JSON2X_I18N.setLanguage === 'function') {
-        window.JSON2X_I18N.setLanguage(code);
-      } else {
-        try { localStorage.setItem('jsontoolkit_lang', code); } catch(e) {}
-      }
-
-      // Update mobile summary text & flag
-      var info = LANG_MAP[code] || LANG_MAP.en;
-      var mobFlag = document.getElementById('mobile-current-flag');
-      var mobName = document.getElementById('mobile-current-name');
-      if (mobFlag) mobFlag.textContent = info.flag;
-      if (mobName) mobName.textContent = info.name;
-
-      var deskFlag = document.getElementById('lang-current-flag');
-      var deskCode = document.getElementById('lang-current-code');
-      if (deskFlag) deskFlag.textContent = info.flag;
-      if (deskCode) deskCode.textContent = code.toUpperCase();
-
-      // Automatically hide / collapse mobile language accordion after selection
-      var mobAccordion = document.getElementById('mobile-lang-accordion');
-      if (mobAccordion) {
-        mobAccordion.removeAttribute('open');
-      }
-
-      // Update active state on buttons
-      document.querySelectorAll('.lang-picker__item, .mobile-nav__lang-btn').forEach(function(btn) {
-        if (btn.getAttribute('data-lang') === code) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-    }
-
-    // Initialize current language display on load
-    try {
-      var savedLang = localStorage.getItem('jsontoolkit_lang') || 'en';
-      if (LANG_MAP[savedLang]) {
-        var mobFlag = document.getElementById('mobile-current-flag');
-        var mobName = document.getElementById('mobile-current-name');
-        if (mobFlag) mobFlag.textContent = LANG_MAP[savedLang].flag;
-        if (mobName) mobName.textContent = LANG_MAP[savedLang].name;
-      }
-    } catch(e) {}
-
-    // Desktop Language picker dropdown
+    // Desktop Language picker dropdown (links navigate directly to SSR locale URLs)
     var langBtn = document.getElementById('lang-picker-btn');
     var langMenu = document.getElementById('lang-picker-menu');
     if (langBtn && langMenu) {
@@ -401,27 +399,16 @@ const LANGUAGES = [
           langBtn.setAttribute('aria-expanded', 'false');
         }
       });
-      langMenu.querySelectorAll('.lang-picker__item').forEach(function(item) {
-        item.addEventListener('click', function() {
-          handleLangChange(this.getAttribute('data-lang'));
-          langMenu.classList.remove('open');
-        });
-      });
     }
 
-    // Mobile Language buttons
-    document.querySelectorAll('.mobile-nav__lang-btn').forEach(function(item) {
-      item.addEventListener('click', function() {
-        handleLangChange(this.getAttribute('data-lang'));
-      });
-    });
-
     // Live clock in top bar
+    var clockEl = document.getElementById('live-user-clock');
+    var localSuffix = (clockEl && clockEl.getAttribute('data-local-suffix')) || 'Local';
+    var clockLocale = (clockEl && clockEl.getAttribute('data-clock-locale')) || undefined;
     function updateClock() {
-      var clockEl = document.getElementById('live-user-clock');
       if (!clockEl) return;
       var now = new Date();
-      clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' Local';
+      clockEl.textContent = now.toLocaleTimeString(clockLocale || [], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' ' + localSuffix;
     }
     updateClock();
     setInterval(updateClock, 1000);

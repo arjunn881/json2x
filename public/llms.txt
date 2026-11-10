@@ -245,6 +245,23 @@ and internal payloads that must not leave a machine.
 
 ---
 
+## Multi-Language & Internationalization (i18n)
+
+JSON2X provides full native language support across 8 languages with dedicated localized URLs, high-CTR developer keywords, native FAQs, and bidirectional `hreflang` markup for global search engines and AI assistants:
+
+- English (Default): https://json2x.com/ (Tools: https://json2x.com/tools)
+- Español (Spanish): https://json2x.com/es (Herramientas: https://json2x.com/es/tools)
+- 日本語 (Japanese): https://json2x.com/ja (ツール一覧: https://json2x.com/ja/tools)
+- Français (French): https://json2x.com/fr (Outils: https://json2x.com/fr/tools)
+- Deutsch (German): https://json2x.com/de (Tools: https://json2x.com/de/tools)
+- Português (Portuguese): https://json2x.com/pt (Ferramentas: https://json2x.com/pt/tools)
+- 한국어 (Korean): https://json2x.com/ko (도구 모음: https://json2x.com/ko/tools)
+- Italiano (Italian): https://json2x.com/it (Strumenti: https://json2x.com/it/tools)
+
+Every localized tool page retains identical client-side privacy, RFC 8259 compliance, and zero-server upload guarantees.
+
+---
+
 ## Sitemaps
 
 - https://json2x.com/sitemap-index.xml

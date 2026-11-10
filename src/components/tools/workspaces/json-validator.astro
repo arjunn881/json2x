@@ -1,0 +1,160 @@
+---
+import type { ToolItem } from '../../../data/tools';
+import { defaultLang, type Lang } from '../../../i18n/ui';
+import { getLocalizedTool } from '../../../i18n/tools';
+import { getWorkspaceStrings } from '../../../i18n/workspaces';
+
+export interface Props {
+  tool: ToolItem;
+  lang?: Lang;
+}
+
+const { tool, lang = defaultLang } = Astro.props;
+const locTool = getLocalizedTool(tool, lang);
+const ws = getWorkspaceStrings(lang);
+const isEn = lang === 'en';
+---
+
+  <div class="options-bar">
+    <span class="options-bar__label">{ws.validate}</span>
+    <button class="btn btn--primary" id="validate-btn">{ws.validateJsonBtn}</button>
+    <button class="btn btn--ghost btn--sm" id="sample-btn">{ws.loadSample}</button>
+    <button class="btn btn--ghost btn--sm" id="clear-btn" style="margin-left:auto">{ws.clear}</button>
+  </div>
+
+  <div class="tw-workspace tw-workspace--sticky-out">
+    <!-- LEFT: input -->
+    <section class="tw-pane tw-pane--input" aria-labelledby="pane-in-title">
+      <div class="tw-pane__header">
+        <h2 class="tw-pane__title" id="pane-in-title">
+          {locTool.inputLabel || ws.jsonInput}
+          <span class="tw-pane__side">{ws.inputPaneSide}</span>
+        </h2>
+        <span class="tw-pane__meta" id="char-count"></span>
+      </div>
+      <textarea
+        class="tw-input"
+        id="json-input"
+        placeholder={ws.placeholderValidate}
+        aria-label={ws.jsonInput}
+        spellcheck="false"
+        autocapitalize="off"
+        autocomplete="off"
+      ></textarea>
+    </section>
+
+    <!-- RIGHT: validation report -->
+    <section class="tw-pane tw-pane--output" aria-labelledby="pane-out-title">
+      <div class="tw-pane__header">
+        <h2 class="tw-pane__title" id="pane-out-title">
+          {locTool.outputLabel || 'Validation Report'}
+          <span class="tw-pane__side">{ws.outputPaneSide}</span>
+        </h2>
+        <span class="tw-pane__meta" id="rfc-note">RFC 8259</span>
+      </div>
+      <div class="tw-report" id="report" role="status" aria-live="polite">
+        <p class="tw-empty" id="report-empty">{ws.validatorEmpty}</p>
+
+        <div id="verdict" hidden></div>
+
+        <div class="tw-stats" id="stats-row" hidden aria-label={isEn ? 'JSON structure metrics' : ws.statType}>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-keys">—</span><span class="tw-stat__label">{ws.statKeys}</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-depth">—</span><span class="tw-stat__label">{ws.statDepth}</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-arrays">—</span><span class="tw-stat__label">{ws.statArrays}</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-objects">—</span><span class="tw-stat__label">{ws.statObjects}</span></div>
+          <div class="tw-stat"><span class="tw-stat__value" id="stat-size">—</span><span class="tw-stat__label">{ws.statSize}</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script id="ws-i18n-data" type="application/json" is:inline set:html={JSON.stringify(ws).replace(/</g, '\\u003c')} />
+  <script is:inline>
+    (function () {
+      const WS = JSON.parse(document.getElementById('ws-i18n-data')?.textContent || '{}');
+      var inputEl    = document.getElementById('json-input');
+      var verdictEl  = document.getElementById('verdict');
+      var emptyEl    = document.getElementById('report-empty');
+      var statsRow   = document.getElementById('stats-row');
+      var charCount  = document.getElementById('char-count');
+
+      var OK_ICON  = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      var BAD_ICON = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+      function reset() {
+        verdictEl.hidden = true;
+        statsRow.hidden = true;
+        emptyEl.hidden = false;
+      }
+
+      function showVerdict(ok, title, detail) {
+        emptyEl.hidden = true;
+        verdictEl.hidden = false;
+        verdictEl.className = 'tw-verdict ' + (ok ? 'tw-verdict--ok' : 'tw-verdict--bad');
+        verdictEl.innerHTML =
+          '<span class="tw-verdict__icon">' + (ok ? OK_ICON : BAD_ICON) + '</span>' +
+          '<span><span class="tw-verdict__title">' + title + '</span>' +
+          (detail ? '<span class="tw-verdict__detail">' + detail + '</span>' : '') +
+          '</span>';
+      }
+
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      function validate() {
+        var raw = inputEl.value;
+        charCount.textContent = raw.length ? raw.length.toLocaleString() + ' ' + (WS.charsUnit || 'chars') : '';
+
+        if (!raw.trim()) { reset(); return; }
+
+        var res = JT.parseJSON(raw);
+
+        if (res.error) {
+          var loc = [];
+          if (res.line) loc.push((WS.lineWord || 'line').toLowerCase() + ' ' + res.line);
+          if (res.column) loc.push((WS.columnWord || 'column') + ' ' + res.column);
+          var invalidTitle = (WS.invalidJson || 'Invalid JSON') + (loc.length ? ' (' + loc.join(', ') + ')' : '');
+          if ((WS.lineWord || 'Line') === 'Line' && loc.length) {
+            invalidTitle = 'Invalid JSON at ' + loc.join(', ');
+          }
+          showVerdict(false, invalidTitle, esc(res.error));
+          statsRow.hidden = true;
+          return;
+        }
+
+        showVerdict(true, WS.validJson || 'Valid JSON', WS.parsesCleanlyRfc || 'Parses cleanly against RFC 8259.');
+
+        var stats = JT.countNodes(res.data);
+        document.getElementById('stat-keys').textContent    = stats.keys.toLocaleString();
+        document.getElementById('stat-depth').textContent   = stats.depth;
+        document.getElementById('stat-arrays').textContent  = stats.arrays.toLocaleString();
+        document.getElementById('stat-objects').textContent = stats.objects.toLocaleString();
+        document.getElementById('stat-size').textContent    = JT.formatBytes(new Blob([raw]).size);
+        statsRow.hidden = false;
+      }
+
+      document.getElementById('validate-btn').addEventListener('click', validate);
+      inputEl.addEventListener('input', JT.debounce(validate, 450));
+
+      document.getElementById('sample-btn').addEventListener('click', function () {
+        inputEl.value = JSON.stringify({
+          id: 4821,
+          name: 'Ada Lovelace',
+          active: true,
+          roles: ['admin', 'engineer'],
+          profile: { city: 'London', joined: '2026-01-14', score: 99.5 },
+          meta: null
+        }, null, 2);
+        validate();
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', function () {
+        inputEl.value = '';
+        charCount.textContent = '';
+        reset();
+        inputEl.focus();
+      });
+    })();
+  </script>
+

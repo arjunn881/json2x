@@ -6,39 +6,68 @@ import ToolMetricsDashboard from '../components/tools/ToolMetricsDashboard.astro
 import ToolCodeSnippets from '../components/tools/ToolCodeSnippets.astro';
 import ToolFAQ from '../components/tools/ToolFAQ.astro';
 import HowToSchema from '../components/seo/HowToSchema.astro';
-import FAQSchema from '../components/seo/FAQSchema.astro';
 import type { ToolItem } from '../data/tools';
 import { CATEGORIES } from '../data/tools';
 import { TOOL_CONTENT } from '../data/tool-content';
-import { getToolRegistry } from '../data/toolsRegistry';
 import { getPseoBySlug } from '../data/tool-pseo';
+import {
+  defaultLang,
+  LANGUAGE_META,
+  SOFTWARE_FEATURES_BY_LANG,
+  VARIANT_TABS_BY_LANG,
+  type Lang,
+} from '../i18n/ui';
+import {
+  getLocalizedCategory,
+  getLocalizedHowTo,
+  getLocalizedTool,
+  getLocalizedToolRegistry,
+} from '../i18n/tools';
+import { getCanonicalUrl, useTranslatedPath, useTranslations } from '../i18n/utils';
 
 export interface Props {
   tool: ToolItem;
+  lang?: Lang;
 }
 
-const { tool } = Astro.props;
+const { tool, lang = defaultLang } = Astro.props;
 
-const registry = getToolRegistry(tool.id);
-const content = TOOL_CONTENT[tool.id];
-const category = CATEGORIES.find((c) => c.id === tool.category);
-const dateModified = tool.dateModified || '2026-09-02';
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const langMeta = LANGUAGE_META[lang] || LANGUAGE_META[defaultLang];
 
-// Dynamic canonical matching natively via Astro.url.origin + Astro.url.pathname
-// Instantly deflects tracking parameters (?utm=, ?ref=, ?variant=)
-const cleanPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const canonicalUrl = `${Astro.url.origin}${cleanPath}`;
+const localizedTool = getLocalizedTool(tool, lang);
+const registry = getLocalizedToolRegistry(tool.id, lang);
+const howToSteps = getLocalizedHowTo(tool.id, lang);
+const rawCategory = CATEGORIES.find((c) => c.id === tool.category);
+const category = rawCategory ? getLocalizedCategory(rawCategory, lang) : undefined;
+const dateModified = localizedTool.dateModified || '2026-09-02';
+const toolContent = TOOL_CONTENT[tool.id];
+const entities = toolContent?.entities || [];
+
+// Dynamic extensionless canonical URL
+const canonicalUrl = getCanonicalUrl(Astro.url.pathname, 'https://json2x.com');
 
 // Checkpoint: detect if page is accessed with minor long-tail query parameters or low content threshold
 const hasVariationParams = Astro.url.searchParams.has('variant') || Astro.url.searchParams.has('mode') || Astro.url.searchParams.has('v');
 const isSecondary = hasVariationParams;
 
+const featureList = lang === defaultLang
+  ? [
+      '100% Client-Side Processing',
+      'Real-Time Memory & Structural Evaluation',
+      'Zero Server Data Transmission',
+      'Multi-Language Programmatic Code Recipes',
+      'RFC 8259 Compliance Verification'
+    ]
+  : (SOFTWARE_FEATURES_BY_LANG[lang] || SOFTWARE_FEATURES_BY_LANG.en);
+
 // Schema.org SoftwareApplication
 const softwareAppSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  'name': tool.name,
-  'alternateName': tool.h1 || tool.name,
+  'name': localizedTool.name,
+  'alternateName': localizedTool.h1 || localizedTool.name,
   'applicationCategory': 'DeveloperApplication',
   'applicationSubCategory': category?.name || 'Developer Tool',
   'operatingSystem': 'Any (Web Browser)',
@@ -47,9 +76,9 @@ const softwareAppSchema = {
     'price': '0',
     'priceCurrency': 'USD'
   },
-  'description': tool.metaDesc,
+  'description': localizedTool.metaDesc,
   'url': canonicalUrl,
-  'inLanguage': 'en',
+  'inLanguage': langMeta.bcp47,
   'dateModified': dateModified,
   'isAccessibleForFree': true,
   'browserRequirements': 'Requires JavaScript. Requires HTML5.',
@@ -57,24 +86,25 @@ const softwareAppSchema = {
   'isPartOf': {
     '@type': 'WebSite',
     'name': 'JSON2X',
-    'url': 'https://json2x.com'
+    'url': lang === defaultLang ? 'https://json2x.com' : `https://json2x.com/${lang}`
   },
   'publisher': {
     '@type': 'Organization',
     'name': 'JSON2X',
     'url': 'https://json2x.com'
   },
-  'featureList': [
-    '100% Client-Side Processing',
-    'Real-Time Memory & Structural Evaluation',
-    'Zero Server Data Transmission',
-    'Multi-Language Programmatic Code Recipes',
-    'RFC 8259 Compliance Verification'
-  ]
+  ...(entities.length > 0 && {
+    'about': entities.map((e) => ({
+      '@type': 'Thing',
+      'name': e.name,
+      'sameAs': e.sameAs
+    }))
+  }),
+  'featureList': featureList
 };
 
 // Long-tail variant mapping for consolidated UI toggles
-const variantTabsMap: Record<string, { label: string; mode: string; desc: string }[]> = {
+const enVariantTabsMap: Record<string, { label: string; mode: string; desc: string }[]> = {
   'json-to-xml': [
     { label: 'JSON → XML', mode: 'json2xml', desc: 'Indented XML elements with root node' },
     { label: 'XML → JSON Reverse', mode: 'xml2json', desc: 'Convert legacy XML payloads into typed JSON' },
@@ -101,43 +131,48 @@ const variantTabsMap: Record<string, { label: string; mode: string; desc: string
   ]
 };
 
-const toolVariants = variantTabsMap[tool.id] || [];
+const toolVariants =
+  lang !== defaultLang && VARIANT_TABS_BY_LANG[lang]?.[tool.id]
+    ? VARIANT_TABS_BY_LANG[lang]![tool.id]!
+    : enVariantTabsMap[tool.id] || [];
 
 // Programmatic SEO: resolve the long-tail /kb/tools/ guides declared on the tool
 const guides = (tool.guides || [])
   .map((slug) => getPseoBySlug(slug))
   .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const guidesLangNote = t('tool.refGuidesLangNote');
 ---
 
 <BaseLayout
-  title={tool.title}
-  description={tool.metaDesc}
-  keywords={tool.keywords}
+  title={localizedTool.title}
+  description={localizedTool.metaDesc}
+  keywords={localizedTool.keywords}
   canonical={canonicalUrl}
   currentId={tool.id}
   schema={softwareAppSchema}
   containerClass="container container--tool"
   needsToolRuntime={true}
   isSecondary={isSecondary}
+  lang={lang}
 >
   {/* AEO: HowTo JSON-LD mirroring the programmatic workflow */}
-  {content && content.howTo && content.howTo.length > 0 && (
+  {howToSteps && howToSteps.length > 0 && (
     <HowToSchema
-      name={`How to use the ${tool.name}`}
-      description={tool.answer || tool.metaDesc}
-      steps={content.howTo}
-      toolName={tool.name}
+      name={`${t('tool.howToPrefix')} ${localizedTool.name}`}
+      description={localizedTool.answer || localizedTool.metaDesc}
+      steps={howToSteps}
+      toolName={localizedTool.name}
       toolUrl={canonicalUrl}
     />
   )}
 
-
-
   <Breadcrumbs
+    lang={lang}
     items={[
-      { label: 'Tools', href: '/tools' },
-      ...(category ? [{ label: category.name, href: `/tools#${category.id}` }] : []),
-      { label: tool.name, href: tool.href }
+      { label: t('breadcrumb.tools'), href: translatePath('/tools') },
+      ...(category ? [{ label: category.name, href: `${translatePath('/tools')}#${category.id}` }] : []),
+      { label: localizedTool.name, href: localizedTool.href }
     ]}
   />
 
@@ -147,20 +182,33 @@ const guides = (tool.guides || [])
       <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="margin-right:4px">
         <path d="M8 1L2 3.5v5c0 3.5 2.5 6.5 6 7.5 3.5-1 6-4 6-7.5v-5L8 1z" stroke="currentColor" stroke-width="1.5"/>
       </svg>
-      100% Client-Side Engine &bull; Zero Server Transfer &bull; Spec: {registry.specStandard}
+      {t('tool.badgeClientSide')} {registry.specStandard}
     </div>
-    <h1 class="tool-hero__title text-2xl md:text-3xl font-bold text-zinc-100 mt-2">{tool.h1 || tool.name}</h1>
-    <p class="tool-hero__desc text-sm text-zinc-400 mt-1 max-w-2xl">{tool.metaDesc}</p>
+    <h1 class="tool-hero__title text-2xl md:text-3xl font-bold text-zinc-100 mt-2">{localizedTool.h1 || localizedTool.name}</h1>
+    <p class="tool-hero__desc text-sm text-zinc-400 mt-1 max-w-2xl">{localizedTool.metaDesc}</p>
+
+    {localizedTool.answer && (
+      <div id="direct-answer" class="mt-4 p-4 rounded-xl border border-indigo-900/40 bg-zinc-900/70 text-zinc-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
+        <div class="flex items-center gap-1.5 mb-1.5 text-[11px] font-mono font-semibold uppercase tracking-wider text-indigo-400">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 1L2 3.5v5c0 3.5 2.5 6.5 6 7.5 3.5-1 6-4 6-7.5v-5L8 1z" stroke="currentColor" stroke-width="1.3" />
+            <path d="M5.5 8l2 2 3.5-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          {t('tool.directAnswerLabel')}
+        </div>
+        <p class="m-0 text-zinc-300 leading-normal">{localizedTool.answer}</p>
+      </div>
+    )}
   </section>
 
   <!-- Minor Long-Tail Variant UI Tabs (Consolidates secondary build targets into single-page tabs) -->
   {toolVariants.length > 0 && (
-    <div class="tool-variants-nav" aria-label="Tool Variant Modes">
+    <div class="tool-variants-nav" aria-label={t('tool.workflowAria')}>
       <span class="tool-variants-nav__label">
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-        Workflow Mode:
+        {t('tool.workflowMode')}
       </span>
       <div class="tool-variants-nav__list" role="tablist">
         {toolVariants.map((v, i) => (
@@ -185,21 +233,24 @@ const guides = (tool.guides || [])
   <!-- STEP 2: REAL-TIME STRUCTURAL PAYLOAD EVALUATION (Dynamic Dashboard Panel) -->
   <ToolMetricsDashboard
     toolId={tool.id}
-    toolName={tool.name}
+    toolName={localizedTool.name}
     specStandard={registry.specStandard}
+    lang={lang}
   />
 
   <!-- STEP 3: PROGRAMMATIC EXECUTION SIDE-CAR MODULES (Replacing article boilerplate) -->
-  <ToolCodeSnippets tool={tool} />
+  <ToolCodeSnippets tool={localizedTool} lang={lang} />
 
   <!-- Task Walkthrough Guides Link Deck (Pushes authority to relevant documentation) -->
   {guides.length > 0 && (
     <section class="mt-8 mb-6 p-4 rounded-xl border border-zinc-800 bg-zinc-950 font-sans">
-      <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
         <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-400 font-mono">
-          📚 Task-Specific Reference Guides &amp; Specifications
+          {t('tool.refGuidesTitle')}
         </h3>
-        <span class="text-[11px] font-mono text-zinc-400">{guides.length} Technical Guides</span>
+        <span class="text-[11px] font-mono text-zinc-400">
+          {guides.length} {t('tool.refGuidesCount')}{guidesLangNote ? ` · ${guidesLangNote}` : ''}
+        </span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {guides.map((g) => (
@@ -220,18 +271,18 @@ const guides = (tool.guides || [])
   )}
 
   <!-- Engineering Technical FAQs (Preserves 100% of questions, keywords & Schema.org FAQPage) -->
-  {tool.faqs && tool.faqs.length > 0 && (
-    <ToolFAQ faqs={tool.faqs} title={`Frequently Asked Questions: ${tool.name}`} />
+  {localizedTool.faqs && localizedTool.faqs.length > 0 && (
+    <ToolFAQ faqs={localizedTool.faqs} title={`${t('tool.faqTitlePrefix')} ${localizedTool.name}`} />
   )}
 
   <!-- Search Intent Keyword Clusters (Preserves all targeted keyword queries in DOM) -->
-  {tool.ctrKeywords && tool.ctrKeywords.length > 0 && (
+  {localizedTool.ctrKeywords && localizedTool.ctrKeywords.length > 0 && (
     <section class="mt-8 mb-6 p-4 rounded-xl border border-zinc-800 bg-zinc-950 font-sans">
       <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-400 font-mono mb-2.5">
-        🔍 Developer Query Intent Index
+        {t('tool.queryIntentTitle')}
       </h3>
       <div class="flex flex-wrap gap-2">
-        {tool.ctrKeywords.map((k) => (
+        {localizedTool.ctrKeywords.map((k) => (
           <span class="px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-300">
             {k}
           </span>
@@ -241,14 +292,98 @@ const guides = (tool.guides || [])
   )}
 
   <!-- Cross-Tool Application Navigation -->
+  <!-- Visible Procedural How-To Guide (AEO / GEO / Schema.org HowTo Parity) -->
+  {howToSteps && howToSteps.length > 0 && (
+    <section class="mt-8 mb-6 p-5 rounded-xl border border-zinc-800 bg-zinc-950 font-sans" aria-labelledby="tool-howto-heading">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 font-mono">
+          {t('tool.howToPrefix')}
+        </span>
+      </div>
+      <h2 id="tool-howto-heading" class="text-base font-semibold text-zinc-100 mb-1">
+        {t('tool.howToPrefix')} {localizedTool.name}
+      </h2>
+      <p class="text-xs text-zinc-400 mb-4">{t('tool.howToSub')}</p>
+      <ol class="space-y-3 list-none p-0 m-0">
+        {howToSteps.map((step, idx) => (
+          <li class="flex items-start gap-3 p-3.5 rounded-lg border border-zinc-800/80 bg-zinc-900/50">
+            <span class="flex-shrink-0 w-6 h-6 rounded-md bg-indigo-950/80 border border-indigo-700/60 text-indigo-300 font-mono text-xs flex items-center justify-center font-bold">
+              {idx + 1}
+            </span>
+            <div class="min-w-0">
+              <h3 class="text-xs font-semibold text-zinc-200 mb-1">{step.name}</h3>
+              <p class="text-xs text-zinc-400 leading-relaxed m-0">{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  <!-- Technical Specifications & Engineering Compliance Matrix (E-E-A-T & GEO) -->
+  <section class="mt-8 mb-6 p-5 rounded-xl border border-zinc-800 bg-zinc-950 font-sans" aria-labelledby="tool-specs-heading">
+    <h2 id="tool-specs-heading" class="text-xs font-bold uppercase tracking-wider text-zinc-400 font-mono mb-3">
+      {t('tool.specsHeading')}
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse text-xs font-mono">
+        <tbody>
+          <tr class="border-b border-zinc-800/80">
+            <th scope="row" class="py-2.5 pr-4 text-zinc-400 font-medium whitespace-nowrap">{t('tool.specStandardCol')}</th>
+            <td class="py-2.5 text-zinc-200 font-semibold">{registry.specStandard}</td>
+          </tr>
+          <tr class="border-b border-zinc-800/80">
+            <th scope="row" class="py-2.5 pr-4 text-zinc-400 font-medium whitespace-nowrap">{t('tool.archLabel')}</th>
+            <td class="py-2.5 text-zinc-300">{registry.layoutVariant}</td>
+          </tr>
+          <tr class="border-b border-zinc-800/80">
+            <th scope="row" class="py-2.5 pr-4 text-zinc-400 font-medium whitespace-nowrap">Time Complexity</th>
+            <td class="py-2.5 text-zinc-300">{registry.timeComplexity}</td>
+          </tr>
+          <tr class="border-b border-zinc-800/80">
+            <th scope="row" class="py-2.5 pr-4 text-zinc-400 font-medium whitespace-nowrap">Memory Footprint</th>
+            <td class="py-2.5 text-zinc-300">{registry.memoryBudget}</td>
+          </tr>
+          <tr class="border-b border-zinc-800/80">
+            <th scope="row" class="py-2.5 pr-4 text-zinc-400 font-medium whitespace-nowrap">{t('tool.specPrivacyCol')}</th>
+            <td class="py-2.5 text-emerald-400 font-medium">{t('tool.specPrivacyVal')}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="py-2.5 pr-4 text-zinc-400 font-medium whitespace-nowrap">{t('tool.lastReviewedPrefix')}</th>
+            <td class="py-2.5 text-zinc-400">
+              <time datetime={dateModified}>{new Date(dateModified + 'T00:00:00Z').toLocaleDateString(langMeta.intlLocale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time> {t('tool.lastReviewedBy')}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Cross-Tool Application Navigation -->
   <div class="mt-8">
-    <RelatedTools tool={tool} />
+    <RelatedTools tool={tool} lang={lang} />
   </div>
 
+  {entities.length > 0 && (
+    <div class="mt-8 pt-4 border-t border-zinc-800/60 text-[11px] font-mono text-zinc-400 flex flex-wrap items-center gap-x-3 gap-y-1">
+      <span class="text-zinc-400 font-semibold">{t('tool.entitiesLabel')}</span>
+      {entities.map((e) => (
+        <a
+          href={e.sameAs}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-indigo-400 hover:text-indigo-300 underline underline-offset-2 transition-colors"
+        >
+          {e.name}
+        </a>
+      ))}
+    </div>
+  )}
+
   <p class="mt-8 text-[11px] font-mono text-zinc-400">
-    Architecture: <span class="text-zinc-400">{registry.layoutVariant}</span> &bull; 
-    Spec: <span class="text-zinc-400">{registry.specStandard}</span> &bull; 
-    Last reviewed <time datetime={dateModified}>{new Date(dateModified + 'T00:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time> by the JSON2X Core Team.
+    {t('tool.archLabel')} <span class="text-zinc-400">{registry.layoutVariant}</span> &bull;
+    {t('tool.specLabel')} <span class="text-zinc-400">{registry.specStandard}</span> &bull;
+    {t('tool.lastReviewedPrefix')} <time datetime={dateModified}>{new Date(dateModified + 'T00:00:00Z').toLocaleDateString(langMeta.intlLocale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</time> {t('tool.lastReviewedBy')}
   </p>
 
   <style>

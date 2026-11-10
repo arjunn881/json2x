@@ -3,6 +3,9 @@ import SEO from '../components/seo/SEO.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import '../styles/global.css';
+import { defaultLang, LANGUAGE_META, type Lang } from '../i18n/ui';
+import { getLocalizedTools } from '../i18n/tools';
+import { useTranslatedPath, useTranslations } from '../i18n/utils';
 
 export interface Props {
   title: string;
@@ -19,6 +22,7 @@ export interface Props {
   containerClass?: string;
   isSecondary?: boolean;
   contentLength?: number;
+  lang?: Lang;
   /**
    * Tool pages run their logic from an inline <script> inside <main>, which the
    * browser executes while parsing the body — before any deferred script. Set
@@ -44,13 +48,42 @@ const {
   containerClass = 'container',
   isSecondary = false,
   contentLength,
+  lang = defaultLang,
   needsToolRuntime = false
 } = Astro.props;
+
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const langMeta = LANGUAGE_META[lang] || LANGUAGE_META[defaultLang];
+const localizedTools = getLocalizedTools(lang);
+
+const searchIndexData = [
+  ...localizedTools.map((tool) => ({
+    name: tool.name,
+    href: tool.href,
+    desc: tool.desc,
+  })),
+  { name: t('breadcrumb.docs'), href: translatePath('/docs'), desc: t('search.docsDesc') },
+  { name: t('breadcrumb.kb'), href: translatePath('/kb'), desc: t('search.kbDesc') },
+  { name: t('breadcrumb.blog'), href: translatePath('/blog'), desc: t('search.blogDesc') },
+];
+
+const searchIndexJson = JSON.stringify(searchIndexData);
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={langMeta.bcp47} data-ssr-i18n="true">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5LWV30LK1"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-W5LWV30LK1');
+  </script>
+
   <!-- Performance DNS & Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -93,11 +126,12 @@ const {
     schema={schema}
     isSecondary={isSecondary}
     contentLength={contentLength}
+    lang={lang}
   />
   {needsToolRuntime && <script src="/assets/js/common.js" is:inline></script>}
 </head>
 <body>
-  <Header currentId={currentId} />
+  <Header currentId={currentId} lang={lang} />
 
   <main id="main-content">
     <div class={containerClass}>
@@ -105,21 +139,23 @@ const {
     </div>
   </main>
 
-  <Footer />
+  <Footer lang={lang} />
 
   <!-- Global Quick Search Modal -->
   <div id="search-modal-backdrop" class="search-modal-backdrop" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:9999;align-items:flex-start;justify-content:center;padding-top:12vh;">
     <div class="search-modal-box" style="background:var(--bg-surface);border:1px solid var(--bg-border);border-radius:var(--radius-xl);width:90%;max-width:560px;box-shadow:var(--shadow-lg);overflow:hidden;animation:modalIn 0.15s ease-out;">
       <div style="display:flex;align-items:center;padding:var(--space-4);border-bottom:1px solid var(--bg-border);gap:var(--space-3);">
         <svg width="18" height="18" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);flex-shrink:0;"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <input id="quick-search-input" type="text" placeholder="Search 21+ tools, guides, and error fixes..." style="width:100%;background:transparent;border:none;outline:none;font-size:var(--text-base);color:var(--text-primary);" />
+        <input id="quick-search-input" type="text" placeholder={t('search.modalPlaceholder')} style="width:100%;background:transparent;border:none;outline:none;font-size:var(--text-base);color:var(--text-primary);" />
         <kbd style="font-size:11px;background:var(--bg-raised);padding:2px 6px;border-radius:4px;color:var(--text-muted);border:1px solid var(--bg-border);">ESC</kbd>
       </div>
-      <div id="quick-search-results" style="max-height:360px;overflow-y:auto;padding:var(--space-2);">
+      <div id="quick-search-results" data-no-results={t('search.noResults')} style="max-height:360px;overflow-y:auto;padding:var(--space-2);">
         <!-- Populated via search script -->
       </div>
     </div>
   </div>
+
+  <script id="quick-search-data" type="application/json" set:html={searchIndexJson} />
 
   <!-- Shared Utility Scripts -->
   <script src="/assets/js/i18n.js" defer></script>
@@ -132,6 +168,13 @@ const {
       var input = document.getElementById('quick-search-input');
       var results = document.getElementById('quick-search-results');
       var searchBtn = document.getElementById('header-search-btn');
+      var dataEl = document.getElementById('quick-search-data');
+
+      var SEARCH_INDEX = [];
+      if (dataEl && dataEl.textContent) {
+        try { SEARCH_INDEX = JSON.parse(dataEl.textContent); } catch (e) {}
+      }
+      var noResultsLabel = (results && results.getAttribute('data-no-results')) || 'No matching tools found';
 
       function openSearch() {
         if (!modal) return;
@@ -161,30 +204,6 @@ const {
         }
       });
 
-      var SEARCH_INDEX = [
-        { name: 'JSON Formatter & Beautifier', href: '/tools/json-formatter', desc: 'Prettify, validate & syntax highlight JSON' },
-        { name: 'JSON Validator & Linter', href: '/tools/json-validator', desc: 'Strict RFC 8259 syntax checking with line numbers' },
-        { name: 'JSON Minifier & Compressor', href: '/tools/json-minifier', desc: 'Strip whitespace and compress payload size' },
-        { name: 'JSON Diff Checker', href: '/tools/json-diff', desc: 'Semantic comparison between two JSON trees' },
-        { name: 'JSON to CSV Converter', href: '/tools/json-to-csv', desc: 'Export JSON arrays to spreadsheet CSV' },
-        { name: 'CSV to JSON Converter', href: '/tools/csv-to-json', desc: 'Convert CSV/TSV spreadsheets into JSON' },
-        { name: 'JSON to TypeScript Generator', href: '/tools/typescript-generator', desc: 'Generate TypeScript interfaces & types' },
-        { name: 'JSON to Zod Schema', href: '/tools/json-to-zod', desc: 'Infer Zod runtime validation schemas' },
-        { name: 'JSON to YAML Converter', href: '/tools/json-to-yaml', desc: 'Convert JSON to YAML configuration' },
-        { name: 'JSON to XML Converter', href: '/tools/json-to-xml', desc: 'Convert JSON to clean XML trees' },
-        { name: 'JSON to SQL Converter', href: '/tools/json-to-sql', desc: 'Generate CREATE TABLE & INSERT statements' },
-        { name: 'JSON to Prisma Generator', href: '/tools/json-to-prisma', desc: 'Generate Prisma ORM schema models' },
-        { name: 'JSON to Drizzle Generator', href: '/tools/json-to-drizzle', desc: 'Generate Drizzle ORM TypeScript tables' },
-        { name: 'JSON to GraphQL Generator', href: '/tools/json-to-graphql', desc: 'Generate GraphQL SDL types' },
-        { name: 'JSON Schema Generator', href: '/tools/json-schema-generator', desc: 'Infer Draft-07 JSON Schema specifications' },
-        { name: 'JSON Mock Generator', href: '/tools/json-mock-generator', desc: 'Generate synthetic mock fixtures & datasets' },
-        { name: 'JSONPath Tester', href: '/tools/jsonpath', desc: 'Evaluate & test JSONPath queries interactively' },
-        { name: 'JSON Tree Viewer', href: '/tools/json-tree-viewer', desc: 'Interactive collapsible JSON visualizer' },
-        { name: 'Documentation Hub', href: '/docs', desc: 'RFC 8259 specifications and guides' },
-        { name: 'Knowledge Base', href: '/kb', desc: 'Developer troubleshooting and tutorials' },
-        { name: 'Engineering Blog', href: '/blog', desc: 'In-depth architecture & benchmarking articles' }
-      ];
-
       function renderResults(query) {
         if (!results) return;
         var q = query.trim().toLowerCase();
@@ -193,7 +212,7 @@ const {
         });
 
         if (matches.length === 0) {
-          results.innerHTML = '<div style="padding:var(--space-6);text-align:center;color:var(--text-muted);font-size:var(--text-sm);">No matching tools found</div>';
+          results.innerHTML = '<div style="padding:var(--space-6);text-align:center;color:var(--text-muted);font-size:var(--text-sm);">' + noResultsLabel + '</div>';
           return;
         }
 

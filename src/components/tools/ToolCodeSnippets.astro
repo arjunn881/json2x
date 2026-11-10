@@ -1,16 +1,25 @@
 ---
 import type { ToolItem } from '../../data/tools';
-import { getToolRegistry } from '../../data/toolsRegistry';
+import { defaultLang, type Lang } from '../../i18n/ui';
+import { getLocalizedToolRegistry } from '../../i18n/tools';
+import { useTranslations } from '../../i18n/utils';
 
 export interface Props {
   tool: ToolItem;
+  lang?: Lang;
 }
 
-const { tool } = Astro.props;
-const registry = getToolRegistry(tool.id);
+const { tool, lang = defaultLang } = Astro.props;
+const registry = getLocalizedToolRegistry(tool.id, lang);
+const t = useTranslations(lang);
+const copiedLabel = t('snippets.copied');
 ---
 
-<section class="mt-8 mb-8 font-sans" aria-label="Programmatic Execution Side-Car">
+<section
+  class="mt-8 mb-8 font-sans"
+  aria-label={t('snippets.ariaLabel')}
+  data-copied-label={copiedLabel}
+>
   <!-- Section Title -->
   <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
     <div class="flex items-center gap-2">
@@ -21,10 +30,10 @@ const registry = getToolRegistry(tool.id);
       </span>
       <div>
         <h3 class="text-sm font-semibold text-zinc-100 tracking-wide uppercase font-mono">
-          Programmatic Execution Modules
+          {t('snippets.heading')}
         </h3>
         <p class="text-xs text-zinc-400">
-          Native runtime recipes for automated pipelines &bull; Zero external cloud dependencies
+          {t('snippets.subheading')}
         </p>
       </div>
     </div>
@@ -37,9 +46,9 @@ const registry = getToolRegistry(tool.id);
         type="button"
         class="copy-btn ml-1 px-2 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-[11px] text-zinc-200 transition-colors"
         data-copy-target={registry.terminalCommand}
-        aria-label="Copy CLI Command"
+        aria-label={t('snippets.copyCliAria')}
       >
-        Copy
+        {t('snippets.copy')}
       </button>
     </div>
   </div>
@@ -69,12 +78,12 @@ const registry = getToolRegistry(tool.id);
       <button
         type="button"
         class="copy-active-snippet-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 border border-zinc-700/80 text-xs font-mono text-zinc-200 transition-all"
-        aria-label="Copy Active Code Snippet"
+        aria-label={t('snippets.copySnippetAria')}
       >
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
         </svg>
-        <span class="copy-text">Copy</span>
+        <span class="copy-text">{t('snippets.copy')}</span>
       </button>
     </div>
 
@@ -98,7 +107,7 @@ const registry = getToolRegistry(tool.id);
     <div class="mt-6 mb-4">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-xs font-bold uppercase tracking-wider text-zinc-400 font-mono">
-          ⚙️ Engineering Edge-Case Analysis &amp; Invariants
+          {t('snippets.edgeCasesHeading')}
         </span>
       </div>
 
@@ -117,7 +126,7 @@ const registry = getToolRegistry(tool.id);
               {item.description}
             </p>
             <div class="pt-2.5 border-t border-zinc-800/80 flex items-start gap-1.5 text-[11px] font-mono text-zinc-300">
-              <span class="text-emerald-400 font-bold shrink-0">Directive:</span>
+              <span class="text-emerald-400 font-bold shrink-0">{t('snippets.directiveLabel')}</span>
               <span class="text-zinc-400">{item.technicalDirective}</span>
             </div>
           </div>
@@ -186,11 +195,13 @@ const registry = getToolRegistry(tool.id);
     }
 
     function showCopiedState(el) {
+      const container = el.closest('section');
+      const copiedLabel = (container && container.getAttribute('data-copied-label')) || 'Copied!';
       const copyTextEl = el.querySelector('.copy-text') || el;
       const originalText = copyTextEl.textContent;
-      copyTextEl.textContent = 'Copied!';
+      copyTextEl.textContent = copiedLabel;
       el.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
-      
+
       setTimeout(() => {
         copyTextEl.textContent = originalText;
         el.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500');

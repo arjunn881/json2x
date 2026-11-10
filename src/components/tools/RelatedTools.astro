@@ -1,18 +1,22 @@
 ---
 import type { ToolItem } from '../../data/tools';
-import { getRelatedTools } from '../../data/tools';
+import { defaultLang, type Lang } from '../../i18n/ui';
+import { getRelatedLocalizedTools } from '../../i18n/tools';
+import { useTranslations } from '../../i18n/utils';
 
 export interface Props {
   tool: ToolItem;
+  lang?: Lang;
 }
 
-const { tool } = Astro.props;
-const related = getRelatedTools(tool);
+const { tool, lang = defaultLang } = Astro.props;
+const related = getRelatedLocalizedTools(tool, lang);
+const t = useTranslations(lang);
 ---
 
 {related.length > 0 && (
   <section class="tool-section" style="margin-top:var(--space-12);">
-    <h2 class="tool-section__title">Related Developer Tools</h2>
+    <h2 class="tool-section__title">{t('tool.relatedTitle')}</h2>
     <div class="related-tools-grid">
       {related.map((rel) => (
         <a class="related-tool-card" href={rel.href}>

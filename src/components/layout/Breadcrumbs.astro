@@ -1,4 +1,7 @@
 ---
+import { defaultLang, type Lang } from '../../i18n/ui';
+import { getCanonicalUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
+
 export interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -6,14 +9,25 @@ export interface BreadcrumbItem {
 
 export interface Props {
   items: BreadcrumbItem[];
+  lang?: Lang;
 }
 
-const { items } = Astro.props;
+const { items, lang = defaultLang } = Astro.props;
 const siteUrl = 'https://json2x.com';
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+const homeHref = translatePath('/');
 
 // The visible trail starts at Home, so the JSON-LD must too — Google requires
 // BreadcrumbList to match the rendered breadcrumb exactly.
-const schemaItems: BreadcrumbItem[] = [{ label: 'Home', href: '/' }, ...items];
+const normalizedItems: BreadcrumbItem[] = items.map((item) => ({
+  ...item,
+  href: item.href
+    ? (item.href.startsWith('http') ? item.href : translatePath(item.href))
+    : undefined
+}));
+
+const schemaItems: BreadcrumbItem[] = [{ label: t('breadcrumb.home'), href: homeHref }, ...normalizedItems];
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -22,19 +36,19 @@ const breadcrumbSchema = {
     '@type': 'ListItem',
     'position': index + 1,
     'name': item.label,
-    'item': item.href ? (item.href.startsWith('http') ? item.href : `${siteUrl}${item.href}`) : undefined
+    'item': item.href ? (item.href.startsWith('http') ? item.href : getCanonicalUrl(item.href, siteUrl)) : undefined
   }))
 };
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
-<nav aria-label="Breadcrumb" class="breadcrumb">
-  <a class="breadcrumb__link" href="/">Home</a>
-  {items.map((item, index) => (
+<nav aria-label={t('a11y.breadcrumb')} class="breadcrumb">
+  <a class="breadcrumb__link" href={homeHref}>{t('breadcrumb.home')}</a>
+  {normalizedItems.map((item, index) => (
     <Fragment>
       <span class="breadcrumb__separator" aria-hidden="true">/</span>
-      {item.href && index < items.length - 1 ? (
+      {item.href && index < normalizedItems.length - 1 ? (
         <a class="breadcrumb__link" href={item.href}>{item.label}</a>
       ) : (
         <span class="breadcrumb__current" aria-current="page">{item.label}</span>

@@ -1,4 +1,17 @@
 ---
+import { TOOLS } from '../../data/tools';
+import { defaultLang, type Lang } from '../../i18n/ui';
+import { getLocalizedTool } from '../../i18n/tools';
+import { getCanonicalUrl, useTranslatedPath, useTranslations } from '../../i18n/utils';
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
 export const POWERHOUSE_TOOLS = [
   { name: 'JSON Formatter', href: '/tools/json-formatter', desc: 'Prettify and syntax-highlight minified JSON' },
   { name: 'JSON Validator', href: '/tools/json-validator', desc: 'Strict RFC 8259 syntax checker with line numbers' },
@@ -17,17 +30,30 @@ export const POWERHOUSE_TOOLS = [
   { name: 'JSON Multi-Converter', href: '/tools/json-converter', desc: '7-in-1 Code and Schema multi-generator' }
 ];
 
+const localizedPowerhouse = lang === 'en'
+  ? POWERHOUSE_TOOLS
+  : POWERHOUSE_TOOLS.map((pt) => {
+      const match = TOOLS.find((tool) => tool.href === pt.href);
+      if (!match) return { ...pt, href: translatePath(pt.href) };
+      const locTool = getLocalizedTool(match, lang);
+      return {
+        name: locTool.name,
+        href: locTool.href,
+        desc: locTool.desc,
+      };
+    });
+
 const powerhouseSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  'name': 'Core Developer Utilities',
-  'description': 'High-traffic client-side developer utilities on JSON2X',
-  'itemListElement': POWERHOUSE_TOOLS.map((tool, index) => ({
+  'name': t('footer.schemaName'),
+  'description': t('footer.schemaDesc'),
+  'itemListElement': localizedPowerhouse.map((tool, index) => ({
     '@type': 'SiteNavigationElement',
     'position': index + 1,
     'name': tool.name,
     'description': tool.desc,
-    'url': `https://json2x.com${tool.href}`
+    'url': getCanonicalUrl(tool.href)
   }))
 };
 
@@ -42,74 +68,74 @@ const year = new Date().getFullYear();
     <div class="site-footer__grid">
       <!-- Col 1: Brand -->
       <div class="footer-col">
-        <a href="/" class="site-header__logo" style="margin-bottom: var(--space-3); text-decoration: none;">
+        <a href={translatePath('/')} class="site-header__logo" style="margin-bottom: var(--space-3); text-decoration: none;">
           <span class="logo-icon" aria-hidden="true">&#123;2X&#125;</span>
           JSON<span style="color:var(--accent)">2X</span>
         </a>
-        <p class="footer-brand__tagline">Fast, free, browser-only JSON &amp; CSV utilities. No data leaves your machine.</p>
+        <p class="footer-brand__tagline">{t('footer.tagline')}</p>
       </div>
 
       <!-- Col 2: Developer Tools (Powerhouse Tools Prioritized) -->
       <div class="footer-col">
-        <h2 class="footer-col__title">Powerhouse Developer Tools</h2>
+        <h2 class="footer-col__title">{t('footer.toolsTitle')}</h2>
         <div class="footer-col__links">
-          {POWERHOUSE_TOOLS.map((pt) => (
+          {localizedPowerhouse.map((pt) => (
             <a href={pt.href} class="footer-col__link">{pt.name}</a>
           ))}
-          <a href="/tools" class="footer-col__link" style="color:var(--accent); font-weight:600;">All Tools Index &rarr;</a>
+          <a href={translatePath('/tools')} class="footer-col__link" style="color:var(--accent); font-weight:600;">{t('footer.allToolsIndex')} &rarr;</a>
         </div>
       </div>
 
       <!-- Col 3: Error Troubleshooting -->
       <div class="footer-col">
-        <h2 class="footer-col__title">Error Troubleshooting</h2>
+        <h2 class="footer-col__title">{t('footer.errorsTitle')}</h2>
         <div class="footer-col__links">
-          <a href="/kb/json-errors" class="footer-col__link">Unexpected Token Fix</a>
-          <a href="/kb/json-errors" class="footer-col__link">Trailing Comma Fix</a>
-          <a href="/kb/json-errors" class="footer-col__link">Invalid Character Fix</a>
-          <a href="/kb/json-errors" class="footer-col__link">Unexpected End Fix</a>
-          <a href="/kb" class="footer-col__link" style="color:var(--accent)">Error Knowledge Base &rarr;</a>
+          <a href="/kb/json-errors" class="footer-col__link">{t('footer.errUnexpectedToken')}</a>
+          <a href="/kb/json-errors" class="footer-col__link">{t('footer.errTrailingComma')}</a>
+          <a href="/kb/json-errors" class="footer-col__link">{t('footer.errInvalidChar')}</a>
+          <a href="/kb/json-errors" class="footer-col__link">{t('footer.errUnexpectedEnd')}</a>
+          <a href={translatePath('/kb')} class="footer-col__link" style="color:var(--accent)">{t('footer.errKbLink')} &rarr;</a>
         </div>
       </div>
 
       <!-- Col 4: Guides & Reference -->
       <div class="footer-col">
-        <h2 class="footer-col__title">Guides &amp; Reference</h2>
+        <h2 class="footer-col__title">{t('footer.guidesTitle')}</h2>
         <div class="footer-col__links">
-          <a href="/docs/rfc8259-json-specification" class="footer-col__link">JSON RFC 8259 Specs</a>
-          <a href="/docs/typescript-zod-generation-guide" class="footer-col__link">TypeScript Schema Tutorial</a>
-          <a href="/docs" class="footer-col__link">Documentation Hub</a>
-          <a href="/kb" class="footer-col__link">Knowledge Base Hub</a>
-          <a href="/blog" class="footer-col__link" style="color:var(--accent)">Blog &amp; Tutorials &rarr;</a>
+          <a href="/docs/rfc8259-json-specification" class="footer-col__link">{t('footer.rfcSpecs')}</a>
+          <a href="/docs/typescript-zod-generation-guide" class="footer-col__link">{t('footer.tsTutorial')}</a>
+          <a href={translatePath('/docs')} class="footer-col__link">{t('footer.docsHub')}</a>
+          <a href={translatePath('/kb')} class="footer-col__link">{t('footer.kbHub')}</a>
+          <a href={translatePath('/blog')} class="footer-col__link" style="color:var(--accent)">{t('footer.blogTutorials')} &rarr;</a>
         </div>
       </div>
 
       <!-- Col 5: Trust & Governance -->
       <div class="footer-col">
-        <h2 class="footer-col__title">Trust &amp; Governance</h2>
+        <h2 class="footer-col__title">{t('footer.trustTitle')}</h2>
         <div class="footer-col__links">
-          <a href="/faq" class="footer-col__link">Frequently Asked Questions</a>
-          <a href="/contact" class="footer-col__link">Contact &amp; Support</a>
-          <a href="/security" class="footer-col__link">Security Architecture</a>
-          <a href="/editorial-policy" class="footer-col__link">Editorial Policy</a>
-          <a href="/changelog" class="footer-col__link">Version History</a>
-          <a href="/roadmap" class="footer-col__link">Feature Roadmap</a>
-          <a href="/open-source" class="footer-col__link">Open Source</a>
+          <a href={translatePath('/faq')} class="footer-col__link">{t('footer.faqFull')}</a>
+          <a href="/contact" class="footer-col__link">{t('footer.contactSupport')}</a>
+          <a href="/security" class="footer-col__link">{t('footer.securityArch')}</a>
+          <a href="/editorial-policy" class="footer-col__link">{t('footer.editorialPolicy')}</a>
+          <a href="/changelog" class="footer-col__link">{t('footer.versionHistory')}</a>
+          <a href="/roadmap" class="footer-col__link">{t('footer.roadmap')}</a>
+          <a href="/open-source" class="footer-col__link">{t('footer.openSource')}</a>
         </div>
       </div>
     </div>
 
     <!-- Bottom Legal Bar -->
     <div class="site-footer__bottom">
-      <p class="site-footer__copy">&copy; {year} JSON2X. All processing happens locally in your browser.</p>
+      <p class="site-footer__copy">&copy; {year} {t('footer.copySuffix')}</p>
       <div class="site-footer__legal">
-        <a href="/about">About Us</a>
-        <a href="/faq">FAQ</a>
-        <a href="/contact">Contact</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms</a>
-        <a href="/disclaimer">Disclaimer</a>
-        <a href="/license">License</a>
+        <a href={translatePath('/about')}>{t('footer.aboutUs')}</a>
+        <a href={translatePath('/faq')}>{t('footer.faq')}</a>
+        <a href="/contact">{t('footer.contact')}</a>
+        <a href="/privacy">{t('footer.privacy')}</a>
+        <a href="/terms">{t('footer.terms')}</a>
+        <a href="/disclaimer">{t('footer.disclaimer')}</a>
+        <a href="/license">{t('footer.license')}</a>
       </div>
     </div>
   </div>

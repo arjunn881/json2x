@@ -1,0 +1,73 @@
+---
+import type { ToolItem } from '../../../data/tools';
+import { TOOLS } from '../../../data/tools';
+import { NON_DEFAULT_LOCALES, type Lang } from '../../../i18n/ui';
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import JsonFormatter from '../../../components/tools/workspaces/json-formatter.astro';
+import JsonValidator from '../../../components/tools/workspaces/json-validator.astro';
+import JsonMinifier from '../../../components/tools/workspaces/json-minifier.astro';
+import JsonDiff from '../../../components/tools/workspaces/json-diff.astro';
+import JsonToCsv from '../../../components/tools/workspaces/json-to-csv.astro';
+import CsvToJson from '../../../components/tools/workspaces/csv-to-json.astro';
+import JsonToYaml from '../../../components/tools/workspaces/json-to-yaml.astro';
+import JsonToXml from '../../../components/tools/workspaces/json-to-xml.astro';
+import JsonToToml from '../../../components/tools/workspaces/json-to-toml.astro';
+import JsonToSql from '../../../components/tools/workspaces/json-to-sql.astro';
+import JsonConverter from '../../../components/tools/workspaces/json-converter.astro';
+import TypescriptGenerator from '../../../components/tools/workspaces/typescript-generator.astro';
+import JsonToCode from '../../../components/tools/workspaces/json-to-code.astro';
+import JsonSchemaGenerator from '../../../components/tools/workspaces/json-schema-generator.astro';
+import JsonMockGenerator from '../../../components/tools/workspaces/json-mock-generator.astro';
+import JsonToZod from '../../../components/tools/workspaces/json-to-zod.astro';
+import JsonToPrisma from '../../../components/tools/workspaces/json-to-prisma.astro';
+import JsonToDrizzle from '../../../components/tools/workspaces/json-to-drizzle.astro';
+import JsonToGraphql from '../../../components/tools/workspaces/json-to-graphql.astro';
+import Jsonpath from '../../../components/tools/workspaces/jsonpath.astro';
+import JsonTreeViewer from '../../../components/tools/workspaces/json-tree-viewer.astro';
+
+export function getStaticPaths() {
+  return NON_DEFAULT_LOCALES.flatMap((lang) =>
+    TOOLS.map((tool) => ({
+      params: { lang, slug: tool.slug },
+      props: { lang, tool },
+    }))
+  );
+}
+
+const WORKSPACES: Record<string, any> = {
+  'json-formatter': JsonFormatter,
+  'json-validator': JsonValidator,
+  'json-minifier': JsonMinifier,
+  'json-diff': JsonDiff,
+  'json-to-csv': JsonToCsv,
+  'csv-to-json': CsvToJson,
+  'json-to-yaml': JsonToYaml,
+  'json-to-xml': JsonToXml,
+  'json-to-toml': JsonToToml,
+  'json-to-sql': JsonToSql,
+  'json-converter': JsonConverter,
+  'typescript-generator': TypescriptGenerator,
+  'json-to-code': JsonToCode,
+  'json-schema-generator': JsonSchemaGenerator,
+  'json-mock-generator': JsonMockGenerator,
+  'json-to-zod': JsonToZod,
+  'json-to-prisma': JsonToPrisma,
+  'json-to-drizzle': JsonToDrizzle,
+  'json-to-graphql': JsonToGraphql,
+  'jsonpath': Jsonpath,
+  'json-tree-viewer': JsonTreeViewer,
+};
+
+interface Props {
+  lang: Lang;
+  tool: ToolItem;
+}
+
+const { lang, tool } = Astro.props;
+const Workspace = WORKSPACES[tool.slug];
+---
+
+<ToolLayout tool={tool} lang={lang}>
+  {Workspace && <Workspace tool={tool} lang={lang} />}
+</ToolLayout>
+
